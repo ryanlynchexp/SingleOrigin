@@ -1,0 +1,1349 @@
+/**
+ * Lite Mode Theme
+ * 
+ * A light, airy color scheme with soft blue and purple gradients
+ * inspired by modern, bright design aesthetics. This theme transforms
+ * the dark presentation into a pastel, ethereal experience while
+ * maintaining visual hierarchy and readability.
+ * 
+ * Color Palette:
+ * - Base: Soft blue (#e8f4ff) to lavender (#f3e8ff) gradients
+ * - Accents: Pastel blues (#93c5fd), purples (#d8b4fe), cyan (#a5f3fc)
+ * - Text: Dark slate (#0f172a) with medium contrast secondaries
+ * - Glass: White with 75% opacity and blue-tinted borders
+ * 
+ * Usage: Apply .lite-mode class to root container to activate
+ */
+
+.lite-mode {
+  /* Light gradient background */
+  --lite-bg-gradient: linear-gradient(135deg, #e8f4ff 0%, #f3e8ff 50%, #e0f2fe 100%);
+  --lite-bg-base: #f0f9ff;
+  
+  /* Light glass morphism */
+  --lite-glass-bg: rgba(255, 255, 255, 0.75);
+  --lite-glass-border: rgba(147, 197, 253, 0.3);
+  --lite-glass-shadow: rgba(59, 130, 246, 0.1);
+  
+  /* Text colors for light backgrounds - softer, not stark */
+  --lite-text-primary: #334155;
+  --lite-text-secondary: #64748b;
+  --lite-text-muted: #94a3b8;
+  
+  /* Accent colors - pastel blues and purples */
+  --lite-accent-blue: #93c5fd;
+  --lite-accent-purple: #d8b4fe;
+  --lite-accent-cyan: #a5f3fc;
+  --lite-accent-pink: #f9a8d4;
+  
+  /* Gradient overlays */
+  --lite-gradient-primary: linear-gradient(135deg, rgba(147, 197, 253, 0.3) 0%, rgba(216, 180, 254, 0.3) 100%);
+  --lite-gradient-secondary: linear-gradient(135deg, rgba(165, 243, 252, 0.3) 0%, rgba(249, 168, 212, 0.3) 100%);
+  
+  /* Card backgrounds */
+  --lite-card-bg: rgba(255, 255, 255, 0.8);
+  --lite-card-hover-bg: rgba(255, 255, 255, 0.95);
+  
+  /* Borders */
+  --lite-border-color: rgba(147, 197, 253, 0.4);
+  --lite-border-strong: rgba(59, 130, 246, 0.5);
+}
+
+.lite-mode {
+  background: var(--lite-bg-gradient);
+  min-height: 100vh;
+  color: var(--lite-text-primary);
+}
+
+/* Glass morphism cards for lite mode */
+.lite-mode .glass-card {
+  background: var(--lite-glass-bg) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1px solid var(--lite-glass-border) !important;
+  box-shadow: 0 8px 32px var(--lite-glass-shadow) !important;
+}
+
+.lite-mode .glass-card:hover {
+  background: rgba(255, 255, 255, 0.85) !important;
+  border-color: rgba(147, 197, 253, 0.5) !important;
+  box-shadow: 0 12px 48px rgba(59, 130, 246, 0.15) !important;
+  transform: translateY(-2px);
+  transition: all 0.3s ease;
+}
+
+/* Apply glassmorphism to common card patterns */
+.lite-mode .bg-white\/10,
+.lite-mode .bg-white\/5 {
+  background: rgba(255, 255, 255, 0.45) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border: 1px solid rgba(147, 197, 253, 0.3) !important;
+  box-shadow: 0 8px 32px rgba(59, 130, 246, 0.08) !important;
+}
+
+.lite-mode .bg-slate-800\/90,
+.lite-mode .bg-slate-800\/80,
+.lite-mode .bg-slate-800\/70 {
+  background: rgba(255, 255, 255, 0.5) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border: 1px solid rgba(147, 197, 253, 0.35) !important;
+  box-shadow: 0 8px 32px rgba(59, 130, 246, 0.1) !important;
+}
+
+/* Hover state for cards with backdrop blur */
+.lite-mode .backdrop-blur-xl.bg-white\/5:hover,
+.lite-mode .backdrop-blur-xl.bg-white\/10:hover {
+  background: rgba(255, 255, 255, 0.75) !important;
+  border-color: rgba(59, 130, 246, 0.6) !important;
+  box-shadow: 0 12px 48px rgba(59, 130, 246, 0.25), 0 0 0 2px rgba(59, 130, 246, 0.15) !important;
+  transform: translateY(-2px);
+}
+
+/* Enhanced glassmorphism for cards with backdrop blur */
+.lite-mode .backdrop-blur-xl,
+.lite-mode .backdrop-blur-lg,
+.lite-mode .backdrop-blur-md {
+  background: rgba(255, 255, 255, 0.5) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border: 1px solid rgba(147, 197, 253, 0.35) !important;
+}
+
+/* Specific pattern for rounded cards with glass morphism */
+.lite-mode .backdrop-blur-xl.rounded-2xl,
+.lite-mode .backdrop-blur-lg.rounded-xl,
+.lite-mode .backdrop-blur-md.rounded-lg {
+  background: rgba(255, 255, 255, 0.4) !important;
+  backdrop-filter: blur(24px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+  border: 1px solid rgba(147, 197, 253, 0.4) !important;
+  box-shadow: 
+    0 8px 32px rgba(59, 130, 246, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6) !important;
+}
+
+/* Override dark backgrounds */
+.lite-mode .bg-gradient-to-br,
+.lite-mode .bg-gradient-to-r {
+  background: var(--lite-gradient-primary) !important;
+}
+
+/* Comprehensive dark background overrides */
+.lite-mode .bg-gradient-to-br.from-slate-900,
+.lite-mode .bg-gradient-to-br.from-slate-800,
+.lite-mode div[class*="from-slate-9"],
+.lite-mode div[class*="via-slate-8"],
+.lite-mode div[class*="to-slate-9"] {
+  background: var(--lite-bg-gradient) !important;
+}
+
+/* Slide backgrounds */
+.lite-mode .slide-background {
+  background: var(--lite-bg-gradient);
+}
+
+/* Text overrides for readability */
+.lite-mode .text-white,
+.lite-mode div.text-white,
+.lite-mode span.text-white,
+.lite-mode p.text-white,
+.lite-mode h1.text-white,
+.lite-mode h2.text-white,
+.lite-mode h3.text-white,
+.lite-mode h4.text-white,
+.lite-mode h5.text-white,
+.lite-mode h6.text-white,
+.lite-mode blockquote.text-white {
+  color: var(--lite-text-primary) !important;
+}
+
+.lite-mode .text-slate-300 {
+  color: #475569 !important; /* Darker for better readability */
+}
+
+.lite-mode .text-slate-400 {
+  color: #64748b !important; /* Medium contrast */
+}
+
+.lite-mode .text-slate-500 {
+  color: #64748b !important; /* Readable medium grey */
+}
+
+.lite-mode .text-slate-600 {
+  color: #475569 !important;
+}
+
+.lite-mode .text-rose-300\/70 {
+  color: #f43f5e !important; /* More visible rose */
+}
+
+/* Button and interactive elements */
+.lite-mode button {
+  color: var(--lite-text-primary);
+}
+
+.lite-mode .border-white\/10 {
+  border-color: var(--lite-border-color) !important;
+}
+
+.lite-mode .border-white\/20 {
+  border-color: var(--lite-border-strong) !important;
+}
+
+/* Category chips */
+.lite-mode .category-chip {
+  background: rgba(147, 197, 253, 0.25);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  color: #1e40af;
+}
+
+/* Stats and metrics */
+.lite-mode .stat-card {
+  background: var(--lite-card-bg);
+  border: 1px solid var(--lite-border-color);
+}
+
+/* Timeline and phase cards */
+.lite-mode .phase-card {
+  background: rgba(255, 255, 255, 0.7);
+  border-left: 3px solid var(--lite-accent-blue);
+}
+
+/* Navigation */
+.lite-mode .slide-nav {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(147, 197, 253, 0.3);
+  box-shadow: 0 4px 16px rgba(59, 130, 246, 0.08);
+}
+
+/* Shadows and depth */
+.lite-mode .shadow-xl {
+  box-shadow: 0 20px 25px -5px rgba(59, 130, 246, 0.1), 
+              0 10px 10px -5px rgba(59, 130, 246, 0.04) !important;
+}
+
+.lite-mode .shadow-2xl {
+  box-shadow: 0 25px 50px -12px rgba(59, 130, 246, 0.15) !important;
+}
+
+/* Gradient text */
+.lite-mode .gradient-text {
+  background: linear-gradient(135deg, #3b82f6 0%, #a855f7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Backdrop blur utilities */
+.lite-mode .backdrop-blur-sm {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.lite-mode .backdrop-blur-md {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.lite-mode .backdrop-blur-lg {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+/* Override specific dark color gradients */
+.lite-mode .from-blue-600,
+.lite-mode .from-blue-500 {
+  --tw-gradient-from: #93c5fd !important;
+}
+
+.lite-mode .to-purple-600,
+.lite-mode .to-purple-500 {
+  --tw-gradient-to: #d8b4fe !important;
+}
+
+.lite-mode .from-purple-600,
+.lite-mode .from-purple-500 {
+  --tw-gradient-from: #d8b4fe !important;
+}
+
+.lite-mode .to-pink-600,
+.lite-mode .to-pink-500 {
+  --tw-gradient-to: #f9a8d4 !important;
+}
+
+.lite-mode .from-emerald-600,
+.lite-mode .from-emerald-500 {
+  --tw-gradient-from: #6ee7b7 !important;
+}
+
+.lite-mode .to-teal-600,
+.lite-mode .to-teal-500 {
+  --tw-gradient-to: #5eead4 !important;
+}
+
+/* Image overlays */
+.lite-mode .image-overlay {
+  background: linear-gradient(
+    to bottom,
+    rgba(240, 249, 255, 0),
+    rgba(240, 249, 255, 0.8)
+  );
+}
+
+/* Feature callouts */
+.lite-mode .feature-callout {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(147, 197, 253, 0.4);
+  box-shadow: 0 4px 16px rgba(59, 130, 246, 0.1);
+}
+
+/* Chart and data visualization */
+.lite-mode .chart-container {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(147, 197, 253, 0.3);
+}
+
+/* Quote slides */
+.lite-mode .quote-container {
+  background: rgba(255, 255, 255, 0.75);
+  border-left: 4px solid #93c5fd;
+}
+
+/* Dark overlays become light */
+.lite-mode .bg-black\/50,
+.lite-mode .bg-black\/40,
+.lite-mode .bg-black\/30 {
+  background-color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.lite-mode .bg-slate-900,
+.lite-mode .bg-slate-800,
+.lite-mode .bg-slate-700 {
+  background-color: rgba(255, 255, 255, 0.8) !important;
+}
+
+/* Radial gradients - convert dark accents to light */
+.lite-mode div[class*="from-blue-900"],
+.lite-mode div[class*="from-purple-900"] {
+  --tw-gradient-from: rgba(147, 197, 253, 0.2) !important;
+}
+
+/* Background opacity overrides */
+.lite-mode .bg-white\/10 {
+  background-color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.lite-mode .bg-white\/5 {
+  background-color: rgba(255, 255, 255, 0.4) !important;
+}
+
+/* Rings and focus states */
+.lite-mode .ring-blue-500,
+.lite-mode .ring-purple-500 {
+  --tw-ring-color: #93c5fd !important;
+}
+
+/* Deck switcher in lite mode */
+.lite-mode .bg-slate-800\/90 {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.lite-mode .border-slate-700 {
+  border-color: rgba(147, 197, 253, 0.4) !important;
+}
+
+.lite-mode .bg-slate-800\/30 {
+  background-color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.lite-mode .border-slate-700\/50 {
+  border-color: rgba(147, 197, 253, 0.3) !important;
+}
+
+.lite-mode .hover\:bg-slate-700\/50:hover {
+  background-color: rgba(147, 197, 253, 0.2) !important;
+}
+
+/* Grid patterns - lighter in lite mode */
+.lite-mode div[class*="bg-[linear-gradient"] {
+  opacity: 0.3 !important;
+}
+
+/* Make sure all content is visible */
+.lite-mode h1,
+.lite-mode h2,
+.lite-mode h3,
+.lite-mode h4,
+.lite-mode h5,
+.lite-mode h6 {
+  color: var(--lite-text-primary) !important;
+}
+
+/* Specific override for headings with text-white class */
+.lite-mode h2.text-white,
+.lite-mode h3.text-white,
+.lite-mode h4.text-white,
+.lite-mode h5.text-white,
+.lite-mode h6.text-white {
+  color: var(--lite-text-primary) !important;
+}
+
+/* Case study index page - number badges and page numbers */
+.lite-mode span.index-number,
+.lite-mode div.page-number {
+  color: var(--lite-text-primary) !important;
+}
+
+.lite-mode p {
+  color: var(--lite-text-secondary) !important;
+}
+
+/* Ensure icons are visible */
+.lite-mode svg {
+  color: var(--lite-text-secondary);
+}
+
+/* Card component overrides */
+.lite-mode .bg-white\/10.backdrop-blur-md {
+  background: rgba(255, 255, 255, 0.7) !important;
+  border-color: rgba(147, 197, 253, 0.3) !important;
+}
+
+/* Specific overrides for inline backgrounds */
+.lite-mode > div:first-child {
+  background: var(--lite-bg-gradient) !important;
+}
+
+/* Ensure proper contrast for all text elements */
+.lite-mode span,
+.lite-mode a,
+.lite-mode label {
+  color: inherit;
+}
+
+/* Category chips specific styling */
+.lite-mode .inline-block.px-4.py-2 {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-color: rgba(148, 163, 184, 0.5) !important;
+  color: #334155 !important; /* Neutral dark slate */
+}
+
+/* Stepper tooltip text color override */
+.lite-mode .bg-slate-900.text-white.text-xs {
+  color: #0f172a !important; /* Dark slate instead of white */
+}
+
+/* Ensure backgrounds with opacity work correctly */
+.lite-mode [class*="bg-gradient"] {
+  background-blend-mode: normal;
+}
+
+/* Override radial gradient overlays */
+.lite-mode .absolute.inset-0[class*="from-blue-900"],
+.lite-mode .absolute.inset-0[class*="from-purple-900"] {
+  background: linear-gradient(ellipse, rgba(147, 197, 253, 0.15), transparent) !important;
+}
+
+/* Slide content containers */
+.lite-mode .relative.z-10 {
+  position: relative;
+  z-index: 10;
+}
+
+/* Better glass effect for cards in lite mode */
+.lite-mode [class*="backdrop-blur"] {
+  background: rgba(255, 255, 255, 0.7) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border: 1px solid rgba(147, 197, 253, 0.3) !important;
+}
+
+/* Hover effects for interactive elements */
+.lite-mode .cursor-pointer:hover,
+.lite-mode button:hover,
+.lite-mode a:hover {
+  transform: translateY(-2px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Card hover effects */
+.lite-mode .rounded-2xl:hover,
+.lite-mode .rounded-xl:hover {
+  background: rgba(255, 255, 255, 0.75) !important;
+  border-color: rgba(59, 130, 246, 0.5) !important;
+  box-shadow: 0 20px 40px rgba(59, 130, 246, 0.2), 0 0 0 2px rgba(59, 130, 246, 0.2) !important;
+  transform: translateY(-4px) scale(1.01);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Preserve smooth transitions */
+.lite-mode * {
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+/* Interactive element styling */
+.lite-mode .group:hover .group-hover\:opacity-20 {
+  opacity: 0.2 !important;
+}
+
+.lite-mode .group:hover .group-hover\:bg-white\/10 {
+  background: rgba(255, 255, 255, 0.8) !important;
+}
+
+.lite-mode .group:hover .group-hover\:border-white\/20 {
+  border-color: rgba(147, 197, 253, 0.5) !important;
+}
+
+/* Enhanced focus states */
+.lite-mode button:focus,
+.lite-mode a:focus {
+  outline: 2px solid rgba(59, 130, 246, 0.5);
+  outline-offset: 2px;
+}
+
+/* Scale animations on hover for interactive cards */
+.lite-mode .group:hover {
+  transform: translateY(-4px) scale(1.02);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Force glassmorphism on specific component patterns */
+.lite-mode [class*="backdrop-blur"] {
+  background: rgba(255, 255, 255, 0.65) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+}
+
+/* Target cards specifically */
+.lite-mode .border.rounded-2xl,
+.lite-mode .border.rounded-xl {
+  background: rgba(255, 255, 255, 0.65) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border-color: rgba(147, 197, 253, 0.35) !important;
+  box-shadow: 
+    0 8px 32px rgba(59, 130, 246, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6) !important;
+}
+
+.lite-mode .border.rounded-2xl:hover,
+.lite-mode .border.rounded-xl:hover {
+  background: rgba(255, 255, 255, 0.75) !important;
+  border-color: rgba(59, 130, 246, 0.6) !important;
+  box-shadow: 
+    0 12px 48px rgba(59, 130, 246, 0.25),
+    0 0 0 2px rgba(59, 130, 246, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
+}
+
+/* Timeline and methodology improvements */
+.lite-mode .opacity-30 {
+  opacity: 0.85 !important; /* Much more visible bars */
+}
+
+.lite-mode .group:hover .opacity-30 {
+  opacity: 1 !important; /* Full color on hover */
+}
+
+.lite-mode .opacity-50 {
+  opacity: 0.85 !important;
+}
+
+.lite-mode .group:hover .opacity-50 {
+  opacity: 1 !important;
+}
+
+/* Ensure gradient bars are more visible */
+.lite-mode .from-blue-500 {
+  --tw-gradient-from: #3b82f6 !important;
+}
+
+.lite-mode .to-cyan-500 {
+  --tw-gradient-to: #06b6d4 !important;
+}
+
+.lite-mode .from-purple-500 {
+  --tw-gradient-from: #a855f7 !important;
+}
+
+.lite-mode .to-pink-500 {
+  --tw-gradient-to: #ec4899 !important;
+}
+
+.lite-mode .from-violet-500 {
+  --tw-gradient-from: #8b5cf6 !important;
+}
+
+.lite-mode .to-indigo-500 {
+  --tw-gradient-to: #6366f1 !important;
+}
+
+.lite-mode .from-pink-500 {
+  --tw-gradient-from: #ec4899 !important;
+}
+
+.lite-mode .to-rose-500 {
+  --tw-gradient-to: #f43f5e !important;
+}
+
+/* Popout cards on design features - enhance differentiation */
+.lite-mode .bg-white\/10.min-w-\\[180px\\] {
+  background: rgba(255, 255, 255, 0.85) !important;
+  border: 2px solid rgba(59, 130, 246, 0.5) !important;
+  box-shadow: 0 12px 40px rgba(59, 130, 246, 0.25), 0 0 0 1px rgba(59, 130, 246, 0.1) !important;
+}
+
+/* Image visibility fixes - ensure images show through */
+.lite-mode img {
+  opacity: 1 !important;
+  filter: none !important;
+}
+
+/* Fix transparent fills hiding images */
+.lite-mode .rounded-xl.overflow-hidden img {
+  display: block !important;
+  visibility: visible !important;
+}
+
+/* Performance slide row title visibility */
+.lite-mode .text-slate-200 {
+  color: #334155 !important; /* Much darker for readability */
+}
+
+/* Success/emerald labels more visible */
+.lite-mode .text-emerald-300,
+.lite-mode .text-emerald-400 {
+  color: #059669 !important; /* Darker green for contrast */
+}
+
+.lite-mode .text-emerald-400.text-sm {
+  color: #047857 !important; /* Even darker for small text */
+}
+
+/* Ensure CheckCircle icons are visible */
+.lite-mode .text-emerald-400 {
+  color: #059669 !important;
+}
+
+/* Better hover glow visibility */
+.lite-mode .group:hover .group-hover\\:opacity-100 {
+  opacity: 1 !important;
+}
+
+/* Better border color on hover for brand consistency */
+.lite-mode .hover\\:border-white\\/20:hover {
+  border-color: rgba(59, 130, 246, 0.5) !important;
+}
+
+/* Ensure alert/warning icons are visible */
+.lite-mode .text-red-400,
+.lite-mode .text-red-300 {
+  color: #dc2626 !important;
+}
+
+/* Make blue accent dots more visible */
+.lite-mode .bg-blue-500 {
+  background-color: #3b82f6 !important;
+}
+
+/* Better visibility for slate-colored connector elements */
+.lite-mode .bg-slate-400\/50 {
+  background-color: rgba(100, 116, 139, 0.6) !important;
+}
+
+.lite-mode .bg-slate-600\/30 {
+  background-color: rgba(71, 85, 105, 0.5) !important;
+}
+
+.lite-mode .bg-slate-500\/50 {
+  background-color: rgba(100, 116, 139, 0.6) !important;
+}
+
+/* Improve mockup element visibility */
+.lite-mode .bg-slate-400\/30,
+.lite-mode .bg-slate-300\/40 {
+  background-color: rgba(100, 116, 139, 0.4) !important;
+}
+
+.lite-mode .bg-slate-500\/20 {
+  background-color: rgba(100, 116, 139, 0.35) !important;
+}
+
+/* Better visibility for timeline grid lines */
+.lite-mode .border-slate-700\/20 {
+  border-color: rgba(100, 116, 139, 0.25) !important;
+}
+
+/* Enhance glow effects on hover */
+.lite-mode .blur-xl {
+  filter: blur(24px) !important;
+}
+
+.lite-mode .blur-lg {
+  filter: blur(16px) !important;
+}
+
+.lite-mode .blur-md {
+  filter: blur(12px) !important;
+}
+
+/* Additional glass morphism overrides for more transparency */
+.lite-mode .backdrop-blur-xl.bg-white\\/5,
+.lite-mode .backdrop-blur-xl.bg-white\\/10,
+.lite-mode .backdrop-blur-lg.bg-white\\/5,
+.lite-mode .backdrop-blur-lg.bg-white\\/10,
+.lite-mode .backdrop-blur-md.bg-white\\/5,
+.lite-mode .backdrop-blur-md.bg-white\\/10 {
+  background: rgba(255, 255, 255, 0.4) !important;
+}
+
+/* Specific overrides for cards that appear too opaque */
+.lite-mode .relative.backdrop-blur-xl,
+.lite-mode .relative.backdrop-blur-lg {
+  background: rgba(255, 255, 255, 0.45) !important;
+}
+
+/* Force brand color glows on hover to be more visible */
+.lite-mode .absolute.inset-0.bg-gradient-to-br.from-blue-500\\/20,
+.lite-mode .absolute.inset-0.bg-gradient-to-br.from-purple-500\\/20,
+.lite-mode .absolute.inset-0.bg-gradient-to-br.from-violet-500\\/20,
+.lite-mode .absolute.inset-0.bg-gradient-to-br.from-pink-500\\/20,
+.lite-mode .absolute.inset-0.bg-gradient-to-br.from-rose-500\\/20 {
+  opacity: 0.4 !important;
+}
+
+.lite-mode .group:hover .absolute.inset-0.bg-gradient-to-br {
+  opacity: 0.6 !important;
+}
+
+/* Enhanced popout/callout cards on design features slides */
+.lite-mode .min-w-\\[180px\\].backdrop-blur-xl {
+  background: rgba(255, 255, 255, 0.95) !important; /* More opaque */
+  border: 3px solid rgba(59, 130, 246, 0.7) !important; /* Thicker border */
+  box-shadow: 
+    0 20px 60px rgba(59, 130, 246, 0.35),
+    0 0 0 4px rgba(59, 130, 246, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 1) !important;
+  font-weight: 600 !important; /* Add more weight to text */
+}
+
+/* Add weight to popout card headings */
+.lite-mode .min-w-\\[180px\\].backdrop-blur-xl h4 {
+  font-weight: 700 !important;
+  color: #0f172a !important;
+}
+
+/* Add weight to popout card descriptions */
+.lite-mode .min-w-\\[180px\\].backdrop-blur-xl p {
+  font-weight: 500 !important;
+  color: #334155 !important;
+}
+
+/* Connector dots for callouts */
+.lite-mode .w-3.h-3.rounded-full.bg-blue-500 {
+  background-color: #2563eb !important;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.3), 0 4px 12px rgba(59, 130, 246, 0.4) !important;
+}
+
+/* Timeline specific improvements - use consistent color system */
+/* Purple timeline bar */
+.lite-mode .bg-gradient-to-r.from-purple-500.to-pink-500 {
+  background: linear-gradient(to right, rgba(168, 85, 247, 0.75), rgba(236, 72, 153, 0.7)) !important;
+  opacity: 1 !important;
+}
+
+/* Violet timeline bar */
+.lite-mode .bg-gradient-to-r.from-violet-500.to-indigo-500 {
+  background: linear-gradient(to right, rgba(139, 92, 246, 0.75), rgba(99, 102, 241, 0.7)) !important;
+  opacity: 1 !important;
+}
+
+/* Timeline hover states */
+.lite-mode .group:hover .bg-gradient-to-r.from-blue-500.to-cyan-500,
+.lite-mode .group:hover .bg-gradient-to-r.from-purple-500.to-pink-500,
+.lite-mode .group:hover .bg-gradient-to-r.from-violet-500.to-indigo-500,
+.lite-mode .group:hover .bg-gradient-to-r.from-pink-500.to-rose-500 {
+  opacity: 1 !important;
+  filter: brightness(1.1) !important;
+}
+
+/* Phase badges in timeline */
+.lite-mode .inline-block.px-2.py-0\\.5.rounded.bg-gradient-to-r {
+  opacity: 1 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Timeline phase label cards - tie color to bar with subtle gradients */
+.lite-mode .backdrop-blur-xl.bg-white\\/5.border.border-white\\/10.rounded-lg {
+  background: rgba(255, 255, 255, 0.65) !important;
+  border-width: 2px !important;
+}
+
+/* Add colored left border to phase labels matching their bar */
+.lite-mode .group:nth-child(1) .backdrop-blur-xl.bg-white\\/5.rounded-lg {
+  border-left-color: rgba(59, 130, 246, 0.75) !important; /* Blue */
+  border-left-width: 3px !important;
+  background: linear-gradient(to right, rgba(59, 130, 246, 0.12), rgba(255, 255, 255, 0.65)) !important;
+  box-shadow: -3px 0 8px rgba(59, 130, 246, 0.15) !important;
+}
+
+.lite-mode .group:nth-child(2) .backdrop-blur-xl.bg-white\\/5.rounded-lg {
+  border-left-color: rgba(168, 85, 247, 0.75) !important; /* Purple */
+  border-left-width: 3px !important;
+  background: linear-gradient(to right, rgba(168, 85, 247, 0.12), rgba(255, 255, 255, 0.65)) !important;
+  box-shadow: -3px 0 8px rgba(168, 85, 247, 0.15) !important;
+}
+
+.lite-mode .group:nth-child(3) .backdrop-blur-xl.bg-white\\/5.rounded-lg {
+  border-left-color: rgba(139, 92, 246, 0.75) !important; /* Violet */
+  border-left-width: 3px !important;
+  background: linear-gradient(to right, rgba(139, 92, 246, 0.12), rgba(255, 255, 255, 0.65)) !important;
+  box-shadow: -3px 0 8px rgba(139, 92, 246, 0.15) !important;
+}
+
+.lite-mode .group:nth-child(4) .backdrop-blur-xl.bg-white\\/5.rounded-lg {
+  border-left-color: rgba(236, 72, 153, 0.75) !important; /* Pink */
+  border-left-width: 3px !important;
+  background: linear-gradient(to right, rgba(236, 72, 153, 0.12), rgba(255, 255, 255, 0.65)) !important;
+  box-shadow: -3px 0 8px rgba(236, 72, 153, 0.15) !important;
+}
+
+/* Enhance timeline bar glow/shadow effects */
+.lite-mode .absolute.inset-0.bg-gradient-to-r.blur-md {
+  opacity: 0.7 !important;
+}
+
+.lite-mode .group:hover .absolute.inset-0.bg-gradient-to-r.blur-md {
+  opacity: 0.9 !important;
+}
+
+/* Make timeline bars more saturated in lite mode */
+.lite-mode .relative.h-full.backdrop-blur-md.bg-gradient-to-r {
+  backdrop-filter: blur(8px) !important;
+  opacity: 0.85 !important;
+}
+
+/* Make browser window chrome more visible */
+.lite-mode .bg-slate-700\\/50 {
+  background: rgba(100, 116, 139, 0.6) !important;
+  border-color: rgba(100, 116, 139, 0.4) !important;
+}
+
+/* Stat card gradients - see desaturated versions below */
+
+/* Improve border colors on stat/metric cards */
+.lite-mode .border-blue-400\\/30 {
+  border-color: rgba(59, 130, 246, 0.5) !important;
+}
+
+.lite-mode .border-emerald-400\\/30 {
+  border-color: rgba(16, 185, 129, 0.5) !important;
+}
+
+.lite-mode .border-amber-400\\/30 {
+  border-color: rgba(245, 158, 11, 0.5) !important;
+}
+
+.lite-mode .border-purple-400\\/30 {
+  border-color: rgba(168, 85, 247, 0.5) !important;
+}
+
+/* Removed duplicate rules - see desaturated versions below */
+
+/* Chart/visualization bars - desaturated for design mockup */
+.lite-mode .bg-gradient-to-t.from-blue-500.to-blue-400 {
+  background: linear-gradient(to top, rgba(59, 130, 246, 0.3), rgba(96, 165, 250, 0.25)) !important;
+}
+
+/* Alert/warning icon backgrounds */
+.lite-mode .bg-gradient-to-br.from-red-500\\/20.to-rose-500\\/20 {
+  background: linear-gradient(to bottom right, rgba(239, 68, 68, 0.25), rgba(244, 63, 94, 0.25)) !important;
+}
+
+/* Fix key research findings images - remove filters */
+.lite-mode .rounded-xl img {
+  opacity: 1 !important;
+  filter: none !important;
+}
+
+/* Specifically target FindingsSlide images */
+.lite-mode .rounded-xl.overflow-hidden img {
+  opacity: 1 !important;
+  filter: none !important;
+}
+
+.lite-mode .bg-gradient-to-t.from-slate-900\\/60.to-transparent {
+  background: linear-gradient(to top, rgba(15, 23, 42, 0.1), transparent) !important; /* Much lighter overlay to show images */
+}
+
+/* Ensure image overlays don't hide images in lite mode */
+.lite-mode .absolute.inset-0.bg-gradient-to-t {
+  opacity: 0.4 !important; /* Reduce overlay opacity */
+}
+
+/* Make hover transitions smoother and more visible - removed, now using 250ms above */
+
+/* Additional text contrast fixes for small/fine print */
+.lite-mode .text-\\[9px\\],
+.lite-mode .text-\\[10px\\],
+.lite-mode .text-\\[11px\\] {
+  font-weight: 500 !important; /* Slightly bolder for small text */
+}
+
+.lite-mode .text-xs.text-slate-300,
+.lite-mode .text-xs.text-slate-400 {
+  color: #475569 !important;
+}
+
+/* Timeline week labels */
+.lite-mode .text-\\[9px\\].text-slate-400 {
+  color: #64748b !important;
+  font-weight: 500 !important;
+}
+
+.lite-mode .text-\\[10px\\].text-slate-400 {
+  color: #64748b !important;
+}
+
+/* Improve phase duration text visibility */
+.lite-mode .text-\\[10px\\].text-slate-400.font-medium {
+  color: #64748b !important;
+}
+
+/* Activity tooltip text */
+.lite-mode .text-\\[10px\\].text-slate-200 {
+  color: #1e293b !important; /* Dark for tooltip text in lite mode */
+}
+
+.lite-mode .bg-slate-900\\/95 {
+  background: rgba(255, 255, 255, 0.95) !important; /* White tooltip background in lite mode */
+  border-color: rgba(59, 130, 246, 0.4) !important;
+}
+
+/* Border colors for tooltips */
+.lite-mode .border-white\\/20 {
+  border-color: rgba(59, 130, 246, 0.4) !important;
+}
+
+.lite-mode .border-t-white\\/20 {
+  border-top-color: rgba(59, 130, 246, 0.4) !important;
+}
+
+.lite-mode .border-t-slate-900\\/95 {
+  border-top-color: rgba(255, 255, 255, 0.95) !important;
+}
+
+/* Ensure section headers are visible */
+.lite-mode .text-lg.text-slate-300 {
+  color: #334155 !important;
+  font-weight: 600 !important;
+}
+
+/* Performance metrics improvement percentages */
+.lite-mode .text-emerald-400.text-sm.font-medium {
+  color: #047857 !important;
+  font-weight: 600 !important;
+}
+
+/* Before/after values in performance slide */
+.lite-mode .text-rose-300\\/70.tabular-nums {
+  color: #f43f5e !important;
+  opacity: 0.8 !important;
+}
+
+.lite-mode .text-emerald-300.font-medium {
+  color: #059669 !important;
+}
+
+/* Glow effects from challenge/approach cards */
+.lite-mode .from-rose-500\\/20.to-orange-500\\/20 {
+  --tw-gradient-from: rgba(244, 63, 94, 0.25) !important;
+  --tw-gradient-to: rgba(249, 115, 22, 0.25) !important;
+}
+
+.lite-mode .from-blue-500\\/20.to-violet-500\\/20 {
+  --tw-gradient-from: rgba(59, 130, 246, 0.25) !important;
+  --tw-gradient-to: rgba(139, 92, 246, 0.25) !important;
+}
+
+/* Icon backgrounds in challenge/approach cards */
+.lite-mode .bg-gradient-to-br.from-rose-500.to-orange-500 {
+  background: linear-gradient(to bottom right, #f43f5e, #f97316) !important;
+}
+
+.lite-mode .bg-gradient-to-br.from-blue-500.to-violet-500 {
+  background: linear-gradient(to bottom right, #3b82f6, #8b5cf6) !important;
+}
+
+/* Dashboard header gradient (Starbucks/other brand colors) - desaturated for placeholder */
+.lite-mode .bg-gradient-to-r.from-emerald-500.to-teal-500 {
+  background: linear-gradient(to right, rgba(16, 185, 129, 0.35), rgba(20, 184, 166, 0.3)) !important; /* Desaturated for demo mockup */
+}
+
+/* Reduce saturation of all placeholder elements in design features slide */
+.lite-mode .bg-slate-400\\/30,
+.lite-mode .bg-slate-500\\/20,
+.lite-mode .bg-slate-300\\/40 {
+  background-color: rgba(148, 163, 184, 0.15) !important; /* Very light */
+}
+
+/* Desaturate stat card backgrounds in design mockup */
+.lite-mode .bg-gradient-to-br.from-blue-500\\/20 {
+  background: linear-gradient(to bottom right, rgba(59, 130, 246, 0.08), rgba(37, 99, 235, 0.04)) !important;
+}
+
+.lite-mode .bg-gradient-to-br.from-emerald-500\\/20 {
+  background: linear-gradient(to bottom right, rgba(16, 185, 129, 0.08), rgba(5, 150, 105, 0.04)) !important;
+}
+
+.lite-mode .bg-gradient-to-br.from-amber-500\\/20 {
+  background: linear-gradient(to bottom right, rgba(245, 158, 11, 0.08), rgba(217, 119, 6, 0.04)) !important;
+}
+
+.lite-mode .bg-gradient-to-br.from-purple-500\\/20 {
+  background: linear-gradient(to bottom right, rgba(168, 85, 247, 0.08), rgba(147, 51, 234, 0.04)) !important;
+}
+
+/* Desaturate colored placeholder elements */
+.lite-mode .bg-blue-400\\/40 {
+  background-color: rgba(96, 165, 250, 0.15) !important;
+}
+
+.lite-mode .bg-blue-400\\/60 {
+  background-color: rgba(96, 165, 250, 0.25) !important;
+}
+
+.lite-mode .bg-emerald-400\\/40 {
+  background-color: rgba(52, 211, 153, 0.15) !important;
+}
+
+.lite-mode .bg-emerald-400\\/60 {
+  background-color: rgba(52, 211, 153, 0.25) !important;
+}
+
+.lite-mode .bg-amber-400\\/40 {
+  background-color: rgba(251, 191, 36, 0.15) !important;
+}
+
+.lite-mode .bg-amber-400\\/60 {
+  background-color: rgba(251, 191, 36, 0.25) !important;
+}
+
+.lite-mode .bg-purple-400\\/40 {
+  background-color: rgba(192, 132, 252, 0.15) !important;
+}
+
+.lite-mode .bg-purple-400\\/60 {
+  background-color: rgba(192, 132, 252, 0.25) !important;
+}
+
+/* Desaturate white placeholder overlays */
+.lite-mode .bg-white\\/90 {
+  background-color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.lite-mode .bg-white\\/60 {
+  background-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.lite-mode .bg-white\\/20 {
+  background-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+/* Ensure proper contrast for all heading levels in lite mode */
+.lite-mode h1,
+.lite-mode h2,
+.lite-mode h3.text-white {
+  color: #0f172a !important; /* Very dark slate for maximum contrast */
+}
+
+.lite-mode h4.text-white {
+  color: #1e293b !important;
+}
+
+/* Category labels and uppercase headers */
+.lite-mode .text-slate-400.uppercase {
+  color: #64748b !important;
+  letter-spacing: 0.1em !important;
+}
+
+/* Fix intro slide text on dark images - keep text light/white */
+.lite-mode .relative.z-10 h1,
+.lite-mode .relative.z-10 h2 {
+  color: #ffffff !important; /* White text on intro slides with images */
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3), 0 4px 40px rgba(0, 0, 0, 0.2) !important;
+}
+
+.lite-mode .relative.z-10 p.text-slate-300,
+.lite-mode .relative.z-10 p.text-2xl {
+  color: #f1f5f9 !important; /* Very light grey for subtitles */
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Category chips on intro slides - keep light with better contrast */
+.lite-mode .relative.z-10 .bg-white\\/10 {
+  background: rgba(59, 130, 246, 0.15) !important; /* Blue tint instead of pure white */
+  border-color: rgba(59, 130, 246, 0.5) !important; /* Blue border */
+  color: #ffffff !important;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5) !important; /* Stronger shadow for legibility */
+  backdrop-filter: blur(16px) !important;
+  font-weight: 600 !important; /* Slightly bolder text */
+}
+
+/* Softer, faster hover borders on cards */
+.lite-mode .backdrop-blur-xl.bg-white\/5:hover,
+.lite-mode .backdrop-blur-xl.bg-white\/10:hover,
+.lite-mode .rounded-2xl:hover,
+.lite-mode .rounded-xl:hover {
+  border-color: rgba(59, 130, 246, 0.4) !important;
+  box-shadow: 0 12px 48px rgba(59, 130, 246, 0.2), 0 0 0 1px rgba(59, 130, 246, 0.25) !important;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.lite-mode .border.rounded-2xl:hover,
+.lite-mode .border.rounded-xl:hover {
+  border-color: rgba(59, 130, 246, 0.4) !important;
+  box-shadow: 
+    0 12px 48px rgba(59, 130, 246, 0.2),
+    0 0 0 1px rgba(59, 130, 246, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* Speed up all transitions for snappier feel */
+.lite-mode .transition-all,
+.lite-mode .transition-colors,
+.lite-mode .transition-opacity,
+.lite-mode .transition-transform {
+  transition-duration: 250ms !important;
+}
+
+/* ============================================
+   COMPREHENSIVE COLOR CONSISTENCY SYSTEM
+   ============================================ 
+   
+   All colored elements follow a consistent saturation/opacity pattern:
+   
+   BADGES & CHIPS (text labels): 0.75 / 0.7 opacity gradient
+   - Blue (Discover): #3b82f6 → #22d3ee
+   - Violet (Structure): #8b5cf6 → #a855f7  
+   - Emerald (Design): #10b981 → #14b8a6
+   - Amber (Build): #f59e0b → #f97316
+   - Pink/Rose (Alerts): #ec4899 → #f43f5e
+   
+   ICON BACKGROUNDS: 0.65 / 0.6 opacity gradient
+   - Same color pairs, slightly more transparent
+   
+   STAT CARD BACKGROUNDS: 0.08 / 0.04 opacity gradient
+   - Very subtle, for mockup/placeholder content
+   
+   BORDERS: 0.4 opacity
+   - All colored borders use 40% opacity for subtlety
+   
+   GLOW EFFECTS: 0.15 opacity on hover
+   - Subtle halos around cards when hovering
+*/
+
+/* 1. PROCESS LABEL BADGES (TeamStructureSlide chips) */
+/* Blue chip - Discover */
+.lite-mode .bg-gradient-to-r.from-blue-500.to-cyan-500 {
+  background: linear-gradient(to right, rgba(59, 130, 246, 0.75), rgba(34, 211, 238, 0.7)) !important;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25) !important;
+}
+
+/* Violet chip - Structure */
+.lite-mode .bg-gradient-to-r.from-violet-500.to-purple-500 {
+  background: linear-gradient(to right, rgba(139, 92, 246, 0.75), rgba(168, 85, 247, 0.7)) !important;
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.25) !important;
+}
+
+/* Emerald chip - Design */
+.lite-mode .bg-gradient-to-r.from-emerald-500.to-teal-500:not(.opacity-40) {
+  background: linear-gradient(to right, rgba(16, 185, 129, 0.75), rgba(20, 184, 166, 0.7)) !important;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25) !important;
+}
+
+/* Amber chip - Build */
+.lite-mode .bg-gradient-to-r.from-amber-500.to-orange-500 {
+  background: linear-gradient(to right, rgba(245, 158, 11, 0.75), rgba(249, 115, 22, 0.7)) !important;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.25) !important;
+}
+
+/* 2. ICON BACKGROUNDS (matching their chip colors) */
+.lite-mode .bg-gradient-to-br.from-blue-500.to-cyan-500 {
+  background: linear-gradient(to bottom right, rgba(59, 130, 246, 0.65), rgba(34, 211, 238, 0.6)) !important;
+}
+
+.lite-mode .bg-gradient-to-br.from-violet-500.to-purple-500 {
+  background: linear-gradient(to bottom right, rgba(139, 92, 246, 0.65), rgba(168, 85, 247, 0.6)) !important;
+}
+
+.lite-mode .bg-gradient-to-br.from-emerald-500.to-teal-500 {
+  background: linear-gradient(to bottom right, rgba(16, 185, 129, 0.65), rgba(20, 184, 166, 0.6)) !important;
+}
+
+.lite-mode .bg-gradient-to-br.from-amber-500.to-orange-500 {
+  background: linear-gradient(to bottom right, rgba(245, 158, 11, 0.65), rgba(249, 115, 22, 0.6)) !important;
+}
+
+/* 3. GLOW EFFECTS ON HOVER (subtle colored halos) */
+.lite-mode .group:hover .bg-gradient-to-br.from-blue-500.to-cyan-500.opacity-0 {
+  opacity: 0.15 !important;
+}
+
+.lite-mode .group:hover .bg-gradient-to-br.from-violet-500.to-purple-500.opacity-0 {
+  opacity: 0.15 !important;
+}
+
+.lite-mode .group:hover .bg-gradient-to-br.from-emerald-500.to-teal-500.opacity-0 {
+  opacity: 0.15 !important;
+}
+
+.lite-mode .group:hover .bg-gradient-to-br.from-amber-500.to-orange-500.opacity-0 {
+  opacity: 0.15 !important;
+}
+
+/* 4. CONNECTING LINE (multi-color gradient) */
+.lite-mode .bg-gradient-to-r.from-blue-500.via-violet-500.via-emerald-500.to-amber-500 {
+  background: linear-gradient(
+    to right, 
+    rgba(59, 130, 246, 0.6) 0%,
+    rgba(139, 92, 246, 0.6) 33%,
+    rgba(16, 185, 129, 0.6) 66%,
+    rgba(245, 158, 11, 0.6) 100%
+  ) !important;
+  opacity: 0.7 !important;
+}
+
+/* 5. ICON COLORS (ensure they're visible on colored backgrounds) */
+.lite-mode .text-white {
+  color: #ffffff !important;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+}
+
+/* 6. STAT BADGES AND COLORED METRICS */
+/* Pink/Rose for warnings/alerts */
+.lite-mode .bg-gradient-to-r.from-pink-500.to-rose-500 {
+  background: linear-gradient(to right, rgba(236, 72, 153, 0.75), rgba(244, 63, 94, 0.7)) !important;
+  box-shadow: 0 4px 12px rgba(236, 72, 153, 0.25) !important;
+}
+
+.lite-mode .bg-gradient-to-br.from-pink-500.to-rose-500 {
+  background: linear-gradient(to bottom right, rgba(236, 72, 153, 0.65), rgba(244, 63, 94, 0.6)) !important;
+}
+
+/* Red for urgent items */
+.lite-mode .text-red-400 {
+  color: #f87171 !important;
+}
+
+.lite-mode .text-emerald-400 {
+  color: #34d399 !important;
+}
+
+/* 7. BORDER ACCENTS ON STAT CARDS */
+.lite-mode .border-blue-400\\/30 {
+  border-color: rgba(96, 165, 250, 0.4) !important;
+}
+
+.lite-mode .border-emerald-400\\/30 {
+  border-color: rgba(52, 211, 153, 0.4) !important;
+}
+
+.lite-mode .border-amber-400\\/30 {
+  border-color: rgba(251, 191, 36, 0.4) !important;
+}
+
+.lite-mode .border-purple-400\\/30 {
+  border-color: rgba(192, 132, 252, 0.4) !important;
+}
+
+.lite-mode .border-pink-400\\/30 {
+  border-color: rgba(244, 114, 182, 0.4) !important;
+}
+
+/* 8. CATEGORY BADGES (various types across slides) */
+/* Small inline badges with colored backgrounds */
+.lite-mode .inline-block.px-2.py-0\\.5.rounded {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* 9. COLORED TEXT ELEMENTS */
+.lite-mode .text-blue-400,
+.lite-mode .text-blue-500 {
+  color: #60a5fa !important;
+}
+
+.lite-mode .text-purple-400,
+.lite-mode .text-purple-500 {
+  color: #c084fc !important;
+}
+
+.lite-mode .text-cyan-400 {
+  color: #22d3ee !important;
+}
+
+.lite-mode .text-pink-400 {
+  color: #f472b6 !important;
+}
+
+/* 10. BUTTON AND INTERACTIVE ELEMENT BACKGROUNDS */
+.lite-mode .bg-emerald-500\\/20 {
+  background-color: rgba(16, 185, 129, 0.25) !important;
+}
+
+.lite-mode .border-emerald-400\\/30 {
+  border-color: rgba(52, 211, 153, 0.4) !important;
+}
+
+/* 11. CASE STUDY INDEX NUMBER BADGES */
+.lite-mode .bg-gradient-to-br.from-blue-500\\/20.to-purple-500\\/20 {
+  background: linear-gradient(to bottom right, rgba(59, 130, 246, 0.3), rgba(168, 85, 247, 0.25)) !important;
+  border-color: rgba(147, 197, 253, 0.4) !important;
+}
+
+/* 12. CATEGORY TAGS (small rounded pills) */
+.lite-mode .bg-white\\/10.text-slate-300 {
+  background: rgba(59, 130, 246, 0.08) !important;
+  border-color: rgba(59, 130, 246, 0.25) !important;
+  color: #64748b !important;
+}
+
+/* 13. HOVER STATE FOR INTERACTIVE TEXT */
+.lite-mode .group:hover .text-blue-300 {
+  color: #60a5fa !important;
+}
+
+/* 14. FEATURE SHOWCASE CONNECTOR DOTS */
+.lite-mode .bg-blue-500.border-2 {
+  background-color: rgba(59, 130, 246, 0.85) !important;
+  border-color: rgba(255, 255, 255, 0.4) !important;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2) !important;
+}
+
+/* 15. STATS/METRICS WITH COLORED ICONS */
+.lite-mode .from-red-500\\/20.to-rose-500\\/20 {
+  background: linear-gradient(to bottom right, rgba(239, 68, 68, 0.2), rgba(244, 63, 94, 0.15)) !important;
+}
+
+/* 16. ACCENT LINES AND DIVIDERS */
+.lite-mode .bg-slate-400\\/50 {
+  background-color: rgba(148, 163, 184, 0.3) !important;
+}
+
+/* 17. BROWSER CHROME DOTS (traffic lights) */
+.lite-mode .bg-red-500 {
+  background-color: rgba(239, 68, 68, 0.8) !important;
+}
+
+.lite-mode .bg-yellow-500 {
+  background-color: rgba(234, 179, 8, 0.8) !important;
+}
+
+.lite-mode .bg-green-500 {
+  background-color: rgba(34, 197, 94, 0.8) !important;
+}

@@ -1,0 +1,1406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proposal Studio — Experis Digital Services</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,450;14..32,500;14..32,600&display=swap" rel="stylesheet">
+<style>
+/* ── Brand Tokens ── */
+:root {
+  --so-lavender-50:#F7F5FB;--so-lavender-100:#EEEAF6;--so-lavender-200:#DDD5EE;
+  --so-lavender-300:#C4B5E3;--so-lavender-400:#A48DD4;--so-lavender-500:#8468C0;
+  --so-lavender-600:#6B4FA8;--so-lavender-700:#553E8A;
+  --so-azure-50:#F0F6FC;--so-azure-100:#DEEAF7;--so-azure-200:#B8D4F0;
+  --so-azure-300:#7AB5E8;--so-azure-400:#4A96DB;--so-azure-500:#2A7BC8;
+  --so-azure-600:#1D60A3;
+  --so-aluminum-0:#FFFFFF;--so-aluminum-50:#FAFBFC;--so-aluminum-100:#F4F5F7;
+  --so-aluminum-150:#ECEDF1;--so-aluminum-200:#E2E4E9;--so-aluminum-300:#D0D3DA;
+  --so-aluminum-400:#A1A6B4;--so-aluminum-500:#767C8E;--so-aluminum-600:#565C6E;
+  --so-aluminum-700:#3B3F4F;--so-aluminum-800:#252836;--so-aluminum-900:#151722;
+  --so-success:#1A9E6F;--so-success-bg:#EEFBF4;
+  --so-warning:#C08419;--so-warning-bg:#FEF8EC;
+  --so-danger:#C93B3B;--so-danger-bg:#FEF0F0;
+  --so-gradient:linear-gradient(135deg,#C4B5E3,#7AB5E8);
+  --so-gradient-subtle:linear-gradient(135deg,#F7F5FB,#F0F6FC);
+  --so-gradient-vibrant:linear-gradient(135deg,#8468C0,#4A96DB);
+  --font:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+  --border-hairline:rgba(0,0,0,0.06);--border-light:rgba(0,0,0,0.10);
+  --border-medium:rgba(0,0,0,0.16);
+  --shadow-card:0 1px 3px rgba(0,0,0,0.04),0 1px 2px rgba(0,0,0,0.02);
+  --shadow-md:0 2px 8px rgba(0,0,0,0.06);--shadow-lg:0 4px 16px rgba(0,0,0,0.08);
+  --radius-sm:6px;--radius-md:10px;--radius-lg:14px;--radius-xl:20px;
+  --ease:cubic-bezier(0.25,0.1,0.25,1);--ease-out:cubic-bezier(0.16,1,0.3,1);
+}
+
+/* ── Reset ── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:15px;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+body{font-family:var(--font);background:var(--so-aluminum-50);color:var(--so-aluminum-900);line-height:1.55;letter-spacing:-0.01em;min-height:100vh}
+
+/* ── Utility ── */
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+input,select,textarea,button{font-family:inherit;font-size:inherit}
+button{cursor:pointer;border:none;background:none}
+
+/* ── Shell ── */
+.shell{display:flex;height:100vh;overflow:hidden}
+.sidebar{width:240px;background:var(--so-aluminum-0);border-right:1px solid var(--border-light);display:flex;flex-direction:column;flex-shrink:0}
+.sidebar-brand{padding:20px 20px 16px;border-bottom:1px solid var(--border-hairline)}
+.sidebar-brand h1{font-size:15px;font-weight:600;letter-spacing:-0.02em;color:var(--so-aluminum-900)}
+.sidebar-brand p{font-size:11px;color:var(--so-aluminum-400);margin-top:2px;letter-spacing:0.02em;text-transform:uppercase;font-weight:500}
+.sidebar-nav{flex:1;padding:12px 10px;overflow-y:auto}
+.nav-section{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--so-aluminum-400);padding:12px 10px 6px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:var(--radius-sm);color:var(--so-aluminum-600);font-size:13px;font-weight:450;cursor:pointer;transition:all 150ms var(--ease);width:100%;text-align:left}
+.nav-item:hover{background:var(--so-aluminum-100);color:var(--so-aluminum-900)}
+.nav-item.active{background:var(--so-lavender-50);color:var(--so-lavender-600);font-weight:500}
+.nav-item svg{width:16px;height:16px;flex-shrink:0;opacity:0.6}
+.nav-item.active svg{opacity:1}
+
+.main-area{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.topbar{height:56px;background:var(--so-aluminum-0);border-bottom:1px solid var(--border-hairline);display:flex;align-items:center;justify-content:space-between;padding:0 32px;flex-shrink:0}
+.topbar-left{display:flex;align-items:center;gap:16px}
+.topbar-left h2{font-size:17px;font-weight:500;letter-spacing:-0.02em}
+.topbar-left .subtitle{font-size:13px;color:var(--so-aluminum-500)}
+.topbar-right{display:flex;align-items:center;gap:10px}
+
+.content-area{flex:1;overflow-y:auto;padding:32px;background:var(--so-aluminum-50)}
+.content-inner{max-width:960px;margin:0 auto}
+
+/* ── Buttons ── */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:var(--radius-sm);font-size:13px;font-weight:500;transition:all 150ms var(--ease);border:1px solid transparent}
+.btn-primary{background:var(--so-lavender-600);color:#fff;border-color:var(--so-lavender-600)}
+.btn-primary:hover{background:var(--so-lavender-500)}
+.btn-secondary{background:var(--so-aluminum-0);color:var(--so-aluminum-700);border-color:var(--border-light)}
+.btn-secondary:hover{background:var(--so-aluminum-100);border-color:var(--border-medium)}
+.btn-ghost{color:var(--so-aluminum-600)}
+.btn-ghost:hover{background:var(--so-aluminum-100);color:var(--so-aluminum-900)}
+.btn-sm{padding:6px 12px;font-size:12px}
+.btn-danger{color:var(--so-danger)}
+.btn-danger:hover{background:var(--so-danger-bg)}
+
+/* ── Badge ── */
+.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:100px;font-size:11px;font-weight:500}
+.badge-success{background:var(--so-success-bg);color:var(--so-success)}
+.badge-warning{background:var(--so-warning-bg);color:var(--so-warning)}
+.badge-info{background:var(--so-lavender-50);color:var(--so-lavender-600)}
+
+/* ── Cards ── */
+.card{background:var(--so-aluminum-0);border:1px solid var(--border-hairline);border-radius:var(--radius-lg);box-shadow:var(--shadow-card)}
+.card-header{padding:20px 24px;border-bottom:1px solid var(--border-hairline);display:flex;align-items:center;justify-content:space-between}
+.card-header h3{font-size:15px;font-weight:500;letter-spacing:-0.01em}
+.card-body{padding:24px}
+
+/* ── Tabs ── */
+.tab-bar{display:flex;gap:2px;padding:4px;background:var(--so-aluminum-100);border-radius:var(--radius-md);margin-bottom:24px}
+.tab-btn{padding:8px 16px;border-radius:var(--radius-sm);font-size:13px;font-weight:450;color:var(--so-aluminum-500);transition:all 150ms var(--ease);white-space:nowrap}
+.tab-btn:hover{color:var(--so-aluminum-700)}
+.tab-btn.active{background:var(--so-aluminum-0);color:var(--so-aluminum-900);font-weight:500;box-shadow:var(--shadow-card)}
+
+/* ── Form elements ── */
+.form-group{margin-bottom:20px}
+.form-label{display:block;font-size:13px;font-weight:500;color:var(--so-aluminum-600);margin-bottom:6px}
+.form-label .hint{font-weight:400;color:var(--so-aluminum-400);margin-left:6px;font-size:12px}
+.form-input,.form-select,.form-textarea{width:100%;padding:10px 14px;border:1px solid var(--border-light);border-radius:var(--radius-sm);background:var(--so-aluminum-0);color:var(--so-aluminum-900);font-size:14px;transition:border-color 150ms var(--ease),box-shadow 150ms var(--ease);outline:none}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--so-lavender-400);box-shadow:0 0 0 3px rgba(107,79,168,0.1)}
+.form-input:disabled,.form-select:disabled,.form-textarea:disabled{background:var(--so-aluminum-100);color:var(--so-aluminum-500);cursor:not-allowed;opacity:0.7}
+.form-textarea{resize:vertical;line-height:1.6}
+.form-select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23A1A6B4' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:36px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-help{font-size:11px;color:var(--so-aluminum-400);margin-top:4px}
+.char-count{font-size:11px;color:var(--so-aluminum-400);margin-top:4px;text-align:right}
+
+/* ── Tags ── */
+.tag-list{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+.tag{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:100px;font-size:12px;font-weight:500}
+.tag-primary{background:var(--so-lavender-50);color:var(--so-lavender-600);border:1px solid var(--so-lavender-200)}
+.tag-success{background:var(--so-success-bg);color:var(--so-success);border:1px solid rgba(26,158,111,0.2)}
+.tag .remove-tag{width:14px;height:14px;display:flex;align-items:center;justify-content:center;border-radius:50%;cursor:pointer;opacity:0.6}
+.tag .remove-tag:hover{opacity:1;background:rgba(0,0,0,0.1)}
+.tag-add-row{display:flex;gap:8px;align-items:center}
+.tag-add-row select{flex:1}
+.tag-add-row .btn{flex-shrink:0}
+
+/* ── Table ── */
+.data-table{width:100%;border-collapse:collapse}
+.data-table thead{background:var(--so-aluminum-50)}
+.data-table th{padding:10px 14px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--so-aluminum-400);border-bottom:1px solid var(--border-light)}
+.data-table th.right{text-align:right}
+.data-table td{padding:12px 14px;border-bottom:1px solid var(--border-hairline);font-size:13px;vertical-align:middle}
+.data-table td.right{text-align:right}
+.data-table tbody tr:hover{background:var(--so-aluminum-50)}
+.table-input{padding:6px 10px;border:1px solid var(--border-light);border-radius:4px;font-size:13px;background:var(--so-aluminum-0);width:100%;outline:none;transition:border-color 150ms}
+.table-input:focus{border-color:var(--so-lavender-400)}
+.table-input.narrow{width:70px;text-align:right}
+.table-input.med{width:56px;text-align:center}
+
+/* ── Stats Grid ── */
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px}
+.stat-card{background:var(--so-aluminum-0);border:1px solid var(--border-hairline);border-radius:var(--radius-md);padding:20px;cursor:pointer;transition:all 150ms var(--ease)}
+.stat-card:hover{border-color:var(--border-medium);box-shadow:var(--shadow-md)}
+.stat-card.active{border-color:var(--so-lavender-400);box-shadow:0 0 0 3px rgba(107,79,168,0.08)}
+.stat-icon{width:36px;height:36px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+.stat-card .value{font-size:28px;font-weight:500;letter-spacing:-0.02em;line-height:1.2;margin-bottom:4px}
+.stat-card .label{font-size:13px;color:var(--so-aluminum-500)}
+
+/* ── Proposal List ── */
+.proposal-list{display:flex;flex-direction:column;gap:10px}
+.proposal-item{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;background:var(--so-aluminum-0);border:1px solid var(--border-hairline);border-radius:var(--radius-md);cursor:pointer;transition:all 150ms var(--ease)}
+.proposal-item:hover{border-color:var(--so-lavender-200);box-shadow:var(--shadow-md)}
+.proposal-item .info h4{font-size:14px;font-weight:500;margin-bottom:2px}
+.proposal-item .info p{font-size:12px;color:var(--so-aluminum-500)}
+.proposal-item .meta{display:flex;align-items:center;gap:16px}
+.progress-bar{width:120px;height:6px;background:var(--so-aluminum-150);border-radius:3px;overflow:hidden}
+.progress-bar .fill{height:100%;border-radius:3px;background:var(--so-gradient-vibrant);transition:width 400ms var(--ease-out)}
+
+/* ── Activity Feed ── */
+.activity-feed{display:flex;flex-direction:column;gap:12px}
+.activity-item{display:flex;gap:12px;padding-bottom:12px;border-bottom:1px solid var(--border-hairline)}
+.activity-item:last-child{border-bottom:none;padding-bottom:0}
+.activity-avatar{width:32px;height:32px;border-radius:var(--radius-sm);background:var(--so-aluminum-100);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--so-aluminum-600);flex-shrink:0}
+.activity-text{font-size:13px;line-height:1.5}
+.activity-text strong{font-weight:500}
+.activity-text .muted{color:var(--so-aluminum-500)}
+.activity-time{font-size:11px;color:var(--so-aluminum-400);margin-top:2px}
+
+/* ── Task List ── */
+.task-list{display:flex;flex-direction:column;gap:8px}
+.task-item{display:flex;align-items:flex-start;gap:10px;padding:12px;border:1px solid var(--border-hairline);border-radius:var(--radius-sm);background:var(--so-aluminum-0)}
+.task-check{width:18px;height:18px;border-radius:50%;border:2px solid var(--border-medium);flex-shrink:0;margin-top:1px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 150ms}
+.task-check.done{background:var(--so-success);border-color:var(--so-success)}
+.task-check.in-progress{border-color:var(--so-lavender-400)}
+.task-content h4{font-size:13px;font-weight:450;margin-bottom:2px}
+.task-content .task-meta{font-size:11px;color:var(--so-aluminum-400);display:flex;gap:12px}
+.task-content .task-meta .priority-high{color:var(--so-danger);font-weight:500}
+.task-content .task-meta .priority-medium{color:var(--so-warning);font-weight:500}
+
+/* ── Upload Zone ── */
+.upload-zone{border:2px dashed var(--border-light);border-radius:var(--radius-lg);padding:48px 24px;text-align:center;cursor:pointer;transition:all 150ms var(--ease)}
+.upload-zone:hover{border-color:var(--so-lavender-400);background:var(--so-lavender-50)}
+.upload-icon{width:48px;height:48px;border-radius:var(--radius-md);background:var(--so-aluminum-100);display:flex;align-items:center;justify-content:center;margin:0 auto 12px}
+.upload-zone h4{font-size:14px;font-weight:500;margin-bottom:4px}
+.upload-zone p{font-size:12px;color:var(--so-aluminum-400)}
+
+.file-item{display:flex;align-items:center;gap:14px;padding:14px 16px;background:var(--so-aluminum-0);border:1px solid var(--border-hairline);border-radius:var(--radius-md);margin-bottom:10px}
+.file-icon{width:40px;height:40px;border-radius:var(--radius-sm);background:var(--so-lavender-50);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.file-info{flex:1}
+.file-info h4{font-size:13px;font-weight:500;margin-bottom:2px;display:flex;align-items:center;gap:8px}
+.file-info p{font-size:11px;color:var(--so-aluminum-400)}
+
+/* ── Gantt Chart ── */
+.gantt-header{display:flex;border-bottom:1px solid var(--border-light);padding-bottom:8px;margin-bottom:12px}
+.gantt-label-col{width:180px;flex-shrink:0;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--so-aluminum-400)}
+.gantt-timeline{flex:1;display:flex}
+.gantt-month{text-align:center;font-size:11px;font-weight:500;color:var(--so-aluminum-400);border-right:1px solid var(--border-hairline)}
+.gantt-month:last-child{border-right:none}
+.gantt-row{display:flex;align-items:center;margin-bottom:8px}
+.gantt-row-label{width:180px;flex-shrink:0;font-size:13px;font-weight:450;color:var(--so-aluminum-700);padding-right:12px}
+.gantt-row-track{flex:1;height:32px;position:relative;background:var(--so-aluminum-100);border-radius:4px}
+.gantt-bar{position:absolute;top:2px;bottom:2px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:#fff;transition:all 300ms var(--ease-out)}
+.gantt-bar:hover{filter:brightness(1.1);transform:scaleY(1.1)}
+
+/* ── Phase Cards ── */
+.phase-card{display:flex;gap:12px;padding:14px;border:1px solid var(--border-hairline);border-radius:var(--radius-sm);background:var(--so-aluminum-0);margin-bottom:10px}
+.phase-indicator{width:3px;border-radius:2px;align-self:stretch;flex-shrink:0}
+.phase-card h4{font-size:13px;font-weight:500;margin-bottom:4px}
+.phase-card p{font-size:12px;color:var(--so-aluminum-500);line-height:1.5}
+
+/* ── Pricing Summary ── */
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px}
+.pricing-card{padding:20px;background:var(--so-aluminum-50);border:1px solid var(--border-hairline);border-radius:var(--radius-md)}
+.pricing-card .pc-icon{width:32px;height:32px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;margin-bottom:10px}
+.pricing-card .pc-label{font-size:12px;color:var(--so-aluminum-500);margin-bottom:6px;font-weight:500}
+.pricing-card .pc-value{font-size:22px;font-weight:500;letter-spacing:-0.02em}
+.pricing-card .pc-note{font-size:11px;color:var(--so-aluminum-400);margin-top:4px}
+
+.cost-item{display:flex;align-items:center;gap:12px;padding:14px;border:1px solid var(--border-hairline);border-radius:var(--radius-sm);margin-bottom:8px;background:var(--so-aluminum-0)}
+.cost-item .ci-fields{display:grid;grid-template-columns:2fr 4fr 1.5fr auto;gap:12px;align-items:center;width:100%}
+.cost-item .ci-cat{font-size:12px;font-weight:500;color:var(--so-aluminum-600)}
+
+.formula-box{padding:20px;background:var(--so-lavender-50);border:1px solid var(--so-lavender-200);border-radius:var(--radius-md);margin-bottom:24px}
+.formula-box h4{font-size:14px;font-weight:500;color:var(--so-aluminum-900);margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.formula-box code{font-family:'SF Mono',Menlo,Consolas,monospace;font-size:13px;color:var(--so-aluminum-700)}
+.formula-box .note{font-size:11px;color:var(--so-aluminum-500);margin-top:4px}
+
+.margin-box{padding:20px;background:var(--so-aluminum-50);border:1px solid var(--border-hairline);border-radius:var(--radius-md);margin-bottom:24px;display:flex;align-items:center;justify-content:space-between}
+.margin-box .m-left h4{font-size:14px;font-weight:500;display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.margin-box .m-left p{font-size:12px;color:var(--so-aluminum-500)}
+.margin-box .m-right{display:flex;align-items:center;gap:8px}
+.margin-box .m-right input{width:80px;text-align:right;font-size:17px;font-weight:500}
+
+.totals-block{border-top:1px solid var(--border-light);padding-top:20px}
+.totals-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;font-size:14px}
+.totals-row.sub{color:var(--so-aluminum-600)}
+.totals-row.margin .val{color:var(--so-success);font-weight:500}
+.totals-row.grand{font-size:20px;font-weight:500;padding-top:14px;border-top:1px solid var(--border-light);margin-top:8px}
+
+/* ── Case Studies ── */
+.cs-card{padding:14px 16px;border:1px solid var(--border-hairline);border-radius:var(--radius-md);cursor:pointer;transition:all 150ms var(--ease);display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.cs-card:hover{border-color:var(--so-lavender-200)}
+.cs-card.selected{border-color:var(--so-lavender-400);background:var(--so-lavender-50)}
+.cs-card .cs-info h4{font-size:13px;font-weight:500;margin-bottom:2px;display:flex;align-items:center;gap:8px}
+.cs-card .cs-info p{font-size:12px;color:var(--so-aluminum-500)}
+.cs-check{width:20px;height:20px;border-radius:4px;border:2px solid var(--border-medium);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 150ms}
+.cs-card.selected .cs-check{background:var(--so-lavender-600);border-color:var(--so-lavender-600)}
+
+/* ── Content Builder ── */
+.builder-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px}
+.builder-col h3{font-size:13px;font-weight:500;margin-bottom:4px;display:flex;align-items:center;gap:8px}
+.builder-col .col-desc{font-size:11px;color:var(--so-aluminum-400);margin-bottom:14px}
+.library-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--border-hairline);border-radius:var(--radius-sm);margin-bottom:6px;cursor:pointer;transition:all 150ms var(--ease)}
+.library-item:hover{border-color:var(--so-lavender-200);background:var(--so-aluminum-50)}
+.library-item.added{opacity:0.4;cursor:not-allowed}
+.library-item .li-icon{width:28px;height:28px;border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.library-item .li-text h4{font-size:12px;font-weight:500}
+.library-item .li-text p{font-size:11px;color:var(--so-aluminum-400)}
+.active-section{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--border-hairline);border-radius:var(--radius-sm);margin-bottom:6px;background:var(--so-aluminum-0)}
+.active-section .order-num{width:22px;height:22px;border-radius:4px;border:1px solid var(--so-lavender-400);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--so-lavender-600);flex-shrink:0}
+.active-section .as-icon{width:28px;height:28px;border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.active-section .as-text{flex:1}
+.active-section .as-text h4{font-size:12px;font-weight:500}
+.active-section .as-text p{font-size:11px;color:var(--so-aluminum-400)}
+.active-section .as-remove{width:22px;height:22px;display:flex;align-items:center;justify-content:center;border-radius:4px;color:var(--so-aluminum-400);transition:all 150ms}
+.active-section .as-remove:hover{color:var(--so-danger);background:var(--so-danger-bg)}
+
+/* ── Preview Pane ── */
+.preview-frame{border:1px solid var(--border-light);border-radius:var(--radius-lg);overflow:hidden;background:#fff;box-shadow:var(--shadow-lg)}
+.preview-hero{background:var(--so-gradient-vibrant);padding:64px 48px;color:#fff}
+.preview-hero h1{font-size:32px;font-weight:300;letter-spacing:-0.02em;line-height:1.2;margin-bottom:8px}
+.preview-hero p{font-size:15px;opacity:0.85;font-weight:400}
+.preview-sections{padding:32px 48px}
+.preview-section{margin-bottom:32px}
+.preview-section h3{font-size:17px;font-weight:500;letter-spacing:-0.02em;margin-bottom:10px;color:var(--so-aluminum-900)}
+.preview-section p{font-size:14px;color:var(--so-aluminum-600);line-height:1.7}
+
+/* ── Tip Box ── */
+.tip-box{background:var(--so-lavender-50);border:1px solid var(--so-lavender-200);border-radius:var(--radius-md);padding:14px 18px;margin-top:24px}
+.tip-box h4{font-size:13px;font-weight:500;color:var(--so-aluminum-900);margin-bottom:6px}
+.tip-box ul{list-style:none;padding:0}
+.tip-box li{font-size:12px;color:var(--so-aluminum-500);padding:2px 0;padding-left:14px;position:relative}
+.tip-box li::before{content:"\2022";position:absolute;left:0;color:var(--so-lavender-400)}
+
+/* ── Dashboard Grid ── */
+.dash-grid{display:grid;grid-template-columns:2fr 1fr;gap:20px;margin-bottom:20px}
+.dash-grid-half{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+
+/* ── Page Transitions ── */
+.page{display:none;animation:fadeIn 200ms var(--ease)}
+.page.visible{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── Responsive ── */
+@media(max-width:900px){
+  .sidebar{display:none}
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .form-row{grid-template-columns:1fr}
+  .pricing-grid{grid-template-columns:1fr}
+  .builder-grid{grid-template-columns:1fr}
+  .dash-grid{grid-template-columns:1fr}
+  .dash-grid-half{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<nav style="position:sticky;top:0;z-index:9999;background:rgba(250,251,252,.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,0,0,.05);padding:0 24px;height:40px;display:flex;align-items:center;">
+  <a href="../../../index.html" style="display:flex;align-items:center;gap:6px;font-family:'Inter',system-ui,sans-serif;font-size:13px;font-weight:450;color:#767C8E;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#151722'" onmouseout="this.style.color='#767C8E'">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 12H5"/><path d="M12 5l-7 7 7 7"/></svg>
+    Single Origin
+  </a>
+</nav>
+<div class="shell">
+
+<!-- ── Sidebar ── -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <h1>Proposal Studio</h1>
+    <p>Experis Digital Services</p>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-section">Main</div>
+    <button class="nav-item active" data-page="dashboard" onclick="showPage('dashboard')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      Dashboard
+    </button>
+    <div class="nav-section">Acme Corp Proposal</div>
+    <button class="nav-item" data-page="documents" onclick="showPage('documents')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      Documents
+    </button>
+    <button class="nav-item" data-page="summary" onclick="showPage('summary')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+      Summary
+    </button>
+    <button class="nav-item" data-page="team" onclick="showPage('team')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      Team
+    </button>
+    <button class="nav-item" data-page="pricing" onclick="showPage('pricing')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      Pricing
+    </button>
+    <button class="nav-item" data-page="credentials" onclick="showPage('credentials')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+      Proof Points
+    </button>
+    <button class="nav-item" data-page="timeline" onclick="showPage('timeline')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      Timeline
+    </button>
+    <button class="nav-item" data-page="builder" onclick="showPage('builder')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+      Content Builder
+    </button>
+    <button class="nav-item" data-page="preview" onclick="showPage('preview')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+      Preview
+    </button>
+  </nav>
+</aside>
+
+<!-- ── Main ── -->
+<div class="main-area">
+  <div class="topbar">
+    <div class="topbar-left">
+      <h2 id="topbar-title">Dashboard</h2>
+      <span class="subtitle" id="topbar-sub">Welcome back! Here's what's happening.</span>
+    </div>
+    <div class="topbar-right">
+      <span class="badge badge-success">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        In Progress
+      </span>
+      <button class="btn btn-secondary btn-sm" onclick="showPage('preview')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        Preview
+      </button>
+      <button class="btn btn-primary btn-sm">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+        Publish
+      </button>
+    </div>
+  </div>
+
+  <div class="content-area" id="content-area">
+
+    <!-- ═══════ DASHBOARD ═══════ -->
+    <div class="page visible" id="page-dashboard">
+      <div class="content-inner" style="max-width:1120px">
+        <div class="stats-grid">
+          <div class="stat-card" onclick="this.classList.toggle('active')">
+            <div class="stat-icon" style="background:var(--so-lavender-50)">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--so-lavender-600)" stroke-width="1.5"><path d="M20 7H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2Z"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+            </div>
+            <div class="value">12</div>
+            <div class="label">Active Proposals</div>
+          </div>
+          <div class="stat-card" onclick="this.classList.toggle('active')">
+            <div class="stat-icon" style="background:var(--so-azure-50)">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--so-azure-500)" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div class="value">3</div>
+            <div class="label">Due This Week</div>
+          </div>
+          <div class="stat-card" onclick="this.classList.toggle('active')">
+            <div class="stat-icon" style="background:var(--so-success-bg)">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--so-success)" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div class="value">24</div>
+            <div class="label">Team Members</div>
+          </div>
+          <div class="stat-card" onclick="this.classList.toggle('active')">
+            <div class="stat-icon" style="background:var(--so-warning-bg)">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--so-warning)" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div class="value">48</div>
+            <div class="label">RFPs in Library</div>
+          </div>
+        </div>
+
+        <div class="dash-grid">
+          <!-- Active Proposals -->
+          <div class="card">
+            <div class="card-header">
+              <h3>Active Proposals</h3>
+              <button class="btn btn-ghost btn-sm">View All</button>
+            </div>
+            <div class="card-body">
+              <div class="proposal-list" id="proposal-list"></div>
+            </div>
+          </div>
+          <!-- Deadlines -->
+          <div class="card">
+            <div class="card-header"><h3>Upcoming Deadlines</h3></div>
+            <div class="card-body" id="deadline-list"></div>
+          </div>
+        </div>
+
+        <div class="dash-grid-half">
+          <!-- Tasks -->
+          <div class="card">
+            <div class="card-header">
+              <h3>My Tasks</h3>
+              <span style="font-size:12px;color:var(--so-aluminum-400)">4 active</span>
+            </div>
+            <div class="card-body">
+              <div class="task-list" id="task-list"></div>
+            </div>
+          </div>
+          <!-- Activity -->
+          <div class="card">
+            <div class="card-header"><h3>Recent Activity</h3></div>
+            <div class="card-body">
+              <div class="activity-feed" id="activity-feed"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════ DOCUMENTS ═══════ -->
+    <div class="page" id="page-documents">
+      <div class="content-inner">
+        <div class="card">
+          <div class="card-header"><h3>RFP Documents</h3></div>
+          <div class="card-body">
+            <div id="file-list">
+              <div class="file-item">
+                <div class="file-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--so-lavender-600)" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                </div>
+                <div class="file-info">
+                  <h4>ACME_Digital_Transformation_RFP.pdf <span class="badge badge-success" style="font-size:10px">Processed</span></h4>
+                  <p>2.4 MB &middot; Uploaded 2026-03-10</p>
+                </div>
+                <button class="btn btn-ghost btn-sm">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                </button>
+              </div>
+            </div>
+            <div class="upload-zone" style="margin-top:16px">
+              <div class="upload-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--so-aluminum-400)" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              </div>
+              <h4>Upload Additional Documents</h4>
+              <p>PDF, DOCX, or TXT &middot; Max 10MB</p>
+              <button class="btn btn-primary" style="margin-top:12px">Browse Files</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════ SUMMARY ═══════ -->
+    <div class="page" id="page-summary">
+      <div class="content-inner">
+        <!-- Proposal Basics -->
+        <div class="card" style="margin-bottom:20px">
+          <div class="card-header">
+            <h3>Proposal Summary</h3>
+            <button class="btn btn-secondary btn-sm" id="summary-edit-btn" onclick="toggleEdit('summary')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              Edit
+            </button>
+          </div>
+          <div class="card-body">
+            <div class="form-group">
+              <label class="form-label">Proposal Owner <span class="hint">Who will lead this proposal?</span></label>
+              <input class="form-input summary-field" value="Sarah Chen" disabled>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Client Name</label>
+                <input class="form-input summary-field" value="ACME Corporation" disabled>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Project Name</label>
+                <input class="form-input summary-field" value="Digital Transformation Initiative" disabled>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Industries</label>
+              <div class="tag-list">
+                <span class="tag tag-primary">Technology</span>
+                <span class="tag tag-primary">Enterprise Software</span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Work Types</label>
+              <div class="tag-list">
+                <span class="tag tag-success">Cloud Migration</span>
+                <span class="tag tag-success">System Modernization</span>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Questions Due</label>
+                <input type="date" class="form-input summary-field" value="2026-03-25" disabled>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Answers Posted</label>
+                <input type="date" class="form-input summary-field" value="2026-03-28" disabled>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Submission Deadline</label>
+                <input type="date" class="form-input summary-field" value="2026-04-15" disabled>
+              </div>
+              <div class="form-group">
+                <label class="form-label">RFP Source</label>
+                <select class="form-select summary-field" disabled>
+                  <option selected>Direct from client</option>
+                  <option>GovWin</option><option>SAM.gov</option><option>Partner referral</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scope of Work -->
+        <div class="card">
+          <div class="card-header"><h3>Scope of Work</h3></div>
+          <div class="card-body">
+            <div class="form-group">
+              <label class="form-label">Project Description <span class="hint">Overview of goals and context</span></label>
+              <textarea class="form-textarea summary-field" rows="6" disabled>ACME Corporation is seeking a comprehensive digital transformation partner to modernize their legacy infrastructure and migrate to a cloud-native architecture. This initiative will enable ACME to scale operations, reduce operational costs by 40%, and improve system reliability to 99.9% uptime.
+
+The project encompasses a full-stack transformation including infrastructure migration, application modernization, data pipeline optimization, and implementation of modern DevOps practices. The engagement will span 8 months with a dedicated cross-functional team.</textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Key Deliverables <span class="hint">Specific outputs and milestones</span></label>
+              <textarea class="form-textarea summary-field" rows="8" disabled>&#8226; Complete AWS cloud infrastructure setup with multi-region redundancy
+&#8226; Migration of 50+ legacy applications to containerized microservices
+&#8226; Custom analytics dashboard with real-time reporting capabilities
+&#8226; CI/CD pipeline implementation with automated testing
+&#8226; Comprehensive staff training program (40+ hours)
+&#8226; Security audit and compliance documentation (SOC 2, ISO 27001)
+&#8226; 90-day post-launch support and optimization</textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Technical Requirements &amp; Stack <span class="hint">Technologies, platforms, and tools</span></label>
+              <textarea class="form-textarea summary-field" rows="10" disabled>&#8226; AWS cloud platform (EC2, ECS, RDS, S3, CloudFront)
+&#8226; Container orchestration with Kubernetes
+&#8226; Infrastructure as Code using Terraform
+&#8226; Modern frontend framework (React/Next.js)
+&#8226; Backend microservices (Node.js, Python)
+&#8226; PostgreSQL and MongoDB databases
+&#8226; Redis caching layer
+&#8226; DataDog monitoring and observability
+&#8226; GitHub Enterprise for version control
+&#8226; Automated testing suite (Jest, Cypress)</textarea>
+            </div>
+          </div>
+        </div>
+        <div class="tip-box">
+          <h4>Pro Tips</h4>
+          <ul>
+            <li>Be specific about measurable outcomes and success criteria</li>
+            <li>Include assumptions, constraints, and dependencies</li>
+            <li>Reference any out-of-scope items to set clear boundaries</li>
+            <li>Align deliverables with project phases in the timeline</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════ TEAM ═══════ -->
+    <div class="page" id="page-team">
+      <div class="content-inner" style="max-width:1120px">
+        <div class="card">
+          <div class="card-header">
+            <h3>Team Configuration</h3>
+            <button class="btn btn-secondary btn-sm" id="team-edit-btn" onclick="toggleEdit('team')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              Edit
+            </button>
+          </div>
+          <div class="card-body">
+            <div class="form-row" style="margin-bottom:20px">
+              <div class="form-group">
+                <label class="form-label">Service Type</label>
+                <select class="form-select team-field" disabled>
+                  <option selected>Project-Based (Fixed Duration)</option>
+                  <option>Time &amp; Materials</option><option>Retainer</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Region</label>
+                <select class="form-select team-field" disabled>
+                  <option selected>West Coast (US)</option>
+                  <option>East Coast (US)</option><option>Midwest (US)</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row" style="margin-bottom:20px">
+              <div class="form-group">
+                <label class="form-label">Project Start Date</label>
+                <input type="date" class="form-input team-field" value="2026-05-01" disabled>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Project End Date</label>
+                <input type="date" class="form-input team-field" value="2026-12-31" disabled>
+              </div>
+            </div>
+
+            <div style="padding:12px 16px;background:var(--so-aluminum-50);border-radius:var(--radius-sm);margin-bottom:20px;display:flex;justify-content:space-between;align-items:center">
+              <span style="font-size:13px;color:var(--so-aluminum-500)">Project Duration</span>
+              <span style="font-size:17px;font-weight:500">8 months</span>
+            </div>
+
+            <div style="overflow-x:auto">
+              <table class="data-table" id="team-table">
+                <thead>
+                  <tr>
+                    <th>Role</th><th>Allocation</th><th>Timeline</th>
+                    <th>Pay Rate/hr</th><th>Bill Rate/hr</th><th class="right">Total Cost</th>
+                  </tr>
+                </thead>
+                <tbody id="team-tbody"></tbody>
+              </table>
+            </div>
+
+            <div class="totals-block" style="margin-top:20px">
+              <div class="totals-row grand">
+                <span>Total Team Cost</span>
+                <span id="team-total">$0</span>
+              </div>
+              <div style="font-size:12px;color:var(--so-aluminum-400);margin-top:4px" id="team-summary-text"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════ PRICING ═══════ -->
+    <div class="page" id="page-pricing">
+      <div class="content-inner" style="max-width:1060px">
+        <div class="card">
+          <div class="card-header">
+            <h3>Pricing Configuration</h3>
+            <button class="btn btn-secondary btn-sm" id="pricing-edit-btn" onclick="toggleEdit('pricing')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              Edit
+            </button>
+          </div>
+          <div class="card-body">
+            <div class="formula-box">
+              <h4>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--so-lavender-600)" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                Pricing Formula
+              </h4>
+              <code>Total Proposal Value = (Team Cost + Hardware + Other Costs) x (1 + Margin %)</code>
+              <div class="note">All costs are summed, then the desired margin percentage is applied to calculate the final proposal value</div>
+            </div>
+
+            <div class="pricing-grid">
+              <div class="pricing-card">
+                <div class="pc-icon" style="background:var(--so-lavender-50)">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--so-lavender-600)" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                </div>
+                <div class="pc-label">Team Cost</div>
+                <div class="pc-value" id="pricing-team">$850,000</div>
+                <div class="pc-note">From Team tab calculations</div>
+              </div>
+              <div class="pricing-card">
+                <div class="pc-icon" style="background:var(--so-azure-50)">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--so-azure-500)" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+                </div>
+                <div class="pc-label">Hardware</div>
+                <div class="pc-value" id="pricing-hardware">$57,000</div>
+                <div class="pc-note">Infrastructure costs</div>
+              </div>
+              <div class="pricing-card">
+                <div class="pc-icon" style="background:var(--so-success-bg)">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--so-success)" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                </div>
+                <div class="pc-label">Other Costs</div>
+                <div class="pc-value" id="pricing-other">$35,500</div>
+                <div class="pc-note">Tools, travel, training, etc.</div>
+              </div>
+            </div>
+
+            <!-- Hardware Items -->
+            <h4 style="font-size:14px;font-weight:500;margin-bottom:12px">Hardware &amp; Infrastructure</h4>
+            <div id="hardware-items">
+              <div class="cost-item"><div class="ci-fields">
+                <input class="table-input pricing-field" value="Cloud Infrastructure" disabled>
+                <input class="table-input pricing-field" value="AWS compute, storage, and networking" disabled>
+                <div style="display:flex;align-items:center;gap:4px"><span style="color:var(--so-aluminum-400);font-size:13px">$</span><input class="table-input narrow pricing-field hw-cost" value="45000" disabled></div>
+                <button class="btn btn-danger btn-sm hw-remove" style="display:none">&times;</button>
+              </div></div>
+              <div class="cost-item"><div class="ci-fields">
+                <input class="table-input pricing-field" value="Monitoring & Security" disabled>
+                <input class="table-input pricing-field" value="DataDog, CloudWatch, security tools" disabled>
+                <div style="display:flex;align-items:center;gap:4px"><span style="color:var(--so-aluminum-400);font-size:13px">$</span><input class="table-input narrow pricing-field hw-cost" value="12000" disabled></div>
+                <button class="btn btn-danger btn-sm hw-remove" style="display:none">&times;</button>
+              </div></div>
+            </div>
+
+            <!-- Other Costs -->
+            <h4 style="font-size:14px;font-weight:500;margin:24px 0 12px">Other Costs</h4>
+            <div id="other-items">
+              <div class="cost-item"><div class="ci-fields">
+                <select class="table-input pricing-field" disabled><option selected>Tools &amp; Software</option></select>
+                <input class="table-input pricing-field" value="AWS Infrastructure costs (estimated monthly)" disabled>
+                <div style="display:flex;align-items:center;gap:4px"><span style="color:var(--so-aluminum-400);font-size:13px">$</span><input class="table-input narrow pricing-field oc-cost" value="12000" disabled></div>
+                <button class="btn btn-danger btn-sm oc-remove" style="display:none">&times;</button>
+              </div></div>
+              <div class="cost-item"><div class="ci-fields">
+                <select class="table-input pricing-field" disabled><option selected>Tools &amp; Software</option></select>
+                <input class="table-input pricing-field" value="Development tools licenses (Jira, GitHub, DataDog)" disabled>
+                <div style="display:flex;align-items:center;gap:4px"><span style="color:var(--so-aluminum-400);font-size:13px">$</span><input class="table-input narrow pricing-field oc-cost" value="4500" disabled></div>
+                <button class="btn btn-danger btn-sm oc-remove" style="display:none">&times;</button>
+              </div></div>
+              <div class="cost-item"><div class="ci-fields">
+                <select class="table-input pricing-field" disabled><option selected>Travel</option></select>
+                <input class="table-input pricing-field" value="On-site discovery and kickoff meetings" disabled>
+                <div style="display:flex;align-items:center;gap:4px"><span style="color:var(--so-aluminum-400);font-size:13px">$</span><input class="table-input narrow pricing-field oc-cost" value="8000" disabled></div>
+                <button class="btn btn-danger btn-sm oc-remove" style="display:none">&times;</button>
+              </div></div>
+              <div class="cost-item"><div class="ci-fields">
+                <select class="table-input pricing-field" disabled><option selected>Insurance</option></select>
+                <input class="table-input pricing-field" value="Professional liability insurance" disabled>
+                <div style="display:flex;align-items:center;gap:4px"><span style="color:var(--so-aluminum-400);font-size:13px">$</span><input class="table-input narrow pricing-field oc-cost" value="5000" disabled></div>
+                <button class="btn btn-danger btn-sm oc-remove" style="display:none">&times;</button>
+              </div></div>
+              <div class="cost-item"><div class="ci-fields">
+                <select class="table-input pricing-field" disabled><option selected>Training</option></select>
+                <input class="table-input pricing-field" value="Staff training materials and certification" disabled>
+                <div style="display:flex;align-items:center;gap:4px"><span style="color:var(--so-aluminum-400);font-size:13px">$</span><input class="table-input narrow pricing-field oc-cost" value="6000" disabled></div>
+                <button class="btn btn-danger btn-sm oc-remove" style="display:none">&times;</button>
+              </div></div>
+            </div>
+
+            <!-- Margin -->
+            <div class="margin-box" style="margin-top:24px">
+              <div class="m-left">
+                <h4>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--so-success)" stroke-width="1.5"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+                  Desired Margin
+                </h4>
+                <p>Markup percentage applied to subtotal</p>
+              </div>
+              <div class="m-right">
+                <input id="margin-input" class="form-input" style="width:80px;text-align:right;font-size:17px;font-weight:500" value="20">
+                <span style="font-size:17px;font-weight:500">%</span>
+              </div>
+            </div>
+
+            <!-- Totals -->
+            <div class="totals-block">
+              <div class="totals-row sub"><span>Subtotal (Team + Hardware + Other)</span><span id="pricing-subtotal">$942,500</span></div>
+              <div class="totals-row margin"><span>Margin (<span id="margin-pct">20</span>%)</span><span class="val" id="pricing-margin">+$188,500</span></div>
+              <div class="totals-row grand"><span>Total Proposal Value</span><span id="pricing-total">$1,131,000</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════ CREDENTIALS ═══════ -->
+    <div class="page" id="page-credentials">
+      <div class="content-inner">
+        <div class="card">
+          <div class="card-header">
+            <h3>Credentials &amp; Proof Points</h3>
+            <button class="btn btn-secondary btn-sm" id="cred-edit-btn" onclick="toggleEdit('credentials')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              Edit
+            </button>
+          </div>
+          <div class="card-body">
+            <div class="form-group">
+              <label class="form-label">Credentials Owner <span class="hint">Responsible for case study selection</span></label>
+              <input class="form-input cred-field" value="Emma Thompson" disabled>
+            </div>
+
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+              <h4 style="font-size:14px;font-weight:500">Selected Case Studies</h4>
+              <span style="font-size:12px;color:var(--so-aluminum-400)" id="cs-count">3 / 5 selected</span>
+            </div>
+            <p style="font-size:13px;color:var(--so-aluminum-500);margin-bottom:16px">Select 3-5 relevant case studies that demonstrate similar work and build credibility</p>
+
+            <div id="case-study-list"></div>
+
+            <div style="display:flex;align-items:center;gap:10px;margin:24px 0 12px">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--so-azure-500)" stroke-width="1.5"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+              <h4 style="font-size:14px;font-weight:500">Certifications &amp; Accreditations</h4>
+            </div>
+            <textarea class="form-textarea cred-field" rows="6" disabled>&#8226; AWS Advanced Consulting Partner
+&#8226; Microsoft Gold Partner
+&#8226; ISO 27001:2013 Certified
+&#8226; SOC 2 Type II Compliant
+&#8226; CMMI Level 3 Certified</textarea>
+          </div>
+        </div>
+        <div class="tip-box">
+          <h4>Pro Tips</h4>
+          <ul>
+            <li>Select case studies from similar industries or with comparable scope</li>
+            <li>Highlight measurable outcomes and client testimonials when available</li>
+            <li>Include relevant certifications that align with client requirements</li>
+            <li>Keep certifications current and verify expiration dates</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════ TIMELINE ═══════ -->
+    <div class="page" id="page-timeline">
+      <div class="content-inner" style="max-width:1120px">
+        <div class="card" style="margin-bottom:20px">
+          <div class="card-header">
+            <div>
+              <h3>Project Timeline &amp; Phases</h3>
+              <p style="font-size:12px;color:var(--so-aluminum-400);margin-top:2px">Visual Gantt chart with editable milestones</p>
+            </div>
+            <button class="btn btn-secondary btn-sm" id="timeline-edit-btn" onclick="toggleEdit('timeline')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              Edit Timeline
+            </button>
+          </div>
+          <div class="card-body">
+            <div class="form-row" style="grid-template-columns:1fr 1fr 1fr;margin-bottom:20px">
+              <div class="form-group">
+                <label class="form-label">Timeline Owner</label>
+                <input class="form-input tl-field" value="Alex Kumar" disabled>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Project Start Date</label>
+                <input type="date" class="form-input tl-field" value="2026-05-01" disabled>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Target Delivery Date</label>
+                <input type="date" class="form-input tl-field" value="2026-12-31" disabled>
+              </div>
+            </div>
+            <div style="padding:10px 16px;background:var(--so-aluminum-50);border-radius:var(--radius-sm);margin-bottom:24px;display:flex;justify-content:space-between;align-items:center">
+              <span style="font-size:13px;color:var(--so-aluminum-500)">Total Project Duration</span>
+              <div><span style="font-size:17px;font-weight:500">8 months</span> <span style="font-size:12px;color:var(--so-aluminum-400);margin-left:8px">(244 days)</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gantt -->
+        <div class="card" style="margin-bottom:20px">
+          <div class="card-body" style="overflow-x:auto">
+            <div id="gantt-chart"></div>
+          </div>
+        </div>
+
+        <!-- Phase Cards -->
+        <div style="margin-bottom:12px"><h4 style="font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--so-aluminum-400)">Phase Milestones</h4></div>
+        <div id="phase-cards"></div>
+
+        <div class="tip-box">
+          <h4>Pro Tips</h4>
+          <ul>
+            <li>Click "Edit Timeline" to modify phases, adjust dates, and change colors</li>
+            <li>Phases are displayed as visual bars showing duration and timing</li>
+            <li>Align phases with payment milestones and contract checkpoints</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════ CONTENT BUILDER ═══════ -->
+    <div class="page" id="page-builder">
+      <div class="content-inner" style="max-width:1120px">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px">
+          <div>
+            <h2 style="font-size:20px;font-weight:500;letter-spacing:-0.02em;margin-bottom:4px">Website Content Builder</h2>
+            <p style="font-size:13px;color:var(--so-aluminum-500)">Click sections from the libraries to build your client-facing proposal microsite</p>
+          </div>
+          <button class="btn btn-primary" onclick="showPage('preview')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 2L11 13"/><path d="M22 2L15 22L11 13L2 9L22 2Z"/></svg>
+            Publish Website
+          </button>
+        </div>
+
+        <div class="builder-grid">
+          <!-- Template Sections -->
+          <div class="builder-col">
+            <div class="card">
+              <div class="card-body">
+                <h3>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--so-lavender-600)" stroke-width="1.5"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/></svg>
+                  Template Sections
+                </h3>
+                <div class="col-desc">Standard company content</div>
+                <div id="template-library"></div>
+              </div>
+            </div>
+          </div>
+          <!-- Proposal Sections -->
+          <div class="builder-col">
+            <div class="card">
+              <div class="card-body">
+                <h3>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--so-azure-500)" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                  Proposal Sections
+                </h3>
+                <div class="col-desc">Generated from this proposal</div>
+                <div id="proposal-library"></div>
+              </div>
+            </div>
+          </div>
+          <!-- Active -->
+          <div class="builder-col">
+            <div class="card" style="border-color:var(--so-lavender-200)">
+              <div class="card-body">
+                <h3>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--so-azure-500)" stroke-width="1.5"><path d="M22 2L11 13"/><path d="M22 2L15 22L11 13L2 9L22 2Z"/></svg>
+                  On This Website
+                </h3>
+                <div class="col-desc" id="active-count">3 sections</div>
+                <div id="active-sections"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tip-box">
+          <h4>Pro Tips</h4>
+          <ul>
+            <li>Click sections in the libraries to add them to your website</li>
+            <li>Click the X button to remove sections from the website</li>
+            <li>The order here determines the order on your published microsite</li>
+            <li>Click "Publish Website" when ready to make changes live</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════ PREVIEW ═══════ -->
+    <div class="page" id="page-preview">
+      <div class="content-inner" style="max-width:960px">
+        <div class="preview-frame">
+          <div class="preview-hero">
+            <p style="font-size:12px;text-transform:uppercase;letter-spacing:0.06em;opacity:0.7;margin-bottom:8px;font-weight:500">Proposal for ACME Corporation</p>
+            <h1>Digital Transformation Initiative</h1>
+            <p style="margin-top:12px">Prepared by Experis Digital Services &middot; May 2026</p>
+          </div>
+          <div class="preview-sections" id="preview-content"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<script>
+/* ══════════════════════════════════════════════════════════════
+   DATA
+   ══════════════════════════════════════════════════════════════ */
+const proposals = [
+  { id:1, client:"Acme Corporation", status:"In Progress", progress:75, deadline:"Mar 26, 2026", team:4 },
+  { id:2, client:"GlobalTech Industries", status:"Review", progress:90, deadline:"Mar 12, 2026", team:5 },
+  { id:3, client:"FutureCo", status:"Draft", progress:35, deadline:"Mar 20, 2026", team:3 },
+  { id:4, client:"HealthTech Solutions", status:"In Progress", progress:60, deadline:"Mar 13, 2026", team:6 },
+];
+
+const deadlines = [
+  { client:"GlobalTech Industries", deadline:"Mar 12, 2026", days:6, status:"On Track" },
+  { client:"HealthTech Solutions", deadline:"Mar 13, 2026", days:7, status:"On Track" },
+  { client:"FinanceHub", deadline:"Mar 14, 2026", days:8, status:"At Risk" },
+];
+
+const tasks = [
+  { title:"Review technical requirements section", proposal:"HealthTech EHR Modernization", due:"2026-03-13", priority:"high", status:"todo" },
+  { title:"Complete pricing model for cloud migration", proposal:"Enterprise Cloud Migration", due:"2026-03-14", priority:"high", status:"in-progress" },
+  { title:"Write case study: Similar healthcare project", proposal:"HealthTech EHR Modernization", due:"2026-03-15", priority:"medium", status:"in-progress" },
+  { title:"Technical architecture diagram review", proposal:"Digital Banking Platform", due:"2026-03-12", priority:"high", status:"todo" },
+  { title:"Finalize SOW deliverables list", proposal:"Retail Analytics Platform", due:"2026-03-17", priority:"medium", status:"completed" },
+];
+
+const activities = [
+  { user:"Sarah Chen", initials:"SC", action:"updated pricing for", proposal:"Acme Corporation", time:"2 hours ago" },
+  { user:"Mike Rodriguez", initials:"MR", action:"added team member to", proposal:"GlobalTech Industries", time:"4 hours ago" },
+  { user:"Emma Thompson", initials:"ET", action:"uploaded case study to", proposal:"FutureCo", time:"6 hours ago" },
+  { user:"Alex Kumar", initials:"AK", action:"published preview for", proposal:"Acme Corporation", time:"1 day ago" },
+];
+
+const teamMembers = [
+  { role:"Project Manager", alloc:100, start:0, end:100, pay:175, bill:280 },
+  { role:"Technical Lead", alloc:100, start:0, end:90, pay:195, bill:310 },
+  { role:"Senior Engineer", alloc:100, start:10, end:100, pay:185, bill:295 },
+  { role:"Senior Engineer", alloc:100, start:10, end:100, pay:185, bill:295 },
+  { role:"DevOps Engineer", alloc:75, start:0, end:100, pay:165, bill:265 },
+  { role:"UX Designer", alloc:50, start:0, end:60, pay:155, bill:248 },
+  { role:"QA Engineer", alloc:75, start:30, end:100, pay:135, bill:215 },
+];
+
+const caseStudies = [
+  { id:1, title:"Enterprise Cloud Migration", client:"Fortune 500 Tech Co", value:"$2.5M", industry:"Technology", selected:true },
+  { id:15, title:"Healthcare System Modernization", client:"Regional Health Network", value:"$3.2M", industry:"Healthcare", selected:true },
+  { id:23, title:"Financial Services Platform", client:"National Bank", value:"$4.1M", industry:"Finance", selected:true },
+  { id:4, title:"Digital Banking Platform", client:"FinanceHub Corp", value:"$1.8M", industry:"Financial Services", selected:false },
+  { id:7, title:"Cloud Migration & Optimization", client:"TechVentures Inc", value:"$1.2M", industry:"Technology", selected:false },
+];
+
+const phases = [
+  { name:"Discovery & Architecture", start:"2026-05-01", end:"2026-05-29", color:"#6B4FA8", deliverables:"Requirements gathering, technical architecture design, infrastructure planning" },
+  { name:"Foundation & Setup", start:"2026-06-01", end:"2026-07-24", color:"#4A96DB", deliverables:"Development environment setup, CI/CD pipeline configuration, base infrastructure" },
+  { name:"Core Migration", start:"2026-07-27", end:"2026-10-23", color:"#6B4FA8", deliverables:"Database migration, API development, integration with existing systems" },
+  { name:"Testing & Security", start:"2026-10-26", end:"2026-11-20", color:"#4A96DB", deliverables:"QA testing, security audit, performance optimization" },
+  { name:"Deployment & Launch", start:"2026-11-23", end:"2026-12-31", color:"#8468C0", deliverables:"Production deployment, user training, documentation, support transition" },
+];
+
+const templateSections = [
+  { id:"company-overview", title:"Company Overview", desc:"Introduction to your organization", type:"template" },
+  { id:"global-footprint", title:"Global Footprint", desc:"Worldwide presence and locations", type:"template" },
+  { id:"awards-recognition", title:"Awards & Recognition", desc:"Industry awards and achievements", type:"template" },
+  { id:"leadership-team", title:"Leadership Team", desc:"Executive leadership profiles", type:"template" },
+  { id:"market-position", title:"Market Position", desc:"Industry standing and differentiators", type:"template" },
+  { id:"methodology", title:"Our Methodology", desc:"Delivery approach and frameworks", type:"template" },
+];
+
+const proposalSections = [
+  { id:"project-timeline", title:"Project Timeline", desc:"Visual timeline with phases", type:"proposal" },
+  { id:"team-composition", title:"Team Composition", desc:"Proposed team members and roles", type:"proposal" },
+  { id:"pricing-investment", title:"Pricing & Investment", desc:"Cost breakdown and payment terms", type:"proposal" },
+  { id:"scope-deliverables", title:"Scope & Deliverables", desc:"Project objectives and outcomes", type:"proposal" },
+  { id:"case-studies", title:"Case Studies", desc:"Relevant proof points", type:"proposal" },
+];
+
+let activeSections = [
+  { ...proposalSections[3], position:0 },
+  { ...proposalSections[0], position:1 },
+  { ...proposalSections[1], position:2 },
+];
+
+const previewSections = [
+  { title:"Executive Summary", content:"ACME Corporation has requested a comprehensive digital transformation partner to modernize legacy infrastructure and migrate to cloud-native architecture. Experis proposes an 8-month engagement delivering cloud migration, application modernization, and DevOps implementation. Our solution will reduce operational costs by 40%, achieve 99.9% uptime, and position ACME for scalable growth. Total investment of $1,131,000 includes dedicated team, infrastructure setup, and 90-day post-launch support." },
+  { title:"Understanding the Challenge", content:"ACME Corporation currently operates on legacy systems that limit business agility and scalability. The existing infrastructure is reaching capacity constraints, with systems at 85% utilization creating performance bottlenecks. Data silos across departments prevent unified insights and real-time decision-making. Time-to-market for new features averages 30% slower than industry benchmarks." },
+  { title:"Our Proposed Solution", content:"Experis will deliver a comprehensive cloud transformation built on AWS infrastructure with multi-region redundancy. We'll migrate 50+ legacy applications to containerized microservices using Kubernetes orchestration, implement modern CI/CD pipelines with automated testing, and build custom analytics dashboards for real-time insights." },
+  { title:"Project Timeline & Milestones", content:"The 8-month project begins May 1, 2026 with completion targeted for December 31, 2026. Phase 1 (Weeks 1-4): Discovery and architecture design. Phase 2 (Weeks 5-12): Foundation setup and environment provisioning. Phase 3 (Weeks 13-24): Core migration and development. Phase 4 (Weeks 25-28): Testing, security audit, and optimization. Phase 5 (Weeks 29-32): Production deployment, training, and support." },
+  { title:"Investment & Pricing", content:"Total project investment: $1,131,000. This includes team costs ($850,000), hardware and infrastructure ($57,000), and other project expenses ($35,500), with a 20% margin applied. Payment structure: 25% upon contract signing, 50% distributed across milestone completions, and 25% upon successful production launch." },
+  { title:"Your Dedicated Team", content:"Your project will be led by Sarah Chen (Project Manager, 15+ years enterprise transformation experience), supported by a Technical Lead with AWS certifications, two Senior Engineers specializing in cloud architecture, a DevOps Engineer for infrastructure automation, a UX Designer for dashboard development, and a QA Engineer ensuring quality." },
+  { title:"Proven Track Record", content:"Experis has successfully delivered similar transformations for leading enterprises. Recent engagements include: Enterprise Cloud Migration for Fortune 500 Tech Co ($2.5M value) achieving 60% infrastructure cost reduction; Healthcare System Modernization for Regional Health Network ($3.2M) improving patient data access by 45%; Financial Services Platform for National Bank ($4.1M) processing 2M+ transactions daily." },
+  { title:"Security & Compliance", content:"Experis maintains SOC 2 Type II, ISO 27001:2013, and CMMI Level 3 certifications. We're an AWS Advanced Consulting Partner and Microsoft Gold Partner. Our security framework includes end-to-end encryption, regular penetration testing, secure SDLC practices, and comprehensive audit trails." },
+  { title:"Next Steps", content:"We recommend scheduling a 90-minute alignment call within the next week to review technical details, discuss team composition, and finalize project governance. Following approval, we can begin onboarding activities immediately with a target start date of May 1, 2026. Contact Sarah Chen at sarah.chen@experis.com to move forward." },
+];
+
+/* ══════════════════════════════════════════════════════════════
+   RENDER FUNCTIONS
+   ══════════════════════════════════════════════════════════════ */
+function fmt(n){ return '$' + n.toLocaleString(undefined,{maximumFractionDigits:0}); }
+
+function renderDashboard(){
+  // Proposals
+  const pl = document.getElementById('proposal-list');
+  pl.innerHTML = proposals.map(p => `
+    <div class="proposal-item" onclick="showPage('summary')">
+      <div class="info">
+        <h4>${p.client}</h4>
+        <p>Due ${p.deadline} &middot; ${p.team} team members</p>
+      </div>
+      <div class="meta">
+        <span class="badge badge-${p.status==='Review'?'success':p.status==='Draft'?'info':'info'}">${p.status}</span>
+        <div style="text-align:right">
+          <div style="font-size:12px;font-weight:500;margin-bottom:4px">${p.progress}%</div>
+          <div class="progress-bar"><div class="fill" style="width:${p.progress}%"></div></div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+
+  // Deadlines
+  const dl = document.getElementById('deadline-list');
+  dl.innerHTML = deadlines.map(d => `
+    <div style="display:flex;align-items:center;gap:14px;padding:14px;border:1px solid var(--border-hairline);border-radius:var(--radius-sm);margin-bottom:8px">
+      <div style="width:36px;height:36px;border-radius:var(--radius-sm);background:var(--so-aluminum-100);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--so-aluminum-600)" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <div style="flex:1">
+        <div style="font-size:13px;font-weight:500">${d.client}</div>
+        <div style="font-size:11px;color:var(--so-aluminum-400)">${d.deadline}</div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:13px;font-weight:500">${d.days}d</div>
+        <span class="badge badge-${d.status==='At Risk'?'warning':'success'}" style="font-size:10px">${d.status}</span>
+      </div>
+    </div>
+  `).join('');
+
+  // Tasks
+  const tl = document.getElementById('task-list');
+  tl.innerHTML = tasks.map(t => `
+    <div class="task-item">
+      <div class="task-check ${t.status==='completed'?'done':t.status==='in-progress'?'in-progress':''}">
+        ${t.status==='completed'?'<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>':''}
+      </div>
+      <div class="task-content">
+        <h4 style="${t.status==='completed'?'text-decoration:line-through;color:var(--so-aluminum-400)':''}">${t.title}</h4>
+        <div class="task-meta">
+          <span>${t.proposal}</span>
+          <span>${t.due}</span>
+          <span class="priority-${t.priority}">${t.priority}</span>
+        </div>
+      </div>
+    </div>
+  `).join('');
+
+  // Activity
+  const af = document.getElementById('activity-feed');
+  af.innerHTML = activities.map(a => `
+    <div class="activity-item">
+      <div class="activity-avatar">${a.initials}</div>
+      <div>
+        <div class="activity-text"><strong>${a.user}</strong> <span class="muted">${a.action}</span> <strong>${a.proposal}</strong></div>
+        <div class="activity-time">${a.time}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderTeam(){
+  const tbody = document.getElementById('team-tbody');
+  let totalCost = 0;
+  const months = 8;
+  tbody.innerHTML = teamMembers.map(m => {
+    const timeOn = (m.end - m.start) / 100;
+    const cost = m.bill * 160 * months * (m.alloc/100) * timeOn;
+    totalCost += cost;
+    return `<tr>
+      <td><input class="table-input team-field" value="${m.role}" disabled></td>
+      <td><div style="display:flex;align-items:center;gap:4px"><input class="table-input med team-field" value="${m.alloc}" disabled><span style="font-size:12px;color:var(--so-aluminum-400)">%</span></div></td>
+      <td><span style="font-size:12px;color:var(--so-aluminum-500)">${m.start}% - ${m.end}%</span></td>
+      <td><div style="display:flex;align-items:center;gap:4px"><span style="font-size:12px;color:var(--so-aluminum-400)">$</span><input class="table-input narrow team-field" value="${m.pay}" disabled></div></td>
+      <td><div style="display:flex;align-items:center;gap:4px"><span style="font-size:12px;color:var(--so-aluminum-400)">$</span><input class="table-input narrow team-field" value="${m.bill}" disabled></div></td>
+      <td class="right" style="font-weight:500">${fmt(cost)}</td>
+    </tr>`;
+  }).join('');
+  document.getElementById('team-total').textContent = fmt(totalCost);
+  document.getElementById('team-summary-text').textContent = `Based on ${teamMembers.length} team members over ${months} months`;
+}
+
+function renderCaseStudies(){
+  const el = document.getElementById('case-study-list');
+  el.innerHTML = caseStudies.map(cs => `
+    <div class="cs-card ${cs.selected?'selected':''}" onclick="toggleCaseStudy(${cs.id})">
+      <div class="cs-info">
+        <h4>${cs.title} <span class="badge badge-info" style="font-size:10px">${cs.industry}</span></h4>
+        <p>${cs.client} &middot; ${cs.value} value</p>
+      </div>
+      <div class="cs-check">${cs.selected?'<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>':''}</div>
+    </div>
+  `).join('');
+  document.getElementById('cs-count').textContent = `${caseStudies.filter(c=>c.selected).length} / 5 selected`;
+}
+
+function toggleCaseStudy(id){
+  const cs = caseStudies.find(c=>c.id===id);
+  if(!cs) return;
+  const selectedCount = caseStudies.filter(c=>c.selected).length;
+  if(cs.selected){ cs.selected = false; }
+  else if(selectedCount < 5){ cs.selected = true; }
+  renderCaseStudies();
+}
+
+function renderGantt(){
+  const el = document.getElementById('gantt-chart');
+  const projectStart = new Date('2026-05-01').getTime();
+  const projectEnd = new Date('2026-12-31').getTime();
+  const totalDuration = projectEnd - projectStart;
+
+  // Month headers
+  const monthNames = [];
+  let cur = new Date('2026-05-01');
+  while(cur <= new Date('2026-12-31')){
+    monthNames.push(cur.toLocaleDateString('en-US',{month:'short'}));
+    cur = new Date(cur.getFullYear(), cur.getMonth()+1, 1);
+  }
+
+  let html = `<div class="gantt-header">
+    <div class="gantt-label-col">Phase Name</div>
+    <div class="gantt-timeline">${monthNames.map(m=>`<div class="gantt-month" style="flex:1">${m}</div>`).join('')}</div>
+  </div>`;
+
+  phases.forEach(p => {
+    const pStart = new Date(p.start).getTime();
+    const pEnd = new Date(p.end).getTime();
+    const left = ((pStart - projectStart) / totalDuration) * 100;
+    const width = ((pEnd - pStart) / totalDuration) * 100;
+    const weeks = Math.ceil((pEnd - pStart) / (7*24*60*60*1000));
+    html += `<div class="gantt-row">
+      <div class="gantt-row-label">${p.name}</div>
+      <div class="gantt-row-track">
+        <div class="gantt-bar" style="left:${left}%;width:${width}%;background:${p.color}">${weeks}w</div>
+      </div>
+    </div>`;
+  });
+  el.innerHTML = html;
+}
+
+function renderPhaseCards(){
+  const el = document.getElementById('phase-cards');
+  el.innerHTML = phases.map(p => `
+    <div class="phase-card">
+      <div class="phase-indicator" style="background:${p.color}"></div>
+      <div style="flex:1">
+        <h4>${p.name}</h4>
+        <p>${p.deliverables}</p>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderBuilder(){
+  // Template library
+  const tl = document.getElementById('template-library');
+  tl.innerHTML = templateSections.map(s => {
+    const added = activeSections.some(a=>a.id===s.id);
+    return `<div class="library-item ${added?'added':''}" onclick="${added?'':'addSection('+JSON.stringify(s).replace(/"/g,"&quot;")+')'}">
+      <div class="li-icon" style="background:var(--so-lavender-50)">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--so-lavender-600)" stroke-width="1.5"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/></svg>
+      </div>
+      <div class="li-text"><h4>${s.title}</h4><p>${s.desc}</p></div>
+      ${added?'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--so-success)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>':''}
+    </div>`;
+  }).join('');
+
+  // Proposal library
+  const pl = document.getElementById('proposal-library');
+  pl.innerHTML = proposalSections.map(s => {
+    const added = activeSections.some(a=>a.id===s.id);
+    return `<div class="library-item ${added?'added':''}" onclick="${added?'':'addSection('+JSON.stringify(s).replace(/"/g,"&quot;")+')'}">
+      <div class="li-icon" style="background:var(--so-azure-50)">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--so-azure-500)" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      </div>
+      <div class="li-text"><h4>${s.title}</h4><p>${s.desc}</p></div>
+      ${added?'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--so-success)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>':''}
+    </div>`;
+  }).join('');
+
+  // Active sections
+  const as = document.getElementById('active-sections');
+  if(activeSections.length===0){
+    as.innerHTML = '<div style="padding:32px;text-align:center;border:2px dashed var(--border-light);border-radius:var(--radius-sm);color:var(--so-aluminum-400);font-size:13px">Click sections in the libraries to add them here</div>';
+  } else {
+    as.innerHTML = activeSections.map((s,i) => `
+      <div class="active-section">
+        <div class="order-num">${i+1}</div>
+        <div class="as-icon" style="background:${s.type==='template'?'var(--so-lavender-50)':'var(--so-azure-50)'}">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${s.type==='template'?'var(--so-lavender-600)':'var(--so-azure-500)'}" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        </div>
+        <div class="as-text"><h4>${s.title}</h4><p>${s.desc}</p></div>
+        <button class="as-remove" onclick="removeSection('${s.id}')">&times;</button>
+      </div>
+    `).join('');
+  }
+  document.getElementById('active-count').textContent = `${activeSections.length} section${activeSections.length!==1?'s':''}`;
+}
+
+function addSection(s){
+  if(activeSections.find(a=>a.id===s.id)) return;
+  activeSections.push({...s, position:activeSections.length});
+  renderBuilder();
+}
+
+function removeSection(id){
+  activeSections = activeSections.filter(s=>s.id!==id);
+  activeSections.forEach((s,i)=>s.position=i);
+  renderBuilder();
+}
+
+function renderPreview(){
+  const el = document.getElementById('preview-content');
+  el.innerHTML = previewSections.map(s => `
+    <div class="preview-section">
+      <h3>${s.title}</h3>
+      <p>${s.content}</p>
+    </div>
+  `).join('');
+}
+
+function recalcPricing(){
+  const hwInputs = document.querySelectorAll('.hw-cost');
+  const ocInputs = document.querySelectorAll('.oc-cost');
+  let hwTotal = 0, ocTotal = 0;
+  hwInputs.forEach(inp => { hwTotal += parseFloat(inp.value)||0; });
+  ocInputs.forEach(inp => { ocTotal += parseFloat(inp.value)||0; });
+  const teamCost = 850000;
+  const margin = parseFloat(document.getElementById('margin-input').value)||0;
+  const subtotal = teamCost + hwTotal + ocTotal;
+  const marginAmt = subtotal * (margin/100);
+  const total = subtotal + marginAmt;
+
+  document.getElementById('pricing-hardware').textContent = fmt(hwTotal);
+  document.getElementById('pricing-other').textContent = fmt(ocTotal);
+  document.getElementById('pricing-subtotal').textContent = fmt(subtotal);
+  document.getElementById('pricing-margin').textContent = '+' + fmt(marginAmt);
+  document.getElementById('margin-pct').textContent = margin;
+  document.getElementById('pricing-total').textContent = fmt(total);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   NAVIGATION & EDIT TOGGLE
+   ══════════════════════════════════════════════════════════════ */
+const pageTitles = {
+  dashboard:["Dashboard","Welcome back! Here's what's happening."],
+  documents:["Documents","Upload and manage RFP documents"],
+  summary:["Summary","Proposal basics and scope of work"],
+  team:["Team","Configure team members and allocation"],
+  pricing:["Pricing","Cost breakdown and margin configuration"],
+  credentials:["Proof Points","Case studies and certifications"],
+  timeline:["Timeline","Project phases and milestones"],
+  builder:["Content Builder","Build your client-facing proposal microsite"],
+  preview:["Preview","Client-facing proposal preview"],
+};
+
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('visible'));
+  document.getElementById('page-'+id).classList.add('visible');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.querySelector(`.nav-item[data-page="${id}"]`)?.classList.add('active');
+  const titles = pageTitles[id]||["",""];
+  document.getElementById('topbar-title').textContent = titles[0];
+  document.getElementById('topbar-sub').textContent = titles[1];
+  document.getElementById('content-area').scrollTop = 0;
+}
+
+const editStates = {};
+
+function toggleEdit(section){
+  const fieldClass = {summary:'summary-field',team:'team-field',pricing:'pricing-field',credentials:'cred-field',timeline:'tl-field'}[section];
+  const btnId = {summary:'summary-edit-btn',team:'team-edit-btn',pricing:'pricing-edit-btn',credentials:'cred-edit-btn',timeline:'timeline-edit-btn'}[section];
+  const isEditing = editStates[section];
+  const fields = document.querySelectorAll('.'+fieldClass);
+  const btn = document.getElementById(btnId);
+
+  if(isEditing){
+    // Save
+    fields.forEach(f=>f.disabled=true);
+    btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Edit';
+    btn.className = 'btn btn-secondary btn-sm';
+    editStates[section] = false;
+    if(section==='pricing') recalcPricing();
+  } else {
+    // Edit
+    fields.forEach(f=>f.disabled=false);
+    btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg> Save Changes';
+    btn.className = 'btn btn-primary btn-sm';
+    editStates[section] = true;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   INIT
+   ══════════════════════════════════════════════════════════════ */
+document.addEventListener('DOMContentLoaded', function(){
+  renderDashboard();
+  renderTeam();
+  renderCaseStudies();
+  renderGantt();
+  renderPhaseCards();
+  renderBuilder();
+  renderPreview();
+
+  // Live pricing recalc
+  document.getElementById('margin-input').addEventListener('input', recalcPricing);
+});
+</script>
+</body>
+</html>

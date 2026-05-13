@@ -1,0 +1,1882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 Updated Competency — Experis</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,450;14..32,500;14..32,600&display=swap" rel="stylesheet">
+<style>
+/* ================================================================
+   TOKENS
+   ================================================================ */
+:root {
+  --so-lavender-50:   #F7F5FB;
+  --so-lavender-100:  #EEEAF6;
+  --so-lavender-200:  #DDD5EE;
+  --so-lavender-300:  #C4B5E3;
+  --so-lavender-400:  #A48DD4;
+  --so-lavender-500:  #8468C0;
+  --so-lavender-600:  #6B4FA8;
+  --so-lavender-700:  #553E8A;
+
+  --so-azure-50:      #F0F6FC;
+  --so-azure-100:     #DEEAF7;
+  --so-azure-200:     #B8D4F0;
+  --so-azure-300:     #7AB5E8;
+  --so-azure-400:     #4A96DB;
+  --so-azure-500:     #2A7BC8;
+  --so-azure-600:     #1D60A3;
+
+  --so-aluminum-0:    #FFFFFF;
+  --so-aluminum-50:   #FAFBFC;
+  --so-aluminum-100:  #F4F5F7;
+  --so-aluminum-150:  #ECEDF1;
+  --so-aluminum-200:  #E2E4E9;
+  --so-aluminum-300:  #D0D3DA;
+  --so-aluminum-400:  #A1A6B4;
+  --so-aluminum-500:  #767C8E;
+  --so-aluminum-600:  #565C6E;
+  --so-aluminum-700:  #3B3F4F;
+  --so-aluminum-800:  #252836;
+  --so-aluminum-900:  #151722;
+
+  --so-gradient:         linear-gradient(135deg, #C4B5E3 0%, #7AB5E8 100%);
+  --so-gradient-subtle:  linear-gradient(135deg, #F7F5FB 0%, #F0F6FC 100%);
+  --so-gradient-vibrant: linear-gradient(135deg, #8468C0 0%, #4A96DB 100%);
+
+  --so-bg-page:      #FAFBFC;
+  --so-bg-card:      #FFFFFF;
+  --so-bg-inset:     #F4F5F7;
+  --so-text-primary:   #151722;
+  --so-text-secondary: #565C6E;
+  --so-text-tertiary:  #A1A6B4;
+  --so-text-accent:    #6B4FA8;
+
+  --so-border-hairline: rgba(0,0,0,0.06);
+  --so-border-light:    rgba(0,0,0,0.10);
+  --so-border-medium:   rgba(0,0,0,0.16);
+
+  --so-shadow-card: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02);
+  --so-shadow-md:   0 2px 8px rgba(0,0,0,0.06);
+
+  --so-font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --so-radius-sm: 6px;
+  --so-radius-md: 10px;
+  --so-radius-lg: 14px;
+
+  --so-ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --so-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* DARK MODE */
+[data-theme="dark"] {
+  --so-bg-page:      #151722;
+  --so-bg-card:      #1E2030;
+  --so-bg-inset:     #252836;
+  --so-text-primary:   #F4F5F7;
+  --so-text-secondary: #A1A6B4;
+  --so-text-tertiary:  #767C8E;
+  --so-text-accent:    #C4B5E3;
+  --so-border-hairline: rgba(255,255,255,0.06);
+  --so-border-light:    rgba(255,255,255,0.10);
+  --so-border-medium:   rgba(255,255,255,0.16);
+  --so-shadow-card: 0 1px 3px rgba(0,0,0,0.2);
+  --so-shadow-md:   0 2px 8px rgba(0,0,0,0.3);
+}
+
+/* ================================================================
+   RESET & BASE
+   ================================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  font-family: var(--so-font);
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--so-text-primary);
+  background: var(--so-bg-page);
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+}
+
+body { overflow: hidden; height: 100vh; }
+
+/* ================================================================
+   TOP BAR
+   ================================================================ */
+.topbar {
+  position: fixed;
+  top: 56px; left: 0; right: 0;
+  height: 40px;
+  background: var(--so-bg-card);
+  border-bottom: 1px solid var(--so-border-hairline);
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  z-index: 90;
+  backdrop-filter: blur(12px);
+}
+
+.topbar-title {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--so-text-secondary);
+  flex: 1;
+}
+
+.topbar-title span {
+  color: var(--so-text-primary);
+  font-weight: 600;
+}
+
+.topbar-counter {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--so-text-tertiary);
+  letter-spacing: 0.02em;
+  margin-right: 16px;
+  font-variant-numeric: tabular-nums;
+}
+
+.topbar-progress {
+  width: 200px;
+  height: 3px;
+  background: var(--so-border-hairline);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-right: 16px;
+  position: relative;
+}
+
+.topbar-progress-bar {
+  height: 100%;
+  background: var(--so-gradient-vibrant);
+  border-radius: 2px;
+  transition: width 0.4s var(--so-ease-out);
+}
+
+.theme-toggle {
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--so-border-light);
+  border-radius: var(--so-radius-sm);
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--so-text-secondary);
+  transition: all 0.2s var(--so-ease);
+}
+.theme-toggle:hover {
+  background: var(--so-bg-inset);
+  color: var(--so-text-primary);
+}
+
+/* ================================================================
+   SLIDE CONTAINER
+   ================================================================ */
+.slides-container {
+  position: fixed;
+  top: 56px; left: 0; right: 0; bottom: 0;
+  overflow: hidden;
+}
+
+.slide {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px;
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity 0.45s var(--so-ease), transform 0.45s var(--so-ease-out);
+  pointer-events: none;
+  overflow-y: auto;
+}
+
+.slide.active {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+.slide.exit-left {
+  opacity: 0;
+  transform: translateX(-40px);
+}
+
+.slide-inner {
+  max-width: 960px;
+  width: 100%;
+}
+
+/* ================================================================
+   SECTION DIVIDER SLIDES
+   ================================================================ */
+.slide--divider {
+  background: var(--so-gradient-subtle);
+}
+
+[data-theme="dark"] .slide--divider {
+  background: linear-gradient(135deg, rgba(107,79,168,0.08) 0%, rgba(74,150,219,0.08) 100%);
+}
+
+.divider-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--so-text-accent);
+  margin-bottom: 16px;
+}
+
+.divider-number {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--so-text-tertiary);
+  margin-bottom: 8px;
+}
+
+/* ================================================================
+   TYPOGRAPHY
+   ================================================================ */
+.t-hero {
+  font-size: 56px;
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.t-h1 {
+  font-size: 40px;
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.t-h2 {
+  font-size: 32px;
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+
+.t-h3 {
+  font-size: 24px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+
+.t-body {
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--so-text-secondary);
+}
+
+.t-body-lg {
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--so-text-secondary);
+}
+
+.t-caption {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--so-text-tertiary);
+}
+
+.t-accent { color: var(--so-text-accent); }
+.t-semi { font-weight: 600; }
+
+.gradient-text {
+  background: var(--so-gradient-vibrant);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ================================================================
+   ACCENT BAR
+   ================================================================ */
+.accent-bar {
+  width: 40px;
+  height: 3px;
+  background: var(--so-gradient);
+  border-radius: 2px;
+  margin-bottom: 24px;
+}
+
+.accent-bar--lg {
+  width: 64px;
+  height: 3px;
+}
+
+/* ================================================================
+   CARDS & GRID
+   ================================================================ */
+.card {
+  background: var(--so-bg-card);
+  border: 1px solid var(--so-border-hairline);
+  border-radius: var(--so-radius-md);
+  padding: 24px;
+  box-shadow: var(--so-shadow-card);
+}
+
+.card-grid {
+  display: grid;
+  gap: 16px;
+}
+
+.card-grid--2 { grid-template-columns: 1fr 1fr; }
+.card-grid--3 { grid-template-columns: 1fr 1fr 1fr; }
+.card-grid--4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+
+.card-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--so-radius-sm);
+  background: var(--so-gradient-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  font-size: 16px;
+}
+
+[data-theme="dark"] .card-icon {
+  background: linear-gradient(135deg, rgba(107,79,168,0.15) 0%, rgba(74,150,219,0.15) 100%);
+}
+
+.card-title {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+}
+
+.card-text {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--so-text-secondary);
+}
+
+/* ================================================================
+   STAT CARDS
+   ================================================================ */
+.stat-card {
+  text-align: center;
+  padding: 32px 24px;
+}
+
+.stat-value {
+  font-size: 48px;
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.stat-unit {
+  font-size: 24px;
+  font-weight: 300;
+  color: var(--so-text-accent);
+}
+
+.stat-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--so-text-secondary);
+  margin-bottom: 4px;
+}
+
+.stat-detail {
+  font-size: 11px;
+  color: var(--so-text-tertiary);
+  line-height: 1.5;
+}
+
+/* ================================================================
+   BAR CHARTS (CSS ONLY)
+   ================================================================ */
+.bar-group {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  height: 160px;
+  padding-top: 16px;
+}
+
+.bar-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  justify-content: flex-end;
+}
+
+.bar-fill {
+  width: 100%;
+  max-width: 48px;
+  border-radius: 4px 4px 0 0;
+  transition: height 0.6s var(--so-ease-out);
+}
+
+.bar-fill--lavender { background: var(--so-lavender-400); }
+.bar-fill--azure { background: var(--so-azure-400); }
+.bar-fill--gradient { background: var(--so-gradient-vibrant); }
+
+.bar-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--so-text-tertiary);
+  margin-top: 8px;
+  text-align: center;
+}
+
+.bar-value {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--so-text-primary);
+  margin-bottom: 4px;
+}
+
+/* ================================================================
+   TEAM COMPOSITION VIS
+   ================================================================ */
+.team-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.team-block {
+  padding: 24px;
+  border-radius: var(--so-radius-md);
+  border: 1px solid var(--so-border-light);
+}
+
+.team-year {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--so-text-tertiary);
+  margin-bottom: 16px;
+}
+
+.team-role {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--so-border-hairline);
+}
+
+.team-role:last-child { border-bottom: none; }
+
+.team-role-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--so-text-secondary);
+}
+
+.team-role-count {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.team-role-count--zero { color: var(--so-text-tertiary); }
+.team-role-count--highlight { color: var(--so-text-accent); }
+
+/* ================================================================
+   QUOTE
+   ================================================================ */
+.quote-block {
+  position: relative;
+  padding: 24px 24px 24px 28px;
+  background: var(--so-bg-inset);
+  border-radius: var(--so-radius-md);
+  border-left: 3px solid;
+  border-image: var(--so-gradient-vibrant) 1;
+}
+
+.quote-text {
+  font-size: 15px;
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.6;
+  color: var(--so-text-secondary);
+}
+
+.quote-attr {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--so-text-tertiary);
+  margin-top: 12px;
+}
+
+/* ================================================================
+   PROCESS FLOW
+   ================================================================ */
+.process-flow {
+  display: flex;
+  gap: 4px;
+  align-items: stretch;
+}
+
+.process-step {
+  flex: 1;
+  padding: 20px 16px;
+  background: var(--so-bg-card);
+  border: 1px solid var(--so-border-hairline);
+  border-radius: var(--so-radius-sm);
+  text-align: center;
+  position: relative;
+}
+
+.process-step-num {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--so-text-accent);
+  margin-bottom: 8px;
+}
+
+.process-step-title {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.process-step-text {
+  font-size: 11px;
+  color: var(--so-text-tertiary);
+  line-height: 1.45;
+}
+
+.process-arrow {
+  display: flex;
+  align-items: center;
+  color: var(--so-text-tertiary);
+  font-size: 14px;
+}
+
+/* ================================================================
+   BADGE
+   ================================================================ */
+.badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 4px 10px;
+  border-radius: 100px;
+  background: var(--so-gradient-subtle);
+  color: var(--so-text-accent);
+}
+
+[data-theme="dark"] .badge {
+  background: linear-gradient(135deg, rgba(107,79,168,0.15) 0%, rgba(74,150,219,0.15) 100%);
+}
+
+/* ================================================================
+   PILL TABS
+   ================================================================ */
+.engagement-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.engagement-card {
+  padding: 24px;
+  background: var(--so-bg-card);
+  border: 1px solid var(--so-border-hairline);
+  border-radius: var(--so-radius-md);
+  box-shadow: var(--so-shadow-card);
+}
+
+.engagement-card-title {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.engagement-card-text {
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--so-text-secondary);
+}
+
+/* ================================================================
+   KPI ROW
+   ================================================================ */
+.kpi-row {
+  display: flex;
+  gap: 24px;
+}
+
+.kpi-item {
+  flex: 1;
+  text-align: center;
+  padding: 20px 16px;
+  background: var(--so-bg-card);
+  border: 1px solid var(--so-border-hairline);
+  border-radius: var(--so-radius-md);
+}
+
+.kpi-value {
+  font-size: 28px;
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  color: var(--so-text-accent);
+}
+
+.kpi-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--so-text-tertiary);
+  margin-top: 4px;
+}
+
+/* ================================================================
+   CROSS-SELL BLOCK
+   ================================================================ */
+.cross-sell {
+  padding: 24px;
+  background: var(--so-bg-card);
+  border: 1px solid var(--so-border-hairline);
+  border-radius: var(--so-radius-md);
+  margin-bottom: 16px;
+}
+
+.cross-sell-header {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--so-text-accent);
+  margin-bottom: 12px;
+}
+
+.cross-sell-prompt {
+  font-size: 15px;
+  font-weight: 500;
+  font-style: italic;
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.cross-sell-detail {
+  font-size: 13px;
+  color: var(--so-text-secondary);
+  line-height: 1.55;
+  margin-bottom: 8px;
+}
+
+.cross-sell-stats {
+  display: flex;
+  gap: 24px;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--so-border-hairline);
+}
+
+/* ================================================================
+   DISCIPLINE DEEP DIVE
+   ================================================================ */
+.discipline-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.discipline-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--so-radius-md);
+  background: var(--so-gradient-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+
+[data-theme="dark"] .discipline-icon {
+  background: linear-gradient(135deg, rgba(107,79,168,0.15) 0%, rgba(74,150,219,0.15) 100%);
+}
+
+.whw-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.whw-card {
+  padding: 20px;
+  background: var(--so-bg-inset);
+  border-radius: var(--so-radius-md);
+}
+
+.whw-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--so-text-accent);
+  margin-bottom: 8px;
+}
+
+.whw-text {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--so-text-secondary);
+}
+
+/* ================================================================
+   FUTURE CARD
+   ================================================================ */
+.future-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+}
+
+.future-card {
+  padding: 24px;
+  background: var(--so-bg-card);
+  border: 1px solid var(--so-border-hairline);
+  border-radius: var(--so-radius-md);
+  box-shadow: var(--so-shadow-card);
+}
+
+.future-card-title {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.future-card-text {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--so-text-secondary);
+}
+
+/* ================================================================
+   NAV ARROWS
+   ================================================================ */
+.nav-arrows {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  display: flex;
+  gap: 8px;
+  z-index: 100;
+}
+
+.nav-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--so-radius-sm);
+  border: 1px solid var(--so-border-light);
+  background: var(--so-bg-card);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--so-text-secondary);
+  transition: all 0.2s var(--so-ease);
+  box-shadow: var(--so-shadow-card);
+}
+
+.nav-btn:hover {
+  background: var(--so-bg-inset);
+  color: var(--so-text-primary);
+}
+
+.nav-btn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+/* ================================================================
+   SPACING UTILITIES
+   ================================================================ */
+.mb-1 { margin-bottom: 4px; }
+.mb-2 { margin-bottom: 8px; }
+.mb-3 { margin-bottom: 12px; }
+.mb-4 { margin-bottom: 16px; }
+.mb-6 { margin-bottom: 24px; }
+.mb-8 { margin-bottom: 32px; }
+.mb-10 { margin-bottom: 40px; }
+.mb-12 { margin-bottom: 48px; }
+.mt-6 { margin-top: 24px; }
+.mt-8 { margin-top: 32px; }
+
+/* ================================================================
+   SILO LAYOUT (Unconnected / Connected Landscape)
+   ================================================================ */
+.silo-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0;
+  position: relative;
+}
+
+.silo-grid.silo-grid--4 {
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.silo {
+  position: relative;
+  display: flex;
+  transition: all 0.8s var(--so-ease-out);
+}
+
+.silo-inner {
+  flex: 1;
+  padding: 24px;
+  background: var(--so-bg-card);
+  border: 1px solid var(--so-border-hairline);
+  border-radius: var(--so-radius-md);
+  box-shadow: var(--so-shadow-card);
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.4s, box-shadow 0.4s;
+}
+
+.silo-wall {
+  position: absolute;
+  right: -1px;
+  top: 10%;
+  bottom: 10%;
+  width: 3px;
+  background: repeating-linear-gradient(
+    to bottom,
+    var(--so-border-medium) 0px,
+    var(--so-border-medium) 4px,
+    transparent 4px,
+    transparent 8px
+  );
+  opacity: 0.6;
+  transition: opacity 0.6s;
+}
+
+.silo-capture {
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid var(--so-border-hairline);
+}
+
+.capture-label {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--so-text-tertiary);
+  margin-bottom: 6px;
+}
+
+.capture-bar {
+  height: 6px;
+  background: var(--so-bg-inset);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 4px;
+}
+
+.capture-fill {
+  height: 100%;
+  border-radius: 3px;
+  background: var(--so-lavender-400);
+  transition: width 1s var(--so-ease-out);
+}
+
+.capture-fill--low {
+  background: var(--so-azure-300);
+}
+
+.capture-fill--high {
+  background: var(--so-gradient-vibrant);
+}
+
+.capture-level {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--so-text-tertiary);
+  letter-spacing: 0.04em;
+}
+
+/* Connected state — Product Design card */
+.silo--new .silo-inner {
+  border-color: var(--so-lavender-200);
+  box-shadow: var(--so-shadow-md), 0 0 0 1px var(--so-lavender-100);
+}
+
+[data-theme="dark"] .silo--new .silo-inner {
+  border-color: rgba(107,79,168,0.35);
+  box-shadow: var(--so-shadow-md), 0 0 20px rgba(107,79,168,0.1);
+}
+
+/* Connection line that appears in connected state */
+.silo-connector {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--so-gradient);
+  transform: translateY(-50%) scaleX(0);
+  transform-origin: left;
+  transition: transform 0.8s var(--so-ease-out);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.silo-grid.connected .silo-connector {
+  transform: translateY(-50%) scaleX(1);
+}
+
+.silo-grid.connected .silo-wall {
+  opacity: 0;
+}
+
+/* Cross-sell hint arrow labels */
+.cross-sell-hint {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: auto;
+  padding-top: 12px;
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--so-text-accent);
+  letter-spacing: 0.02em;
+  opacity: 0.8;
+}
+
+/* ================================================================
+   RESPONSIVE
+   ================================================================ */
+@media (max-width: 768px) {
+  .slide { padding: 24px; }
+  .t-hero { font-size: 36px; }
+  .t-h1 { font-size: 28px; }
+  .t-h2 { font-size: 24px; }
+  .card-grid--3, .card-grid--4 { grid-template-columns: 1fr 1fr; }
+  .whw-grid { grid-template-columns: 1fr; }
+  .future-grid { grid-template-columns: 1fr; }
+  .team-grid { grid-template-columns: 1fr; }
+  .engagement-grid { grid-template-columns: 1fr; }
+  .process-flow { flex-direction: column; }
+  .process-arrow { transform: rotate(90deg); justify-content: center; }
+  .kpi-row { flex-wrap: wrap; }
+  .cross-sell-stats { flex-direction: column; gap: 12px; }
+  .silo-grid { grid-template-columns: 1fr; }
+  .silo-grid.silo-grid--4 { grid-template-columns: 1fr 1fr; }
+  .silo-wall { display: none; }
+}
+
+/* ================================================================
+   PIPELINE VIS
+   ================================================================ */
+.pipeline {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin: 24px 0;
+}
+
+.pipeline-node {
+  flex: 1;
+  padding: 16px 12px;
+  text-align: center;
+  background: var(--so-bg-card);
+  border: 1px solid var(--so-border-light);
+  position: relative;
+}
+
+.pipeline-node:first-child { border-radius: var(--so-radius-md) 0 0 var(--so-radius-md); }
+.pipeline-node:last-child { border-radius: 0 var(--so-radius-md) var(--so-radius-md) 0; }
+
+.pipeline-node--active {
+  background: var(--so-gradient-subtle);
+  border-color: var(--so-lavender-200);
+}
+
+[data-theme="dark"] .pipeline-node--active {
+  background: linear-gradient(135deg, rgba(107,79,168,0.12) 0%, rgba(74,150,219,0.12) 100%);
+  border-color: rgba(107,79,168,0.25);
+}
+
+.pipeline-connector {
+  width: 24px;
+  height: 2px;
+  background: var(--so-gradient);
+  flex-shrink: 0;
+}
+
+.pipeline-label {
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.pipeline-desc {
+  font-size: 10px;
+  color: var(--so-text-tertiary);
+  line-height: 1.4;
+}
+
+/* ================================================================
+   TOC LIST
+   ================================================================ */
+.toc-list {
+  list-style: none;
+}
+
+.toc-item {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--so-border-hairline);
+}
+
+.toc-item:last-child { border-bottom: none; }
+
+.toc-num {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--so-text-accent);
+  letter-spacing: 0.02em;
+  min-width: 24px;
+}
+
+.toc-label {
+  font-size: 17px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+/* ================================================================
+   SLIDE: TITLE
+   ================================================================ */
+.title-slide {
+  text-align: center;
+}
+
+.title-slide .accent-bar {
+  margin: 0 auto 24px;
+}
+
+.title-meta {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--so-text-tertiary);
+  margin-top: 24px;
+}
+
+/* ================================================================
+   OUTPUTS LIST
+   ================================================================ */
+.outputs-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.output-card {
+  padding: 20px;
+  background: var(--so-bg-inset);
+  border-radius: var(--so-radius-md);
+}
+
+.output-card-title {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.output-card-text {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--so-text-tertiary);
+}
+
+/* Revenue highlight */
+.revenue-highlight {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 24px;
+  background: var(--so-gradient-subtle);
+  border-radius: var(--so-radius-md);
+  margin-top: 16px;
+}
+
+[data-theme="dark"] .revenue-highlight {
+  background: linear-gradient(135deg, rgba(107,79,168,0.1) 0%, rgba(74,150,219,0.1) 100%);
+}
+
+.revenue-arrow {
+  font-size: 24px;
+  color: var(--so-text-accent);
+}
+
+.revenue-from {
+  font-size: 24px;
+  font-weight: 300;
+  color: var(--so-text-tertiary);
+}
+
+.revenue-to {
+  font-size: 32px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  background: var(--so-gradient-vibrant);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.revenue-label {
+  font-size: 11px;
+  color: var(--so-text-tertiary);
+  font-weight: 500;
+}
+
+/* === Unified nav + share modal (so-nav) === */
+.so-nav {
+  position: sticky; top: 0; z-index: 200; height: 56px;
+  background: rgba(250,251,252,0.78);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  backdrop-filter: blur(20px) saturate(1.4);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+}
+[data-theme="dark"] .so-nav { background: rgba(21,23,34,0.82); border-bottom-color: rgba(255,255,255,0.08); }
+.so-nav__inner { max-width: 1320px; height: 100%; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; gap: 18px; }
+.so-nav__brand { display: flex; align-items: center; gap: 14px; text-decoration: none; color: inherit; flex-shrink: 0; }
+.so-nav__logo svg { width: 80px; height: 20px; display: block; }
+.so-nav__logo svg path { fill: #151722; transition: fill .2s; }
+[data-theme="dark"] .so-nav__logo svg path { fill: #FAFBFC; }
+.so-nav__brand-divider { width: 1px; height: 22px; background: rgba(0,0,0,0.12); }
+[data-theme="dark"] .so-nav__brand-divider { background: rgba(255,255,255,0.16); }
+.so-nav__product { display: flex; align-items: center; gap: 8px; }
+.so-nav__brand-mark { width: 16px; height: 16px; border-radius: 5px; background: linear-gradient(135deg, #C4B5E3, #7AB5E8); flex-shrink: 0; }
+.so-nav__product-name { font-size: 13px; font-weight: 600; letter-spacing: -0.01em; color: #151722; }
+[data-theme="dark"] .so-nav__product-name { color: #FAFBFC; }
+.so-nav__crumbs { display: flex; align-items: center; gap: 8px; flex: 1; min-width: 0; }
+.so-nav__crumb-sep { font-size: 13px; color: rgba(0,0,0,0.25); flex-shrink: 0; }
+[data-theme="dark"] .so-nav__crumb-sep { color: rgba(255,255,255,0.3); }
+.so-nav__crumb { font-size: 13px; font-weight: 500; letter-spacing: -0.005em; color: rgba(0,0,0,0.55); text-decoration: none; white-space: nowrap; transition: color .15s; }
+[data-theme="dark"] .so-nav__crumb { color: rgba(255,255,255,0.6); }
+.so-nav__crumb[href]:hover { color: #6B4FA8; }
+[data-theme="dark"] .so-nav__crumb[href]:hover { color: #C4B5E3; }
+.so-nav__crumb--current { color: #151722; font-weight: 600; }
+[data-theme="dark"] .so-nav__crumb--current { color: #FAFBFC; }
+.so-nav__actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.so-nav__share { display: inline-flex; align-items: center; gap: 8px; height: 34px; padding: 0 14px; border-radius: 100px; border: 1px solid rgba(0,0,0,0.10); background: rgba(255,255,255,0.95); color: #151722; font-family: inherit; font-size: 12.5px; font-weight: 500; cursor: pointer; transition: all .18s; white-space: nowrap; }
+.so-nav__share svg { width: 14px; height: 14px; opacity: 0.7; }
+.so-nav__share:hover { border-color: rgba(0,0,0,0.16); background: linear-gradient(135deg, #F7F5FB, #F0F6FC); color: #6B4FA8; }
+.so-nav__share:hover svg { opacity: 1; }
+[data-theme="dark"] .so-nav__share { border-color: rgba(255,255,255,0.10); background: rgba(255,255,255,0.04); color: #FAFBFC; }
+[data-theme="dark"] .so-nav__share:hover { border-color: rgba(255,255,255,0.18); background: rgba(132,104,192,0.16); color: #C4B5E3; }
+.so-nav__theme { width: 34px; height: 34px; border-radius: 8px; border: 1px solid rgba(0,0,0,0.10); background: rgba(255,255,255,0.95); color: rgba(0,0,0,0.6); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all .18s; flex-shrink: 0; }
+.so-nav__theme:hover { border-color: rgba(0,0,0,0.16); color: #151722; }
+[data-theme="dark"] .so-nav__theme { border-color: rgba(255,255,255,0.10); background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.6); }
+[data-theme="dark"] .so-nav__theme:hover { border-color: rgba(255,255,255,0.18); color: #FAFBFC; }
+.so-nav__theme svg { width: 16px; height: 16px; }
+@media (max-width: 720px) { .so-nav__crumbs { display: none; } .so-nav__brand-divider { display: none; } }
+@media (max-width: 540px) { .so-nav__share .label { display: none; } .so-nav__share { padding: 0 10px; } .so-nav__product-name { display: none; } }
+body.share-mode .so-nav { display: none !important; }
+
+/* Share modal */
+.share-modal { position: fixed; inset: 0; z-index: 9999; }
+.share-modal[hidden] { display: none; }
+.share-modal__backdrop { position: absolute; inset: 0; background: rgba(11,12,18,0.55); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+.share-modal__panel { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 92%; max-width: 540px; max-height: 90vh; overflow-y: auto; background: #FFFFFF; color: #151722; border-radius: 18px; box-shadow: 0 30px 80px rgba(0,0,0,0.28), 0 8px 24px rgba(0,0,0,0.10); padding: 32px 32px 22px; animation: smIn .25s cubic-bezier(.16,1,.3,1); }
+@keyframes smIn { from { opacity: 0; transform: translate(-50%, -46%); } to { opacity: 1; transform: translate(-50%, -50%); } }
+[data-theme="dark"] .share-modal__panel { background: #1E2030; color: #FAFBFC; }
+.share-modal__close { position: absolute; top: 14px; right: 14px; width: 32px; height: 32px; border: 0; background: transparent; border-radius: 8px; color: rgba(0,0,0,0.45); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all .15s; }
+.share-modal__close:hover { background: rgba(0,0,0,0.05); color: #151722; }
+[data-theme="dark"] .share-modal__close { color: rgba(255,255,255,0.45); }
+[data-theme="dark"] .share-modal__close:hover { background: rgba(255,255,255,0.06); color: #FAFBFC; }
+.share-modal__eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #6B4FA8; margin-bottom: 14px; font-family: 'Inter', system-ui, sans-serif; }
+.share-modal__eyebrow svg { width: 14px; height: 14px; opacity: 0.8; }
+[data-theme="dark"] .share-modal__eyebrow { color: #C4B5E3; }
+.share-modal__title { font-size: 24px; font-weight: 600; letter-spacing: -0.025em; line-height: 1.18; margin-bottom: 12px; font-family: 'Inter', system-ui, sans-serif; }
+.share-modal__lede { font-size: 14.5px; line-height: 1.6; margin-bottom: 22px; color: rgba(0,0,0,0.6); font-family: 'Inter', system-ui, sans-serif; }
+[data-theme="dark"] .share-modal__lede { color: rgba(255,255,255,0.6); }
+.share-modal__url-block { padding: 14px 16px; background: rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.06); border-radius: 10px; margin-bottom: 22px; }
+[data-theme="dark"] .share-modal__url-block { background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.06); }
+.share-modal__url-label { font-size: 10.5px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(0,0,0,0.45); margin-bottom: 6px; font-family: 'Inter', system-ui, sans-serif; }
+[data-theme="dark"] .share-modal__url-label { color: rgba(255,255,255,0.45); }
+.share-modal__url { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12px; word-break: break-all; line-height: 1.55; user-select: all; }
+.share-modal__actions { display: flex; align-items: center; justify-content: flex-end; gap: 10px; }
+.share-modal__btn { font-family: 'Inter', system-ui, sans-serif; font-size: 13.5px; font-weight: 500; padding: 10px 18px; border-radius: 100px; cursor: pointer; transition: all .18s; border: 1px solid transparent; white-space: nowrap; }
+.share-modal__btn--ghost { background: transparent; color: rgba(0,0,0,0.6); border-color: rgba(0,0,0,0.10); }
+.share-modal__btn--ghost:hover { background: rgba(0,0,0,0.04); color: #151722; }
+[data-theme="dark"] .share-modal__btn--ghost { color: rgba(255,255,255,0.6); border-color: rgba(255,255,255,0.10); }
+[data-theme="dark"] .share-modal__btn--ghost:hover { background: rgba(255,255,255,0.06); color: #FAFBFC; }
+.share-modal__btn--primary { background: linear-gradient(135deg, #8468C0, #4A96DB); color: #fff; }
+.share-modal__btn--primary:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(132,104,192,0.30); }
+.share-modal__btn--primary.is-success { background: #2A7BC8; }
+.share-toast { position: fixed; bottom: 32px; left: 50%; transform: translate(-50%, 16px); z-index: 10000; background: #151722; color: #fff; padding: 12px 18px; border-radius: 10px; font-size: 13.5px; font-weight: 500; box-shadow: 0 10px 30px rgba(0,0,0,0.18); opacity: 0; pointer-events: none; transition: opacity .25s, transform .25s; display: inline-flex; align-items: center; gap: 8px; font-family: 'Inter', system-ui, sans-serif; }
+.share-toast svg { width: 14px; height: 14px; }
+.share-toast.is-visible { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; }
+body.modal-open { overflow: hidden; }
+
+</style>
+</head>
+<body>
+<!-- UNIFIED NAV -->
+<nav class="so-nav">
+  <div class="so-nav__inner">
+    <a class="so-nav__brand" href="../../index.html" aria-label="Single Origin home">
+      <span class="so-nav__logo"><svg viewBox="0 0 80 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Experis"><path d="M0 3.8h10.4v2.4H2.9v3.4h6.8v2.3H2.9v3.7h7.7v2.4H0V3.8z"/><path d="M14.8 10.2l-4.6-6.4h3.5l2.8 4.2 2.9-4.2h3.4l-4.6 6.3 5 6.9h-3.5l-3.2-4.7-3.2 4.7h-3.4l5-6.8z"/><path d="M24.4 3.8H30c3.6 0 5.6 1.9 5.6 4.6 0 2.7-2 4.7-5.6 4.7h-2.7v4.9h-2.9V3.8zm5.3 7c1.9 0 2.9-1 2.9-2.4 0-1.4-1-2.3-2.9-2.3h-2.4v4.7h2.4z"/><path d="M37.6 3.8H48v2.4h-7.5v3.4h6.8v2.3h-6.8v3.7h7.7v2.4H37.6V3.8z"/><path d="M50.4 3.8h5.2c3.5 0 5.5 1.7 5.5 4.3 0 2.1-1.1 3.5-3 4.1l3.5 5.8h-3.3l-3.1-5.4h-1.9v5.4h-2.9V3.8zm5 6.6c1.8 0 2.8-.9 2.8-2.2 0-1.3-1-2.1-2.8-2.1h-2.1v4.3h2.1z"/><path d="M64.2 3.8h2.9v14.2h-2.9V3.8z"/><path d="M69.6 14.8l1.7-2c1.2 1.1 2.5 1.8 4 1.8 1.5 0 2.3-.7 2.3-1.6 0-1-.7-1.5-3.2-2.2-3-0.8-4.6-1.9-4.6-4.2 0-2.5 2-4.1 4.8-4.1 2 0 3.6.6 5 1.8l-1.5 2.1c-1.1-.9-2.3-1.4-3.5-1.4-1.4 0-2.1.7-2.1 1.5 0 1 .7 1.5 3.3 2.2 3 .9 4.5 2 4.5 4.2 0 2.7-2.1 4.3-5.1 4.3-2.1 0-4-.7-5.6-2.3z"/></svg></span>
+      <span class="so-nav__brand-divider"></span>
+      <span class="so-nav__product"><span class="so-nav__brand-mark"></span><span class="so-nav__product-name">Single Origin</span></span>
+    </a>
+    <div class="so-nav__crumbs">
+      <span class="so-nav__crumb-sep">/</span>
+      <span class="so-nav__crumb so-nav__crumb--current">2026 Competency</span>
+    </div>
+    <div class="so-nav__actions">
+      <button class="so-nav__share" id="shareBtn" type="button" aria-label="Send page as link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.5 1.5"/><path d="M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.5-1.5"/></svg>
+        <span class="label">Send as link</span>
+      </button>
+      <button class="so-nav__theme" id="themeToggle" type="button" aria-label="Toggle theme"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="8" cy="8" r="3.5"/><path d="M8 1.5v1M8 13.5v1M1.5 8h1M13.5 8h1M3.4 3.4l.7.7M11.9 11.9l.7.7M3.4 12.6l.7-.7M11.9 4.1l.7-.7"/></svg></button>
+    </div>
+  </div>
+</nav>
+
+<!-- TOP BAR -->
+<div class="topbar">
+    <div class="topbar-counter" id="slideCounter">1 / 13</div>
+  <div class="topbar-progress"><div class="topbar-progress-bar" id="progressBar" style="width:7.7%"></div></div>
+  </div>
+
+<!-- NAV ARROWS -->
+<div class="nav-arrows">
+  <button class="nav-btn" id="prevBtn" aria-label="Previous slide">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 3L5 8l5 5"/></svg>
+  </button>
+  <button class="nav-btn" id="nextBtn" aria-label="Next slide">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 3l5 5-5 5"/></svg>
+  </button>
+</div>
+
+<!-- SLIDES -->
+<div class="slides-container" id="slidesContainer">
+
+  <!-- ============================================================
+       SLIDE 0: TITLE
+       ============================================================ -->
+  <div class="slide active" data-slide="0">
+    <div class="slide-inner title-slide">
+      <div class="accent-bar accent-bar--lg"></div>
+      <div class="t-caption mb-6">Experis Digital Services</div>
+      <h1 class="t-hero mb-8">Digital Services<br><span class="gradient-text">Competency</span></h1>
+      <p class="t-body-lg" style="max-width:520px; margin:0 auto;">Introducing a new vertical that unlocks parabolic business growth in pre-engaged markets.</p>
+      <div class="title-meta">2026 Updated Competency Report</div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SLIDE 1: TABLE OF CONTENTS
+       ============================================================ -->
+  <div class="slide" data-slide="1">
+    <div class="slide-inner">
+      <div class="accent-bar"></div>
+      <div class="t-caption mb-3">Report Contents</div>
+      <h2 class="t-h2 mb-8">Overview</h2>
+      <ul class="toc-list">
+        <li class="toc-item"><span class="toc-num">01</span><span class="toc-label">Digital Services Landscape</span></li>
+        <li class="toc-item"><span class="toc-num">02</span><span class="toc-label">Reference Programs</span></li>
+        <li class="toc-item"><span class="toc-num">03</span><span class="toc-label">Bridges and Data</span></li>
+      </ul>
+      <p class="t-body mt-8" style="max-width:560px;">The goal of this report is to introduce a new vertical which unlocks parabolic business growth in pre-engaged markets.</p>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SLIDE 2: SECTION DIVIDER — LANDSCAPE
+       ============================================================ -->
+  <div class="slide slide--divider" data-slide="2">
+    <div class="slide-inner" style="text-align:center;">
+      <div class="divider-number">01</div>
+      <h2 class="t-h1 mb-6">Digital Services<br>Landscape</h2>
+      <p class="t-body-lg" style="max-width:480px; margin:0 auto;">An evolving competency map from three service pillars to four.</p>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SLIDE 3: UNCONNECTED LANDSCAPE (3 PILLARS)
+       ============================================================ -->
+  <div class="slide" data-slide="3" id="slide-unconnected">
+    <div class="slide-inner">
+      <div class="t-caption mb-3">2025 Digital Services</div>
+      <h2 class="t-h2 mb-4"><span id="un-prefix">An Un</span>connected Landscape</h2>
+      <p class="t-body mb-8" id="landscape-desc">Three service lines operate in parallel without a connective design layer.</p>
+      <div class="silo-grid" id="siloGrid">
+        <div class="silo" id="silo-data">
+          <div class="silo-inner">
+            <div class="card-icon">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="var(--so-lavender-500)" stroke-width="1.5"><rect x="2" y="2" width="5" height="5" rx="1"/><rect x="11" y="2" width="5" height="5" rx="1"/><rect x="2" y="11" width="5" height="5" rx="1"/><rect x="11" y="11" width="5" height="5" rx="1"/></svg>
+            </div>
+            <div class="card-title">Data Collection<br>&amp; Model Training</div>
+            <div class="card-text">Collects and organizes usage data, feedback, and performance metrics. Provides the raw inputs that guide design decisions and engineering priorities.</div>
+            <div class="silo-capture">
+              <div class="capture-label">Market Capture</div>
+              <div class="capture-bar"><div class="capture-fill" style="width:50%"></div></div>
+              <div class="capture-level">Mid</div>
+            </div>
+          </div>
+          <div class="silo-wall"></div>
+        </div>
+        <div class="silo" id="silo-ux">
+          <div class="silo-inner">
+            <div class="card-icon">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="var(--so-lavender-500)" stroke-width="1.5"><circle cx="9" cy="6" r="3"/><path d="M3 16c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg>
+            </div>
+            <div class="card-title">UX Research</div>
+            <div class="card-text">Uncovers deep user insights through qualitative and quantitative studies. Ensures products are grounded in how people truly think and behave.</div>
+            <div class="silo-capture">
+              <div class="capture-label">Market Capture</div>
+              <div class="capture-bar"><div class="capture-fill capture-fill--low" style="width:25%"></div></div>
+              <div class="capture-level">Low</div>
+            </div>
+          </div>
+          <div class="silo-wall"></div>
+        </div>
+        <div class="silo" id="silo-dev">
+          <div class="silo-inner">
+            <div class="card-icon">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="var(--so-lavender-500)" stroke-width="1.5"><path d="M3 13l4-4 3 3 5-5"/><rect x="1" y="1" width="16" height="16" rx="2"/></svg>
+            </div>
+            <div class="card-title">Dev &amp; Engineering</div>
+            <div class="card-text">Builds scalable, performant digital products. Implements front-end and back-end systems, automates processes, and ensures secure, reliable delivery.</div>
+            <div class="silo-capture">
+              <div class="capture-label">Market Capture</div>
+              <div class="capture-bar"><div class="capture-fill capture-fill--high" style="width:82%"></div></div>
+              <div class="capture-level">High</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SLIDE 4: CONNECTED LANDSCAPE (4 PILLARS)
+       ============================================================ -->
+  <div class="slide" data-slide="4" id="slide-connected">
+    <div class="slide-inner">
+      <div class="t-caption mb-3">2026 Digital Services</div>
+      <h2 class="t-h2 mb-4">The Connected Landscape</h2>
+      <p class="t-body mb-8">Product Design bridges the gap — and every pillar's work becomes a cross-sell opportunity across the entire pipeline.</p>
+      <div class="silo-grid silo-grid--4 connected" id="connectedGrid">
+        <div class="silo-connector"></div>
+        <div class="silo">
+          <div class="silo-inner">
+            <div class="card-icon">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="var(--so-lavender-500)" stroke-width="1.5"><rect x="2" y="2" width="5" height="5" rx="1"/><rect x="11" y="2" width="5" height="5" rx="1"/><rect x="2" y="11" width="5" height="5" rx="1"/><rect x="11" y="11" width="5" height="5" rx="1"/></svg>
+            </div>
+            <div class="card-title">Data Collection<br>&amp; Model Training</div>
+            <div class="card-text">Collects and organizes usage data, feedback, and performance metrics. Provides raw inputs for design and engineering.</div>
+            <div class="cross-sell-hint">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h8M6 2l4 4-4 4"/></svg>
+              <span>Feeds UX Research &amp; Product Design</span>
+            </div>
+          </div>
+        </div>
+        <div class="silo">
+          <div class="silo-inner">
+            <div class="card-icon">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="var(--so-lavender-500)" stroke-width="1.5"><circle cx="9" cy="6" r="3"/><path d="M3 16c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg>
+            </div>
+            <div class="card-title">UX Research</div>
+            <div class="card-text">Uncovers deep user insights through qualitative and quantitative studies. Ensures products are grounded in real behavior.</div>
+            <div class="cross-sell-hint">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h8M6 2l4 4-4 4"/></svg>
+              <span>Informs Product Design decisions</span>
+            </div>
+          </div>
+        </div>
+        <div class="silo silo--new">
+          <div class="silo-inner">
+            <div class="card-icon" style="background: var(--so-gradient);">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="white" stroke-width="1.5"><path d="M9 2L2 6v6l7 4 7-4V6L9 2z"/><path d="M2 6l7 4m0 0l7-4m-7 4v8"/></svg>
+            </div>
+            <div class="card-title"><span class="t-accent">Product Design</span></div>
+            <div class="card-text">Translates insights into tangible user experiences. The connective layer that captures workstreams end-to-end.</div>
+            <div class="badge mt-6">New in 2026</div>
+          </div>
+        </div>
+        <div class="silo">
+          <div class="silo-inner">
+            <div class="card-icon">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="var(--so-lavender-500)" stroke-width="1.5"><path d="M3 13l4-4 3 3 5-5"/><rect x="1" y="1" width="16" height="16" rx="2"/></svg>
+            </div>
+            <div class="card-title">Dev &amp; Engineering</div>
+            <div class="card-text">Builds scalable, performant digital products. Implements systems, automates processes, ensures reliable delivery.</div>
+            <div class="cross-sell-hint">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 6H2M6 10L2 6l4-4"/></svg>
+              <span>Receives design-ready specs</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SLIDE 5: WHY PRODUCT DESIGN?
+       ============================================================ -->
+  <div class="slide" data-slide="5">
+    <div class="slide-inner" style="text-align:center;">
+      <div class="t-caption mb-6">The Case for Product Design</div>
+      <h2 class="t-h1 mb-8" style="max-width:720px; margin-left:auto; margin-right:auto;">Why?</h2>
+      <p class="t-body-lg mb-10" style="max-width:640px; margin-left:auto; margin-right:auto;">Product design is the missing layer in our digital competency. Without it, we leave revenue on the table and deliver solutions that fall short of what modern clients expect.</p>
+      <div class="card-grid card-grid--3" style="max-width:720px; margin:0 auto;">
+        <div class="card stat-card">
+          <div class="stat-label">Elevate</div>
+          <div class="stat-detail">Our value proposition with end-to-end design capability</div>
+        </div>
+        <div class="card stat-card">
+          <div class="stat-label">Strengthen</div>
+          <div class="stat-detail">Our bids with design-informed solutions that clients expect</div>
+        </div>
+        <div class="card stat-card">
+          <div class="stat-label">Unlock</div>
+          <div class="stat-detail">Larger, more strategic deals through integrated services</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SLIDE 6: DESIGN FUSES RESEARCH TO DEVELOPMENT
+       ============================================================ -->
+  <div class="slide" data-slide="6">
+    <div class="slide-inner">
+      <div class="accent-bar"></div>
+      <div class="t-caption mb-3">Value Proposition</div>
+      <h2 class="t-h2 mb-4">Design Fuses Research to Development</h2>
+      <p class="t-body mb-8">When design fuses research to development, every project moves faster, lands cleaner, and delivers greater return on contract value.</p>
+
+      <div class="pipeline">
+        <div class="pipeline-node">
+          <div class="pipeline-label">Research</div>
+          <div class="pipeline-desc">User insight &amp; validation</div>
+        </div>
+        <div class="pipeline-connector"></div>
+        <div class="pipeline-node pipeline-node--active">
+          <div class="pipeline-label t-accent">Design</div>
+          <div class="pipeline-desc">Experience translation</div>
+        </div>
+        <div class="pipeline-connector"></div>
+        <div class="pipeline-node">
+          <div class="pipeline-label">Development</div>
+          <div class="pipeline-desc">Build &amp; deliver</div>
+        </div>
+        <div class="pipeline-connector"></div>
+        <div class="pipeline-node">
+          <div class="pipeline-label">Customer Value</div>
+          <div class="pipeline-desc">Audit &amp; cycle</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SLIDE 7: SECTION DIVIDER — REFERENCE PROGRAMS
+       ============================================================ -->
+  <div class="slide slide--divider" data-slide="7">
+    <div class="slide-inner" style="text-align:center;">
+      <div class="divider-number">02</div>
+      <h2 class="t-h1 mb-6">Reference<br>Programs</h2>
+      <p class="t-body-lg" style="max-width:520px; margin:0 auto;">Walmart Disaster Recovery team composition and the case for product design investment.</p>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SLIDE 8: WALMART REFERENCE
+       ============================================================ -->
+  <div class="slide" data-slide="8">
+    <div class="slide-inner">
+      <div class="accent-bar"></div>
+      <div class="t-caption mb-3">Reference Program</div>
+      <h2 class="t-h2 mb-4">Walmart — Evolving the Disaster Recovery Team</h2>
+      <p class="t-body mb-8">Current delivery is heavily weighted toward build execution, missing the connective design layer that translates research insights into user-ready solutions.</p>
+
+      <div class="team-grid mb-8">
+        <div class="team-block">
+          <div class="team-year">2025 Team</div>
+          <div class="team-role"><span class="team-role-name">Dev</span><span class="team-role-count">7</span></div>
+          <div class="team-role"><span class="team-role-name">Engineering Mgmt</span><span class="team-role-count">2</span></div>
+          <div class="team-role"><span class="team-role-name">UX Research</span><span class="team-role-count">1</span></div>
+          <div class="team-role"><span class="team-role-name">Product Design</span><span class="team-role-count team-role-count--zero">0</span></div>
+        </div>
+        <div class="team-block" style="border-color: var(--so-lavender-200);">
+          <div class="team-year" style="color: var(--so-text-accent);">2026 Team (Proposed)</div>
+          <div class="team-role"><span class="team-role-name">Dev</span><span class="team-role-count">5</span></div>
+          <div class="team-role"><span class="team-role-name">Engineering Mgmt</span><span class="team-role-count">2</span></div>
+          <div class="team-role"><span class="team-role-name">UX Research</span><span class="team-role-count">1</span></div>
+          <div class="team-role"><span class="team-role-name">Product Design</span><span class="team-role-count team-role-count--highlight">2</span></div>
+        </div>
+      </div>
+
+      <div class="quote-block mb-6">
+        <div class="quote-text">"The engineering team is strong, but without design's perspective early on, we risk solving the wrong problem really well."</div>
+        <div class="quote-attr">Engineering Manager</div>
+      </div>
+
+      <div class="revenue-highlight">
+        <div>
+          <div class="revenue-label">2025 Revenue</div>
+          <div class="revenue-from">$180k</div>
+        </div>
+        <div class="revenue-arrow">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </div>
+        <div>
+          <div class="revenue-label">2026 Opportunity</div>
+          <div class="revenue-to">$375k</div>
+        </div>
+        <div style="flex:1;"></div>
+        <div class="badge">+108% Growth</div>
+      </div>
+
+      <p class="t-body mt-6" style="font-size:13px;">Introducing Product Design increases delivery efficiency and expands project scope potential. Without it: inferior product UX and higher spend on development rework.</p>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SLIDE 9: ENGAGEMENT MODELS
+       ============================================================ -->
+  <div class="slide" data-slide="9">
+    <div class="slide-inner">
+      <div class="accent-bar"></div>
+      <div class="t-caption mb-3">Delivery Framework</div>
+      <h2 class="t-h2 mb-8">Engagement Models</h2>
+      <div class="engagement-grid">
+        <div class="engagement-card">
+          <div class="engagement-card-title">Staff Augmentation</div>
+          <div class="engagement-card-text">Placement of individual professionals to fill client resource gaps. Client retains day-to-day management and delivery responsibility.</div>
+        </div>
+        <div class="engagement-card">
+          <div class="engagement-card-title">Managed Service</div>
+          <div class="engagement-card-text">Ongoing, outcome-based engagement where Experis owns delivery, quality, and performance metrics under a defined scope.</div>
+        </div>
+        <div class="engagement-card">
+          <div class="engagement-card-title">Managed Team</div>
+          <div class="engagement-card-text">Dedicated cross-functional experts (design, dev, QA, etc.) managed by Experis but integrated into the client's workflow.</div>
+        </div>
+        <div class="engagement-card">
+          <div class="engagement-card-title">Project</div>
+          <div class="engagement-card-text">Fixed-scope, fixed-timeline engagement focused on delivering a specific deliverable or milestone.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SLIDE 10: SECTION DIVIDER — BRIDGES & DATA
+       ============================================================ -->
+  <div class="slide slide--divider" data-slide="10">
+    <div class="slide-inner" style="text-align:center;">
+      <div class="divider-number">03</div>
+      <h2 class="t-h1 mb-6">Bridges<br>&amp; Data</h2>
+      <p class="t-body-lg" style="max-width:520px; margin:0 auto;">Cross-sell strategies between service lines and the data that supports design maturity investment.</p>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SLIDE 11: CROSS-SELL & BRIDGE BUILDING
+       ============================================================ -->
+  <div class="slide" data-slide="11">
+    <div class="slide-inner">
+      <div class="accent-bar"></div>
+      <div class="t-caption mb-3">Bridge Building</div>
+      <h2 class="t-h2 mb-4">Mature Design Teams Drive Adoption &amp; ROI</h2>
+      <p class="t-body mb-8">Cross-sell pathways from existing service lines into Product Design.</p>
+
+      <div class="cross-sell">
+        <div class="cross-sell-header">Cross-sell from Dev</div>
+        <div class="cross-sell-prompt">"Would a prototype help you align stakeholders before we build?"</div>
+        <div class="cross-sell-detail">Leads into Product Design providing wireframes, clickable prototypes, and visual alignment. Design systems, brand alignment, and repeatable components.</div>
+        <div class="cross-sell-stats">
+          <div>
+            <div class="stat-value" style="font-size:36px;">75<span class="stat-unit" style="font-size:18px;">%</span></div>
+            <div class="stat-detail">Reduction in handoff time</div>
+          </div>
+          <div>
+            <div class="stat-value" style="font-size:36px;">3-4<span class="stat-unit" style="font-size:18px;">x</span></div>
+            <div class="stat-detail">More likely to exceed CX targets</div>
+          </div>
+          <div style="flex:1;">
+            <div class="stat-detail">IBM's Design Thinking program reduced handoff friction, saving <strong style="color:var(--so-text-primary)">$20M annually</strong> in rework. 300% more likely to exceed CX goals within design maturity programs.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cross-sell">
+        <div class="cross-sell-header">Cross-sell from UX Research</div>
+        <div class="cross-sell-prompt">"Would it help if we mapped the ideal workflows based on the research findings?"</div>
+        <div class="cross-sell-detail">Leads to IA, flows, and Product Design. Moves from insight to solution concept. Early prototype review fed by informed product research minimizes misalignment and scope creep.</div>
+        <div class="cross-sell-stats">
+          <div>
+            <div class="stat-value" style="font-size:36px;">10<span class="stat-unit" style="font-size:18px;">x</span></div>
+            <div class="stat-detail">Faster adoption rate with UX research ahead of UI/dev</div>
+          </div>
+          <div>
+            <div class="stat-value" style="font-size:36px;">40<span class="stat-unit" style="font-size:18px;">%</span></div>
+            <div class="stat-detail">Fewer change orders</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SLIDE 12: CLOSING
+       ============================================================ -->
+  <div class="slide slide--divider" data-slide="12">
+    <div class="slide-inner" style="text-align:center;">
+      <div class="accent-bar accent-bar--lg" style="margin:0 auto 32px;"></div>
+      <h2 class="t-hero mb-6"><span class="gradient-text">Questions?</span></h2>
+      <p class="t-body-lg mb-8" style="max-width:480px; margin-left:auto; margin-right:auto;">Digital Services &middot; Creative &middot; Product Design &middot; UX Research</p>
+      <div class="t-caption">Experis Digital Services &mdash; 2026</div>
+    </div>
+  </div>
+
+</div><!-- /slides-container -->
+
+<script>
+(function() {
+  const slides = document.querySelectorAll('.slide');
+  const counter = document.getElementById('slideCounter');
+  const progressBar = document.getElementById('progressBar');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const themeToggle = document.getElementById('themeToggle');
+  const total = slides.length;
+  let current = 0;
+  let transitioning = false;
+
+  // ── Section divider slide indices (for TOC navigation) ──
+  const sectionSlides = {};
+  slides.forEach((s, i) => {
+    const num = s.querySelector('.divider-number');
+    if (num) sectionSlides[num.textContent.trim()] = i;
+  });
+
+  // ── Clickable TOC items ──
+  document.querySelectorAll('.toc-item').forEach(item => {
+    const num = item.querySelector('.toc-num');
+    if (num) {
+      const idx = sectionSlides[num.textContent.trim()];
+      if (idx !== undefined) {
+        item.style.cursor = 'pointer';
+        item.style.transition = 'background 0.2s, padding-left 0.2s';
+        item.style.borderRadius = '6px';
+        item.style.paddingLeft = '12px';
+        item.style.paddingRight = '12px';
+        item.addEventListener('mouseenter', () => { item.style.background = 'var(--so-bg-inset)'; });
+        item.addEventListener('mouseleave', () => { item.style.background = ''; });
+        item.addEventListener('click', () => { goTo(idx, idx > current ? 'next' : 'prev'); });
+      }
+    }
+  });
+
+  function update(direction) {
+    counter.textContent = (current + 1) + ' / ' + total;
+    progressBar.style.width = ((current + 1) / total * 100) + '%';
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current === total - 1;
+
+    slides.forEach((s, i) => {
+      s.classList.remove('active', 'exit-left');
+      if (i === current) {
+        s.classList.add('active');
+        s.style.transform = '';
+      } else if (direction === 'next' && i < current) {
+        s.style.transform = 'translateX(-40px)';
+      } else {
+        s.style.transform = 'translateX(40px)';
+      }
+    });
+  }
+
+  function goTo(index, direction) {
+    if (transitioning || index < 0 || index >= total || index === current) return;
+    transitioning = true;
+    current = index;
+    update(direction);
+    setTimeout(() => { transitioning = false; }, 460);
+  }
+
+  function next() { goTo(current + 1, 'next'); }
+  function prev() { goTo(current - 1, 'prev'); }
+
+  prevBtn.addEventListener('click', prev);
+  nextBtn.addEventListener('click', next);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); next(); }
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); prev(); }
+  });
+
+  // Swipe support
+  let touchStartX = 0;
+  let touchStartY = 0;
+  document.addEventListener('touchstart', (e) => {
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+  }, { passive: true });
+
+  document.addEventListener('touchend', (e) => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    const dy = e.changedTouches[0].clientY - touchStartY;
+    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 50) {
+      if (dx < 0) next(); else prev();
+    }
+  }, { passive: true });
+
+  // Theme toggle
+  const moonSVG = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13.5 8.5a5.5 5.5 0 01-7-7A5.5 5.5 0 1013.5 8.5z"/></svg>';
+  const sunSVG = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="3.5"/><path d="M8 1.5v1M8 13.5v1M1.5 8h1M13.5 8h1M3.4 3.4l.7.7M11.9 11.9l.7.7M3.4 12.6l.7-.7M11.9 4.1l.7-.7"/></svg>';
+
+  function setTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    themeToggle.innerHTML = theme === 'dark' ? sunSVG : moonSVG;
+    localStorage.setItem('so-theme', theme);
+  }
+
+  themeToggle.addEventListener('click', () => {
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    setTheme(isDark ? 'light' : 'dark');
+  });
+
+  // Init theme
+  const saved = localStorage.getItem('so-theme');
+  if (saved) { setTheme(saved); }
+  else if (window.matchMedia('(prefers-color-scheme: dark)').matches) { setTheme('dark'); }
+  else { setTheme('light'); }
+
+  update('next');
+})();
+</script>
+<!-- Share confirmation modal -->
+<div class="share-modal" id="shareModal" role="dialog" aria-modal="true" aria-labelledby="shareModalTitle" hidden>
+  <div class="share-modal__backdrop" data-share-close></div>
+  <div class="share-modal__panel" role="document">
+    <button class="share-modal__close" type="button" data-share-close aria-label="Close">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13"/></svg>
+    </button>
+    <div class="share-modal__eyebrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.5 1.5"/><path d="M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.5-1.5"/></svg> Send as link</div>
+    <h2 class="share-modal__title" id="shareModalTitle">2026 Competency</h2>
+    <p class="share-modal__lede">Anyone with this link lands directly on this page in standalone mode — the Single Origin nav and breadcrumbs are hidden so the customer sees the content, not the parent hub.</p>
+    <div class="share-modal__url-block">
+      <div class="share-modal__url-label">Standalone URL</div>
+      <div class="share-modal__url" id="shareModalUrl">about:blank</div>
+    </div>
+    <div class="share-modal__actions">
+      <button class="share-modal__btn share-modal__btn--ghost" type="button" data-share-close>Cancel</button>
+      <button class="share-modal__btn share-modal__btn--primary" type="button" id="shareModalCopy">Copy link</button>
+    </div>
+  </div>
+</div>
+<div class="share-toast" id="shareToast" role="status" aria-live="polite">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+  <span class="toast-text">Link copied</span>
+</div>
+
+<script>
+/* === Unified share button → modal (drop-in for any hub page) === */
+(function(){
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('share') === '1') document.body.classList.add('share-mode');
+
+  async function copyText(text){
+    try { if (navigator.clipboard && window.isSecureContext) { await navigator.clipboard.writeText(text); return true; } } catch(e){}
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.setAttribute('readonly','');
+    ta.style.cssText = 'position:fixed;top:0;left:0;width:1px;height:1px;opacity:0;border:0;padding:0;margin:0;';
+    document.body.appendChild(ta); ta.select();
+    let ok = false; try { ok = document.execCommand('copy'); } catch(e){}
+    document.body.removeChild(ta);
+    return ok;
+  }
+
+  const btn   = document.getElementById('shareBtn');
+  const modal = document.getElementById('shareModal');
+  const urlEl = document.getElementById('shareModalUrl');
+  const copyEl= document.getElementById('shareModalCopy');
+  const toast = document.getElementById('shareToast');
+  let toastTimer = null;
+
+  function showToast(msg){
+    if (!toast) return;
+    toast.querySelector('.toast-text').textContent = msg;
+    toast.classList.add('is-visible');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('is-visible'), 2400);
+  }
+  function buildShareUrl(){
+    const url = new URL(window.location.href);
+    url.search = '';
+    url.searchParams.set('share', '1');
+    return url.toString();
+  }
+  function openModal(){
+    if (!modal) return;
+    if (urlEl)  urlEl.textContent = buildShareUrl();
+    if (copyEl) { copyEl.classList.remove('is-success'); copyEl.textContent = 'Copy link'; }
+    modal.removeAttribute('hidden');
+    document.body.classList.add('modal-open');
+    setTimeout(() => copyEl && copyEl.focus(), 60);
+  }
+  function closeModal(){
+    if (!modal) return;
+    modal.setAttribute('hidden','');
+    document.body.classList.remove('modal-open');
+  }
+  if (btn)   btn.addEventListener('click', openModal);
+  if (modal) modal.addEventListener('click', e => { if (e.target.closest('[data-share-close]')) closeModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && modal && !modal.hasAttribute('hidden')) closeModal(); });
+  if (copyEl) copyEl.addEventListener('click', async () => {
+    const url = urlEl ? urlEl.textContent : buildShareUrl();
+    const ok = await copyText(url);
+    if (ok) {
+      copyEl.classList.add('is-success');
+      copyEl.innerHTML = 'Copied <svg style="width:14px;height:14px;margin-left:4px;vertical-align:-2px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>';
+      showToast('Link copied — paste anywhere to share');
+      setTimeout(closeModal, 1100);
+    } else {
+      window.prompt('Copy this link:', url);
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

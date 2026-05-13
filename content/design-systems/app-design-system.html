@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>App Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@200;300;400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@300;400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ================================================================
+   TOKENS
+   ================================================================ */
+:root,[data-theme="dark"]{
+  --bg-0:#000000;--bg-1:#080808;--bg-2:#0A0A0A;--bg-3:#111111;--bg-4:#1A1A1A;
+  --text-0:#EBEBEB;--text-1:#CCCCCC;--text-2:#888888;--text-3:#828282;
+  --cyan:#C4A66C;--cyan-soft:#B89B60;--cyan-dim:rgba(196,166,108,.10);
+  --indigo:#818CF8;--indigo-dim:rgba(129,140,248,.10);--violet:#A78BFA;
+  --success:#10B981;--warning:#F59E0B;--danger:#EF4444;
+  --border-0:rgba(255,255,255,.06);--border-1:rgba(255,255,255,.12);
+  --border-2:rgba(255,255,255,.24);--border-accent:rgba(196,166,108,.30);
+  --glass-bg:rgba(8,8,8,.80);--glass-border:rgba(255,255,255,.08);
+  --grad-cyan:linear-gradient(135deg,#C4A66C,#A08A52);
+  --grad-indigo:linear-gradient(135deg,#818CF8,#A78BFA);
+  --shadow-sm:0 2px 8px rgba(0,0,0,.55);--shadow-md:0 4px 20px rgba(0,0,0,.65);
+  --glow-sm:0 0 12px rgba(196,166,108,.10);
+  --toggle-track:rgba(255,255,255,.08);--toggle-knob:#C4A66C;
+}
+[data-theme="light"]{
+  --bg-0:#E8E8E8;--bg-1:#EEEEEE;--bg-2:#F4F4F4;--bg-3:#FAFAFA;--bg-4:#FFFFFF;
+  --text-0:#000000;--text-1:#404040;--text-2:#636973;--text-3:#616161;
+  --cyan:#7A6537;--cyan-soft:#7A6537;--cyan-dim:rgba(122,101,55,.08);
+  --indigo:#4F46E5;--indigo-dim:rgba(79,70,229,.08);--violet:#7C3AED;
+  --success:#057550;--warning:#9A4A0E;--danger:#B91C1C;
+  --border-0:rgba(0,0,0,.06);--border-1:rgba(0,0,0,.12);
+  --border-2:rgba(0,0,0,.24);--border-accent:rgba(122,101,55,.30);
+  --glass-bg:rgba(255,255,255,.80);--glass-border:rgba(0,0,0,.08);
+  --grad-cyan:linear-gradient(135deg,#7A6537,#7A6537);
+  --grad-indigo:linear-gradient(135deg,#4F46E5,#7C3AED);
+  --shadow-sm:0 2px 8px rgba(0,0,0,.07);--shadow-md:0 4px 20px rgba(0,0,0,.08);
+  --glow-sm:0 0 12px rgba(122,101,55,.08);
+  --toggle-track:rgba(0,0,0,.08);--toggle-knob:#7A6537;
+}
+
+/* Redacted */
+.redacted{filter:blur(3.5px);-webkit-filter:blur(3.5px);user-select:none;pointer-events:none;display:inline-block}
+
+/* ================================================================
+   RESET
+   ================================================================ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'DM Sans',system-ui,sans-serif;
+  background:var(--bg-0);color:var(--text-0);
+  -webkit-font-smoothing:antialiased;
+  transition:background .4s,color .4s;
+  overflow-x:hidden;
+}
+
+/* ================================================================
+   SO-NAV (matches Single Origin hub)
+   ================================================================ */
+.so-nav {
+  position:sticky;top:0;z-index:200;height:56px;
+  background:rgba(250,251,252,0.78);
+  -webkit-backdrop-filter:blur(20px) saturate(1.4);
+  backdrop-filter:blur(20px) saturate(1.4);
+  border-bottom:1px solid rgba(0,0,0,0.06);
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+}
+[data-theme="dark"] .so-nav{background:rgba(21,23,34,0.82);border-bottom-color:rgba(255,255,255,0.08)}
+.so-nav__inner{max-width:1320px;height:100%;margin:0 auto;padding:0 24px;display:flex;align-items:center;gap:18px}
+.so-nav__brand{display:flex;align-items:center;gap:14px;text-decoration:none;color:inherit;flex-shrink:0}
+.so-nav__logo svg{width:80px;height:20px;display:block}
+.so-nav__logo svg path{fill:#151722;transition:fill .2s}
+[data-theme="dark"] .so-nav__logo svg path{fill:#FAFBFC}
+.so-nav__brand-divider{width:1px;height:22px;background:rgba(0,0,0,0.12)}
+[data-theme="dark"] .so-nav__brand-divider{background:rgba(255,255,255,0.16)}
+.so-nav__product{display:flex;align-items:center;gap:8px}
+.so-nav__brand-mark{width:16px;height:16px;border-radius:5px;background:linear-gradient(135deg,#C4B5E3,#7AB5E8);flex-shrink:0}
+.so-nav__product-name{font-size:13px;font-weight:600;letter-spacing:-0.01em;color:#151722}
+[data-theme="dark"] .so-nav__product-name{color:#FAFBFC}
+.so-nav__crumbs{display:flex;align-items:center;gap:8px;flex:1;min-width:0}
+.so-nav__crumb-sep{font-size:13px;color:rgba(0,0,0,0.25);flex-shrink:0}
+[data-theme="dark"] .so-nav__crumb-sep{color:rgba(255,255,255,0.3)}
+.so-nav__crumb{font-size:13px;font-weight:500;letter-spacing:-0.005em;color:rgba(0,0,0,0.55);text-decoration:none;white-space:nowrap;transition:color .15s}
+[data-theme="dark"] .so-nav__crumb{color:rgba(255,255,255,0.6)}
+.so-nav__crumb--current{color:#151722;font-weight:600}
+[data-theme="dark"] .so-nav__crumb--current{color:#FAFBFC}
+.so-nav__actions{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.so-nav__share{display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 14px;border-radius:100px;border:1px solid rgba(0,0,0,0.10);background:rgba(255,255,255,0.95);color:#151722;font-family:inherit;font-size:12.5px;font-weight:500;cursor:pointer;transition:all .18s;white-space:nowrap}
+.so-nav__share svg{width:14px;height:14px;opacity:0.7}
+.so-nav__share:hover{border-color:rgba(0,0,0,0.16);background:linear-gradient(135deg,#F7F5FB,#F0F6FC);color:#6B4FA8}
+.so-nav__share:hover svg{opacity:1}
+[data-theme="dark"] .so-nav__share{border-color:rgba(255,255,255,0.10);background:rgba(255,255,255,0.04);color:#FAFBFC}
+[data-theme="dark"] .so-nav__share:hover{border-color:rgba(255,255,255,0.18);background:rgba(132,104,192,0.16);color:#C4B5E3}
+.so-nav__theme{width:34px;height:34px;border-radius:8px;border:1px solid rgba(0,0,0,0.10);background:rgba(255,255,255,0.95);color:rgba(0,0,0,0.6);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .18s;flex-shrink:0}
+.so-nav__theme:hover{border-color:rgba(0,0,0,0.16);color:#151722}
+[data-theme="dark"] .so-nav__theme{border-color:rgba(255,255,255,0.10);background:rgba(255,255,255,0.04);color:rgba(255,255,255,0.6)}
+[data-theme="dark"] .so-nav__theme:hover{border-color:rgba(255,255,255,0.18);color:#FAFBFC}
+.so-nav__theme svg{width:16px;height:16px}
+@media(max-width:720px){.so-nav__crumbs{display:none}.so-nav__brand-divider{display:none}}
+@media(max-width:540px){.so-nav__share .label{display:none}.so-nav__share{padding:0 10px}.so-nav__product-name{display:none}}
+body.share-mode .so-nav{display:none!important}
+
+/* ================================================================
+   SHARE MODAL
+   ================================================================ */
+.share-modal{position:fixed;inset:0;z-index:9999}
+.share-modal[hidden]{display:none}
+.share-modal__backdrop{position:absolute;inset:0;background:rgba(11,12,18,0.55);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.share-modal__panel{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:92%;max-width:540px;max-height:90vh;overflow-y:auto;background:#FFFFFF;color:#151722;border-radius:18px;box-shadow:0 30px 80px rgba(0,0,0,0.28),0 8px 24px rgba(0,0,0,0.10);padding:32px 32px 22px;animation:smIn .25s cubic-bezier(.16,1,.3,1)}
+@keyframes smIn{from{opacity:0;transform:translate(-50%,-46%)}to{opacity:1;transform:translate(-50%,-50%)}}
+[data-theme="dark"] .share-modal__panel{background:#1E2030;color:#FAFBFC}
+.share-modal__close{position:absolute;top:14px;right:14px;width:32px;height:32px;border:0;background:transparent;border-radius:8px;color:rgba(0,0,0,0.45);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.share-modal__close:hover{background:rgba(0,0,0,0.05);color:#151722}
+[data-theme="dark"] .share-modal__close{color:rgba(255,255,255,0.45)}
+[data-theme="dark"] .share-modal__close:hover{background:rgba(255,255,255,0.06);color:#FAFBFC}
+.share-modal__eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#6B4FA8;margin-bottom:14px;font-family:'Inter',system-ui,sans-serif}
+.share-modal__eyebrow svg{width:14px;height:14px;opacity:0.8}
+[data-theme="dark"] .share-modal__eyebrow{color:#C4B5E3}
+.share-modal__title{font-size:24px;font-weight:600;letter-spacing:-0.025em;line-height:1.18;margin-bottom:12px;font-family:'Inter',system-ui,sans-serif}
+.share-modal__lede{font-size:14.5px;line-height:1.6;margin-bottom:22px;color:rgba(0,0,0,0.6);font-family:'Inter',system-ui,sans-serif}
+[data-theme="dark"] .share-modal__lede{color:rgba(255,255,255,0.6)}
+.share-modal__url-block{padding:14px 16px;background:rgba(0,0,0,0.03);border:1px solid rgba(0,0,0,0.06);border-radius:10px;margin-bottom:22px}
+[data-theme="dark"] .share-modal__url-block{background:rgba(255,255,255,0.03);border-color:rgba(255,255,255,0.06)}
+.share-modal__url-label{font-size:10.5px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:rgba(0,0,0,0.45);margin-bottom:6px;font-family:'Inter',system-ui,sans-serif}
+[data-theme="dark"] .share-modal__url-label{color:rgba(255,255,255,0.45)}
+.share-modal__url{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px;word-break:break-all;line-height:1.55;user-select:all}
+.share-modal__actions{display:flex;align-items:center;justify-content:flex-end;gap:10px}
+.share-modal__btn{font-family:'Inter',system-ui,sans-serif;font-size:13.5px;font-weight:500;padding:10px 18px;border-radius:100px;cursor:pointer;transition:all .18s;border:1px solid transparent;white-space:nowrap}
+.share-modal__btn--ghost{background:transparent;color:rgba(0,0,0,0.6);border-color:rgba(0,0,0,0.10)}
+.share-modal__btn--ghost:hover{background:rgba(0,0,0,0.04);color:#151722}
+[data-theme="dark"] .share-modal__btn--ghost{color:rgba(255,255,255,0.6);border-color:rgba(255,255,255,0.10)}
+[data-theme="dark"] .share-modal__btn--ghost:hover{background:rgba(255,255,255,0.06);color:#FAFBFC}
+.share-modal__btn--primary{background:linear-gradient(135deg,#8468C0,#4A96DB);color:#fff}
+.share-modal__btn--primary:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(132,104,192,0.30)}
+.share-modal__btn--primary.is-success{background:#2A7BC8}
+.share-modal__btn--download{background:transparent;color:rgba(0,0,0,0.6);border-color:rgba(0,0,0,0.10)}
+.share-modal__btn--download:hover{background:rgba(0,0,0,0.04);color:#151722}
+[data-theme="dark"] .share-modal__btn--download{color:rgba(255,255,255,0.6);border-color:rgba(255,255,255,0.10)}
+[data-theme="dark"] .share-modal__btn--download:hover{background:rgba(255,255,255,0.06);color:#FAFBFC}
+.share-toast{position:fixed;bottom:32px;left:50%;transform:translate(-50%,16px);z-index:10000;background:#151722;color:#fff;padding:12px 18px;border-radius:10px;font-size:13.5px;font-weight:500;box-shadow:0 10px 30px rgba(0,0,0,0.18);opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;display:inline-flex;align-items:center;gap:8px;font-family:'Inter',system-ui,sans-serif}
+.share-toast svg{width:14px;height:14px}
+.share-toast.is-visible{opacity:1;transform:translate(-50%,0);pointer-events:auto}
+body.modal-open{overflow:hidden}
+
+/* ================================================================
+   SCROLL REVEAL
+   ================================================================ */
+.scroll-reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.scroll-reveal.revealed{opacity:1;transform:translateY(0)}
+
+/* ================================================================
+   PAGE LAYOUT
+   ================================================================ */
+.page-content{width:100%;overflow-x:hidden}
+.section{padding:140px 32px;position:relative}
+.section:first-child{padding-top:100px}
+@media(max-width:768px){.section{padding:80px 20px}}
+.section__inner{max-width:1100px;margin:0 auto;width:100%}
+.section-divider{height:1px;background:var(--border-0);max-width:1100px;margin:0 auto}
+
+/* ================================================================
+   TYPOGRAPHY
+   ================================================================ */
+.tag{
+  font-family:'DM Mono',monospace;font-size:10px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);
+  margin-bottom:12px;display:block;
+}
+h2.section-title{
+  font-family:'Exo 2',sans-serif;font-weight:600;
+  font-size:clamp(28px,4vw,48px);letter-spacing:-.03em;
+  line-height:1.1;color:var(--text-0);margin-bottom:16px;
+}
+.section-sub{font-size:16px;line-height:1.7;color:var(--text-1);max-width:560px;margin-bottom:48px}
+.callout{
+  font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.7;color:var(--text-1);
+  padding:24px 28px;border-left:2px solid var(--cyan);
+  background:var(--cyan-dim);border-radius:0 10px 10px 0;
+  margin-top:40px;max-width:640px;
+}
+
+/* ================================================================
+   HERO
+   ================================================================ */
+.hero{
+  min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;position:relative;overflow:hidden;
+  padding:120px 32px 100px;
+}
+.hero__glow{
+  position:absolute;top:50%;left:50%;width:600px;height:600px;
+  transform:translate(-50%,-50%);
+  background:radial-gradient(circle,rgba(196,166,108,.08) 0%,transparent 70%);
+  pointer-events:none;
+}
+[data-theme="light"] .hero__glow{background:radial-gradient(circle,rgba(122,101,55,.06) 0%,transparent 70%)}
+.hero__vault-lines{
+  position:absolute;inset:0;pointer-events:none;overflow:hidden;opacity:.12;
+}
+.hero__vault-lines::before,.hero__vault-lines::after{
+  content:'';position:absolute;border:1px solid var(--cyan);border-radius:50%;
+  top:50%;left:50%;transform:translate(-50%,-50%);
+}
+.hero__vault-lines::before{width:420px;height:420px}
+.hero__vault-lines::after{width:280px;height:280px}
+.hero__tag{
+  font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--cyan);margin-bottom:24px;position:relative;z-index:1;
+}
+.hero__title{
+  font-family:'Exo 2',sans-serif;font-weight:700;
+  font-size:clamp(36px,6vw,72px);letter-spacing:-.04em;line-height:1.05;
+  color:var(--text-0);position:relative;z-index:1;margin-bottom:20px;
+}
+.hero__subtitle{
+  font-size:17px;line-height:1.7;color:var(--text-2);max-width:540px;
+  position:relative;z-index:1;margin-bottom:48px;
+}
+.hero__stats{
+  display:flex;gap:32px;flex-wrap:wrap;justify-content:center;
+  position:relative;z-index:1;
+}
+.hero__stat{
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  padding:16px 24px;border-radius:12px;
+  background:var(--bg-3);border:1px solid var(--border-0);
+  transition:background .4s,border-color .4s;
+}
+.hero__stat-value{
+  font-family:'DM Mono',monospace;font-size:22px;font-weight:500;color:var(--cyan);
+}
+.hero__stat-label{
+  font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3);
+}
+
+/* ================================================================
+   COLOR SYSTEM
+   ================================================================ */
+.color-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:48px}
+@media(max-width:768px){.color-grid{grid-template-columns:repeat(3,1fr)}}
+.color-swatch{
+  border-radius:10px;overflow:hidden;border:1px solid var(--border-0);
+  transition:transform .2s,box-shadow .2s;cursor:default;
+}
+.color-swatch:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}
+.color-swatch__fill{height:72px;position:relative}
+.color-swatch__info{padding:10px 12px;background:var(--bg-3);transition:background .4s}
+.color-swatch__name{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.06em;color:var(--text-2);margin-bottom:2px}
+.color-swatch__hex{font-family:'DM Mono',monospace;font-size:11px;color:var(--text-0);font-weight:500}
+
+.accent-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:48px}
+.accent-swatch{
+  border-radius:10px;padding:20px 16px;text-align:center;
+  border:1px solid var(--border-0);transition:all .2s;cursor:default;
+}
+.accent-swatch:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}
+.accent-swatch__dot{
+  width:40px;height:40px;border-radius:50%;margin:0 auto 12px;
+  box-shadow:0 2px 12px rgba(0,0,0,.2);
+}
+.accent-swatch__name{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-2);margin-bottom:4px}
+.accent-swatch__hex{font-family:'DM Mono',monospace;font-size:11px;color:var(--text-0)}
+
+.semantic-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media(max-width:600px){.semantic-row{grid-template-columns:1fr}}
+.semantic-card{
+  border-radius:10px;padding:20px;
+  border:1px solid var(--border-0);background:var(--bg-2);
+  display:flex;align-items:center;gap:16px;transition:all .4s;
+}
+.semantic-card__dot{width:14px;height:14px;border-radius:50%;flex-shrink:0}
+.semantic-card__label{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.06em;color:var(--text-1)}
+.semantic-card__hex{font-family:'DM Mono',monospace;font-size:11px;color:var(--text-2);margin-left:auto}
+
+/* ================================================================
+   TYPOGRAPHY SECTION
+   ================================================================ */
+.type-specimen{
+  padding:32px;border-radius:12px;border:1px solid var(--border-0);
+  background:var(--bg-2);margin-bottom:20px;transition:all .4s;
+}
+.type-specimen__label{
+  font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--cyan);margin-bottom:8px;display:flex;align-items:center;gap:12px;
+}
+.type-specimen__label span{color:var(--text-3);letter-spacing:.04em;text-transform:none}
+.type-specimen__sample-display{
+  font-family:'Exo 2',sans-serif;font-size:clamp(32px,4vw,52px);font-weight:600;
+  letter-spacing:-.03em;line-height:1.15;color:var(--text-0);margin-bottom:8px;
+}
+.type-specimen__sample-body{
+  font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.7;
+  color:var(--text-1);max-width:600px;
+}
+.type-specimen__sample-mono{
+  font-family:'DM Mono',monospace;font-size:14px;line-height:1.7;
+  color:var(--text-1);letter-spacing:.02em;
+}
+
+.type-scale{display:grid;gap:2px;margin-top:40px}
+.type-scale__row{
+  display:flex;align-items:baseline;gap:20px;
+  padding:12px 16px;border-radius:8px;
+  transition:background .2s;
+}
+.type-scale__row:hover{background:var(--bg-3)}
+.type-scale__size{font-family:'DM Mono',monospace;font-size:11px;color:var(--cyan);width:48px;flex-shrink:0}
+.type-scale__preview{color:var(--text-0);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* ================================================================
+   ELEVATION & DEPTH
+   ================================================================ */
+.elevation-stack{
+  display:flex;flex-direction:column;gap:0;position:relative;
+  margin-top:32px;
+}
+.elevation-level{
+  display:flex;align-items:center;gap:24px;
+  padding:28px 32px;border:1px solid var(--border-0);
+  transition:all .3s;position:relative;
+}
+.elevation-level:first-child{border-radius:12px 12px 0 0}
+.elevation-level:last-child{border-radius:0 0 12px 12px}
+.elevation-level + .elevation-level{border-top:none}
+.elevation-level__label{
+  font-family:'DM Mono',monospace;font-size:12px;font-weight:500;
+  color:var(--cyan);width:60px;flex-shrink:0;
+}
+.elevation-level__desc{font-size:13px;color:var(--text-2);flex:1}
+.elevation-level__demo{
+  width:64px;height:40px;border-radius:8px;flex-shrink:0;
+  border:1px solid var(--border-0);
+}
+
+/* ================================================================
+   STROKE & ROUNDING
+   ================================================================ */
+.radius-spectrum{
+  display:flex;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-top:32px;margin-bottom:48px;
+}
+.radius-item{
+  display:flex;flex-direction:column;align-items:center;gap:12px;
+}
+.radius-item__box{
+  width:72px;height:72px;border:2px solid var(--cyan);
+  transition:all .3s;
+}
+.radius-item__label{font-family:'DM Mono',monospace;font-size:10px;color:var(--text-2);letter-spacing:.04em}
+.radius-item__tag{font-family:'DM Mono',monospace;font-size:9px;color:var(--cyan);letter-spacing:.08em;text-transform:uppercase}
+.radius-item--active .radius-item__box{box-shadow:0 0 20px var(--cyan-dim);border-color:var(--cyan)}
+
+.stroke-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+@media(max-width:600px){.stroke-grid{grid-template-columns:repeat(2,1fr)}}
+.stroke-card{
+  padding:24px;border-radius:10px;text-align:center;
+  transition:all .3s;background:var(--bg-2);
+}
+.stroke-card__line{height:2px;margin:0 auto 16px;width:80%}
+.stroke-card__name{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-2);margin-bottom:4px}
+.stroke-card__value{font-family:'DM Mono',monospace;font-size:11px;color:var(--text-0)}
+
+/* ================================================================
+   GLASS & TRANSLUCENCY
+   ================================================================ */
+.glass-demo{
+  position:relative;border-radius:16px;overflow:hidden;
+  min-height:400px;margin-top:32px;
+  background:var(--bg-2);border:1px solid var(--border-0);
+}
+.glass-demo__bg{
+  position:absolute;inset:0;padding:24px;opacity:.6;
+  display:grid;grid-template-columns:repeat(3,1fr);gap:12px;
+}
+.glass-demo__bg-card{
+  background:var(--bg-3);border-radius:8px;padding:16px;
+}
+.glass-demo__bg-bar{height:8px;border-radius:4px;background:var(--border-1);margin-bottom:8px}
+.glass-demo__bg-bar--short{width:60%}
+.glass-demo__bg-bar--accent{background:var(--cyan-dim);width:80%}
+.glass-demo__bg-num{font-family:'DM Mono',monospace;font-size:20px;color:var(--text-2);margin-bottom:8px}
+
+.glass-tiers{
+  position:relative;z-index:1;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;
+  padding:24px;height:100%;min-height:400px;align-items:center;
+}
+@media(max-width:768px){.glass-tiers{grid-template-columns:1fr}}
+.glass-tier{
+  padding:28px 24px;border-radius:12px;text-align:center;
+  transition:transform .3s,box-shadow .3s;
+}
+.glass-tier:hover{transform:translateY(-4px)}
+.glass-tier--subtle{
+  background:rgba(8,8,8,.40);
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,.04);
+}
+[data-theme="light"] .glass-tier--subtle{background:rgba(255,255,255,.40);border-color:rgba(0,0,0,.04)}
+.glass-tier--medium{
+  background:rgba(8,8,8,.65);
+  -webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);
+  border:1px solid rgba(255,255,255,.08);
+}
+[data-theme="light"] .glass-tier--medium{background:rgba(255,255,255,.65);border-color:rgba(0,0,0,.06)}
+.glass-tier--heavy{
+  background:rgba(8,8,8,.85);
+  -webkit-backdrop-filter:blur(24px) saturate(1.2);backdrop-filter:blur(24px) saturate(1.2);
+  border:1px solid rgba(255,255,255,.12);
+}
+[data-theme="light"] .glass-tier--heavy{background:rgba(255,255,255,.85);border-color:rgba(0,0,0,.08)}
+
+.glass-tier__name{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);margin-bottom:8px}
+.glass-tier__spec{font-family:'DM Mono',monospace;font-size:10px;color:var(--text-3);line-height:1.6}
+
+/* ================================================================
+   COMPONENT STYLING
+   ================================================================ */
+.comp-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:32px}
+
+/* Buttons */
+.demo-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:10px 22px;border-radius:8px;font-family:'DM Sans',sans-serif;
+  font-size:13px;font-weight:500;cursor:pointer;
+  border:1px solid transparent;transition:all .2s;
+}
+.demo-btn--primary{
+  background:var(--grad-cyan);color:var(--bg-0);border-color:transparent;
+  box-shadow:0 2px 8px rgba(196,166,108,.2);
+}
+.demo-btn--primary:hover{box-shadow:0 4px 20px rgba(196,166,108,.35);transform:translateY(-1px)}
+[data-theme="light"] .demo-btn--primary{color:#fff}
+.demo-btn--secondary{
+  background:var(--bg-3);color:var(--text-1);border-color:var(--border-1);
+}
+.demo-btn--secondary:hover{background:var(--bg-4);color:var(--text-0);border-color:var(--border-2)}
+.demo-btn--ghost{
+  background:transparent;color:var(--text-2);border-color:transparent;
+}
+.demo-btn--ghost:hover{color:var(--text-0);background:var(--bg-3)}
+.demo-btn--ai{
+  background:var(--grad-indigo);color:#fff;border-color:transparent;
+  box-shadow:0 2px 8px rgba(129,140,248,.2);
+}
+.demo-btn--ai:hover{box-shadow:0 4px 20px rgba(129,140,248,.35);transform:translateY(-1px)}
+
+/* Cards */
+.demo-card{
+  padding:24px;border-radius:10px;background:var(--bg-3);
+  border:1px solid var(--border-0);transition:all .3s;max-width:320px;
+}
+.demo-card:hover{border-color:var(--border-accent);box-shadow:var(--glow-sm),var(--shadow-md);transform:translateY(-2px)}
+.demo-card__title{font-family:'Exo 2',sans-serif;font-size:15px;font-weight:600;color:var(--text-0);margin-bottom:8px}
+.demo-card__text{font-size:13px;color:var(--text-2);line-height:1.6;margin-bottom:12px}
+.demo-card__metric{font-family:'DM Mono',monospace;font-size:20px;font-weight:500;color:var(--cyan)}
+
+.demo-card--ai{
+  background:var(--indigo-dim);border-color:rgba(129,140,248,.15);
+}
+.demo-card--ai:hover{border-color:rgba(129,140,248,.30);box-shadow:0 0 16px rgba(129,140,248,.12),var(--shadow-md)}
+.demo-card--ai .demo-card__title{color:var(--indigo)}
+.demo-card--ai .demo-card__metric{color:var(--violet)}
+
+/* Data table */
+.demo-table{
+  width:100%;border-collapse:collapse;font-size:13px;margin-top:24px;
+  border-radius:10px;overflow:hidden;border:1px solid var(--border-0);
+}
+.demo-table th{
+  font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--text-3);text-align:left;
+  padding:12px 16px;background:var(--bg-2);border-bottom:1px solid var(--border-0);
+}
+.demo-table td{
+  padding:12px 16px;border-bottom:1px solid var(--border-0);
+  color:var(--text-1);transition:background .2s;
+}
+.demo-table tr:hover td{background:var(--bg-3)}
+.demo-table .mono{font-family:'DM Mono',monospace;color:var(--text-0)}
+.demo-table .up{color:var(--success)}
+.demo-table .down{color:var(--danger)}
+
+/* Toast notifications */
+.demo-toast-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
+.demo-toast{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:12px 18px;border-radius:10px;font-size:13px;font-weight:500;
+  border:1px solid;
+}
+.demo-toast--success{background:rgba(16,185,129,.08);border-color:rgba(16,185,129,.2);color:var(--success)}
+.demo-toast--warning{background:rgba(245,158,11,.08);border-color:rgba(245,158,11,.2);color:var(--warning)}
+.demo-toast--danger{background:rgba(239,68,68,.08);border-color:rgba(239,68,68,.2);color:var(--danger)}
+.demo-toast__icon{width:16px;height:16px;flex-shrink:0}
+
+/* ================================================================
+   MOTION & STATES
+   ================================================================ */
+.states-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin-bottom:48px}
+.state-item{
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  padding:20px 12px;border-radius:10px;background:var(--bg-2);
+  border:1px solid var(--border-0);transition:all .3s;
+}
+.state-item__btn{
+  padding:8px 18px;border-radius:8px;font-family:'DM Sans',sans-serif;
+  font-size:12px;font-weight:500;cursor:pointer;
+  border:1px solid transparent;transition:all .2s;
+}
+.state-item__btn--default{background:var(--grad-cyan);color:var(--bg-0)}
+[data-theme="light"] .state-item__btn--default{color:#fff}
+.state-item__btn--hover{background:var(--grad-cyan);color:var(--bg-0);box-shadow:0 4px 20px rgba(196,166,108,.35);transform:translateY(-1px)}
+[data-theme="light"] .state-item__btn--hover{color:#fff}
+.state-item__btn--focus{background:var(--grad-cyan);color:var(--bg-0);outline:2px solid var(--cyan);outline-offset:2px}
+[data-theme="light"] .state-item__btn--focus{color:#fff}
+.state-item__btn--active{background:var(--cyan-soft);color:var(--bg-0);transform:translateY(1px)}
+[data-theme="light"] .state-item__btn--active{color:#fff}
+.state-item__btn--disabled{background:var(--bg-3);color:var(--text-3);border-color:var(--border-0);cursor:not-allowed;opacity:.5}
+.state-item__label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3)}
+
+/* Loading patterns */
+.loading-demos{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:48px}
+.loading-card{
+  padding:24px;border-radius:10px;background:var(--bg-2);
+  border:1px solid var(--border-0);display:flex;flex-direction:column;align-items:center;gap:16px;
+  min-height:140px;justify-content:center;
+}
+.loading-card__label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3)}
+
+/* Skeleton shimmer */
+.skeleton{
+  height:14px;border-radius:6px;background:var(--bg-3);
+  position:relative;overflow:hidden;width:100%;
+}
+.skeleton::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.06),transparent);
+  animation:shimmer 1.8s infinite;
+}
+[data-theme="light"] .skeleton::after{background:linear-gradient(90deg,transparent,rgba(0,0,0,.04),transparent)}
+@keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+.skeleton--short{width:60%}
+.skeleton--xs{width:40%;height:10px}
+
+/* Spinner */
+.spinner{
+  width:28px;height:28px;border:2.5px solid var(--border-1);
+  border-top-color:var(--cyan);border-radius:50%;animation:spin .8s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* Dots */
+.dots{display:flex;gap:6px}
+.dot{
+  width:8px;height:8px;border-radius:50%;background:var(--cyan);
+  animation:dotPulse 1.2s infinite ease-in-out;
+}
+.dot:nth-child(2){animation-delay:.15s}
+.dot:nth-child(3){animation-delay:.3s}
+@keyframes dotPulse{0%,80%,100%{opacity:.25;transform:scale(.8)}40%{opacity:1;transform:scale(1)}}
+
+/* Progress bar */
+.progress-demo{width:100%;height:4px;border-radius:2px;background:var(--bg-4);overflow:hidden}
+.progress-demo__fill{height:100%;border-radius:2px;background:var(--grad-cyan);animation:progressFill 2.4s ease-in-out infinite}
+@keyframes progressFill{0%{width:0}50%{width:75%}100%{width:100%}}
+
+/* Toggle */
+.toggle-demo{
+  width:44px;height:24px;border-radius:12px;
+  background:var(--toggle-track);border:1px solid var(--border-1);
+  cursor:pointer;position:relative;transition:background .3s,border-color .3s;
+}
+.toggle-demo::after{
+  content:'';position:absolute;top:3px;left:3px;
+  width:16px;height:16px;border-radius:50%;background:var(--text-3);
+  transition:transform .3s cubic-bezier(.16,1,.3,1),background .3s;
+}
+.toggle-demo.is-on{background:var(--cyan-dim);border-color:var(--border-accent)}
+.toggle-demo.is-on::after{transform:translateX(20px);background:var(--cyan)}
+
+/* Empty state */
+.empty-state{
+  padding:48px 32px;text-align:center;border-radius:12px;
+  border:1px dashed var(--border-1);background:var(--bg-2);
+  transition:all .4s;
+}
+.empty-state__icon{
+  width:48px;height:48px;margin:0 auto 16px;border-radius:12px;
+  background:var(--cyan-dim);display:flex;align-items:center;justify-content:center;
+}
+.empty-state__icon svg{width:24px;height:24px;color:var(--cyan)}
+.empty-state__title{font-family:'Exo 2',sans-serif;font-size:16px;font-weight:600;color:var(--text-0);margin-bottom:6px}
+.empty-state__desc{font-size:13px;color:var(--text-2);max-width:280px;margin:0 auto}
+
+/* ================================================================
+   TOC (floating)
+   ================================================================ */
+.toc{
+  position:fixed;right:24px;top:50%;transform:translateY(-50%);
+  z-index:100;display:flex;flex-direction:column;gap:4px;
+}
+@media(max-width:1280px){.toc{display:none}}
+.toc__dot{
+  width:6px;height:6px;border-radius:50%;background:var(--border-1);
+  cursor:pointer;transition:all .3s;position:relative;
+}
+.toc__dot:hover,.toc__dot.active{background:var(--cyan);transform:scale(1.4)}
+.toc__dot::after{
+  content:attr(data-label);position:absolute;right:16px;top:50%;transform:translateY(-50%);
+  font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.06em;
+  color:var(--text-3);white-space:nowrap;opacity:0;transition:opacity .2s;pointer-events:none;
+}
+.toc__dot:hover::after{opacity:1}
+body.share-mode .toc{display:none}
+</style>
+</head>
+<body>
+
+<!-- UNIFIED NAV -->
+<nav class="so-nav">
+  <div class="so-nav__inner">
+    <a class="so-nav__brand" href="../../index.html" aria-label="Single Origin home">
+      <span class="so-nav__logo"><svg viewBox="0 0 80 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Experis"><path d="M0 3.8h10.4v2.4H2.9v3.4h6.8v2.3H2.9v3.7h7.7v2.4H0V3.8z"/><path d="M14.8 10.2l-4.6-6.4h3.5l2.8 4.2 2.9-4.2h3.4l-4.6 6.3 5 6.9h-3.5l-3.2-4.7-3.2 4.7h-3.4l5-6.8z"/><path d="M24.4 3.8H30c3.6 0 5.6 1.9 5.6 4.6 0 2.7-2 4.7-5.6 4.7h-2.7v4.9h-2.9V3.8zm5.3 7c1.9 0 2.9-1 2.9-2.4 0-1.4-1-2.3-2.9-2.3h-2.4v4.7h2.4z"/><path d="M37.6 3.8H48v2.4h-7.5v3.4h6.8v2.3h-6.8v3.7h7.7v2.4H37.6V3.8z"/><path d="M50.4 3.8h5.2c3.5 0 5.5 1.7 5.5 4.3 0 2.1-1.1 3.5-3 4.1l3.5 5.8h-3.3l-3.1-5.4h-1.9v5.4h-2.9V3.8zm5 6.6c1.8 0 2.8-.9 2.8-2.2 0-1.3-1-2.1-2.8-2.1h-2.1v4.3h2.1z"/><path d="M64.2 3.8h2.9v14.2h-2.9V3.8z"/><path d="M69.6 14.8l1.7-2c1.2 1.1 2.5 1.8 4 1.8 1.5 0 2.3-.7 2.3-1.6 0-1-.7-1.5-3.2-2.2-3-0.8-4.6-1.9-4.6-4.2 0-2.5 2-4.1 4.8-4.1 2 0 3.6.6 5 1.8l-1.5 2.1c-1.1-.9-2.3-1.4-3.5-1.4-1.4 0-2.1.7-2.1 1.5 0 1 .7 1.5 3.3 2.2 3 .9 4.5 2 4.5 4.2 0 2.7-2.1 4.3-5.1 4.3-2.1 0-4-.7-5.6-2.3z"/></svg></span>
+      <span class="so-nav__brand-divider"></span>
+      <span class="so-nav__product"><span class="so-nav__brand-mark"></span><span class="so-nav__product-name">Single Origin</span></span>
+    </a>
+    <div class="so-nav__crumbs">
+      <span class="so-nav__crumb-sep">/</span>
+      <span class="so-nav__crumb so-nav__crumb--current">App Design System</span>
+    </div>
+    <div class="so-nav__actions">
+      <button class="so-nav__share" id="shareBtn" type="button" aria-label="Send page as link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.5 1.5"/><path d="M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.5-1.5"/></svg>
+        <span class="label">Send as link</span>
+      </button>
+      <button class="so-nav__theme" id="themeToggle" type="button" aria-label="Toggle theme">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="8" cy="8" r="3.5"/><path d="M8 1.5v1M8 13.5v1M1.5 8h1M13.5 8h1M3.4 3.4l.7.7M11.9 11.9l.7.7M3.4 12.6l.7-.7M11.9 4.1l.7-.7"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- TABLE OF CONTENTS (floating dots) -->
+<div class="toc" id="toc">
+  <div class="toc__dot active" data-label="Hero" data-target="hero"></div>
+  <div class="toc__dot" data-label="Color" data-target="color"></div>
+  <div class="toc__dot" data-label="Typography" data-target="typography"></div>
+  <div class="toc__dot" data-label="Elevation" data-target="elevation"></div>
+  <div class="toc__dot" data-label="Radius" data-target="radius"></div>
+  <div class="toc__dot" data-label="Glass" data-target="glass"></div>
+  <div class="toc__dot" data-label="Components" data-target="components"></div>
+  <div class="toc__dot" data-label="Motion" data-target="motion"></div>
+</div>
+
+<!-- ================================================================
+     PAGE CONTENT
+     ================================================================ -->
+<div class="page-content">
+
+<!-- ──────────────── 1. HERO ──────────────── -->
+<section class="hero" id="hero">
+  <div class="hero__glow"></div>
+  <div class="hero__vault-lines"></div>
+  <div class="hero__tag">Design System Reference</div>
+  <h1 class="hero__title scroll-reveal">App Design System</h1>
+  <p class="hero__subtitle scroll-reveal">A living reference for the enterprise banking interface &mdash; tokens, patterns, and principles that scale.</p>
+  <div class="hero__stats scroll-reveal">
+    <div class="hero__stat">
+      <span class="hero__stat-value">60+</span>
+      <span class="hero__stat-label">Tokens</span>
+    </div>
+    <div class="hero__stat">
+      <span class="hero__stat-value">3</span>
+      <span class="hero__stat-label">Typefaces</span>
+    </div>
+    <div class="hero__stat">
+      <span class="hero__stat-value">5</span>
+      <span class="hero__stat-label">Depth Levels</span>
+    </div>
+    <div class="hero__stat">
+      <span class="hero__stat-value">2</span>
+      <span class="hero__stat-label">Themes</span>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ──────────────── 2. COLOR SYSTEM ──────────────── -->
+<section class="section" id="color">
+  <div class="section__inner">
+    <span class="tag scroll-reveal">Color System</span>
+    <h2 class="section-title scroll-reveal">Surface &amp; Accent Palette</h2>
+    <p class="section-sub scroll-reveal">A five-step surface scale anchored to near-black, with gold as the primary accent and indigo reserved for AI-driven surfaces.</p>
+
+    <!-- Surface scale -->
+    <div class="color-grid scroll-reveal" id="surfaceGrid">
+      <div class="color-swatch">
+        <div class="color-swatch__fill" style="background:var(--bg-0)"></div>
+        <div class="color-swatch__info">
+          <div class="color-swatch__name">bg-0</div>
+          <div class="color-swatch__hex" data-dark="#000000" data-light="#E8E8E8">#000000</div>
+        </div>
+      </div>
+      <div class="color-swatch">
+        <div class="color-swatch__fill" style="background:var(--bg-1)"></div>
+        <div class="color-swatch__info">
+          <div class="color-swatch__name">bg-1</div>
+          <div class="color-swatch__hex" data-dark="#080808" data-light="#EEEEEE">#080808</div>
+        </div>
+      </div>
+      <div class="color-swatch">
+        <div class="color-swatch__fill" style="background:var(--bg-2)"></div>
+        <div class="color-swatch__info">
+          <div class="color-swatch__name">bg-2</div>
+          <div class="color-swatch__hex" data-dark="#0A0A0A" data-light="#F4F4F4">#0A0A0A</div>
+        </div>
+      </div>
+      <div class="color-swatch">
+        <div class="color-swatch__fill" style="background:var(--bg-3)"></div>
+        <div class="color-swatch__info">
+          <div class="color-swatch__name">bg-3</div>
+          <div class="color-swatch__hex" data-dark="#111111" data-light="#FAFAFA">#111111</div>
+        </div>
+      </div>
+      <div class="color-swatch">
+        <div class="color-swatch__fill" style="background:var(--bg-4)"></div>
+        <div class="color-swatch__info">
+          <div class="color-swatch__name">bg-4</div>
+          <div class="color-swatch__hex" data-dark="#1A1A1A" data-light="#FFFFFF">#1A1A1A</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Primary accents -->
+    <div class="accent-row scroll-reveal">
+      <div class="accent-swatch" style="background:var(--bg-2)">
+        <div class="accent-swatch__dot" style="background:var(--cyan)"></div>
+        <div class="accent-swatch__name">Gold / Cyan</div>
+        <div class="accent-swatch__hex" data-dark="#C4A66C" data-light="#7A6537">#C4A66C</div>
+      </div>
+      <div class="accent-swatch" style="background:var(--bg-2)">
+        <div class="accent-swatch__dot" style="background:var(--cyan-soft)"></div>
+        <div class="accent-swatch__name">Soft</div>
+        <div class="accent-swatch__hex" data-dark="#B89B60" data-light="#7A6537">#B89B60</div>
+      </div>
+      <div class="accent-swatch" style="background:var(--bg-2)">
+        <div class="accent-swatch__dot" style="background:var(--indigo)"></div>
+        <div class="accent-swatch__name">AI / Indigo</div>
+        <div class="accent-swatch__hex" data-dark="#818CF8" data-light="#4F46E5">#818CF8</div>
+      </div>
+      <div class="accent-swatch" style="background:var(--bg-2)">
+        <div class="accent-swatch__dot" style="background:var(--violet)"></div>
+        <div class="accent-swatch__name">Violet</div>
+        <div class="accent-swatch__hex" data-dark="#A78BFA" data-light="#7C3AED">#A78BFA</div>
+      </div>
+    </div>
+
+    <!-- Semantic -->
+    <div class="semantic-row scroll-reveal">
+      <div class="semantic-card">
+        <div class="semantic-card__dot" style="background:var(--success)"></div>
+        <div class="semantic-card__label">Success</div>
+        <div class="semantic-card__hex" data-dark="#10B981" data-light="#057550">#10B981</div>
+      </div>
+      <div class="semantic-card">
+        <div class="semantic-card__dot" style="background:var(--warning)"></div>
+        <div class="semantic-card__label">Warning</div>
+        <div class="semantic-card__hex" data-dark="#F59E0B" data-light="#9A4A0E">#F59E0B</div>
+      </div>
+      <div class="semantic-card">
+        <div class="semantic-card__dot" style="background:var(--danger)"></div>
+        <div class="semantic-card__label">Danger</div>
+        <div class="semantic-card__hex" data-dark="#EF4444" data-light="#B91C1C">#EF4444</div>
+      </div>
+    </div>
+
+    <div class="callout scroll-reveal">Gold signals importance. Indigo signals AI. Everything else stays neutral.</div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ──────────────── 3. TYPOGRAPHY ──────────────── -->
+<section class="section" id="typography">
+  <div class="section__inner">
+    <span class="tag scroll-reveal">Typography</span>
+    <h2 class="section-title scroll-reveal">Three Voices, One System</h2>
+    <p class="section-sub scroll-reveal">Each typeface serves a distinct role &mdash; display weight for authority, body weight for readability, monospace for precision.</p>
+
+    <div class="type-specimen scroll-reveal">
+      <div class="type-specimen__label">Display &mdash; <span>Exo 2, 200&ndash;800</span></div>
+      <div class="type-specimen__sample-display">Institutional Trust,<br>Designed at Scale</div>
+    </div>
+
+    <div class="type-specimen scroll-reveal">
+      <div class="type-specimen__label">Body &mdash; <span>DM Sans, 300&ndash;700</span></div>
+      <div class="type-specimen__sample-body">Clarity is the baseline. Every label, paragraph, and control surface uses DM Sans &mdash; a geometric humanist typeface optimized for UI density at any viewport size. Italics are reserved for contextual emphasis only.</div>
+    </div>
+
+    <div class="type-specimen scroll-reveal">
+      <div class="type-specimen__label">Data &mdash; <span>DM Mono, 300&ndash;500</span></div>
+      <div class="type-specimen__sample-mono">$14,238,901.42 &nbsp;&middot;&nbsp; +3.72% &nbsp;&middot;&nbsp; 2026-05-12<br>--cyan: #C4A66C &nbsp;&middot;&nbsp; border-radius: 8px &nbsp;&middot;&nbsp; blur(24px)</div>
+    </div>
+
+    <!-- Size scale -->
+    <div class="type-scale scroll-reveal">
+      <div class="type-scale__row">
+        <span class="type-scale__size">48px</span>
+        <span class="type-scale__preview" style="font-family:'Exo 2',sans-serif;font-size:48px;font-weight:600;letter-spacing:-.03em;line-height:1.1">Page Title</span>
+      </div>
+      <div class="type-scale__row">
+        <span class="type-scale__size">32px</span>
+        <span class="type-scale__preview" style="font-family:'Exo 2',sans-serif;font-size:32px;font-weight:600;letter-spacing:-.02em;line-height:1.15">Section Header</span>
+      </div>
+      <div class="type-scale__row">
+        <span class="type-scale__size">20px</span>
+        <span class="type-scale__preview" style="font-family:'Exo 2',sans-serif;font-size:20px;font-weight:600;letter-spacing:-.01em">Card Title</span>
+      </div>
+      <div class="type-scale__row">
+        <span class="type-scale__size">16px</span>
+        <span class="type-scale__preview" style="font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.6">Body text at default reading size</span>
+      </div>
+      <div class="type-scale__row">
+        <span class="type-scale__size">13px</span>
+        <span class="type-scale__preview" style="font-family:'DM Sans',sans-serif;font-size:13px">Button label, secondary copy</span>
+      </div>
+      <div class="type-scale__row">
+        <span class="type-scale__size">11px</span>
+        <span class="type-scale__preview" style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.04em">TOKEN REFERENCE &middot; CAPTION &middot; METADATA</span>
+      </div>
+      <div class="type-scale__row">
+        <span class="type-scale__size">10px</span>
+        <span class="type-scale__preview" style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan)">EYEBROW TAG</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ──────────────── 4. ELEVATION & DEPTH ──────────────── -->
+<section class="section" id="elevation">
+  <div class="section__inner">
+    <span class="tag scroll-reveal">Elevation &amp; Depth</span>
+    <h2 class="section-title scroll-reveal">Five Surface Levels</h2>
+    <p class="section-sub scroll-reveal">Each level increases in brightness and shadow weight. Higher surfaces draw attention; lower surfaces recede.</p>
+
+    <div class="elevation-stack scroll-reveal">
+      <div class="elevation-level" style="background:var(--bg-0)">
+        <span class="elevation-level__label">bg-0</span>
+        <span class="elevation-level__desc">Canvas / viewport background</span>
+        <div class="elevation-level__demo" style="background:var(--bg-0);box-shadow:none"></div>
+      </div>
+      <div class="elevation-level" style="background:var(--bg-1)">
+        <span class="elevation-level__label">bg-1</span>
+        <span class="elevation-level__desc">App shell, sidebar, nav background</span>
+        <div class="elevation-level__demo" style="background:var(--bg-1)"></div>
+      </div>
+      <div class="elevation-level" style="background:var(--bg-2)">
+        <span class="elevation-level__label">bg-2</span>
+        <span class="elevation-level__desc">Content area, section backgrounds</span>
+        <div class="elevation-level__demo" style="background:var(--bg-2);box-shadow:var(--shadow-sm)"></div>
+      </div>
+      <div class="elevation-level" style="background:var(--bg-3)">
+        <span class="elevation-level__label">bg-3</span>
+        <span class="elevation-level__desc">Cards, panels, elevated containers</span>
+        <div class="elevation-level__demo" style="background:var(--bg-3);box-shadow:var(--shadow-sm)"></div>
+      </div>
+      <div class="elevation-level" style="background:var(--bg-4)">
+        <span class="elevation-level__label">bg-4</span>
+        <span class="elevation-level__desc">Popovers, tooltips, dropdowns, modals</span>
+        <div class="elevation-level__demo" style="background:var(--bg-4);box-shadow:var(--shadow-md)"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ──────────────── 5. STROKE & ROUNDING ──────────────── -->
+<section class="section" id="radius">
+  <div class="section__inner">
+    <span class="tag scroll-reveal">Stroke &amp; Rounding</span>
+    <h2 class="section-title scroll-reveal">Corner Radius Spectrum</h2>
+    <p class="section-sub scroll-reveal">Sharp for data density, soft for interaction surfaces. The 6&ndash;10px range is the <span class="redacted">BankIQ</span> sweet spot.</p>
+
+    <div class="radius-spectrum scroll-reveal">
+      <div class="radius-item">
+        <div class="radius-item__box" style="border-radius:0"></div>
+        <span class="radius-item__label">0px</span>
+        <span class="radius-item__tag">Sharp</span>
+      </div>
+      <div class="radius-item">
+        <div class="radius-item__box" style="border-radius:4px"></div>
+        <span class="radius-item__label">4px</span>
+        <span class="radius-item__tag">Tight</span>
+      </div>
+      <div class="radius-item radius-item--active">
+        <div class="radius-item__box" style="border-radius:6px"></div>
+        <span class="radius-item__label">6px</span>
+        <span class="radius-item__tag">Default</span>
+      </div>
+      <div class="radius-item radius-item--active">
+        <div class="radius-item__box" style="border-radius:8px"></div>
+        <span class="radius-item__label">8px</span>
+        <span class="radius-item__tag">Primary</span>
+      </div>
+      <div class="radius-item radius-item--active">
+        <div class="radius-item__box" style="border-radius:10px"></div>
+        <span class="radius-item__label">10px</span>
+        <span class="radius-item__tag">Cards</span>
+      </div>
+      <div class="radius-item">
+        <div class="radius-item__box" style="border-radius:16px"></div>
+        <span class="radius-item__label">16px</span>
+        <span class="radius-item__tag">Panels</span>
+      </div>
+      <div class="radius-item">
+        <div class="radius-item__box" style="border-radius:24px"></div>
+        <span class="radius-item__label">24px</span>
+        <span class="radius-item__tag">Pills</span>
+      </div>
+    </div>
+
+    <!-- Stroke weight -->
+    <h3 style="font-family:'Exo 2',sans-serif;font-size:20px;font-weight:600;color:var(--text-0);margin-bottom:20px" class="scroll-reveal">Stroke Weight System</h3>
+    <div class="stroke-grid scroll-reveal">
+      <div class="stroke-card">
+        <div class="stroke-card__line" style="background:var(--border-0)"></div>
+        <div class="stroke-card__name">border-0</div>
+        <div class="stroke-card__value">6% opacity</div>
+      </div>
+      <div class="stroke-card">
+        <div class="stroke-card__line" style="background:var(--border-1)"></div>
+        <div class="stroke-card__name">border-1</div>
+        <div class="stroke-card__value">12% opacity</div>
+      </div>
+      <div class="stroke-card">
+        <div class="stroke-card__line" style="background:var(--border-2)"></div>
+        <div class="stroke-card__name">border-2</div>
+        <div class="stroke-card__value">24% opacity</div>
+      </div>
+      <div class="stroke-card">
+        <div class="stroke-card__line" style="background:var(--border-accent)"></div>
+        <div class="stroke-card__name">Accent</div>
+        <div class="stroke-card__value">Gold 30%</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ──────────────── 6. GLASS & TRANSLUCENCY ──────────────── -->
+<section class="section" id="glass">
+  <div class="section__inner">
+    <span class="tag scroll-reveal">Glass &amp; Translucency</span>
+    <h2 class="section-title scroll-reveal">Three Tiers of Depth</h2>
+    <p class="section-sub scroll-reveal">Glass panels layer over dashboard content with increasing opacity and blur. Each tier serves a different context.</p>
+
+    <div class="glass-demo scroll-reveal">
+      <!-- Background content visible beneath -->
+      <div class="glass-demo__bg">
+        <div class="glass-demo__bg-card">
+          <div class="glass-demo__bg-num">$4.2M</div>
+          <div class="glass-demo__bg-bar"></div>
+          <div class="glass-demo__bg-bar glass-demo__bg-bar--short"></div>
+        </div>
+        <div class="glass-demo__bg-card">
+          <div class="glass-demo__bg-num">+12.4%</div>
+          <div class="glass-demo__bg-bar glass-demo__bg-bar--accent"></div>
+          <div class="glass-demo__bg-bar"></div>
+        </div>
+        <div class="glass-demo__bg-card">
+          <div class="glass-demo__bg-num">847</div>
+          <div class="glass-demo__bg-bar"></div>
+          <div class="glass-demo__bg-bar glass-demo__bg-bar--short"></div>
+        </div>
+        <div class="glass-demo__bg-card">
+          <div class="glass-demo__bg-bar glass-demo__bg-bar--accent"></div>
+          <div class="glass-demo__bg-bar"></div>
+          <div class="glass-demo__bg-bar glass-demo__bg-bar--short"></div>
+        </div>
+        <div class="glass-demo__bg-card">
+          <div class="glass-demo__bg-num">$891K</div>
+          <div class="glass-demo__bg-bar"></div>
+          <div class="glass-demo__bg-bar"></div>
+        </div>
+        <div class="glass-demo__bg-card">
+          <div class="glass-demo__bg-bar"></div>
+          <div class="glass-demo__bg-bar glass-demo__bg-bar--short"></div>
+          <div class="glass-demo__bg-bar glass-demo__bg-bar--accent"></div>
+        </div>
+      </div>
+      <!-- Glass tiers -->
+      <div class="glass-tiers">
+        <div class="glass-tier glass-tier--subtle">
+          <div class="glass-tier__name">Subtle</div>
+          <div class="glass-tier__spec">opacity: 40%<br>blur: 8px<br>border: 4% white</div>
+        </div>
+        <div class="glass-tier glass-tier--medium">
+          <div class="glass-tier__name">Medium</div>
+          <div class="glass-tier__spec">opacity: 65%<br>blur: 16px<br>border: 8% white</div>
+        </div>
+        <div class="glass-tier glass-tier--heavy">
+          <div class="glass-tier__name">Heavy</div>
+          <div class="glass-tier__spec">opacity: 85%<br>blur: 24px<br>border: 12% white<br>saturate: 1.2</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ──────────────── 7. COMPONENT STYLING ──────────────── -->
+<section class="section" id="components">
+  <div class="section__inner">
+    <span class="tag scroll-reveal">Component Styling</span>
+    <h2 class="section-title scroll-reveal">Interactive Surfaces</h2>
+    <p class="section-sub scroll-reveal">Buttons, cards, data tables, and notification patterns &mdash; all built from the same token vocabulary.</p>
+
+    <!-- Button hierarchy -->
+    <h3 style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);margin-bottom:16px" class="scroll-reveal">Button Hierarchy</h3>
+    <div class="comp-row scroll-reveal">
+      <button class="demo-btn demo-btn--primary" type="button">Primary Action</button>
+      <button class="demo-btn demo-btn--secondary" type="button">Secondary</button>
+      <button class="demo-btn demo-btn--ghost" type="button">Ghost</button>
+      <button class="demo-btn demo-btn--ai" type="button">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2 7h7l-5.5 4 2 7L12 16l-5.5 4 2-7L3 9h7z"/></svg>
+        AI Insight
+      </button>
+    </div>
+
+    <!-- Cards -->
+    <h3 style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);margin-bottom:16px;margin-top:48px" class="scroll-reveal">Card Hover States</h3>
+    <div class="comp-row scroll-reveal" style="align-items:stretch">
+      <div class="demo-card">
+        <div class="demo-card__title">Portfolio Value</div>
+        <div class="demo-card__text">Total AUM across managed accounts for the current fiscal quarter.</div>
+        <div class="demo-card__metric">$14.2M</div>
+      </div>
+      <div class="demo-card demo-card--ai">
+        <div class="demo-card__title">AI Recommendation</div>
+        <div class="demo-card__text">Model confidence score for the suggested rebalancing strategy.</div>
+        <div class="demo-card__metric">94.7%</div>
+      </div>
+    </div>
+
+    <!-- Data table -->
+    <h3 style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);margin-bottom:16px;margin-top:48px" class="scroll-reveal">Data Table</h3>
+    <div class="scroll-reveal" style="overflow-x:auto">
+      <table class="demo-table">
+        <thead>
+          <tr><th>Account</th><th>Type</th><th style="text-align:right">Balance</th><th style="text-align:right">Change</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="mono">Operating Fund</td><td>Checking</td><td class="mono" style="text-align:right">$4,238,901.42</td><td class="mono up" style="text-align:right">+3.72%</td></tr>
+          <tr><td class="mono">Reserve Pool</td><td>Savings</td><td class="mono" style="text-align:right">$12,891,004.18</td><td class="mono up" style="text-align:right">+1.08%</td></tr>
+          <tr><td class="mono">Growth Portfolio</td><td>Investment</td><td class="mono" style="text-align:right">$8,412,337.90</td><td class="mono down" style="text-align:right">-0.44%</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Toasts -->
+    <h3 style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);margin-bottom:16px;margin-top:48px" class="scroll-reveal">Toast Notifications</h3>
+    <div class="demo-toast-row scroll-reveal">
+      <div class="demo-toast demo-toast--success">
+        <svg class="demo-toast__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        Transaction completed
+      </div>
+      <div class="demo-toast demo-toast--warning">
+        <svg class="demo-toast__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        Rate limit approaching
+      </div>
+      <div class="demo-toast demo-toast--danger">
+        <svg class="demo-toast__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+        Authentication expired
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ──────────────── 8. MOTION & STATES ──────────────── -->
+<section class="section" id="motion">
+  <div class="section__inner">
+    <span class="tag scroll-reveal">Motion &amp; States</span>
+    <h2 class="section-title scroll-reveal">Interactive Feedback</h2>
+    <p class="section-sub scroll-reveal">Every interactive element communicates state through consistent timing and easing. Transitions stay under 300ms to feel instant.</p>
+
+    <!-- Button states -->
+    <h3 style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);margin-bottom:16px" class="scroll-reveal">Button States</h3>
+    <div class="states-grid scroll-reveal">
+      <div class="state-item">
+        <span class="state-item__btn state-item__btn--default">Button</span>
+        <span class="state-item__label">Default</span>
+      </div>
+      <div class="state-item">
+        <span class="state-item__btn state-item__btn--hover">Button</span>
+        <span class="state-item__label">Hover</span>
+      </div>
+      <div class="state-item">
+        <span class="state-item__btn state-item__btn--focus">Button</span>
+        <span class="state-item__label">Focus</span>
+      </div>
+      <div class="state-item">
+        <span class="state-item__btn state-item__btn--active">Button</span>
+        <span class="state-item__label">Active</span>
+      </div>
+      <div class="state-item">
+        <span class="state-item__btn state-item__btn--disabled">Button</span>
+        <span class="state-item__label">Disabled</span>
+      </div>
+    </div>
+
+    <!-- Loading patterns -->
+    <h3 style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);margin-bottom:16px" class="scroll-reveal">Loading Patterns</h3>
+    <div class="loading-demos scroll-reveal">
+      <div class="loading-card">
+        <div style="width:100%;display:flex;flex-direction:column;gap:10px">
+          <div class="skeleton"></div>
+          <div class="skeleton skeleton--short"></div>
+          <div class="skeleton skeleton--xs"></div>
+        </div>
+        <div class="loading-card__label">Skeleton Shimmer</div>
+      </div>
+      <div class="loading-card">
+        <div class="spinner"></div>
+        <div class="loading-card__label">Spinner</div>
+      </div>
+      <div class="loading-card">
+        <div class="dots">
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+        </div>
+        <div class="loading-card__label">Thinking Dots</div>
+      </div>
+      <div class="loading-card">
+        <div class="progress-demo"><div class="progress-demo__fill"></div></div>
+        <div class="loading-card__label">Progress Bar</div>
+      </div>
+    </div>
+
+    <!-- Toggle -->
+    <h3 style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);margin-bottom:16px" class="scroll-reveal">Toggle Animation</h3>
+    <div class="comp-row scroll-reveal" style="gap:24px">
+      <div class="toggle-demo" id="toggleDemo1"></div>
+      <div class="toggle-demo is-on" id="toggleDemo2"></div>
+      <span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text-3)">cubic-bezier(.16, 1, .3, 1) &middot; 300ms</span>
+    </div>
+
+    <!-- Empty state -->
+    <h3 style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);margin-bottom:16px;margin-top:48px" class="scroll-reveal">Empty State</h3>
+    <div class="empty-state scroll-reveal" style="max-width:400px">
+      <div class="empty-state__icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+      </div>
+      <div class="empty-state__title">No accounts found</div>
+      <div class="empty-state__desc">Add your first account to start tracking portfolio performance.</div>
+    </div>
+
+    <!-- Spacing note -->
+    <div class="callout scroll-reveal" style="margin-top:64px">
+      All transitions use <code style="font-family:'DM Mono',monospace;font-size:12px;background:var(--bg-3);padding:2px 6px;border-radius:4px">ease</code> or <code style="font-family:'DM Mono',monospace;font-size:12px;background:var(--bg-3);padding:2px 6px;border-radius:4px">cubic-bezier(.16, 1, .3, 1)</code> timing. Hover: 200ms. Theme switch: 400ms. Scroll reveal: 600ms.
+    </div>
+  </div>
+</section>
+
+<!-- Footer spacer -->
+<div style="height:120px"></div>
+
+</div><!-- /page-content -->
+
+<!-- ================================================================
+     SHARE MODAL
+     ================================================================ -->
+<div class="share-modal" id="shareModal" role="dialog" aria-modal="true" aria-labelledby="shareModalTitle" hidden>
+  <div class="share-modal__backdrop" data-share-close></div>
+  <div class="share-modal__panel" role="document">
+    <button class="share-modal__close" type="button" data-share-close aria-label="Close">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13"/></svg>
+    </button>
+    <div class="share-modal__eyebrow">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.5 1.5"/><path d="M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.5-1.5"/></svg>
+      Send as link
+    </div>
+    <h2 class="share-modal__title" id="shareModalTitle">App Design System</h2>
+    <p class="share-modal__lede">Anyone with this link lands directly on this page in standalone mode &mdash; the Single Origin nav and breadcrumbs are hidden so the customer sees the content, not the parent hub.</p>
+    <div class="share-modal__url-block">
+      <div class="share-modal__url-label">Standalone URL</div>
+      <div class="share-modal__url" id="shareModalUrl">about:blank</div>
+    </div>
+    <div class="share-modal__actions">
+      <button class="share-modal__btn share-modal__btn--download" type="button" id="shareModalDownload">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:4px"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download .html
+      </button>
+      <button class="share-modal__btn share-modal__btn--ghost" type="button" data-share-close>Cancel</button>
+      <button class="share-modal__btn share-modal__btn--primary" type="button" id="shareModalCopy">Copy link</button>
+    </div>
+  </div>
+</div>
+<div class="share-toast" id="shareToast" role="status" aria-live="polite">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+  <span class="toast-text">Link copied</span>
+</div>
+
+<script>
+/* ================================================================
+   THEME TOGGLE
+   ================================================================ */
+(function(){
+  const html = document.documentElement;
+  const toggle = document.getElementById('themeToggle');
+  if (!toggle) return;
+
+  const stored = localStorage.getItem('ds-theme');
+  if (stored) html.setAttribute('data-theme', stored);
+
+  toggle.addEventListener('click', () => {
+    const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('ds-theme', next);
+    updateHexValues(next);
+  });
+})();
+
+/* ================================================================
+   HEX VALUE UPDATER
+   ================================================================ */
+function updateHexValues(theme) {
+  document.querySelectorAll('[data-dark][data-light]').forEach(el => {
+    el.textContent = theme === 'light' ? el.dataset.light : el.dataset.dark;
+  });
+}
+// Initial call
+updateHexValues(document.documentElement.getAttribute('data-theme') || 'dark');
+
+/* ================================================================
+   SCROLL REVEAL
+   ================================================================ */
+(function(){
+  const els = document.querySelectorAll('.scroll-reveal');
+  if (!els.length) return;
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('revealed');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  els.forEach(el => observer.observe(el));
+})();
+
+/* ================================================================
+   TOC ACTIVE STATE
+   ================================================================ */
+(function(){
+  const dots = document.querySelectorAll('.toc__dot');
+  const sections = [];
+  dots.forEach(d => {
+    const id = d.dataset.target;
+    const el = document.getElementById(id);
+    if (el) sections.push({ dot: d, el: el });
+    d.addEventListener('click', () => {
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+  if (!sections.length) return;
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        dots.forEach(d => d.classList.remove('active'));
+        const match = sections.find(s => s.el === e.target);
+        if (match) match.dot.classList.add('active');
+      }
+    });
+  }, { threshold: 0.2 });
+  sections.forEach(s => observer.observe(s.el));
+})();
+
+/* ================================================================
+   TOGGLE DEMOS
+   ================================================================ */
+document.querySelectorAll('.toggle-demo').forEach(t => {
+  t.addEventListener('click', () => t.classList.toggle('is-on'));
+});
+
+/* ================================================================
+   SHARE MODAL
+   ================================================================ */
+(function(){
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('share') === '1') document.body.classList.add('share-mode');
+
+  async function copyText(text){
+    try { if (navigator.clipboard && window.isSecureContext) { await navigator.clipboard.writeText(text); return true; } } catch(e){}
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.setAttribute('readonly','');
+    ta.style.cssText = 'position:fixed;top:0;left:0;width:1px;height:1px;opacity:0;border:0;padding:0;margin:0;';
+    document.body.appendChild(ta); ta.select();
+    let ok = false; try { ok = document.execCommand('copy'); } catch(e){}
+    document.body.removeChild(ta);
+    return ok;
+  }
+
+  const btn    = document.getElementById('shareBtn');
+  const modal  = document.getElementById('shareModal');
+  const urlEl  = document.getElementById('shareModalUrl');
+  const copyEl = document.getElementById('shareModalCopy');
+  const dlEl   = document.getElementById('shareModalDownload');
+  const toast  = document.getElementById('shareToast');
+  let toastTimer = null;
+
+  function showToast(msg){
+    if (!toast) return;
+    toast.querySelector('.toast-text').textContent = msg;
+    toast.classList.add('is-visible');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('is-visible'), 2400);
+  }
+  function buildShareUrl(){
+    const url = new URL(window.location.href);
+    url.search = '';
+    url.searchParams.set('share', '1');
+    return url.toString();
+  }
+  function openModal(){
+    if (!modal) return;
+    if (urlEl)  urlEl.textContent = buildShareUrl();
+    if (copyEl) { copyEl.classList.remove('is-success'); copyEl.textContent = 'Copy link'; }
+    modal.removeAttribute('hidden');
+    document.body.classList.add('modal-open');
+    setTimeout(() => copyEl && copyEl.focus(), 60);
+  }
+  function closeModal(){
+    if (!modal) return;
+    modal.setAttribute('hidden','');
+    document.body.classList.remove('modal-open');
+  }
+
+  if (btn)   btn.addEventListener('click', openModal);
+  if (modal) modal.addEventListener('click', e => { if (e.target.closest('[data-share-close]')) closeModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && modal && !modal.hasAttribute('hidden')) closeModal(); });
+
+  if (copyEl) copyEl.addEventListener('click', async () => {
+    const url = urlEl ? urlEl.textContent : buildShareUrl();
+    const ok = await copyText(url);
+    if (ok) {
+      copyEl.textContent = 'Copied!';
+      copyEl.classList.add('is-success');
+      showToast('Link copied');
+      setTimeout(() => closeModal(), 900);
+    }
+  });
+
+  // Download .html button
+  if (dlEl) dlEl.addEventListener('click', () => {
+    const html = document.documentElement.outerHTML;
+    const blob = new Blob(['<!DOCTYPE html>\n' + html], { type: 'text/html' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'app-design-system.html';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    URL.revokeObjectURL(a.href);
+    showToast('File downloaded');
+    setTimeout(() => closeModal(), 900);
+  });
+})();
+</script>
+</body>
+</html>

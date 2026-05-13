@@ -1,0 +1,1390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Engagement Models — Experis Digital Services</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,450;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+<style>
+/* ================================================================
+   TOKENS
+   ================================================================ */
+:root {
+  --so-lavender-50:   #F7F5FB;
+  --so-lavender-100:  #EEEAF6;
+  --so-lavender-200:  #DDD5EE;
+  --so-lavender-300:  #C4B5E3;
+  --so-lavender-400:  #A48DD4;
+  --so-lavender-500:  #8468C0;
+  --so-lavender-600:  #6B4FA8;
+  --so-lavender-700:  #553E8A;
+
+  --so-azure-50:      #F0F6FC;
+  --so-azure-100:     #DEEAF7;
+  --so-azure-200:     #B8D4F0;
+  --so-azure-300:     #7AB5E8;
+  --so-azure-400:     #4A96DB;
+  --so-azure-500:     #2A7BC8;
+  --so-azure-600:     #1D60A3;
+
+  --so-aluminum-0:    #FFFFFF;
+  --so-aluminum-50:   #FAFBFC;
+  --so-aluminum-100:  #F4F5F7;
+  --so-aluminum-150:  #ECEDF1;
+  --so-aluminum-200:  #E2E4E9;
+  --so-aluminum-300:  #D0D3DA;
+  --so-aluminum-400:  #A1A6B4;
+  --so-aluminum-500:  #767C8E;
+  --so-aluminum-600:  #565C6E;
+  --so-aluminum-700:  #3B3F4F;
+  --so-aluminum-800:  #252836;
+  --so-aluminum-900:  #151722;
+
+  --so-gradient:         linear-gradient(135deg, #C4B5E3 0%, #7AB5E8 100%);
+  --so-gradient-subtle:  linear-gradient(135deg, #F7F5FB 0%, #F0F6FC 100%);
+  --so-gradient-vibrant: linear-gradient(135deg, #8468C0 0%, #4A96DB 100%);
+
+  --so-bg-page:      #FAFBFC;
+  --so-bg-card:      #FFFFFF;
+  --so-bg-inset:     #F4F5F7;
+  --so-text-primary:   #151722;
+  --so-text-secondary: #565C6E;
+  --so-text-tertiary:  #A1A6B4;
+  --so-text-accent:    #6B4FA8;
+  --so-text-on-vibrant: #FFFFFF;
+
+  --so-border-hairline: rgba(0,0,0,0.06);
+  --so-border-light:    rgba(0,0,0,0.10);
+  --so-border-medium:   rgba(0,0,0,0.16);
+
+  --so-shadow-card: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02);
+  --so-shadow-md:   0 2px 8px rgba(0,0,0,0.06);
+  --so-shadow-lg:   0 4px 24px rgba(0,0,0,0.08);
+
+  --so-font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --so-radius-sm: 6px;
+  --so-radius-md: 10px;
+  --so-radius-lg: 14px;
+  --so-radius-xl: 20px;
+
+  --so-ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --so-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* DARK MODE */
+[data-theme="dark"] {
+  --so-bg-page:      #151722;
+  --so-bg-card:      #1E2030;
+  --so-bg-inset:     #252836;
+  --so-text-primary:   #F4F5F7;
+  --so-text-secondary: #A1A6B4;
+  --so-text-tertiary:  #767C8E;
+  --so-text-accent:    #C4B5E3;
+  --so-border-hairline: rgba(255,255,255,0.06);
+  --so-border-light:    rgba(255,255,255,0.10);
+  --so-border-medium:   rgba(255,255,255,0.16);
+  --so-shadow-card: 0 1px 3px rgba(0,0,0,0.2);
+  --so-shadow-md:   0 2px 8px rgba(0,0,0,0.3);
+  --so-shadow-lg:   0 4px 24px rgba(0,0,0,0.4);
+}
+
+/* ================================================================
+   RESET & BASE
+   ================================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  font-family: var(--so-font);
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--so-text-primary);
+  background: var(--so-bg-page);
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+}
+
+body {
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* ================================================================
+   TOP BAR
+   ================================================================ */
+.topbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 56px;
+  background: var(--so-bg-card);
+  border-bottom: 1px solid var(--so-border-hairline);
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  z-index: 100;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.topbar-home {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.topbar-logo {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  background: var(--so-gradient-vibrant);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.topbar-logo svg {
+  width: 14px;
+  height: 14px;
+}
+
+.topbar-title {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--so-text-secondary);
+}
+
+.topbar-title span {
+  color: var(--so-text-primary);
+  font-weight: 600;
+}
+
+.theme-toggle {
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--so-border-light);
+  border-radius: var(--so-radius-sm);
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--so-text-secondary);
+  transition: all 0.2s var(--so-ease);
+}
+.theme-toggle:hover {
+  background: var(--so-bg-inset);
+  color: var(--so-text-primary);
+}
+
+/* ================================================================
+   LAYOUT
+   ================================================================ */
+.page-content {
+  padding-top: 56px;
+}
+
+.container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+section {
+  padding: 80px 0;
+}
+
+/* ================================================================
+   HERO
+   ================================================================ */
+.hero {
+  padding: 100px 0 80px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -120px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 800px;
+  height: 500px;
+  background: radial-gradient(ellipse, var(--so-lavender-100) 0%, transparent 70%);
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 0;
+}
+
+[data-theme="dark"] .hero::before {
+  background: radial-gradient(ellipse, rgba(132,104,192,0.12) 0%, transparent 70%);
+  opacity: 1;
+}
+
+.hero .container {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 100px;
+  background: var(--so-bg-card);
+  border: 1px solid var(--so-border-light);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--so-text-accent);
+  letter-spacing: 0.02em;
+  margin-bottom: 24px;
+  box-shadow: var(--so-shadow-card);
+}
+
+.hero-badge svg {
+  width: 14px;
+  height: 14px;
+}
+
+.hero h1 {
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  margin-bottom: 16px;
+  color: var(--so-text-primary);
+}
+
+.hero h1 .gradient-text {
+  background: var(--so-gradient-vibrant);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-sub {
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  color: var(--so-text-secondary);
+  max-width: 600px;
+  margin: 0 auto 40px;
+  line-height: 1.7;
+}
+
+.hero-anchors {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.hero-anchor {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  border-radius: var(--so-radius-md);
+  background: var(--so-bg-card);
+  border: 1px solid var(--so-border-light);
+  color: var(--so-text-primary);
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s var(--so-ease);
+  box-shadow: var(--so-shadow-card);
+}
+
+.hero-anchor:hover {
+  border-color: var(--so-lavender-400);
+  box-shadow: var(--so-shadow-md);
+  transform: translateY(-1px);
+}
+
+.hero-anchor .num {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--so-gradient-vibrant);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ================================================================
+   MODEL SECTIONS
+   ================================================================ */
+.model-section {
+  padding: 80px 0;
+  border-top: 1px solid var(--so-border-hairline);
+}
+
+.model-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.model-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--so-radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.model-icon svg {
+  width: 28px;
+  height: 28px;
+  color: #fff;
+}
+
+.model-icon--staffing {
+  background: var(--so-lavender-500);
+}
+
+.model-icon--managed-team {
+  background: var(--so-azure-500);
+}
+
+.model-icon--managed-service {
+  background: linear-gradient(135deg, var(--so-lavender-500), var(--so-azure-500));
+}
+
+.model-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--so-text-tertiary);
+  margin-bottom: 4px;
+}
+
+.model-name {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--so-text-primary);
+  line-height: 1.2;
+}
+
+.model-desc {
+  font-size: 1rem;
+  color: var(--so-text-secondary);
+  line-height: 1.7;
+  max-width: 720px;
+  margin-bottom: 32px;
+}
+
+/* Best For callout */
+.best-for {
+  background: var(--so-gradient-subtle);
+  border: 1px solid var(--so-border-light);
+  border-radius: var(--so-radius-lg);
+  padding: 20px 24px;
+  margin-bottom: 32px;
+}
+
+[data-theme="dark"] .best-for {
+  background: var(--so-bg-inset);
+}
+
+.best-for-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--so-text-accent);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.best-for-label svg {
+  width: 14px;
+  height: 14px;
+}
+
+.best-for p {
+  font-size: 0.93rem;
+  color: var(--so-text-primary);
+  line-height: 1.6;
+}
+
+/* Detail grid */
+.model-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+@media (max-width: 640px) {
+  .model-details {
+    grid-template-columns: 1fr;
+  }
+}
+
+.detail-card {
+  background: var(--so-bg-card);
+  border: 1px solid var(--so-border-hairline);
+  border-radius: var(--so-radius-lg);
+  padding: 24px;
+  box-shadow: var(--so-shadow-card);
+}
+
+.detail-card-title {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--so-text-tertiary);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.detail-card-title svg {
+  width: 15px;
+  height: 15px;
+  color: var(--so-text-accent);
+}
+
+.detail-card p {
+  font-size: 0.93rem;
+  color: var(--so-text-secondary);
+  line-height: 1.65;
+}
+
+.detail-card .tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+}
+
+.detail-card .tag-list li {
+  padding: 5px 12px;
+  border-radius: 100px;
+  background: var(--so-bg-inset);
+  border: 1px solid var(--so-border-hairline);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--so-text-primary);
+}
+
+/* ================================================================
+   COMPARISON TABLE
+   ================================================================ */
+.comparison-section {
+  padding: 80px 0 40px;
+  border-top: 1px solid var(--so-border-hairline);
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.section-header h2 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--so-text-primary);
+  margin-bottom: 8px;
+}
+
+.section-header p {
+  font-size: 1rem;
+  color: var(--so-text-secondary);
+}
+
+.comparison-grid {
+  display: grid;
+  grid-template-columns: 180px repeat(3, 1fr);
+  border: 1px solid var(--so-border-light);
+  border-radius: var(--so-radius-lg);
+  overflow: hidden;
+  background: var(--so-bg-card);
+  box-shadow: var(--so-shadow-md);
+}
+
+.cg-header {
+  background: var(--so-bg-inset);
+  padding: 16px 20px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--so-text-primary);
+  border-bottom: 1px solid var(--so-border-light);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cg-header.cg-corner {
+  color: var(--so-text-tertiary);
+  font-weight: 500;
+}
+
+.cg-header .cg-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.cg-dot--staffing { background: var(--so-lavender-500); }
+.cg-dot--team { background: var(--so-azure-500); }
+.cg-dot--service { background: linear-gradient(135deg, var(--so-lavender-500), var(--so-azure-500)); }
+
+.cg-label {
+  padding: 14px 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--so-text-tertiary);
+  border-bottom: 1px solid var(--so-border-hairline);
+  display: flex;
+  align-items: center;
+}
+
+.cg-cell {
+  padding: 14px 20px;
+  font-size: 13px;
+  color: var(--so-text-secondary);
+  line-height: 1.5;
+  border-bottom: 1px solid var(--so-border-hairline);
+  border-left: 1px solid var(--so-border-hairline);
+}
+
+.comparison-grid > :nth-last-child(-n+4) {
+  border-bottom: none;
+}
+
+/* Mobile comparison: stack as cards */
+.comparison-cards {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .comparison-grid { display: none; }
+  .comparison-cards { display: flex; flex-direction: column; gap: 16px; }
+
+  .comp-card {
+    background: var(--so-bg-card);
+    border: 1px solid var(--so-border-light);
+    border-radius: var(--so-radius-lg);
+    padding: 24px;
+    box-shadow: var(--so-shadow-card);
+  }
+
+  .comp-card-name {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--so-text-primary);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .comp-card-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--so-border-hairline);
+    font-size: 13px;
+  }
+
+  .comp-card-row:last-child { border-bottom: none; }
+
+  .comp-card-row dt {
+    color: var(--so-text-tertiary);
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+  }
+
+  .comp-card-row dd {
+    color: var(--so-text-secondary);
+    text-align: right;
+    max-width: 55%;
+  }
+}
+
+/* ================================================================
+   DECISION HELPER
+   ================================================================ */
+.decision-section {
+  padding: 60px 0 100px;
+}
+
+.decision-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 768px) {
+  .decision-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.decision-card {
+  background: var(--so-bg-card);
+  border: 1px solid var(--so-border-light);
+  border-radius: var(--so-radius-lg);
+  padding: 28px 24px;
+  text-align: center;
+  box-shadow: var(--so-shadow-card);
+  transition: all 0.25s var(--so-ease);
+  position: relative;
+  overflow: hidden;
+}
+
+.decision-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+}
+
+.decision-card--staffing::before { background: var(--so-lavender-500); }
+.decision-card--team::before { background: var(--so-azure-500); }
+.decision-card--service::before { background: var(--so-gradient-vibrant); }
+
+.decision-card:hover {
+  box-shadow: var(--so-shadow-lg);
+  transform: translateY(-2px);
+}
+
+.decision-card h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--so-text-primary);
+  margin-bottom: 16px;
+}
+
+.decision-card .choose-if {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--so-text-accent);
+  margin-bottom: 12px;
+}
+
+.decision-list {
+  list-style: none;
+  text-align: left;
+}
+
+.decision-list li {
+  font-size: 13px;
+  color: var(--so-text-secondary);
+  padding: 6px 0;
+  padding-left: 20px;
+  position: relative;
+  line-height: 1.5;
+}
+
+.decision-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 12px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 2px solid var(--so-lavender-400);
+}
+
+.decision-card--team .decision-list li::before {
+  border-color: var(--so-azure-400);
+}
+
+.decision-card--service .decision-list li::before {
+  border-color: var(--so-lavender-400);
+  background: var(--so-azure-200);
+}
+
+/* ================================================================
+   FOOTER
+   ================================================================ */
+.page-footer {
+  border-top: 1px solid var(--so-border-hairline);
+  padding: 32px 0;
+  text-align: center;
+}
+
+.page-footer p {
+  font-size: 12px;
+  color: var(--so-text-tertiary);
+}
+
+/* ================================================================
+   ANIMATIONS
+   ================================================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s var(--so-ease-out), transform 0.6s var(--so-ease-out);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.08s; }
+.reveal-delay-2 { transition-delay: 0.16s; }
+.reveal-delay-3 { transition-delay: 0.24s; }
+.reveal-delay-4 { transition-delay: 0.32s; }
+
+/* ================================================================
+   RESPONSIVE
+   ================================================================ */
+@media (max-width: 640px) {
+  .hero { padding: 80px 0 60px; }
+  section { padding: 60px 0; }
+  .model-header { flex-direction: column; gap: 12px; }
+  .model-icon { width: 48px; height: 48px; }
+  .model-icon svg { width: 24px; height: 24px; }
+  .container { padding: 0 16px; }
+  .topbar { padding: 0 16px; }
+  .hero-anchors { flex-direction: column; align-items: center; }
+}
+
+/* === Unified nav + share modal (so-nav) === */
+.so-nav {
+  position: sticky; top: 0; z-index: 200; height: 56px;
+  background: rgba(250,251,252,0.78);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  backdrop-filter: blur(20px) saturate(1.4);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+}
+[data-theme="dark"] .so-nav { background: rgba(21,23,34,0.82); border-bottom-color: rgba(255,255,255,0.08); }
+.so-nav__inner { max-width: 1320px; height: 100%; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; gap: 18px; }
+.so-nav__brand { display: flex; align-items: center; gap: 14px; text-decoration: none; color: inherit; flex-shrink: 0; }
+.so-nav__logo svg { width: 80px; height: 20px; display: block; }
+.so-nav__logo svg path { fill: #151722; transition: fill .2s; }
+[data-theme="dark"] .so-nav__logo svg path { fill: #FAFBFC; }
+.so-nav__brand-divider { width: 1px; height: 22px; background: rgba(0,0,0,0.12); }
+[data-theme="dark"] .so-nav__brand-divider { background: rgba(255,255,255,0.16); }
+.so-nav__product { display: flex; align-items: center; gap: 8px; }
+.so-nav__brand-mark { width: 16px; height: 16px; border-radius: 5px; background: linear-gradient(135deg, #C4B5E3, #7AB5E8); flex-shrink: 0; }
+.so-nav__product-name { font-size: 13px; font-weight: 600; letter-spacing: -0.01em; color: #151722; }
+[data-theme="dark"] .so-nav__product-name { color: #FAFBFC; }
+.so-nav__crumbs { display: flex; align-items: center; gap: 8px; flex: 1; min-width: 0; }
+.so-nav__crumb-sep { font-size: 13px; color: rgba(0,0,0,0.25); flex-shrink: 0; }
+[data-theme="dark"] .so-nav__crumb-sep { color: rgba(255,255,255,0.3); }
+.so-nav__crumb { font-size: 13px; font-weight: 500; letter-spacing: -0.005em; color: rgba(0,0,0,0.55); text-decoration: none; white-space: nowrap; transition: color .15s; }
+[data-theme="dark"] .so-nav__crumb { color: rgba(255,255,255,0.6); }
+.so-nav__crumb[href]:hover { color: #6B4FA8; }
+[data-theme="dark"] .so-nav__crumb[href]:hover { color: #C4B5E3; }
+.so-nav__crumb--current { color: #151722; font-weight: 600; }
+[data-theme="dark"] .so-nav__crumb--current { color: #FAFBFC; }
+.so-nav__actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.so-nav__share { display: inline-flex; align-items: center; gap: 8px; height: 34px; padding: 0 14px; border-radius: 100px; border: 1px solid rgba(0,0,0,0.10); background: rgba(255,255,255,0.95); color: #151722; font-family: inherit; font-size: 12.5px; font-weight: 500; cursor: pointer; transition: all .18s; white-space: nowrap; }
+.so-nav__share svg { width: 14px; height: 14px; opacity: 0.7; }
+.so-nav__share:hover { border-color: rgba(0,0,0,0.16); background: linear-gradient(135deg, #F7F5FB, #F0F6FC); color: #6B4FA8; }
+.so-nav__share:hover svg { opacity: 1; }
+[data-theme="dark"] .so-nav__share { border-color: rgba(255,255,255,0.10); background: rgba(255,255,255,0.04); color: #FAFBFC; }
+[data-theme="dark"] .so-nav__share:hover { border-color: rgba(255,255,255,0.18); background: rgba(132,104,192,0.16); color: #C4B5E3; }
+.so-nav__theme { width: 34px; height: 34px; border-radius: 8px; border: 1px solid rgba(0,0,0,0.10); background: rgba(255,255,255,0.95); color: rgba(0,0,0,0.6); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all .18s; flex-shrink: 0; }
+.so-nav__theme:hover { border-color: rgba(0,0,0,0.16); color: #151722; }
+[data-theme="dark"] .so-nav__theme { border-color: rgba(255,255,255,0.10); background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.6); }
+[data-theme="dark"] .so-nav__theme:hover { border-color: rgba(255,255,255,0.18); color: #FAFBFC; }
+.so-nav__theme svg { width: 16px; height: 16px; }
+@media (max-width: 720px) { .so-nav__crumbs { display: none; } .so-nav__brand-divider { display: none; } }
+@media (max-width: 540px) { .so-nav__share .label { display: none; } .so-nav__share { padding: 0 10px; } .so-nav__product-name { display: none; } }
+body.share-mode .so-nav { display: none !important; }
+
+/* Share modal */
+.share-modal { position: fixed; inset: 0; z-index: 9999; }
+.share-modal[hidden] { display: none; }
+.share-modal__backdrop { position: absolute; inset: 0; background: rgba(11,12,18,0.55); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+.share-modal__panel { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 92%; max-width: 540px; max-height: 90vh; overflow-y: auto; background: #FFFFFF; color: #151722; border-radius: 18px; box-shadow: 0 30px 80px rgba(0,0,0,0.28), 0 8px 24px rgba(0,0,0,0.10); padding: 32px 32px 22px; animation: smIn .25s cubic-bezier(.16,1,.3,1); }
+@keyframes smIn { from { opacity: 0; transform: translate(-50%, -46%); } to { opacity: 1; transform: translate(-50%, -50%); } }
+[data-theme="dark"] .share-modal__panel { background: #1E2030; color: #FAFBFC; }
+.share-modal__close { position: absolute; top: 14px; right: 14px; width: 32px; height: 32px; border: 0; background: transparent; border-radius: 8px; color: rgba(0,0,0,0.45); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all .15s; }
+.share-modal__close:hover { background: rgba(0,0,0,0.05); color: #151722; }
+[data-theme="dark"] .share-modal__close { color: rgba(255,255,255,0.45); }
+[data-theme="dark"] .share-modal__close:hover { background: rgba(255,255,255,0.06); color: #FAFBFC; }
+.share-modal__eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #6B4FA8; margin-bottom: 14px; font-family: 'Inter', system-ui, sans-serif; }
+.share-modal__eyebrow svg { width: 14px; height: 14px; opacity: 0.8; }
+[data-theme="dark"] .share-modal__eyebrow { color: #C4B5E3; }
+.share-modal__title { font-size: 24px; font-weight: 600; letter-spacing: -0.025em; line-height: 1.18; margin-bottom: 12px; font-family: 'Inter', system-ui, sans-serif; }
+.share-modal__lede { font-size: 14.5px; line-height: 1.6; margin-bottom: 22px; color: rgba(0,0,0,0.6); font-family: 'Inter', system-ui, sans-serif; }
+[data-theme="dark"] .share-modal__lede { color: rgba(255,255,255,0.6); }
+.share-modal__url-block { padding: 14px 16px; background: rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.06); border-radius: 10px; margin-bottom: 22px; }
+[data-theme="dark"] .share-modal__url-block { background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.06); }
+.share-modal__url-label { font-size: 10.5px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(0,0,0,0.45); margin-bottom: 6px; font-family: 'Inter', system-ui, sans-serif; }
+[data-theme="dark"] .share-modal__url-label { color: rgba(255,255,255,0.45); }
+.share-modal__url { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12px; word-break: break-all; line-height: 1.55; user-select: all; }
+.share-modal__actions { display: flex; align-items: center; justify-content: flex-end; gap: 10px; }
+.share-modal__btn { font-family: 'Inter', system-ui, sans-serif; font-size: 13.5px; font-weight: 500; padding: 10px 18px; border-radius: 100px; cursor: pointer; transition: all .18s; border: 1px solid transparent; white-space: nowrap; }
+.share-modal__btn--ghost { background: transparent; color: rgba(0,0,0,0.6); border-color: rgba(0,0,0,0.10); }
+.share-modal__btn--ghost:hover { background: rgba(0,0,0,0.04); color: #151722; }
+[data-theme="dark"] .share-modal__btn--ghost { color: rgba(255,255,255,0.6); border-color: rgba(255,255,255,0.10); }
+[data-theme="dark"] .share-modal__btn--ghost:hover { background: rgba(255,255,255,0.06); color: #FAFBFC; }
+.share-modal__btn--primary { background: linear-gradient(135deg, #8468C0, #4A96DB); color: #fff; }
+.share-modal__btn--primary:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(132,104,192,0.30); }
+.share-modal__btn--primary.is-success { background: #2A7BC8; }
+.share-toast { position: fixed; bottom: 32px; left: 50%; transform: translate(-50%, 16px); z-index: 10000; background: #151722; color: #fff; padding: 12px 18px; border-radius: 10px; font-size: 13.5px; font-weight: 500; box-shadow: 0 10px 30px rgba(0,0,0,0.18); opacity: 0; pointer-events: none; transition: opacity .25s, transform .25s; display: inline-flex; align-items: center; gap: 8px; font-family: 'Inter', system-ui, sans-serif; }
+.share-toast svg { width: 14px; height: 14px; }
+.share-toast.is-visible { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; }
+body.modal-open { overflow: hidden; }
+
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     TOP BAR
+     ============================================================ -->
+<!-- UNIFIED NAV -->
+<nav class="so-nav">
+  <div class="so-nav__inner">
+    <a class="so-nav__brand" href="../../index.html" aria-label="Single Origin home">
+      <span class="so-nav__logo"><svg viewBox="0 0 80 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Experis"><path d="M0 3.8h10.4v2.4H2.9v3.4h6.8v2.3H2.9v3.7h7.7v2.4H0V3.8z"/><path d="M14.8 10.2l-4.6-6.4h3.5l2.8 4.2 2.9-4.2h3.4l-4.6 6.3 5 6.9h-3.5l-3.2-4.7-3.2 4.7h-3.4l5-6.8z"/><path d="M24.4 3.8H30c3.6 0 5.6 1.9 5.6 4.6 0 2.7-2 4.7-5.6 4.7h-2.7v4.9h-2.9V3.8zm5.3 7c1.9 0 2.9-1 2.9-2.4 0-1.4-1-2.3-2.9-2.3h-2.4v4.7h2.4z"/><path d="M37.6 3.8H48v2.4h-7.5v3.4h6.8v2.3h-6.8v3.7h7.7v2.4H37.6V3.8z"/><path d="M50.4 3.8h5.2c3.5 0 5.5 1.7 5.5 4.3 0 2.1-1.1 3.5-3 4.1l3.5 5.8h-3.3l-3.1-5.4h-1.9v5.4h-2.9V3.8zm5 6.6c1.8 0 2.8-.9 2.8-2.2 0-1.3-1-2.1-2.8-2.1h-2.1v4.3h2.1z"/><path d="M64.2 3.8h2.9v14.2h-2.9V3.8z"/><path d="M69.6 14.8l1.7-2c1.2 1.1 2.5 1.8 4 1.8 1.5 0 2.3-.7 2.3-1.6 0-1-.7-1.5-3.2-2.2-3-0.8-4.6-1.9-4.6-4.2 0-2.5 2-4.1 4.8-4.1 2 0 3.6.6 5 1.8l-1.5 2.1c-1.1-.9-2.3-1.4-3.5-1.4-1.4 0-2.1.7-2.1 1.5 0 1 .7 1.5 3.3 2.2 3 .9 4.5 2 4.5 4.2 0 2.7-2.1 4.3-5.1 4.3-2.1 0-4-.7-5.6-2.3z"/></svg></span>
+      <span class="so-nav__brand-divider"></span>
+      <span class="so-nav__product"><span class="so-nav__brand-mark"></span><span class="so-nav__product-name">Single Origin</span></span>
+    </a>
+    <div class="so-nav__crumbs">
+      <span class="so-nav__crumb-sep">/</span>
+      <span class="so-nav__crumb so-nav__crumb--current">Engagement Models</span>
+    </div>
+    <div class="so-nav__actions">
+      <button class="so-nav__share" id="shareBtn" type="button" aria-label="Send page as link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.5 1.5"/><path d="M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.5-1.5"/></svg>
+        <span class="label">Send as link</span>
+      </button>
+      <button class="so-nav__theme" id="themeToggle" type="button" aria-label="Toggle theme"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="8" cy="8" r="3.5"/><path d="M8 1.5v1M8 13.5v1M1.5 8h1M13.5 8h1M3.4 3.4l.7.7M11.9 11.9l.7.7M3.4 12.6l.7-.7M11.9 4.1l.7-.7"/></svg></button>
+    </div>
+  </div>
+</nav>
+
+<!-- ============================================================
+     PAGE CONTENT
+     ============================================================ -->
+<div class="page-content">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-badge reveal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Experis Digital Services
+      </div>
+      <h1 class="reveal reveal-delay-1">How You Can <span class="gradient-text">Engage With Us</span></h1>
+      <p class="hero-sub reveal reveal-delay-2">Three flexible models designed to match your needs, whether you need a single specialist, a full product team, or end-to-end delivery ownership.</p>
+      <div class="hero-anchors reveal reveal-delay-3">
+        <a href="#staffing" class="hero-anchor"><span class="num">1</span> Staffing</a>
+        <a href="#managed-team" class="hero-anchor"><span class="num">2</span> Managed Team</a>
+        <a href="#managed-service" class="hero-anchor"><span class="num">3</span> Managed Service</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       MODEL 1: STAFFING
+       ============================================================ -->
+  <section class="model-section" id="staffing">
+    <div class="container">
+      <div class="model-header reveal">
+        <div class="model-icon model-icon--staffing">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+        </div>
+        <div>
+          <div class="model-label">Model 1</div>
+          <h2 class="model-name">Staffing</h2>
+        </div>
+      </div>
+
+      <p class="model-desc reveal reveal-delay-1">Individual professionals placed to fill your resource gaps. You retain day-to-day management and delivery responsibility while Experis handles sourcing, vetting, payroll, benefits, and administrative overhead.</p>
+
+      <div class="best-for reveal reveal-delay-2">
+        <div class="best-for-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          Best For
+        </div>
+        <p>Short-term needs, specialized skills, or scaling your existing teams quickly without the overhead of traditional hiring.</p>
+      </div>
+
+      <div class="model-details">
+        <div class="detail-card reveal reveal-delay-2">
+          <div class="detail-card-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            How It Works
+          </div>
+          <p>Experis sources, vets, and places talent directly into your team. You manage the work, set priorities, and own delivery. We handle payroll, benefits, and all administrative overhead so you can focus on execution.</p>
+        </div>
+        <div class="detail-card reveal reveal-delay-3">
+          <div class="detail-card-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            Typical Roles
+          </div>
+          <ul class="tag-list">
+            <li>UX Designers</li>
+            <li>UI Engineers</li>
+            <li>Front-end Developers</li>
+            <li>UX Researchers</li>
+            <li>Data Analysts</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       MODEL 2: MANAGED TEAM
+       ============================================================ -->
+  <section class="model-section" id="managed-team">
+    <div class="container">
+      <div class="model-header reveal">
+        <div class="model-icon model-icon--managed-team">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+        </div>
+        <div>
+          <div class="model-label">Model 2</div>
+          <h2 class="model-name">Managed Team</h2>
+        </div>
+      </div>
+
+      <p class="model-desc reveal reveal-delay-1">A dedicated cross-functional team &mdash; design, development, QA, and project management &mdash; assembled and managed by Experis but fully integrated into your workflow, tools, and culture.</p>
+
+      <div class="best-for reveal reveal-delay-2">
+        <div class="best-for-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          Best For
+        </div>
+        <p>Ongoing product work, teams that need to scale fast without hiring, and clients who want Experis accountability with embedded collaboration.</p>
+      </div>
+
+      <div class="model-details">
+        <div class="detail-card reveal reveal-delay-2">
+          <div class="detail-card-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            How It Works
+          </div>
+          <p>Experis assembles and manages the team end to end. You set priorities and product direction. We handle delivery cadence, quality assurance, and team performance &mdash; so you get the output without the management overhead.</p>
+        </div>
+        <div class="detail-card reveal reveal-delay-3">
+          <div class="detail-card-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+            Typical Composition
+          </div>
+          <ul class="tag-list">
+            <li>1 Product Designer</li>
+            <li>2-4 Developers</li>
+            <li>1 QA Engineer</li>
+            <li>1 Delivery Lead</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       MODEL 3: MANAGED SERVICE
+       ============================================================ -->
+  <section class="model-section" id="managed-service">
+    <div class="container">
+      <div class="model-header reveal">
+        <div class="model-icon model-icon--managed-service">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+            <polyline points="22 4 12 14.01 9 11.01"/>
+          </svg>
+        </div>
+        <div>
+          <div class="model-label">Model 3</div>
+          <h2 class="model-name">Managed Service</h2>
+        </div>
+      </div>
+
+      <p class="model-desc reveal reveal-delay-1">Outcome-based engagement where Experis owns delivery, quality, and performance metrics under a defined scope and SLA. You define what success looks like &mdash; we own the how.</p>
+
+      <div class="best-for reveal reveal-delay-2">
+        <div class="best-for-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          Best For
+        </div>
+        <p>Defined projects with clear success criteria, organizations that want to hand off execution entirely, and ongoing service contracts.</p>
+      </div>
+
+      <div class="model-details">
+        <div class="detail-card reveal reveal-delay-2">
+          <div class="detail-card-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            How It Works
+          </div>
+          <p>You define outcomes and success metrics. Experis owns everything else &mdash; staffing, process, tools, and delivery timeline. We provide regular reporting against agreed KPIs so you always know where things stand.</p>
+        </div>
+        <div class="detail-card reveal reveal-delay-3">
+          <div class="detail-card-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+            Typical Engagements
+          </div>
+          <ul class="tag-list">
+            <li>Design System Builds</li>
+            <li>Platform Redesigns</li>
+            <li>Research Programs</li>
+            <li>Accessibility Audits</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       COMPARISON TABLE
+       ============================================================ -->
+  <section class="comparison-section">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>At a Glance</h2>
+        <p>How the three models compare across key dimensions.</p>
+      </div>
+
+      <!-- Desktop table -->
+      <div class="comparison-grid reveal reveal-delay-1">
+        <div class="cg-header cg-corner"></div>
+        <div class="cg-header"><span class="cg-dot cg-dot--staffing"></span> Staffing</div>
+        <div class="cg-header"><span class="cg-dot cg-dot--team"></span> Managed Team</div>
+        <div class="cg-header"><span class="cg-dot cg-dot--service"></span> Managed Service</div>
+
+        <div class="cg-label">You Manage</div>
+        <div class="cg-cell">Day-to-day work and delivery</div>
+        <div class="cg-cell">Priorities and product direction</div>
+        <div class="cg-cell">Outcomes and success criteria</div>
+
+        <div class="cg-label">Experis Manages</div>
+        <div class="cg-cell">Sourcing, vetting, payroll</div>
+        <div class="cg-cell">Team, delivery cadence, quality</div>
+        <div class="cg-cell">Everything: staff, process, tools</div>
+
+        <div class="cg-label">Team Structure</div>
+        <div class="cg-cell">Individual contributors</div>
+        <div class="cg-cell">Cross-functional pod</div>
+        <div class="cg-cell">Defined by scope and SLA</div>
+
+        <div class="cg-label">Engagement Length</div>
+        <div class="cg-cell">Weeks to months</div>
+        <div class="cg-cell">Months to ongoing</div>
+        <div class="cg-cell">Project-based or contract</div>
+
+        <div class="cg-label">Accountability</div>
+        <div class="cg-cell">Client-owned</div>
+        <div class="cg-cell">Shared</div>
+        <div class="cg-cell">Experis-owned</div>
+
+        <div class="cg-label">Flexibility</div>
+        <div class="cg-cell">Scale up or down quickly</div>
+        <div class="cg-cell">Adjust composition over time</div>
+        <div class="cg-cell">Scope changes via change orders</div>
+      </div>
+
+      <!-- Mobile cards -->
+      <div class="comparison-cards">
+        <div class="comp-card">
+          <div class="comp-card-name"><span class="cg-dot cg-dot--staffing"></span> Staffing</div>
+          <dl>
+            <div class="comp-card-row"><dt>You Manage</dt><dd>Day-to-day work and delivery</dd></div>
+            <div class="comp-card-row"><dt>Experis Manages</dt><dd>Sourcing, vetting, payroll</dd></div>
+            <div class="comp-card-row"><dt>Team Structure</dt><dd>Individual contributors</dd></div>
+            <div class="comp-card-row"><dt>Length</dt><dd>Weeks to months</dd></div>
+            <div class="comp-card-row"><dt>Accountability</dt><dd>Client-owned</dd></div>
+            <div class="comp-card-row"><dt>Flexibility</dt><dd>Scale up or down quickly</dd></div>
+          </dl>
+        </div>
+        <div class="comp-card">
+          <div class="comp-card-name"><span class="cg-dot cg-dot--team"></span> Managed Team</div>
+          <dl>
+            <div class="comp-card-row"><dt>You Manage</dt><dd>Priorities and product direction</dd></div>
+            <div class="comp-card-row"><dt>Experis Manages</dt><dd>Team, delivery cadence, quality</dd></div>
+            <div class="comp-card-row"><dt>Team Structure</dt><dd>Cross-functional pod</dd></div>
+            <div class="comp-card-row"><dt>Length</dt><dd>Months to ongoing</dd></div>
+            <div class="comp-card-row"><dt>Accountability</dt><dd>Shared</dd></div>
+            <div class="comp-card-row"><dt>Flexibility</dt><dd>Adjust composition over time</dd></div>
+          </dl>
+        </div>
+        <div class="comp-card">
+          <div class="comp-card-name"><span class="cg-dot cg-dot--service"></span> Managed Service</div>
+          <dl>
+            <div class="comp-card-row"><dt>You Manage</dt><dd>Outcomes and success criteria</dd></div>
+            <div class="comp-card-row"><dt>Experis Manages</dt><dd>Everything: staff, process, tools</dd></div>
+            <div class="comp-card-row"><dt>Team Structure</dt><dd>Defined by scope and SLA</dd></div>
+            <div class="comp-card-row"><dt>Length</dt><dd>Project-based or contract</dd></div>
+            <div class="comp-card-row"><dt>Accountability</dt><dd>Experis-owned</dd></div>
+            <div class="comp-card-row"><dt>Flexibility</dt><dd>Scope changes via change orders</dd></div>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       DECISION HELPER
+       ============================================================ -->
+  <section class="decision-section">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Which Model Is Right for You?</h2>
+        <p>Start with where you are today.</p>
+      </div>
+
+      <div class="decision-grid">
+        <div class="decision-card decision-card--staffing reveal reveal-delay-1">
+          <div class="choose-if">Choose Staffing If&hellip;</div>
+          <h3>You need specific skills, fast</h3>
+          <ul class="decision-list">
+            <li>You have an existing team that needs reinforcement</li>
+            <li>You want to manage the work directly</li>
+            <li>The need is short-term or project-specific</li>
+            <li>You need to move in days, not weeks</li>
+          </ul>
+        </div>
+
+        <div class="decision-card decision-card--team reveal reveal-delay-2">
+          <div class="choose-if">Choose Managed Team If&hellip;</div>
+          <h3>You need a whole team, with built-in leadership</h3>
+          <ul class="decision-list">
+            <li>You have ongoing product work without enough headcount</li>
+            <li>You want Experis to handle team management</li>
+            <li>You need design, dev, and QA working together</li>
+            <li>You want embedded collaboration, not outsourcing</li>
+          </ul>
+        </div>
+
+        <div class="decision-card decision-card--service reveal reveal-delay-3">
+          <div class="choose-if">Choose Managed Service If&hellip;</div>
+          <h3>You want to hand off execution entirely</h3>
+          <ul class="decision-list">
+            <li>You have a defined project with clear success metrics</li>
+            <li>You want SLA-backed delivery accountability</li>
+            <li>You prefer to manage outcomes, not people</li>
+            <li>You need predictable cost and timeline</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="page-footer">
+    <div class="container">
+      <p>Experis Digital Services &mdash; Engagement Models</p>
+    </div>
+  </footer>
+
+</div>
+
+<!-- ============================================================
+     SCRIPTS
+     ============================================================ -->
+<script>
+// Theme toggle
+function toggleTheme() {
+  const html = document.documentElement;
+  const current = html.getAttribute('data-theme');
+  const next = current === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('so-theme', next);
+  updateThemeIcon(next);
+}
+
+function updateThemeIcon(theme) {
+  const sun = document.querySelector('.icon-sun');
+  const moon = document.querySelector('.icon-moon');
+  if (theme === 'dark') {
+    sun.style.display = 'none';
+    moon.style.display = 'block';
+  } else {
+    sun.style.display = 'block';
+    moon.style.display = 'none';
+  }
+}
+
+// Restore saved theme
+(function() {
+  const saved = localStorage.getItem('so-theme');
+  if (saved === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    updateThemeIcon('dark');
+  }
+})();
+
+// Scroll reveal
+(function() {
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+  reveals.forEach(function(el) { observer.observe(el); });
+})();
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+  a.addEventListener('click', function(e) {
+    e.preventDefault();
+    var target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+</script>
+
+<!-- Share confirmation modal -->
+<div class="share-modal" id="shareModal" role="dialog" aria-modal="true" aria-labelledby="shareModalTitle" hidden>
+  <div class="share-modal__backdrop" data-share-close></div>
+  <div class="share-modal__panel" role="document">
+    <button class="share-modal__close" type="button" data-share-close aria-label="Close">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13"/></svg>
+    </button>
+    <div class="share-modal__eyebrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.5 1.5"/><path d="M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.5-1.5"/></svg> Send as link</div>
+    <h2 class="share-modal__title" id="shareModalTitle">Engagement Models</h2>
+    <p class="share-modal__lede">Anyone with this link lands directly on this page in standalone mode — the Single Origin nav and breadcrumbs are hidden so the customer sees the content, not the parent hub.</p>
+    <div class="share-modal__url-block">
+      <div class="share-modal__url-label">Standalone URL</div>
+      <div class="share-modal__url" id="shareModalUrl">about:blank</div>
+    </div>
+    <div class="share-modal__actions">
+      <button class="share-modal__btn share-modal__btn--ghost" type="button" data-share-close>Cancel</button>
+      <button class="share-modal__btn share-modal__btn--primary" type="button" id="shareModalCopy">Copy link</button>
+    </div>
+  </div>
+</div>
+<div class="share-toast" id="shareToast" role="status" aria-live="polite">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+  <span class="toast-text">Link copied</span>
+</div>
+
+<script>
+/* === Unified share button → modal (drop-in for any hub page) === */
+(function(){
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('share') === '1') document.body.classList.add('share-mode');
+
+  async function copyText(text){
+    try { if (navigator.clipboard && window.isSecureContext) { await navigator.clipboard.writeText(text); return true; } } catch(e){}
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.setAttribute('readonly','');
+    ta.style.cssText = 'position:fixed;top:0;left:0;width:1px;height:1px;opacity:0;border:0;padding:0;margin:0;';
+    document.body.appendChild(ta); ta.select();
+    let ok = false; try { ok = document.execCommand('copy'); } catch(e){}
+    document.body.removeChild(ta);
+    return ok;
+  }
+
+  const btn   = document.getElementById('shareBtn');
+  const modal = document.getElementById('shareModal');
+  const urlEl = document.getElementById('shareModalUrl');
+  const copyEl= document.getElementById('shareModalCopy');
+  const toast = document.getElementById('shareToast');
+  let toastTimer = null;
+
+  function showToast(msg){
+    if (!toast) return;
+    toast.querySelector('.toast-text').textContent = msg;
+    toast.classList.add('is-visible');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('is-visible'), 2400);
+  }
+  function buildShareUrl(){
+    const url = new URL(window.location.href);
+    url.search = '';
+    url.searchParams.set('share', '1');
+    return url.toString();
+  }
+  function openModal(){
+    if (!modal) return;
+    if (urlEl)  urlEl.textContent = buildShareUrl();
+    if (copyEl) { copyEl.classList.remove('is-success'); copyEl.textContent = 'Copy link'; }
+    modal.removeAttribute('hidden');
+    document.body.classList.add('modal-open');
+    setTimeout(() => copyEl && copyEl.focus(), 60);
+  }
+  function closeModal(){
+    if (!modal) return;
+    modal.setAttribute('hidden','');
+    document.body.classList.remove('modal-open');
+  }
+  if (btn)   btn.addEventListener('click', openModal);
+  if (modal) modal.addEventListener('click', e => { if (e.target.closest('[data-share-close]')) closeModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && modal && !modal.hasAttribute('hidden')) closeModal(); });
+  if (copyEl) copyEl.addEventListener('click', async () => {
+    const url = urlEl ? urlEl.textContent : buildShareUrl();
+    const ok = await copyText(url);
+    if (ok) {
+      copyEl.classList.add('is-success');
+      copyEl.innerHTML = 'Copied <svg style="width:14px;height:14px;margin-left:4px;vertical-align:-2px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>';
+      showToast('Link copied — paste anywhere to share');
+      setTimeout(closeModal, 1100);
+    } else {
+      window.prompt('Copy this link:', url);
+    }
+  });
+})();
+</script>
+
+
+<script>
+/* Theme toggle (unified) */
+(function(){
+  const html = document.documentElement;
+  const saved = localStorage.getItem('so-theme');
+  if (saved) html.setAttribute('data-theme', saved);
+  const btn = document.getElementById('themeToggle');
+  if (!btn) return;
+  function update(){
+    const isDark = html.getAttribute('data-theme') === 'dark';
+    btn.innerHTML = isDark
+      ? '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>'
+      : '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+  }
+  update();
+  btn.addEventListener('click', () => {
+    const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('so-theme', next);
+    update();
+  });
+})();
+</script>
+
+</body>
+</html>

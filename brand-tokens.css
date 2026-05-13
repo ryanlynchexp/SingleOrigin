@@ -1,0 +1,182 @@
+/* ================================================================
+   SINGLE ORIGIN — Brand Design Tokens
+   Experis Digital Services · Future-State Brand System
+
+   Aesthetic: Braun machined aluminum · Jony Ive restraint
+   Palette:   Derived from Experis lavender-to-azure gradient
+   Mode:      Light-first, content-hero approach
+
+   Usage: @import 'brand-tokens.css' or copy :root block
+   ================================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,450;14..32,500;14..32,600&display=swap');
+
+:root {
+
+  /* ----------------------------------------------------------------
+     PALETTE — Core
+     Extracted from reference: soft lavender → azure gradient
+     ---------------------------------------------------------------- */
+  --so-lavender-50:   #F7F5FB;
+  --so-lavender-100:  #EEEAF6;
+  --so-lavender-200:  #DDD5EE;
+  --so-lavender-300:  #C4B5E3;
+  --so-lavender-400:  #A48DD4;
+  --so-lavender-500:  #8468C0;
+  --so-lavender-600:  #6B4FA8;
+  --so-lavender-700:  #553E8A;
+
+  --so-azure-50:      #F0F6FC;
+  --so-azure-100:     #DEEAF7;
+  --so-azure-200:     #B8D4F0;
+  --so-azure-300:     #7AB5E8;
+  --so-azure-400:     #4A96DB;
+  --so-azure-500:     #2A7BC8;
+  --so-azure-600:     #1D60A3;
+
+  /* ----------------------------------------------------------------
+     PALETTE — Neutrals (machined aluminum)
+     Warm-shifted grays with the faintest blue undertone
+     ---------------------------------------------------------------- */
+  --so-aluminum-0:    #FFFFFF;
+  --so-aluminum-50:   #FAFBFC;
+  --so-aluminum-100:  #F4F5F7;
+  --so-aluminum-150:  #ECEDF1;
+  --so-aluminum-200:  #E2E4E9;
+  --so-aluminum-300:  #D0D3DA;
+  --so-aluminum-400:  #A1A6B4;
+  --so-aluminum-500:  #767C8E;
+  --so-aluminum-600:  #565C6E;
+  --so-aluminum-700:  #3B3F4F;
+  --so-aluminum-800:  #252836;
+  --so-aluminum-900:  #151722;
+
+  /* ----------------------------------------------------------------
+     PALETTE — Semantic
+     ---------------------------------------------------------------- */
+  --so-success:       #1A9E6F;
+  --so-success-bg:    #EEFBF4;
+  --so-warning:       #C08419;
+  --so-warning-bg:    #FEF8EC;
+  --so-danger:        #C93B3B;
+  --so-danger-bg:     #FEF0F0;
+
+  /* ----------------------------------------------------------------
+     PALETTE — Gradient (the brand signature)
+     ---------------------------------------------------------------- */
+  --so-gradient:           linear-gradient(135deg, var(--so-lavender-300) 0%, var(--so-azure-300) 100%);
+  --so-gradient-subtle:    linear-gradient(135deg, var(--so-lavender-50) 0%, var(--so-azure-50) 100%);
+  --so-gradient-vibrant:   linear-gradient(135deg, var(--so-lavender-500) 0%, var(--so-azure-400) 100%);
+
+  /* ----------------------------------------------------------------
+     SURFACES — Layered, like machined aluminum stacking
+     ---------------------------------------------------------------- */
+  --so-bg-page:       var(--so-aluminum-50);
+  --so-bg-primary:    var(--so-aluminum-0);
+  --so-bg-secondary:  var(--so-aluminum-100);
+  --so-bg-tertiary:   var(--so-aluminum-150);
+  --so-bg-elevated:   var(--so-aluminum-0);
+  --so-bg-inset:      var(--so-aluminum-100);
+
+  /* ----------------------------------------------------------------
+     TEXT
+     ---------------------------------------------------------------- */
+  --so-text-primary:    var(--so-aluminum-900);
+  --so-text-secondary:  var(--so-aluminum-600);
+  --so-text-tertiary:   var(--so-aluminum-400);
+  --so-text-inverse:    var(--so-aluminum-0);
+  --so-text-accent:     var(--so-lavender-600);
+
+  /* ----------------------------------------------------------------
+     BORDERS — Precision lines, the Braun signature
+     Hairline: structural, nearly invisible
+     Light:    card edges, dividers
+     Medium:   interactive states, emphasis
+     ---------------------------------------------------------------- */
+  --so-border-hairline: rgba(0, 0, 0, 0.06);
+  --so-border-light:    rgba(0, 0, 0, 0.10);
+  --so-border-medium:   rgba(0, 0, 0, 0.16);
+  --so-border-accent:   var(--so-lavender-200);
+
+  /* ----------------------------------------------------------------
+     SHADOWS — Minimal, functional only
+     Aluminum doesn't glow. Shadows imply physical lift.
+     ---------------------------------------------------------------- */
+  --so-shadow-sm:   0 1px 2px rgba(0, 0, 0, 0.04);
+  --so-shadow-md:   0 2px 8px rgba(0, 0, 0, 0.06);
+  --so-shadow-lg:   0 4px 16px rgba(0, 0, 0, 0.08);
+  --so-shadow-card: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+
+  /* ----------------------------------------------------------------
+     TYPOGRAPHY — Inter only, weight as hierarchy
+     Ive approach: weight and size do the work, not decoration
+     ---------------------------------------------------------------- */
+  --so-font:        'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --so-font-mono:   'SF Mono', 'Menlo', 'Consolas', monospace;
+
+  --so-text-xs:     11px;
+  --so-text-sm:     13px;
+  --so-text-base:   15px;
+  --so-text-lg:     17px;
+  --so-text-xl:     20px;
+  --so-text-2xl:    24px;
+  --so-text-3xl:    32px;
+  --so-text-4xl:    40px;
+  --so-text-hero:   56px;
+
+  --so-leading-tight:   1.2;
+  --so-leading-snug:    1.35;
+  --so-leading-normal:  1.55;
+  --so-leading-relaxed: 1.7;
+
+  --so-weight-light:    300;
+  --so-weight-regular:  400;
+  --so-weight-book:     450;
+  --so-weight-medium:   500;
+  --so-weight-semi:     600;
+
+  --so-tracking-tight:  -0.02em;
+  --so-tracking-normal: -0.01em;
+  --so-tracking-wide:   0.02em;
+  --so-tracking-caps:   0.06em;
+
+  /* ----------------------------------------------------------------
+     SPACING — 4px base grid
+     ---------------------------------------------------------------- */
+  --so-space-1:  4px;
+  --so-space-2:  8px;
+  --so-space-3:  12px;
+  --so-space-4:  16px;
+  --so-space-5:  20px;
+  --so-space-6:  24px;
+  --so-space-8:  32px;
+  --so-space-10: 40px;
+  --so-space-12: 48px;
+  --so-space-16: 64px;
+  --so-space-20: 80px;
+  --so-space-24: 96px;
+
+  /* ----------------------------------------------------------------
+     RADII — Restrained. Not bubbly. Machined.
+     ---------------------------------------------------------------- */
+  --so-radius-sm:  6px;
+  --so-radius-md:  10px;
+  --so-radius-lg:  14px;
+  --so-radius-xl:  20px;
+  --so-radius-pill: 100px;
+
+  /* ----------------------------------------------------------------
+     MOTION — Deliberate, unhurried
+     ---------------------------------------------------------------- */
+  --so-ease:       cubic-bezier(0.25, 0.1, 0.25, 1);
+  --so-ease-out:   cubic-bezier(0.16, 1, 0.3, 1);
+  --so-duration-fast:   120ms;
+  --so-duration-normal: 200ms;
+  --so-duration-slow:   400ms;
+
+  /* ----------------------------------------------------------------
+     LAYOUT
+     ---------------------------------------------------------------- */
+  --so-max-width:    1120px;
+  --so-nav-height:   56px;
+}

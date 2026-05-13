@@ -1,0 +1,355 @@
+/* 
+ * EXPERIS PROPOSAL STUDIO - DARK THEME v4.0
+ * Enhanced Glassmorphism & Gradient Aesthetic
+ * Cache Bust: 2026-03-19-v4
+ */
+
+:root {
+  --font-size: 16px;
+  
+  /* CORE COLORS - Deep Dark Aesthetic */
+  --background: #0E0E0E;
+  --foreground: #FFFFFF;
+  
+  /* CARD COLORS - Dark Charcoal with Transparency */
+  --card: rgba(18, 18, 20, 0.85);
+  --card-foreground: #FFFFFF;
+  
+  /* POPOVER COLORS */
+  --popover: rgba(15, 15, 17, 0.95);
+  --popover-foreground: #FFFFFF;
+  
+  /* PRIMARY - Vibrant Blue */
+  --primary: #255FF5;
+  --primary-foreground: #ffffff;
+  
+  /* SECONDARY */
+  --secondary: rgba(40, 40, 45, 0.8);
+  --secondary-foreground: #FFFFFF;
+  
+  /* MUTED */
+  --muted: rgba(50, 50, 55, 0.6);
+  --muted-foreground: #A0A0A8;
+  
+  /* ACCENT */
+  --accent: rgba(37, 95, 245, 0.15);
+  --accent-foreground: #255FF5;
+  
+  /* DESTRUCTIVE */
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  
+  /* SUCCESS - Neon Green */
+  --success: #49F222;
+  --success-foreground: #000000;
+  
+  /* BORDERS & INPUTS */
+  --border: rgba(255, 255, 255, 0.08);
+  --input: rgba(255, 255, 255, 0.05);
+  --input-background: rgba(20, 20, 22, 0.9);
+  --switch-background: rgba(50, 50, 55, 0.8);
+  
+  /* RING */
+  --ring: rgba(37, 95, 245, 0.5);
+  
+  /* CHART COLORS */
+  --chart-1: #255FF5;
+  --chart-2: #49F222;
+  --chart-3: #8B5CF6;
+  --chart-4: #F97316;
+  --chart-5: #06B6D4;
+  
+  /* RADIUS */
+  --radius: 0.75rem;
+  
+  /* SIDEBAR COLORS */
+  --sidebar: rgba(12, 12, 14, 0.95);
+  --sidebar-foreground: #FFFFFF;
+  --sidebar-primary: #255FF5;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: rgba(40, 40, 45, 0.8);
+  --sidebar-accent-foreground: #FFFFFF;
+  --sidebar-border: rgba(255, 255, 255, 0.06);
+  --sidebar-ring: rgba(37, 95, 245, 0.5);
+  
+  /* WEIGHTS */
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+}
+
+@theme inline {
+  /* Tailwind v4 color mapping */
+  --color-background: #0E0E0E;
+  --color-foreground: #FFFFFF;
+  --color-card: rgba(18, 18, 20, 0.85);
+  --color-card-foreground: #FFFFFF;
+  --color-popover: rgba(15, 15, 17, 0.95);
+  --color-popover-foreground: #FFFFFF;
+  --color-primary: #255FF5;
+  --color-primary-foreground: #ffffff;
+  --color-secondary: rgba(40, 40, 45, 0.8);
+  --color-secondary-foreground: #FFFFFF;
+  --color-muted: rgba(50, 50, 55, 0.6);
+  --color-muted-foreground: #A0A0A8;
+  --color-accent: rgba(37, 95, 245, 0.15);
+  --color-accent-foreground: #255FF5;
+  --color-destructive: #ef4444;
+  --color-destructive-foreground: #ffffff;
+  --color-success: #49F222;
+  --color-success-foreground: #000000;
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-input: rgba(255, 255, 255, 0.05);
+  --color-ring: rgba(37, 95, 245, 0.5);
+  --color-chart-1: #255FF5;
+  --color-chart-2: #49F222;
+  --color-chart-3: #8B5CF6;
+  --color-chart-4: #F97316;
+  --color-chart-5: #06B6D4;
+  --radius-sm: calc(0.75rem - 4px);
+  --radius-md: calc(0.75rem - 2px);
+  --radius-lg: 0.75rem;
+  --radius-xl: calc(0.75rem + 4px);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply text-foreground;
+    background-color: #0E0E0E !important;
+    background: 
+      radial-gradient(circle at 10% 20%, rgba(37, 95, 245, 0.15) 0%, transparent 30%),
+      radial-gradient(circle at 90% 80%, rgba(139, 92, 246, 0.12) 0%, transparent 30%),
+      radial-gradient(circle at 50% 50%, rgba(73, 242, 34, 0.05) 0%, transparent 40%),
+      linear-gradient(135deg, #0A0A0F 0%, #1A1625 25%, #1E1B2E 50%, #16213E 75%, #0E1420 100%);
+    color: #FFFFFF !important;
+    min-height: 100vh;
+    position: relative;
+  }
+
+  /* Floating gradient orbs for depth */
+  body::before {
+    content: '';
+    position: fixed;
+    top: -20%;
+    left: -10%;
+    width: 60%;
+    height: 60%;
+    background: radial-gradient(circle, rgba(37, 95, 245, 0.25) 0%, transparent 70%);
+    filter: blur(100px);
+    pointer-events: none;
+    z-index: 0;
+    animation: float 20s ease-in-out infinite;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    bottom: -20%;
+    right: -10%;
+    width: 50%;
+    height: 50%;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.2) 0%, transparent 70%);
+    filter: blur(100px);
+    pointer-events: none;
+    z-index: 0;
+    animation: float 25s ease-in-out infinite reverse;
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translate(0, 0) scale(1);
+      opacity: 0.8;
+    }
+    50% {
+      transform: translate(50px, 30px) scale(1.1);
+      opacity: 1;
+    }
+  }
+
+  html {
+    font-size: 16px;
+    background-color: #0E0E0E !important;
+  }
+
+  h1 {
+    font-weight: 500;
+    line-height: 1.5;
+  }
+
+  h2 {
+    font-weight: 500;
+    line-height: 1.5;
+  }
+
+  h3 {
+    font-weight: 500;
+    line-height: 1.5;
+  }
+
+  h4 {
+    font-weight: 500;
+    line-height: 1.5;
+  }
+
+  label {
+    font-weight: 500;
+    line-height: 1.5;
+  }
+
+  button {
+    font-weight: 500;
+    line-height: 1.5;
+  }
+
+  input {
+    font-weight: 400;
+    line-height: 1.5;
+  }
+}
+
+/* Enhanced Glassmorphism utility classes */
+@layer utilities {
+  /* Standard glass effect - MORE dramatic */
+  .glass {
+    background: rgba(18, 18, 20, 0.75) !important;
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    box-shadow: 
+      0 8px 32px 0 rgba(0, 0, 0, 0.6),
+      0 2px 8px 0 rgba(0, 0, 0, 0.4),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.08) !important;
+  }
+  
+  /* Strong glass effect - VERY dramatic for main cards */
+  .glass-strong {
+    background: rgba(15, 15, 17, 0.85) !important;
+    backdrop-filter: blur(40px) saturate(200%);
+    -webkit-backdrop-filter: blur(40px) saturate(200%);
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    box-shadow: 
+      0 20px 60px 0 rgba(0, 0, 0, 0.8),
+      0 8px 24px 0 rgba(0, 0, 0, 0.5),
+      inset 0 1px 1px 0 rgba(255, 255, 255, 0.1),
+      inset 0 -1px 1px 0 rgba(0, 0, 0, 0.3) !important;
+  }
+  
+  /* Subtle glass effect */
+  .glass-subtle {
+    background: rgba(22, 22, 24, 0.65) !important;
+    backdrop-filter: blur(16px) saturate(150%);
+    -webkit-backdrop-filter: blur(16px) saturate(150%);
+    border: 1px solid rgba(255, 255, 255, 0.06) !important;
+    box-shadow: 
+      0 4px 16px 0 rgba(0, 0, 0, 0.4),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.05) !important;
+  }
+
+  /* Card with inner shadow for depth */
+  .glass-inset {
+    background: rgba(20, 20, 22, 0.8) !important;
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    box-shadow: 
+      0 4px 20px 0 rgba(0, 0, 0, 0.5),
+      inset 0 2px 4px 0 rgba(0, 0, 0, 0.4),
+      inset 0 -1px 2px 0 rgba(255, 255, 255, 0.05) !important;
+  }
+
+  /* Glow effects for interactive elements */
+  .glow-primary {
+    box-shadow: 
+      0 0 20px rgba(37, 95, 245, 0.4),
+      0 0 40px rgba(37, 95, 245, 0.2),
+      0 0 60px rgba(37, 95, 245, 0.1) !important;
+  }
+
+  .glow-success {
+    box-shadow: 
+      0 0 20px rgba(73, 242, 34, 0.4),
+      0 0 40px rgba(73, 242, 34, 0.2) !important;
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    background: linear-gradient(135deg, #FFFFFF 0%, #A0A0A8 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .gradient-text-primary {
+    background: linear-gradient(135deg, #255FF5 0%, #60A5FA 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Relative positioning for layering */
+  .layer-base {
+    position: relative;
+    z-index: 1;
+  }
+
+  .layer-above {
+    position: relative;
+    z-index: 10;
+  }
+}
+
+/* Force override any cached styles */
+.bg-primary {
+  background-color: #255FF5 !important;
+}
+
+.text-primary {
+  color: #255FF5 !important;
+}
+
+.bg-success {
+  background-color: #49F222 !important;
+}
+
+.text-success {
+  color: #49F222 !important;
+}
+
+.bg-card {
+  background-color: rgba(18, 18, 20, 0.85) !important;
+}
+
+.bg-background {
+  background-color: #0E0E0E !important;
+}
+
+.text-foreground {
+  color: #FFFFFF !important;
+}
+
+.text-muted-foreground {
+  color: #A0A0A8 !important;
+}
+
+.text-accent {
+  color: #255FF5 !important;
+}
+
+.border-border {
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Enhanced hover states */
+.hover-lift {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 12px 40px 0 rgba(0, 0, 0, 0.7),
+    0 4px 12px 0 rgba(0, 0, 0, 0.4) !important;
+}
