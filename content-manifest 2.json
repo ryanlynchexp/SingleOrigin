@@ -1,0 +1,130 @@
+{
+  "meta": {
+    "title": "Experis Digital Services — Single Origin",
+    "version": "3.4.0",
+    "lastUpdated": "2026-05-12",
+    "description": "Content manifest for the Experis Digital Services hub."
+  },
+  "sections": {
+    "service-offerings": {
+      "label": "Service Offerings",
+      "icon": "layers",
+      "audience": "client-facing",
+      "items": [
+        {
+          "id": "service-line-one-pagers",
+          "title": "Service Line 1-Pagers",
+          "description": "Interactive overview of our five service lines — Data Collection & Benchmarking, UX Research, Product Design, Development & Engineering, and Annotation & Model Training.",
+          "type": "microsite",
+          "file": "content/decks/service-line-one-pagers.html",
+          "status": "ready",
+          "tags": ["services", "one-pager", "overview"],
+          "embed": true
+        },
+        {
+          "id": "engagement-models",
+          "title": "Engagement Models",
+          "description": "How clients work with us — Staffing, Managed Team, and Managed Service models with comparison and decision guidance.",
+          "type": "microsite",
+          "file": "content/decks/engagement-models.html",
+          "status": "ready",
+          "tags": ["engagement", "staffing", "managed-service"],
+          "embed": true
+        },
+        {
+          "id": "2026-competency",
+          "title": "2026 Competency Deck",
+          "description": "Business case for adding Product Design as a fourth service pillar — landscape analysis, reference programs, cross-sell bridges, and growth strategy.",
+          "type": "deck",
+          "file": "content/decks/2026-competency.html",
+          "status": "ready",
+          "tags": ["competency", "strategy", "growth"],
+          "embed": true
+        },
+        {
+          "id": "what-is-product-design",
+          "title": "What is Product Design?",
+          "description": "Educational deck defining product design as a discipline — sub-disciplines, workflow, KPIs, and the future of design.",
+          "type": "deck",
+          "file": "content/decks/what-is-product-design.html",
+          "status": "ready",
+          "tags": ["product-design", "education", "ux"],
+          "embed": true
+        }
+      ]
+    },
+    "proof-points": {
+      "label": "Proof Points",
+      "icon": "monitor",
+      "audience": "client-facing",
+      "items": [
+        {
+          "id": "ux-case-studies",
+          "title": "UX Case Studies",
+          "description": "End-to-end UX research and design case studies demonstrating our discovery-to-delivery process across enterprise clients.",
+          "type": "microsite",
+          "file": "content/case-studies/ux-case-studies.html",
+          "status": "ready",
+          "tags": ["ux", "research", "design"],
+          "embed": true
+        },
+        {
+          "id": "ux-brand-id",
+          "title": "UX Brand ID",
+          "description": "Strategic brand identity deck — positioning, competitive analysis, visual trust signals, and brand rationale.",
+          "type": "microsite",
+          "file": "content/design-systems/design-rationale-microsite.html",
+          "status": "ready",
+          "tags": ["brand", "identity", "strategy", "ux"],
+          "embed": true
+        },
+        {
+          "id": "app-design-system",
+          "title": "App Design System",
+          "description": "Living design system reference — tokens, color architecture, typography, elevation, glass effects, components, and motion patterns.",
+          "type": "microsite",
+          "file": "content/design-systems/app-design-system.html",
+          "status": "ready",
+          "tags": ["design-system", "tokens", "components", "ui"],
+          "embed": true
+        },
+      ]
+    },
+    "ux-wip": {
+      "label": "UX WIP Files",
+      "icon": "edit-3",
+      "audience": "internal",
+      "hidden": true,
+      "items": [
+        {
+          "id": "proposal-engine",
+          "title": "Proposal Studio",
+          "description": "Automated proposal generation tool — demonstrates workflow automation, document intelligence, and AI-assisted content building.",
+          "type": "poc",
+          "file": "content/poc-demos/proposal-engine/index.html",
+          "status": "ready",
+          "tags": ["automation", "proposals", "ai"],
+          "embed": true
+        },
+        {
+          "id": "candidate-tracker",
+          "title": "Candidate Tracker",
+          "description": "Recruitment pipeline management app — demonstrates data-driven UI and real-time status tracking.",
+          "type": "poc",
+          "file": "content/poc-demos/candidate-tracker/index.html",
+          "status": "pending",
+          "tags": ["recruitment", "dashboard", "tracking"]
+        },
+        {
+          "id": "banking-b2b",
+          "title": "BankIQ Application",
+          "description": "Enterprise banking interface — demonstrates complex B2B workflows, financial data visualization, and design system in action.",
+          "type": "poc",
+          "file": "content/poc-demos/banking-b2b/index.html",
+          "status": "pending",
+          "tags": ["fintech", "b2b", "enterprise"]
+        }
+      ]
+    }
+  }
+}
