@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bay Area Location Callout Preview</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #111119;
+      --bg-card: #16161f;
+      --border: #2a2a3a;
+      --border-accent: #3d3d55;
+      --text-primary: #e8e8ef;
+      --text-secondary: #9898ab;
+      --text-muted: #6b6b80;
+      --accent: #4f7df5;
+      --accent-glow: rgba(79, 125, 245, 0.15);
+      --green: #34d399;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      background: radial-gradient(circle at top, #11111c 0%, #0a0a0f 42%, #08080d 100%);
+      color: var(--text-primary);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 24px;
+    }
+
+    .page {
+      width: min(1180px, 100%);
+    }
+
+    .eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+
+    .page-title {
+      font-size: clamp(28px, 4vw, 44px);
+      line-height: 1.08;
+      font-weight: 800;
+      margin: 0 0 14px;
+      letter-spacing: -0.04em;
+    }
+
+    .page-subtitle {
+      max-width: 760px;
+      color: var(--text-secondary);
+      font-size: 17px;
+      line-height: 1.75;
+      margin: 0 0 34px;
+    }
+
+    .location-callout {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 32px;
+      align-items: center;
+      position: relative;
+      background: linear-gradient(180deg, rgba(17,17,25,0.96) 0%, rgba(22,22,31,0.92) 100%);
+      border: 1px solid var(--border-accent);
+      border-radius: 20px;
+      padding: 32px;
+      overflow: hidden;
+      box-shadow: 0 16px 60px rgba(0, 0, 0, 0.28);
+    }
+
+    .location-callout::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 15% 50%, rgba(52, 211, 153, 0.09) 0%, transparent 30%),
+        radial-gradient(circle at 78% 18%, rgba(79, 125, 245, 0.05) 0%, transparent 25%);
+      pointer-events: none;
+    }
+
+    .location-callout::after {
+      content: '';
+      position: absolute;
+      inset: 1px;
+      border-radius: 19px;
+      border: 1px solid rgba(255,255,255,0.02);
+      pointer-events: none;
+    }
+
+    .location-visual {
+      position: relative;
+      min-height: 250px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+    }
+
+    .ca-map-wrap {
+      width: 250px;
+      height: 250px;
+      position: relative;
+    }
+
+    .ca-map-svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    .ca-outline {
+      fill: rgba(255,255,255,0.012);
+      stroke: rgba(79,125,245,0.32);
+      stroke-width: 2.2;
+    }
+
+    .ca-grid-line {
+      fill: none;
+      stroke: rgba(79,125,245,0.10);
+      stroke-width: 1;
+    }
+
+    .bay-zone {
+      fill: url(#bayAreaGlow);
+      opacity: 0.95;
+      animation: bayPulse 4.2s ease-in-out infinite;
+      transform-origin: center;
+    }
+
+    .bay-pin {
+      transform-origin: center;
+      animation: pinDrop 0.95s cubic-bezier(0.2, 0.9, 0.25, 1) both;
+    }
+
+    .bay-pin-core {
+      fill: #34d399;
+      filter: drop-shadow(0 0 12px rgba(52, 211, 153, 0.45));
+    }
+
+    .bay-pin-ring {
+      fill: none;
+      stroke: rgba(52, 211, 153, 0.55);
+      stroke-width: 2;
+    }
+
+    .bay-ripple {
+      fill: none;
+      stroke: rgba(52, 211, 153, 0.26);
+      stroke-width: 2;
+      transform-origin: center;
+    }
+
+    .bay-ripple.r1 { animation: rippleOne 3.4s ease-out infinite; }
+    .bay-ripple.r2 { animation: rippleTwo 3.4s ease-out infinite 0.7s; }
+    .bay-ripple.r3 { animation: rippleThree 3.4s ease-out infinite 1.4s; }
+
+    .location-copy {
+      position: relative;
+      z-index: 1;
+    }
+
+    .location-kicker {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 10px;
+    }
+
+    .location-title {
+      font-size: clamp(24px, 3.2vw, 36px);
+      line-height: 1.18;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 0 0 14px;
+      letter-spacing: -0.035em;
+    }
+
+    .location-title span {
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    .location-body {
+      font-size: 17px;
+      line-height: 1.82;
+      color: var(--text-secondary);
+      max-width: 760px;
+      margin: 0;
+    }
+
+    .location-body strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    .micro-caption {
+      margin-top: 18px;
+      font-size: 12px;
+      letter-spacing: 0.3px;
+      color: var(--text-muted);
+    }
+
+    @keyframes pinDrop {
+      0% {
+        opacity: 0;
+        transform: translateY(-14px) scale(0.72);
+      }
+      65% {
+        opacity: 1;
+        transform: translateY(3px) scale(1.04);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes bayPulse {
+      0%, 100% {
+        opacity: 0.74;
+        transform: scale(0.98);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.035);
+      }
+    }
+
+    @keyframes rippleOne {
+      0% { opacity: 0; transform: scale(0.65); }
+      16% { opacity: 0.5; }
+      100% { opacity: 0; transform: scale(1.9); }
+    }
+
+    @keyframes rippleTwo {
+      0% { opacity: 0; transform: scale(0.65); }
+      16% { opacity: 0.42; }
+      100% { opacity: 0; transform: scale(2.18); }
+    }
+
+    @keyframes rippleThree {
+      0% { opacity: 0; transform: scale(0.65); }
+      16% { opacity: 0.34; }
+      100% { opacity: 0; transform: scale(2.42); }
+    }
+
+    @media (max-width: 860px) {
+      .location-callout {
+        grid-template-columns: 1fr;
+        gap: 22px;
+        padding: 24px 20px;
+      }
+
+      .location-visual {
+        min-height: 210px;
+      }
+
+      .ca-map-wrap {
+        width: 200px;
+        height: 200px;
+      }
+
+      .location-body {
+        font-size: 15px;
+        line-height: 1.7;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="eyebrow">Standalone Preview</div>
+    <h1 class="page-title">Bay Area Proximity Callout</h1>
+    <p class="page-subtitle">This is a standalone HTML preview of the redesigned location section, with a California outline, animated Bay Area pin, and a commutable-zone glow treatment.</p>
+
+    <section class="location-callout">
+      <div class="location-visual">
+        <div class="ca-map-wrap">
+          <svg class="ca-map-svg" viewBox="0 0 220 220" aria-hidden="true">
+            <defs>
+              <radialGradient id="bayAreaGlow" cx="48%" cy="36%" r="48%">
+                <stop offset="0%" stop-color="rgba(52,211,153,0.32)"></stop>
+                <stop offset="38%" stop-color="rgba(52,211,153,0.16)"></stop>
+                <stop offset="100%" stop-color="rgba(52,211,153,0)"></stop>
+              </radialGradient>
+            </defs>
+
+            <path class="ca-outline" d="M73 18 L117 30 L112 49 L133 78 L141 112 L155 145 L145 183 L116 197 L88 188 L74 164 L67 128 L52 103 L56 83 L42 60 L48 38 Z"></path>
+
+            <path class="ca-grid-line" d="M62 46 C83 54, 101 64, 126 80"></path>
+            <path class="ca-grid-line" d="M57 78 C78 87, 97 97, 136 114"></path>
+            <path class="ca-grid-line" d="M60 108 C81 118, 101 128, 146 149"></path>
+            <path class="ca-grid-line" d="M68 140 C88 149, 106 160, 138 179"></path>
+
+            <ellipse class="bay-zone" cx="88" cy="73" rx="46" ry="34"></ellipse>
+
+            <circle class="bay-ripple r1" cx="88" cy="73" r="16"></circle>
+            <circle class="bay-ripple r2" cx="88" cy="73" r="16"></circle>
+            <circle class="bay-ripple r3" cx="88" cy="73" r="16"></circle>
+
+            <g class="bay-pin">
+              <path class="bay-pin-core" d="M88 59 C80 59, 74 65, 74 73 C74 85, 88 97, 88 97 C88 97, 102 85, 102 73 C102 65, 96 59, 88 59 Z"></path>
+              <circle cx="88" cy="73" r="4.5" fill="#0f1720"></circle>
+              <circle class="bay-pin-ring" cx="88" cy="73" r="11"></circle>
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <div class="location-copy">
+        <div class="location-kicker">Client Proximity</div>
+        <h2 class="location-title">Bay Area, California <span>— Located within practical commute proximity to major Bay Area clients.</span></h2>
+        <p class="location-body">Positioned for <strong>stronger in-person collaboration</strong>, faster stakeholder alignment, and direct presence where it matters most. This proximity supports executive meetings, working sessions, and higher-touch partnership moments across key California accounts.</p>
+        <div class="micro-caption">Animated commutable-zone glow shown as a conceptual Bay Area reach indicator.</div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
