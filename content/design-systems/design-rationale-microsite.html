@@ -1,0 +1,1798 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UX Brand ID</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@200;300;400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@300;400;500&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ================================================================
+   TOKENS (from BankIQ tokens.css)
+   ================================================================ */
+:root,[data-theme="dark"]{
+  --bg-0:#000000;--bg-1:#080808;--bg-2:#0A0A0A;--bg-3:#111111;--bg-4:#1A1A1A;
+  --text-0:#EBEBEB;--text-1:#CCCCCC;--text-2:#888888;--text-3:#828282;
+  --cyan:#C4A66C;--cyan-soft:#B89B60;--cyan-dim:rgba(196,166,108,.10);
+  --indigo:#818CF8;--indigo-dim:rgba(129,140,248,.10);--violet:#A78BFA;
+  --success:#10B981;--warning:#F59E0B;--danger:#EF4444;
+  --border-0:rgba(255,255,255,.06);--border-1:rgba(255,255,255,.12);
+  --border-2:rgba(255,255,255,.24);--border-accent:rgba(196,166,108,.30);
+  --glass-bg:rgba(8,8,8,.80);--glass-border:rgba(255,255,255,.08);
+  --grad-cyan:linear-gradient(135deg,#C4A66C,#A08A52);
+  --grad-indigo:linear-gradient(135deg,#818CF8,#A78BFA);
+  --shadow-sm:0 2px 8px rgba(0,0,0,.55);--shadow-md:0 4px 20px rgba(0,0,0,.65);
+  --glow-sm:0 0 12px rgba(196,166,108,.10);
+  --toggle-track:rgba(255,255,255,.08);--toggle-knob:#C4A66C;
+}
+[data-theme="light"]{
+  --bg-0:#E8E8E8;--bg-1:#EEEEEE;--bg-2:#F4F4F4;--bg-3:#FAFAFA;--bg-4:#FFFFFF;
+  --text-0:#000000;--text-1:#404040;--text-2:#636973;--text-3:#616161;
+  --cyan:#7A6537;--cyan-soft:#7A6537;--cyan-dim:rgba(122,101,55,.08);
+  --indigo:#4F46E5;--indigo-dim:rgba(79,70,229,.08);--violet:#7C3AED;
+  --success:#057550;--warning:#9A4A0E;--danger:#B91C1C;
+  --border-0:rgba(0,0,0,.06);--border-1:rgba(0,0,0,.12);
+  --border-2:rgba(0,0,0,.24);--border-accent:rgba(122,101,55,.30);
+  --glass-bg:rgba(255,255,255,.80);--glass-border:rgba(0,0,0,.08);
+  --grad-cyan:linear-gradient(135deg,#7A6537,#7A6537);
+  --grad-indigo:linear-gradient(135deg,#4F46E5,#7C3AED);
+  --shadow-sm:0 2px 8px rgba(0,0,0,.07);--shadow-md:0 4px 20px rgba(0,0,0,.08);
+  --glow-sm:0 0 12px rgba(122,101,55,.08);
+  --toggle-track:rgba(0,0,0,.08);--toggle-knob:#7A6537;
+}
+
+/* Redacted / abstracted brand names */
+.redacted{filter:blur(3.5px);-webkit-filter:blur(3.5px);user-select:none;pointer-events:none;display:inline-block}
+
+/* Auto-move animation for glass-tier cards — merged into main .glass-tier rule below */
+
+/* Mo-tile active highlight for autoplay */
+.mo-tile.auto-active{outline:1.5px solid var(--cyan);outline-offset:2px;box-shadow:0 0 16px var(--cyan-dim)}
+
+
+/* ================================================================
+   RESET
+   ================================================================ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{overflow:hidden;height:100%}
+body{
+  font-family:'DM Sans',system-ui,sans-serif;
+  background:var(--bg-0);color:var(--text-0);
+  height:100%;overflow:hidden;-webkit-font-smoothing:antialiased;
+  transition:background .4s,color .4s;
+}
+
+/* ================================================================
+   DECK
+   ================================================================ */
+.deck{position:relative;width:100%;height:100%}
+.slide{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:96px 80px 80px;
+  opacity:0;pointer-events:none;transition:opacity .35s ease;
+  overflow-y:auto;
+  scrollbar-width:thin;scrollbar-color:var(--border-1) transparent;
+}
+.slide::-webkit-scrollbar{width:4px}
+.slide::-webkit-scrollbar-thumb{background:var(--border-1);border-radius:2px}
+.slide.active{opacity:1;pointer-events:all}
+@media(max-width:960px){.slide{padding:96px 24px 88px}}
+
+/* ================================================================
+   TOP BAR
+   ================================================================ */
+.topbar{
+  position:fixed;top:56px;left:0;right:0;z-index:90;
+  height:40px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 80px;
+  background:var(--glass-bg);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--border-0);transition:background .4s,border-color .4s;
+}
+@media(max-width:960px){.topbar{padding:0 24px}}
+.topbar-left{
+  font-family:'Exo 2',sans-serif;font-weight:600;font-size:13px;
+  color:var(--text-2);letter-spacing:.04em;
+}
+.topbar-left strong{color:var(--text-0)}
+.topbar-right{display:flex;align-items:center;gap:18px}
+.counter{font-family:'DM Mono',monospace;font-size:11px;color:var(--text-2);letter-spacing:.04em}
+.progress-wrap{width:100px;height:2px;background:var(--border-0);border-radius:1px;overflow:hidden}
+.progress-fill{height:100%;background:var(--cyan);border-radius:1px;transition:width .4s ease}
+
+/* Toggle */
+.theme-toggle{
+  width:40px;height:22px;border-radius:11px;
+  background:var(--toggle-track);border:1px solid var(--border-1);
+  cursor:pointer;position:relative;transition:background .3s,border-color .3s;flex-shrink:0;
+}
+.theme-toggle::after{
+  content:'';position:absolute;top:2px;left:2px;
+  width:16px;height:16px;border-radius:50%;background:var(--toggle-knob);
+  transition:transform .3s cubic-bezier(.16,1,.3,1),background .3s;
+}
+[data-theme="dark"] .theme-toggle::after{transform:translateX(18px)}
+.t-icons{display:flex;align-items:center;gap:5px;font-size:12px}
+.t-icon{color:var(--text-3);transition:color .3s}.t-icon.on{color:var(--cyan)}
+
+/* ================================================================
+   BOTTOM NAV
+   ================================================================ */
+.bottomnav{
+  position:fixed;bottom:0;left:0;right:0;z-index:100;
+  height:56px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 80px;
+  background:var(--glass-bg);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  border-top:1px solid var(--border-0);transition:background .4s,border-color .4s;
+}
+@media(max-width:960px){.bottomnav{padding:0 24px}}
+.btn{
+  display:flex;align-items:center;gap:8px;
+  padding:9px 20px;border-radius:6px;
+  font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;
+  cursor:pointer;border:1px solid var(--border-1);
+  background:var(--bg-3);color:var(--text-1);transition:all .2s;user-select:none;
+}
+.btn:hover{background:var(--bg-4);color:var(--text-0);border-color:var(--border-2)}
+.btn.gold{background:var(--cyan-dim);border-color:var(--border-accent);color:var(--cyan)}
+.btn.gold:hover{background:var(--cyan);color:var(--bg-1)}
+.btn:disabled{opacity:.2;pointer-events:none}
+.preview-text{font-family:'DM Mono',monospace;font-size:10px;color:var(--text-3)}
+
+/* ================================================================
+   TYPOGRAPHY
+   ================================================================ */
+.tag{
+  font-family:'DM Mono',monospace;font-size:10px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);
+  margin-bottom:12px;display:block;
+}
+h2{
+  font-family:'Exo 2',sans-serif;font-weight:600;
+  font-size:clamp(28px,4vw,50px);letter-spacing:-.03em;
+  line-height:1.1;color:var(--text-0);
+}
+.sub{font-size:16px;line-height:1.6;color:var(--text-1);max-width:540px;margin-top:14px}
+.caption{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-2)}
+.note{font-size:13px;line-height:1.6;color:var(--text-1);max-width:400px}
+
+/* ================================================================
+   LAYOUTS
+   ================================================================ */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;flex:1}
+.split-wide{display:grid;grid-template-columns:1.2fr .8fr;gap:48px;align-items:center;flex:1}
+.split-narrow{display:grid;grid-template-columns:.8fr 1.2fr;gap:48px;align-items:center;flex:1}
+.center-col{display:flex;flex-direction:column;align-items:center;text-align:center;flex:1;justify-content:center}
+@media(max-width:900px){.split,.split-wide,.split-narrow{grid-template-columns:1fr}}
+
+/* ================================================================
+   MOOD BOARD — Polished Grid Layout
+   ================================================================ */
+.mg-wrap{
+  display:flex;flex-direction:column;gap:12px;
+  width:100%;max-width:1100px;margin:0 auto;
+}
+.mg-header{
+  display:flex;justify-content:space-between;align-items:baseline;
+}
+.mg-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  grid-auto-rows:minmax(120px,auto);
+  gap:10px;
+}
+.mg-tile{
+  border-radius:10px;overflow:hidden;position:relative;
+  background:var(--bg-3);
+  border:1px solid var(--border-0);
+  transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease;
+}
+.mg-tile:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);border-color:var(--border-1)}
+.mg-tile img{width:100%;height:100%;object-fit:cover;display:block}
+.mg-tile.span2{grid-column:span 2}
+.mg-tile.rspan2{grid-row:span 2}
+.mg-tile-label{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:8px 12px;
+  background:linear-gradient(0deg,rgba(0,0,0,.65) 0%,transparent 100%);
+  font-family:'DM Mono',monospace;font-size:9px;
+  letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.7);
+}
+.mg-card{
+  border-radius:10px;overflow:hidden;
+  background:var(--bg-2);
+  border:1px solid var(--border-0);
+  padding:16px;
+  display:flex;flex-direction:column;justify-content:center;
+  transition:transform .25s ease,box-shadow .25s ease,background .4s,border-color .4s;
+}
+.mg-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}
+.mg-card.span2{grid-column:span 2}
+.mg-card-label{
+  font-family:'DM Mono',monospace;font-size:9px;
+  letter-spacing:.1em;text-transform:uppercase;
+  color:var(--text-2);margin-bottom:10px;
+}
+.mg-kw-row{
+  display:flex;gap:8px;flex-wrap:wrap;
+  grid-column:1/-1;
+  padding:4px 0;
+}
+.mg-kw{
+  padding:5px 14px;border-radius:20px;
+  font-family:'DM Mono',monospace;font-size:10px;
+  letter-spacing:.06em;
+  border:1px solid var(--border-0);color:var(--text-2);
+  transition:all .3s;
+}
+.mg-kw.on{border-color:var(--border-accent);color:var(--cyan);background:var(--cyan-dim)}
+
+
+/* ================================================================
+   COLOR SWATCHES
+   ================================================================ */
+.swatches{display:flex;gap:3px;border-radius:12px;overflow:hidden;height:200px}
+.sw{
+  flex:1;display:flex;flex-direction:column;justify-content:flex-end;
+  padding:14px;cursor:default;
+}
+.sw .sw-name{font-family:'Exo 2',sans-serif;font-size:13px;font-weight:600;margin-bottom:4px;letter-spacing:.01em}
+.sw .sw-token{font-family:'DM Mono',monospace;font-size:10px;opacity:.7;margin-bottom:2px}
+.sw .sw-hex{font-family:'DM Mono',monospace;font-size:10px;opacity:.55}
+
+/* ================================================================
+   TRUST BARS
+   ================================================================ */
+.trust-row{display:flex;align-items:center;gap:14px;margin-top:10px}
+.trust-label{font-size:12px;color:var(--text-2);min-width:100px}
+.trust-bar{flex:1;height:6px;background:var(--border-0);border-radius:3px;overflow:hidden}
+.trust-fill{height:100%;border-radius:3px;background:var(--cyan)}
+.trust-num{font-family:'Exo 2',sans-serif;font-weight:700;font-size:15px;color:var(--text-0);min-width:32px;text-align:right}
+
+/* ================================================================
+   COMPONENT PREVIEW
+   ================================================================ */
+.preview-box{
+  background:var(--bg-1);border:1px solid var(--border-0);
+  border-radius:14px;padding:28px;transition:background .4s,border-color .4s;
+}
+.pbtn{
+  display:inline-flex;align-items:center;padding:10px 24px;border-radius:6px;
+  font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;border:none;cursor:default;
+}
+
+/* ================================================================
+   CALLOUT (minimal)
+   ================================================================ */
+.callout{
+  padding:16px 20px;background:var(--bg-2);
+  border-left:3px solid var(--cyan);border-radius:0 8px 8px 0;
+  margin-top:16px;transition:background .4s;
+}
+.callout p{font-size:13px;line-height:1.6;color:var(--text-1)}
+.callout strong{color:var(--text-0)}
+.callout.ai{border-left-color:var(--indigo);background:var(--indigo-dim)}
+
+/* ================================================================
+   KEYWORD CHIPS
+   ================================================================ */
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:16px}
+.chip{
+  padding:5px 14px;border-radius:20px;font-size:11px;
+  font-family:'DM Mono',monospace;letter-spacing:.03em;
+  border:1px solid var(--border-0);color:var(--text-2);transition:all .3s;
+}
+.chip.on{border-color:var(--border-accent);color:var(--cyan);background:var(--cyan-dim)}
+
+/* ================================================================
+   MISC
+   ================================================================ */
+.divider{width:40px;height:3px;background:var(--cyan);border-radius:2px;margin:16px 0}
+.inline-dot{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:middle;margin-right:6px}
+.spacer{height:16px}
+
+/* Tooltips */
+.tip{position:relative;cursor:default}
+.tip::after{
+  content:attr(data-tip);
+  position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%) scale(.92);
+  padding:4px 10px;border-radius:6px;
+  background:var(--bg-2);color:var(--text-0);border:1px solid var(--border-1);
+  font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;white-space:nowrap;
+  box-shadow:var(--shadow-sm);
+  opacity:0;pointer-events:none;transition:opacity .15s,transform .15s;
+}
+.tip:hover::after{opacity:1;transform:translateX(-50%) scale(1)}
+
+/* ================================================================
+   GLASS DEMO — theme-aware
+   ================================================================ */
+.glass-stage{
+  position:relative;height:380px;border-radius:14px;overflow:hidden;
+  border:1px solid var(--border-0);
+  transition:background .4s, border-color .4s;
+}
+[data-theme="dark"] .glass-stage{
+  background:
+    radial-gradient(circle at 22% 25%, rgba(196,166,108,.18) 0%, transparent 45%),
+    radial-gradient(circle at 80% 78%, rgba(196,166,108,.06) 0%, transparent 50%),
+    linear-gradient(180deg, #0e0e0e 0%, #060606 100%);
+}
+[data-theme="light"] .glass-stage{
+  background:
+    radial-gradient(circle at 22% 25%, rgba(139,115,64,.22) 0%, transparent 45%),
+    radial-gradient(circle at 80% 78%, rgba(139,115,64,.08) 0%, transparent 50%),
+    linear-gradient(180deg, #ECECEC 0%, #DCDCDC 100%);
+}
+.glass-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(currentColor 1px, transparent 1px),
+    linear-gradient(90deg, currentColor 1px, transparent 1px);
+  background-size:24px 24px;
+  pointer-events:none;
+}
+[data-theme="dark"] .glass-grid{color:rgba(255,255,255,.045)}
+[data-theme="light"] .glass-grid{color:rgba(0,0,0,.05)}
+
+.glass-bg-num{position:absolute;font-family:'DM Mono',monospace;transition:color .4s}
+[data-theme="dark"] .glass-bg-num{color:rgba(255,255,255,.78)}
+[data-theme="light"] .glass-bg-num{color:rgba(20,20,20,.72)}
+
+/* Background "dashboard" content — sits exclusively under the glass tiers
+   so every visible element demonstrates the alpha/blur overlay effect */
+.glass-bg{position:absolute;transition:color .4s}
+[data-theme="dark"] .glass-bg{color:rgba(255,255,255,.82)}
+[data-theme="light"] .glass-bg{color:rgba(20,20,20,.78)}
+.glass-bg-bar{background:currentColor;border-radius:2px;opacity:.85}
+
+.glass-tier{
+  position:absolute;border-radius:11px;padding:12px 14px;
+  display:flex;flex-direction:column;justify-content:space-between;
+  transition:left 1.2s cubic-bezier(.25,.1,.25,1), top 1.2s cubic-bezier(.25,.1,.25,1), background .4s, box-shadow .4s;
+  cursor:grab;user-select:none;touch-action:none;
+}
+.glass-tier.dragging{cursor:grabbing;transition:background .4s, box-shadow .4s;z-index:10}
+.glass-hint{
+  position:absolute;top:10px;right:12px;
+  font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.08em;
+  opacity:.5;pointer-events:none;transition:color .4s,opacity .3s;
+  display:flex;align-items:center;gap:6px;
+}
+[data-theme="dark"] .glass-hint{color:rgba(255,255,255,.6)}
+[data-theme="light"] .glass-hint{color:rgba(20,20,20,.55)}
+.glass-hint svg{width:11px;height:11px}
+
+/* ================================================================
+   MOTION DEMOS — slide 12
+   ================================================================ */
+@keyframes mo-press{0%,100%{transform:translateY(0)}30%,70%{transform:translateY(1px)}}
+@keyframes mo-spin{to{transform:rotate(360deg)}}
+@keyframes mo-shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+@keyframes mo-toast-up{0%{transform:translate(-50%,24px);opacity:0}10%{transform:translate(-50%,0);opacity:1}38%{transform:translate(-50%,0);opacity:1}48%,100%{transform:translate(-50%,24px);opacity:0}}
+@keyframes mo-dot{0%,80%,100%{transform:translateY(0);opacity:.35}40%{transform:translateY(-5px);opacity:1}}
+@keyframes mo-pulse{0%,100%{transform:scale(1);opacity:.55}50%{transform:scale(1.08);opacity:1}}
+@keyframes mo-lift{0%,100%{transform:translateY(0);box-shadow:0 2px 6px rgba(0,0,0,.18)}50%{transform:translateY(-3px);box-shadow:0 12px 24px rgba(0,0,0,.35)}}
+@keyframes mo-toggle{0%{left:2px;background:var(--text-3)}15%,50%{left:18px;background:var(--cyan)}85%,100%{left:2px;background:var(--text-3)}}
+@keyframes mo-progress{0%{width:8%}50%{width:72%}100%{width:100%}}
+
+.mo-btn{padding:10px 16px;border-radius:6px;font-family:'Exo 2',sans-serif;font-size:10.5px;font-weight:600;letter-spacing:.06em;white-space:nowrap}
+.mo-btn-default{background:var(--cyan);color:var(--bg-0)}
+.mo-btn-hover{background:var(--cyan);color:var(--bg-0);transform:translateY(-2px);box-shadow:0 6px 16px rgba(196,166,108,.35),0 2px 4px rgba(0,0,0,.18)}
+.mo-btn-focus{background:var(--cyan);color:var(--bg-0);box-shadow:0 0 0 2px var(--bg-0),0 0 0 4px var(--cyan)}
+.mo-btn-active{background:var(--cyan-soft,var(--cyan));color:var(--bg-0);transform:translateY(1px);box-shadow:inset 0 2px 4px rgba(0,0,0,.3);filter:brightness(.85)}
+.mo-btn-disabled{background:var(--bg-3);color:var(--text-3);opacity:.45;cursor:not-allowed}
+
+/* Live sample button — real hover/focus/active/disabled on a single element */
+.mo-btn-live{
+  padding:11px 22px;border-radius:6px;font-family:'Exo 2',sans-serif;font-size:12px;font-weight:600;
+  letter-spacing:.06em;background:var(--cyan);color:var(--bg-0);border:none;cursor:pointer;
+  transition:transform 80ms cubic-bezier(.4,0,.2,1),box-shadow 80ms cubic-bezier(.4,0,.2,1),filter 80ms cubic-bezier(.4,0,.2,1);
+  user-select:none;-webkit-user-select:none;outline:none;
+}
+.mo-btn-live:hover{
+  transform:translateY(-1px);
+  box-shadow:0 3px 8px rgba(196,166,108,.28),0 1px 2px rgba(0,0,0,.12);
+}
+.mo-btn-live:focus-visible{
+  box-shadow:0 0 0 2px var(--bg-0),0 0 0 4px var(--cyan);
+}
+.mo-btn-live:active{
+  transform:scale(.985);
+  filter:brightness(.93);
+  transition-duration:40ms;
+}
+
+.mo-tile{background:var(--bg-2);border:1px solid var(--border-0);border-radius:8px;padding:12px;position:relative;overflow:hidden;cursor:pointer;transition:background .4s,border-color .25s}
+.mo-tile:hover{border-color:var(--border-accent,var(--cyan))}
+.mo-tile-label{font-family:'DM Mono',monospace;font-size:8.5px;color:var(--text-2);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px;transition:color .25s}
+.mo-tile:hover .mo-tile-label{color:var(--cyan)}
+
+.mo-card-lift{background:var(--bg-2);border:1px solid var(--border-0);border-radius:8px;padding:12px 14px;transition:transform 80ms cubic-bezier(.4,0,.2,1),box-shadow 80ms cubic-bezier(.4,0,.2,1),border-color 80ms cubic-bezier(.4,0,.2,1),background 80ms cubic-bezier(.4,0,.2,1)}
+.mo-tile:hover .mo-card-lift{transform:translateY(-1px);border-color:var(--border-accent,var(--cyan));box-shadow:var(--glow-sm);background:var(--bg-3)}
+
+/* Toasts — vertical slide + fade, centered at bottom of the "app" */
+.mo-toast{position:absolute;left:50%;bottom:14px;transform:translate(-50%,24px);opacity:0;padding:8px 14px;border-radius:6px;background:var(--bg-3);border:1px solid var(--border-1);font-size:10.5px;color:var(--text-0);display:flex;align-items:center;gap:8px;box-shadow:0 8px 20px rgba(0,0,0,.35);min-width:180px;font-family:'DM Sans',sans-serif}
+.mo-toast-success{border-left:3px solid var(--success)}
+.mo-toast-ai{border-left:3px solid var(--indigo)}
+.mo-toast-error{border-left:3px solid var(--danger,#EF4444)}
+.mo-toast-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.mo-tile:hover .mo-toast-success{animation:mo-toast-up 4.8s ease-in-out infinite}
+.mo-tile:hover .mo-toast-ai{animation:mo-toast-up 4.8s ease-in-out infinite;animation-delay:1.6s}
+.mo-tile:hover .mo-toast-error{animation:mo-toast-up 4.8s ease-in-out infinite;animation-delay:3.2s}
+
+/* App-frame — gives toasts a "bottom of app" visual context */
+.mo-app{position:relative;border-radius:6px;background:linear-gradient(180deg,var(--bg-1) 0%,var(--bg-2) 100%);border:1px solid var(--border-0);height:112px;overflow:hidden;margin-top:2px}
+.mo-app-header{display:flex;align-items:center;gap:4px;padding:6px 8px;border-bottom:1px solid var(--border-0)}
+.mo-app-dot{width:6px;height:6px;border-radius:50%;background:var(--text-3);opacity:.5}
+.mo-app-body{padding:10px;display:flex;flex-direction:column;gap:5px}
+.mo-app-line{height:5px;border-radius:2px;background:var(--bg-3)}
+
+.mo-skel{height:9px;border-radius:3px;background:linear-gradient(90deg,var(--bg-3) 0%,var(--bg-4) 50%,var(--bg-3) 100%);background-size:200% 100%}
+[data-theme="light"] .mo-skel{background:linear-gradient(90deg,var(--bg-2) 0%,var(--bg-3) 50%,var(--bg-2) 100%);background-size:200% 100%}
+.mo-tile:hover .mo-skel{animation:mo-shimmer 1.8s ease-in-out infinite}
+
+.mo-spinner{width:20px;height:20px;border-radius:50%;border:2px solid var(--bg-3);border-top-color:var(--cyan);flex-shrink:0}
+.mo-tile:hover .mo-spinner{animation:mo-spin .9s linear infinite}
+
+.mo-dots{display:flex;gap:5px;align-items:center;height:20px}
+.mo-dots span{width:5px;height:5px;border-radius:50%;background:var(--cyan);display:block;opacity:.35}
+.mo-tile:hover .mo-dots span:nth-child(1){animation:mo-dot 1.2s ease-in-out infinite;animation-delay:0s}
+.mo-tile:hover .mo-dots span:nth-child(2){animation:mo-dot 1.2s ease-in-out infinite;animation-delay:.2s}
+.mo-tile:hover .mo-dots span:nth-child(3){animation:mo-dot 1.2s ease-in-out infinite;animation-delay:.4s}
+
+.mo-progress{height:4px;border-radius:2px;background:var(--bg-3);overflow:hidden;flex:1}
+.mo-progress-fill{height:100%;background:var(--cyan);border-radius:2px;width:35%}
+.mo-tile:hover .mo-progress-fill{animation:mo-progress 2.2s ease-in-out infinite}
+
+.mo-empty-icon{width:34px;height:34px;border-radius:8px;border:1.5px dashed var(--border-1);display:flex;align-items:center;justify-content:center;color:var(--text-3)}
+
+.mo-toggle{width:36px;height:20px;border-radius:10px;background:var(--bg-3);position:relative;border:1px solid var(--border-0);flex-shrink:0}
+.mo-toggle::after{content:"";position:absolute;top:1px;left:2px;width:16px;height:16px;border-radius:50%;background:var(--text-3);box-shadow:0 1px 2px rgba(0,0,0,.2)}
+.mo-tile:hover .mo-toggle::after{animation:mo-toggle 2.8s ease-in-out infinite}
+
+.mo-input{font-family:'DM Mono',monospace;font-size:11px;padding:7px 10px;background:var(--bg-3);border:1px solid var(--border-0);border-radius:5px;color:var(--text-0);width:100%;outline:none;transition:box-shadow .15s}
+.mo-tile:hover .mo-input{box-shadow:0 0 0 2px var(--bg-0),0 0 0 4px var(--cyan)}
+.glass-tier .label{font-family:'Exo 2',sans-serif;font-weight:600;letter-spacing:.06em;transition:color .4s}
+.glass-tier .meta{font-family:'DM Mono',monospace;line-height:1.5;transition:color .4s}
+[data-theme="dark"] .glass-tier .label{color:rgba(255,255,255,.96)}
+[data-theme="dark"] .glass-tier .meta{color:rgba(255,255,255,.74)}
+[data-theme="light"] .glass-tier .label{color:rgba(15,15,15,.95)}
+[data-theme="light"] .glass-tier .meta{color:rgba(20,20,20,.7)}
+
+/* refraction edge — gradient stroke via masked padding */
+.glass-tier::before{
+  content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;
+  transition:background .4s;
+}
+
+/* TIER 1 — SUBTLE */
+.glass-tier.t1{top:30px;left:24px;width:152px;height:96px;border-radius:10px}
+[data-theme="dark"] .glass-tier.t1{
+  background:rgba(255,255,255,.05);
+  -webkit-backdrop-filter:blur(8px) saturate(140%);
+  backdrop-filter:blur(8px) saturate(140%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.18), 0 4px 16px rgba(0,0,0,.28);
+}
+[data-theme="dark"] .glass-tier.t1::before{
+  background:linear-gradient(135deg,rgba(255,255,255,.32),rgba(255,255,255,.04) 55%,rgba(255,255,255,.02));
+}
+[data-theme="light"] .glass-tier.t1{
+  background:rgba(255,255,255,.42);
+  -webkit-backdrop-filter:blur(8px) saturate(135%);
+  backdrop-filter:blur(8px) saturate(135%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.7), 0 4px 14px rgba(0,0,0,.06);
+}
+[data-theme="light"] .glass-tier.t1::before{
+  background:linear-gradient(135deg,rgba(255,255,255,.85),rgba(0,0,0,.06) 60%,rgba(0,0,0,.04));
+}
+
+/* TIER 2 — MEDIUM */
+.glass-tier.t2{top:118px;left:118px;width:172px;height:106px}
+[data-theme="dark"] .glass-tier.t2{
+  background:rgba(255,255,255,.07);
+  -webkit-backdrop-filter:blur(12px) saturate(142%);
+  backdrop-filter:blur(12px) saturate(142%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.20), inset 0 -1px 0 rgba(255,255,255,.03), 0 6px 18px rgba(0,0,0,.28);
+}
+[data-theme="dark"] .glass-tier.t2::before{
+  background:linear-gradient(135deg,rgba(255,255,255,.38),rgba(255,255,255,.05) 55%,rgba(255,255,255,.02));
+}
+[data-theme="light"] .glass-tier.t2{
+  background:rgba(255,255,255,.48);
+  -webkit-backdrop-filter:blur(12px) saturate(137%);
+  backdrop-filter:blur(12px) saturate(137%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.76), 0 6px 16px rgba(0,0,0,.07);
+}
+[data-theme="light"] .glass-tier.t2::before{
+  background:linear-gradient(135deg,rgba(255,255,255,.9),rgba(0,0,0,.07) 55%,rgba(0,0,0,.03));
+}
+
+/* TIER 3 — HEAVY */
+.glass-tier.t3{top:206px;left:212px;width:206px;height:138px;border-radius:13px}
+[data-theme="dark"] .glass-tier.t3{
+  background:rgba(255,255,255,.16);
+  -webkit-backdrop-filter:blur(28px) saturate(160%);
+  backdrop-filter:blur(28px) saturate(160%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.36), inset 0 -1px 0 rgba(255,255,255,.05), 0 14px 32px rgba(0,0,0,.4);
+}
+[data-theme="dark"] .glass-tier.t3::before{
+  background:linear-gradient(135deg,rgba(255,255,255,.6),rgba(255,255,255,.08) 50%,rgba(255,255,255,.02));
+}
+[data-theme="light"] .glass-tier.t3{
+  background:rgba(255,255,255,.72);
+  -webkit-backdrop-filter:blur(28px) saturate(150%);
+  backdrop-filter:blur(28px) saturate(150%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.95), 0 14px 30px rgba(0,0,0,.1);
+}
+[data-theme="light"] .glass-tier.t3::before{
+  background:linear-gradient(135deg,#fff,rgba(0,0,0,.1) 50%,rgba(0,0,0,.04));
+}
+
+
+/* === Unified nav + share modal (so-nav) === */
+.so-nav {
+  position: sticky; top: 0; z-index: 200; height: 56px;
+  background: rgba(250,251,252,0.78);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  backdrop-filter: blur(20px) saturate(1.4);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+}
+[data-theme="dark"] .so-nav { background: rgba(21,23,34,0.82); border-bottom-color: rgba(255,255,255,0.08); }
+.so-nav__inner { max-width: 1320px; height: 100%; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; gap: 18px; }
+.so-nav__brand { display: flex; align-items: center; gap: 14px; text-decoration: none; color: inherit; flex-shrink: 0; }
+.so-nav__logo svg { width: 80px; height: 20px; display: block; }
+.so-nav__logo svg path { fill: #151722; transition: fill .2s; }
+[data-theme="dark"] .so-nav__logo svg path { fill: #FAFBFC; }
+.so-nav__brand-divider { width: 1px; height: 22px; background: rgba(0,0,0,0.12); }
+[data-theme="dark"] .so-nav__brand-divider { background: rgba(255,255,255,0.16); }
+.so-nav__product { display: flex; align-items: center; gap: 8px; }
+.so-nav__brand-mark { width: 16px; height: 16px; border-radius: 5px; background: linear-gradient(135deg, #C4B5E3, #7AB5E8); flex-shrink: 0; }
+.so-nav__product-name { font-size: 13px; font-weight: 600; letter-spacing: -0.01em; color: #151722; }
+[data-theme="dark"] .so-nav__product-name { color: #FAFBFC; }
+.so-nav__crumbs { display: flex; align-items: center; gap: 8px; flex: 1; min-width: 0; }
+.so-nav__crumb-sep { font-size: 13px; color: rgba(0,0,0,0.25); flex-shrink: 0; }
+[data-theme="dark"] .so-nav__crumb-sep { color: rgba(255,255,255,0.3); }
+.so-nav__crumb { font-size: 13px; font-weight: 500; letter-spacing: -0.005em; color: rgba(0,0,0,0.55); text-decoration: none; white-space: nowrap; transition: color .15s; }
+[data-theme="dark"] .so-nav__crumb { color: rgba(255,255,255,0.6); }
+.so-nav__crumb[href]:hover { color: #6B4FA8; }
+[data-theme="dark"] .so-nav__crumb[href]:hover { color: #C4B5E3; }
+.so-nav__crumb--current { color: #151722; font-weight: 600; }
+[data-theme="dark"] .so-nav__crumb--current { color: #FAFBFC; }
+.so-nav__actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.so-nav__share { display: inline-flex; align-items: center; gap: 8px; height: 34px; padding: 0 14px; border-radius: 100px; border: 1px solid rgba(0,0,0,0.10); background: rgba(255,255,255,0.95); color: #151722; font-family: inherit; font-size: 12.5px; font-weight: 500; cursor: pointer; transition: all .18s; white-space: nowrap; }
+.so-nav__share svg { width: 14px; height: 14px; opacity: 0.7; }
+.so-nav__share:hover { border-color: rgba(0,0,0,0.16); background: linear-gradient(135deg, #F7F5FB, #F0F6FC); color: #6B4FA8; }
+.so-nav__share:hover svg { opacity: 1; }
+[data-theme="dark"] .so-nav__share { border-color: rgba(255,255,255,0.10); background: rgba(255,255,255,0.04); color: #FAFBFC; }
+[data-theme="dark"] .so-nav__share:hover { border-color: rgba(255,255,255,0.18); background: rgba(132,104,192,0.16); color: #C4B5E3; }
+.so-nav__theme { width: 34px; height: 34px; border-radius: 8px; border: 1px solid rgba(0,0,0,0.10); background: rgba(255,255,255,0.95); color: rgba(0,0,0,0.6); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all .18s; flex-shrink: 0; }
+.so-nav__theme:hover { border-color: rgba(0,0,0,0.16); color: #151722; }
+[data-theme="dark"] .so-nav__theme { border-color: rgba(255,255,255,0.10); background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.6); }
+[data-theme="dark"] .so-nav__theme:hover { border-color: rgba(255,255,255,0.18); color: #FAFBFC; }
+.so-nav__theme svg { width: 16px; height: 16px; }
+@media (max-width: 720px) { .so-nav__crumbs { display: none; } .so-nav__brand-divider { display: none; } }
+@media (max-width: 540px) { .so-nav__share .label { display: none; } .so-nav__share { padding: 0 10px; } .so-nav__product-name { display: none; } }
+body.share-mode .so-nav { display: none !important; }
+
+/* Share modal */
+.share-modal { position: fixed; inset: 0; z-index: 9999; }
+.share-modal[hidden] { display: none; }
+.share-modal__backdrop { position: absolute; inset: 0; background: rgba(11,12,18,0.55); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+.share-modal__panel { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 92%; max-width: 540px; max-height: 90vh; overflow-y: auto; background: #FFFFFF; color: #151722; border-radius: 18px; box-shadow: 0 30px 80px rgba(0,0,0,0.28), 0 8px 24px rgba(0,0,0,0.10); padding: 32px 32px 22px; animation: smIn .25s cubic-bezier(.16,1,.3,1); }
+@keyframes smIn { from { opacity: 0; transform: translate(-50%, -46%); } to { opacity: 1; transform: translate(-50%, -50%); } }
+[data-theme="dark"] .share-modal__panel { background: #1E2030; color: #FAFBFC; }
+.share-modal__close { position: absolute; top: 14px; right: 14px; width: 32px; height: 32px; border: 0; background: transparent; border-radius: 8px; color: rgba(0,0,0,0.45); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all .15s; }
+.share-modal__close:hover { background: rgba(0,0,0,0.05); color: #151722; }
+[data-theme="dark"] .share-modal__close { color: rgba(255,255,255,0.45); }
+[data-theme="dark"] .share-modal__close:hover { background: rgba(255,255,255,0.06); color: #FAFBFC; }
+.share-modal__eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #6B4FA8; margin-bottom: 14px; font-family: 'Inter', system-ui, sans-serif; }
+.share-modal__eyebrow svg { width: 14px; height: 14px; opacity: 0.8; }
+[data-theme="dark"] .share-modal__eyebrow { color: #C4B5E3; }
+.share-modal__title { font-size: 24px; font-weight: 600; letter-spacing: -0.025em; line-height: 1.18; margin-bottom: 12px; font-family: 'Inter', system-ui, sans-serif; }
+.share-modal__lede { font-size: 14.5px; line-height: 1.6; margin-bottom: 22px; color: rgba(0,0,0,0.6); font-family: 'Inter', system-ui, sans-serif; }
+[data-theme="dark"] .share-modal__lede { color: rgba(255,255,255,0.6); }
+.share-modal__url-block { padding: 14px 16px; background: rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.06); border-radius: 10px; margin-bottom: 22px; }
+[data-theme="dark"] .share-modal__url-block { background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.06); }
+.share-modal__url-label { font-size: 10.5px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(0,0,0,0.45); margin-bottom: 6px; font-family: 'Inter', system-ui, sans-serif; }
+[data-theme="dark"] .share-modal__url-label { color: rgba(255,255,255,0.45); }
+.share-modal__url { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12px; word-break: break-all; line-height: 1.55; user-select: all; }
+.share-modal__actions { display: flex; align-items: center; justify-content: flex-end; gap: 10px; }
+.share-modal__btn { font-family: 'Inter', system-ui, sans-serif; font-size: 13.5px; font-weight: 500; padding: 10px 18px; border-radius: 100px; cursor: pointer; transition: all .18s; border: 1px solid transparent; white-space: nowrap; }
+.share-modal__btn--ghost { background: transparent; color: rgba(0,0,0,0.6); border-color: rgba(0,0,0,0.10); }
+.share-modal__btn--ghost:hover { background: rgba(0,0,0,0.04); color: #151722; }
+[data-theme="dark"] .share-modal__btn--ghost { color: rgba(255,255,255,0.6); border-color: rgba(255,255,255,0.10); }
+[data-theme="dark"] .share-modal__btn--ghost:hover { background: rgba(255,255,255,0.06); color: #FAFBFC; }
+.share-modal__btn--primary { background: linear-gradient(135deg, #8468C0, #4A96DB); color: #fff; }
+.share-modal__btn--primary:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(132,104,192,0.30); }
+.share-modal__btn--primary.is-success { background: #2A7BC8; }
+.share-toast { position: fixed; bottom: 32px; left: 50%; transform: translate(-50%, 16px); z-index: 10000; background: #151722; color: #fff; padding: 12px 18px; border-radius: 10px; font-size: 13.5px; font-weight: 500; box-shadow: 0 10px 30px rgba(0,0,0,0.18); opacity: 0; pointer-events: none; transition: opacity .25s, transform .25s; display: inline-flex; align-items: center; gap: 8px; font-family: 'Inter', system-ui, sans-serif; }
+.share-toast svg { width: 14px; height: 14px; }
+.share-toast.is-visible { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; }
+body.modal-open { overflow: hidden; }
+
+</style>
+</head>
+<body>
+<!-- UNIFIED NAV -->
+<nav class="so-nav">
+  <div class="so-nav__inner">
+    <a class="so-nav__brand" href="../../index.html" aria-label="Single Origin home">
+      <span class="so-nav__logo"><svg viewBox="0 0 80 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Experis"><path d="M0 3.8h10.4v2.4H2.9v3.4h6.8v2.3H2.9v3.7h7.7v2.4H0V3.8z"/><path d="M14.8 10.2l-4.6-6.4h3.5l2.8 4.2 2.9-4.2h3.4l-4.6 6.3 5 6.9h-3.5l-3.2-4.7-3.2 4.7h-3.4l5-6.8z"/><path d="M24.4 3.8H30c3.6 0 5.6 1.9 5.6 4.6 0 2.7-2 4.7-5.6 4.7h-2.7v4.9h-2.9V3.8zm5.3 7c1.9 0 2.9-1 2.9-2.4 0-1.4-1-2.3-2.9-2.3h-2.4v4.7h2.4z"/><path d="M37.6 3.8H48v2.4h-7.5v3.4h6.8v2.3h-6.8v3.7h7.7v2.4H37.6V3.8z"/><path d="M50.4 3.8h5.2c3.5 0 5.5 1.7 5.5 4.3 0 2.1-1.1 3.5-3 4.1l3.5 5.8h-3.3l-3.1-5.4h-1.9v5.4h-2.9V3.8zm5 6.6c1.8 0 2.8-.9 2.8-2.2 0-1.3-1-2.1-2.8-2.1h-2.1v4.3h2.1z"/><path d="M64.2 3.8h2.9v14.2h-2.9V3.8z"/><path d="M69.6 14.8l1.7-2c1.2 1.1 2.5 1.8 4 1.8 1.5 0 2.3-.7 2.3-1.6 0-1-.7-1.5-3.2-2.2-3-0.8-4.6-1.9-4.6-4.2 0-2.5 2-4.1 4.8-4.1 2 0 3.6.6 5 1.8l-1.5 2.1c-1.1-.9-2.3-1.4-3.5-1.4-1.4 0-2.1.7-2.1 1.5 0 1 .7 1.5 3.3 2.2 3 .9 4.5 2 4.5 4.2 0 2.7-2.1 4.3-5.1 4.3-2.1 0-4-.7-5.6-2.3z"/></svg></span>
+      <span class="so-nav__brand-divider"></span>
+      <span class="so-nav__product"><span class="so-nav__brand-mark"></span><span class="so-nav__product-name">Single Origin</span></span>
+    </a>
+    <div class="so-nav__crumbs">
+      <span class="so-nav__crumb-sep">/</span>
+      <span class="so-nav__crumb so-nav__crumb--current">UX Brand ID</span>
+    </div>
+    <div class="so-nav__actions">
+      <button class="so-nav__share" id="shareBtn" type="button" aria-label="Send page as link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.5 1.5"/><path d="M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.5-1.5"/></svg>
+        <span class="label">Send as link</span>
+      </button>
+      <button class="so-nav__theme" id="themeToggle" type="button" aria-label="Toggle theme"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="8" cy="8" r="3.5"/><path d="M8 1.5v1M8 13.5v1M1.5 8h1M13.5 8h1M3.4 3.4l.7.7M11.9 11.9l.7.7M3.4 12.6l.7-.7M11.9 4.1l.7-.7"/></svg></button>
+    </div>
+  </div>
+</nav>
+
+<!-- TOP BAR -->
+<div class="topbar">
+    <div class="topbar-right">
+    <div class="counter" id="counter"></div>
+    <div class="progress-wrap"><div class="progress-fill" id="progress"></div></div>
+    <div class="t-icons" style="display:none">
+      <span class="t-icon on" id="icoD">&#9790;</span>
+      <div class="theme-toggle" id="toggle" role="button" tabindex="0" aria-label="Toggle theme"></div>
+      <span class="t-icon" id="icoL">&#9788;</span>
+    </div>
+  </div>
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bottomnav">
+  <button class="btn" id="prev" disabled><span>&larr;</span> Back</button>
+  <div class="preview-text" id="previewText"></div>
+  <button class="btn gold" id="next">Next <span>&rarr;</span></button>
+</div>
+
+<!-- ================================================================
+     SLIDES
+     ================================================================ -->
+<div class="deck" id="deck">
+
+<!-- 01 ── COVER ────────────────────────────────────── -->
+<div class="slide active" data-title="Cover">
+  <div style="max-width:680px">
+    <span class="caption"><span class="redacted">Intersect Group</span> &middot; April 2026</span>
+    <h2 style="margin-top:16px;font-size:clamp(36px,5.5vw,64px);font-weight:700">
+      Designing Trust for<br>Institutional Finance
+    </h2>
+    <div class="divider" style="margin-top:28px"></div>
+    <p style="font-size:15px;color:var(--text-2);margin-top:20px;line-height:1.7;max-width:440px">
+      UX research, competitive positioning, and visual strategy behind the <span class="redacted">BankIQ</span> design system.
+    </p>
+  </div>
+</div>
+
+<!-- 02 ── THE FEEL ─────────────────────────────────── -->
+<div class="slide" data-title="The Feel">
+  <div class="center-col">
+    <span class="tag">The Goal</span>
+    <h2 style="max-width:700px">Make it feel like walking into<br>a private bank — not logging<br>into a SaaS tool.</h2>
+    <p class="sub" style="text-align:center;max-width:520px">30-min avg sessions, returned 2–3× throughout the day. Sensitive institutional data. The interface must project authority, precision, and clean thinking.</p>
+  </div>
+</div>
+
+<!-- 03 ── COMPETITIVE FEEL ─────────────────────────── -->
+<div class="slide" data-title="Competitive Landscape">
+  <div style="display:flex;flex-direction:column;gap:20px;flex:1;justify-content:center;max-width:1100px;margin:0 auto;width:100%">
+  <span class="tag">Competitive Perception</span>
+  <h2>What the market feels like today</h2>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:8px">
+    <!-- OptimaFI -->
+    <div style="background:var(--bg-2);border:1px solid var(--border-0);border-radius:12px;overflow:hidden;transition:background .4s,border-color .4s">
+      <div style="height:80px;background:linear-gradient(135deg,#D6E0F0,#2158B5);display:flex;align-items:center;justify-content:center">
+        <span style="font-family:'Exo 2',sans-serif;font-weight:700;font-size:20px;color:#fff">OptimaFI</span>
+      </div>
+      <div style="padding:20px">
+        <div style="font-size:13px;color:var(--text-0);font-weight:600;margin-bottom:8px">Feels like</div>
+        <div style="font-size:13px;color:var(--text-1);line-height:1.6">A practical CFI toolkit. Light theme, blue primary — functional and approachable, but reads more SaaS vendor than institution.</div>
+        <div class="chips" style="margin-top:12px">
+          <span class="chip">Light + blue</span><span class="chip">Community bank SaaS</span><span class="chip">Vendor-feel</span>
+        </div>
+      </div>
+    </div>
+    <!-- KlariVis -->
+    <div style="background:var(--bg-2);border:1px solid var(--border-0);border-radius:12px;overflow:hidden;transition:background .4s,border-color .4s">
+      <div style="height:80px;background:linear-gradient(135deg,#4A3B82,#23A0B8);display:flex;align-items:center;justify-content:center">
+        <span style="font-family:'Exo 2',sans-serif;font-weight:700;font-size:20px;color:#fff">KlariVis</span>
+      </div>
+      <div style="padding:20px">
+        <div style="font-size:13px;color:var(--text-0);font-weight:600;margin-bottom:8px">Feels like</div>
+        <div style="font-size:13px;color:var(--text-1);line-height:1.6">A colorful analytics dashboard. Vibrant, data-forward — but reads more SaaS than institution.</div>
+        <div class="chips" style="margin-top:12px">
+          <span class="chip">Light theme</span><span class="chip">Purple + teal</span><span class="chip">Dashboard-first</span>
+        </div>
+      </div>
+    </div>
+    <!-- Posh.AI -->
+    <div style="background:var(--bg-2);border:1px solid var(--border-0);border-radius:12px;overflow:hidden;transition:background .4s,border-color .4s">
+      <div style="height:80px;background:linear-gradient(135deg,#011D71,#37A1F7);display:flex;align-items:center;justify-content:center">
+        <span style="font-family:'Exo 2',sans-serif;font-weight:700;font-size:20px;color:#fff">Posh.AI</span>
+      </div>
+      <div style="padding:20px">
+        <div style="font-size:13px;color:var(--text-0);font-weight:600;margin-bottom:8px">Feels like</div>
+        <div style="font-size:13px;color:var(--text-1);line-height:1.6">A tech vendor pitch. Dark + blue — AI-coded but impersonal. No warmth or institutional gravity.</div>
+        <div class="chips" style="margin-top:12px">
+          <span class="chip">Dark + blue</span><span class="chip">AI-forward</span><span class="chip">Vendor-feel</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="callout" style="max-width:none;margin-top:12px">
+    <p><strong>The gap:</strong> OptimaFI and KlariVis are light and cool-toned. Posh.AI goes dark but defaults to blue. All three feel like tools, not institutions. The dark + warm + gold lane is wide open — and that's where <span class="redacted">BankIQ</span> sits.</p>
+  </div>
+  </div>
+</div>
+
+
+<!-- 04a ── COLOR & COMPETITIVE POSITIONING ────────── -->
+<div class="slide" data-title="Color & Positioning">
+  <div style="display:flex;flex-direction:column;gap:28px;flex:1;justify-content:center;max-width:1100px;margin:0 auto;width:100%">
+
+    <div>
+      <span class="tag">Color Strategy</span>
+      <h2 style="font-size:clamp(24px,3.2vw,42px)">Gold, not blue.</h2>
+      <p class="sub" style="margin-top:10px;max-width:700px">Every fintech reaches for blue — it says "trust" and disappears into the crowd. <span class="redacted">BankIQ</span> chose gold: wealth, precision, institutional weight. It's an uncontested position in the competitive landscape.</p>
+    </div>
+
+    <!-- Competitive palette comparison -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">
+
+      <!-- OptimaFI -->
+      <div style="background:var(--bg-2);border:1px solid var(--border-0);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:10px">
+        <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-2)">OptimaFI</div>
+        <div style="display:flex;gap:3px;height:48px;border-radius:6px;overflow:hidden">
+          <div style="flex:1;background:#FFFFFF"></div>
+          <div style="flex:1;background:#F5F0E8"></div>
+          <div style="flex:1;background:#2158B5"></div>
+          <div style="flex:1;background:#1A2A3A"></div>
+        </div>
+        <div style="font-size:11px;color:var(--text-2);line-height:1.4">Light + blue primary. Practical CFI tools, but another blue SaaS in the crowd.</div>
+      </div>
+
+      <!-- KlariVis -->
+      <div style="background:var(--bg-2);border:1px solid var(--border-0);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:10px">
+        <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-2)">KlariVis</div>
+        <div style="display:flex;gap:3px;height:48px;border-radius:6px;overflow:hidden">
+          <div style="flex:1;background:#FFFFFF"></div>
+          <div style="flex:1;background:#4A3B82"></div>
+          <div style="flex:1;background:#C72E87"></div>
+          <div style="flex:1;background:#23A0B8"></div>
+        </div>
+        <div style="font-size:11px;color:var(--text-2);line-height:1.4">White + purple/pink/teal. Colorful and data-forward, but reads more SaaS than institution.</div>
+      </div>
+
+      <!-- Posh.AI -->
+      <div style="background:var(--bg-2);border:1px solid var(--border-0);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:10px">
+        <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-2)">Posh.AI</div>
+        <div style="display:flex;gap:3px;height:48px;border-radius:6px;overflow:hidden">
+          <div style="flex:1;background:#011D71"></div>
+          <div style="flex:1;background:#37A1F7"></div>
+          <div style="flex:1;background:#8E60F4"></div>
+          <div style="flex:1;background:#FAF5FF"></div>
+        </div>
+        <div style="font-size:11px;color:var(--text-2);line-height:1.4">Dark navy + blue/purple. AI-coded but cold — no warmth, no institutional weight.</div>
+      </div>
+
+      <!-- BankIQ -->
+      <div style="background:var(--bg-2);border:2px solid var(--border-accent);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:10px;box-shadow:var(--glow-sm)">
+        <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--cyan);font-weight:500"><span class="redacted">BankIQ</span></div>
+        <div style="display:flex;gap:3px;height:48px;border-radius:6px;overflow:hidden">
+          <div style="flex:1;background:var(--bg-0);transition:background .4s"></div>
+          <div style="flex:1;background:var(--bg-2);transition:background .4s"></div>
+          <div style="flex:1;background:var(--bg-4);transition:background .4s"></div>
+          <div style="flex:1;background:var(--cyan);transition:background .4s"></div>
+          <div style="flex:.5;background:var(--indigo);transition:background .4s"></div>
+        </div>
+        <div style="font-size:11px;color:var(--text-1);line-height:1.4;font-weight:500">Light-first + gold accent. Uncontested lane — institutional, premium, confident.</div>
+      </div>
+
+    </div>
+
+    <!-- Why row -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <div class="callout" style="max-width:none">
+        <p><strong>Why light-first?</strong> A light foundation provides immediate familiarity for banking professionals working in bright office environments, ensures maximum readability for document-heavy workflows, and aligns with accessibility best practices. Dark mode remains available as a toggle for extended analytical sessions where reduced eye strain benefits power users.</p>
+      </div>
+      <div class="callout" style="max-width:none">
+        <p><strong>Why gold specifically?</strong> Gold signals importance across the full hierarchy: primary CTAs, key financial figures, card borders that distinguish elevated content, and status indicators. Five token intensities keep it controlled — from full gold on buttons to a 10% tint on highlighted card backgrounds. Scarce by design, so the eye always goes where gold goes.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 04b ── ELEVATION & DEPTH SYSTEM ──────────────── -->
+<div class="slide" data-title="Elevation & Cards">
+  <div style="display:flex;flex-direction:column;gap:24px;flex:1;justify-content:center;max-width:1100px;margin:0 auto;width:100%">
+
+    <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:12px">
+      <div>
+        <span class="tag">Spatial Strategy</span>
+        <h2 style="font-size:clamp(24px,3.2vw,42px)">Depth over decoration.</h2>
+      </div>
+      <p class="note" style="max-width:380px;margin:0;text-align:right">Five elevation levels establish physical hierarchy. In dense financial dashboards, depth tells users what's primary, secondary, and ambient — before they read a word.</p>
+    </div>
+
+    <!-- Schematic: Exploded cross-section -->
+    <div style="position:relative;background:var(--bg-1);border:1px solid var(--border-0);border-radius:14px;padding:32px 40px;min-height:300px;overflow:hidden">
+
+      <!-- Layered schematic: 5 stacked planes with offset -->
+      <div style="display:flex;gap:24px;align-items:flex-end;height:260px">
+
+        <!-- Level 0: Page background -->
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:8px">
+          <div style="width:100%;height:180px;background:var(--bg-0);border:1px solid var(--border-0);border-radius:6px;position:relative;display:flex;align-items:flex-end;padding:10px">
+            <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--text-3)">bg-0</div>
+          </div>
+          <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--text-2);text-align:center">Level 0<br><span style="color:var(--text-3)">Page base</span></div>
+        </div>
+
+        <!-- Level 1: App chrome -->
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:8px">
+          <div style="width:100%;height:200px;background:var(--bg-1);border:1px solid var(--border-0);border-radius:6px;box-shadow:var(--shadow-sm);position:relative;display:flex;align-items:flex-end;padding:10px">
+            <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--text-3)">bg-1</div>
+            <div style="position:absolute;top:10px;right:10px;font-family:'DM Mono',monospace;font-size:8px;color:var(--text-3)">shadow-xs</div>
+          </div>
+          <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--text-2);text-align:center">Level 1<br><span style="color:var(--text-3)">App chrome</span></div>
+        </div>
+
+        <!-- Level 2: Content cards -->
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:8px">
+          <div style="width:100%;height:220px;background:var(--bg-2);border:1px solid var(--border-0);border-radius:8px;box-shadow:var(--shadow-sm);position:relative;display:flex;align-items:flex-end;padding:10px">
+            <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--text-3)">bg-2</div>
+            <div style="position:absolute;top:10px;right:10px;font-family:'DM Mono',monospace;font-size:8px;color:var(--text-3)">shadow-sm</div>
+            <!-- Sample card content -->
+            <div style="position:absolute;top:16px;left:12px;right:12px">
+              <div style="height:3px;width:40%;background:var(--border-0);border-radius:2px;margin-bottom:6px"></div>
+              <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--cyan)">$2.84M</div>
+            </div>
+          </div>
+          <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--text-1);text-align:center;font-weight:500">Level 2<br><span style="color:var(--text-2)">Content cards</span></div>
+        </div>
+
+        <!-- Level 3: Active surfaces -->
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:8px">
+          <div style="width:100%;height:240px;background:var(--bg-3);border:1px solid var(--border-1);border-radius:8px;box-shadow:var(--shadow-md);position:relative;display:flex;align-items:flex-end;padding:10px">
+            <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--text-3)">bg-3</div>
+            <div style="position:absolute;top:10px;right:10px;font-family:'DM Mono',monospace;font-size:8px;color:var(--text-3)">shadow-md</div>
+            <!-- Sample hover state -->
+            <div style="position:absolute;top:16px;left:12px;right:12px">
+              <div style="background:var(--cyan-dim);border:1px solid var(--border-accent);border-radius:5px;padding:8px;font-family:'DM Mono',monospace;font-size:9px;color:var(--cyan);text-align:center">hover / focus</div>
+            </div>
+          </div>
+          <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--text-2);text-align:center">Level 3<br><span style="color:var(--text-3)">Active / hover</span></div>
+        </div>
+
+        <!-- Level 4: Top surface -->
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:8px">
+          <div style="width:100%;height:260px;background:var(--bg-4);border:1px solid var(--border-1);border-radius:10px;box-shadow:var(--shadow-md);position:relative;display:flex;align-items:flex-end;padding:10px">
+            <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--text-3)">bg-4</div>
+            <div style="position:absolute;top:10px;right:10px;font-family:'DM Mono',monospace;font-size:8px;color:var(--text-3)">shadow-md</div>
+            <!-- Sample modal content -->
+            <div style="position:absolute;top:16px;left:12px;right:12px;text-align:center">
+              <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--text-2);letter-spacing:.06em">MODAL · PANEL</div>
+            </div>
+          </div>
+          <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--text-2);text-align:center">Level 4<br><span style="color:var(--text-3)">Modals / overlays</span></div>
+        </div>
+
+      </div>
+
+      <!-- Annotation arrow (left to right) -->
+      <div style="position:absolute;bottom:12px;left:40px;right:40px;display:flex;align-items:center;gap:6px">
+        <div style="flex:1;height:1px;background:linear-gradient(90deg,var(--border-0),var(--border-1))"></div>
+        <div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--text-3);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap">increasing elevation →</div>
+        <div style="width:0;height:0;border-left:5px solid var(--border-1);border-top:3px solid transparent;border-bottom:3px solid transparent"></div>
+      </div>
+    </div>
+
+    <!-- Why callout -->
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px">
+      <div class="callout" style="max-width:none">
+        <p><strong>Cards, not containers.</strong> Every data surface is a card with defined edges and shadow — never a flat region. Users can see where one context ends and another begins.</p>
+      </div>
+      <div class="callout" style="max-width:none">
+        <p><strong>Shadow = importance.</strong> Higher elevation means higher shadow intensity. Modals and action panels literally sit above content, creating instinctive focus hierarchy.</p>
+      </div>
+      <div class="callout" style="max-width:none">
+        <p><strong>Brighter = higher.</strong> Each elevation step lightens the surface slightly — in dark mode and light mode alike — so depth reads physically, not decoratively. Glass is a separate layer above this scale.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 04c ── STROKE & CORNER RADIUS ─────────────────── -->
+<div class="slide" data-title="Stroke & Rounding">
+  <div style="display:flex;flex-direction:column;gap:28px;flex:1;justify-content:center;max-width:1100px;margin:0 auto;width:100%">
+
+    <div>
+      <span class="tag">Shape Language</span>
+      <h2 style="font-size:clamp(24px,3.2vw,42px)">Soft, not playful.</h2>
+      <p class="sub" style="margin-top:10px;max-width:640px">Corner radius is a trust signal. Too sharp feels cold and technical. Too round feels consumer and casual. <span class="redacted">BankIQ</span> sits in the refined middle — approachable enough to invite exploration, serious enough to handle six-figure decisions.</p>
+    </div>
+
+    <!-- Visual spectrum -->
+    <div style="background:var(--bg-2);border:1px solid var(--border-0);border-radius:12px;padding:28px 32px">
+
+      <!-- Spectrum bar -->
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
+        <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--text-3);letter-spacing:.06em;text-transform:uppercase;white-space:nowrap">Sharp / Clinical</div>
+        <div style="flex:1;height:2px;background:linear-gradient(90deg,var(--text-3),var(--cyan) 40%,var(--cyan) 60%,var(--text-3));border-radius:1px;position:relative">
+          <!-- BankIQ marker -->
+          <div style="position:absolute;top:-14px;left:45%;transform:translateX(-50%);font-family:'DM Mono',monospace;font-size:8px;color:var(--cyan);letter-spacing:.06em;text-transform:uppercase;white-space:nowrap"><span class="redacted">BankIQ</span> sweet spot</div>
+          <div style="position:absolute;top:-5px;left:45%;transform:translateX(-50%);width:12px;height:12px;background:var(--cyan);border-radius:50%;border:2px solid var(--bg-2)"></div>
+        </div>
+        <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--text-3);letter-spacing:.06em;text-transform:uppercase;white-space:nowrap">Round / Playful</div>
+      </div>
+
+      <!-- Specimen row -->
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:28px">
+
+        <!-- 0px: Sharp -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:10px">
+          <div style="width:100%;aspect-ratio:1.4;background:var(--bg-3);border:1px solid var(--border-0);border-radius:0px;display:flex;align-items:center;justify-content:center">
+            <div style="font-family:'DM Mono',monospace;font-size:20px;color:var(--text-3)">0</div>
+          </div>
+          <div style="text-align:center">
+            <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--text-3)">0px</div>
+            <div style="font-size:10px;color:var(--text-3);margin-top:2px">Terminal-era</div>
+          </div>
+        </div>
+
+        <!-- 4px: Minimal -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:10px">
+          <div style="width:100%;aspect-ratio:1.4;background:var(--bg-3);border:1px solid var(--border-0);border-radius:4px;display:flex;align-items:center;justify-content:center">
+            <div style="font-family:'DM Mono',monospace;font-size:20px;color:var(--text-3)">4</div>
+          </div>
+          <div style="text-align:center">
+            <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--text-3)">4px</div>
+            <div style="font-size:10px;color:var(--text-3);margin-top:2px">Enterprise</div>
+          </div>
+        </div>
+
+        <!-- 6–10px: BankIQ range (highlighted) -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:10px">
+          <div style="width:100%;aspect-ratio:1.4;background:var(--bg-3);border:2px solid var(--border-accent);border-radius:8px;display:flex;align-items:center;justify-content:center;box-shadow:var(--glow-sm)">
+            <div style="font-family:'DM Mono',monospace;font-size:20px;color:var(--cyan)">8</div>
+          </div>
+          <div style="text-align:center">
+            <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--cyan);font-weight:500">6–10px</div>
+            <div style="font-size:10px;color:var(--cyan);margin-top:2px;font-weight:500"><span class="redacted">BankIQ</span></div>
+          </div>
+        </div>
+
+        <!-- 16px: Consumer -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:10px">
+          <div style="width:100%;aspect-ratio:1.4;background:var(--bg-3);border:1px solid var(--border-0);border-radius:16px;display:flex;align-items:center;justify-content:center">
+            <div style="font-family:'DM Mono',monospace;font-size:20px;color:var(--text-3)">16</div>
+          </div>
+          <div style="text-align:center">
+            <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--text-3)">16px</div>
+            <div style="font-size:10px;color:var(--text-3);margin-top:2px">Consumer app</div>
+          </div>
+        </div>
+
+        <!-- 24px+: Playful -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:10px">
+          <div style="width:100%;aspect-ratio:1.4;background:var(--bg-3);border:1px solid var(--border-0);border-radius:24px;display:flex;align-items:center;justify-content:center">
+            <div style="font-family:'DM Mono',monospace;font-size:20px;color:var(--text-3)">24</div>
+          </div>
+          <div style="text-align:center">
+            <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--text-3)">24px+</div>
+            <div style="font-size:10px;color:var(--text-3);margin-top:2px">Social / gaming</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Stroke + why -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <div style="background:var(--bg-2);border:1px solid var(--border-0);border-radius:10px;padding:20px">
+        <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-2);margin-bottom:12px">Stroke Weight System</div>
+        <div style="display:flex;gap:16px;align-items:flex-end">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+            <div style="width:64px;height:40px;border:1px solid var(--border-0);border-radius:6px"></div>
+            <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--text-3)">6% opacity</div>
+            <div style="font-size:9px;color:var(--text-3)">Ambient</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+            <div style="width:64px;height:40px;border:1px solid var(--border-1);border-radius:6px"></div>
+            <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--text-2)">12% opacity</div>
+            <div style="font-size:9px;color:var(--text-2)">Default</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+            <div style="width:64px;height:40px;border:1px solid var(--border-2);border-radius:6px"></div>
+            <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--text-1)">24% opacity</div>
+            <div style="font-size:9px;color:var(--text-1)">Interactive</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+            <div style="width:64px;height:40px;border:1px solid var(--border-accent);border-radius:6px"></div>
+            <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--cyan)">Gold 30%</div>
+            <div style="font-size:9px;color:var(--cyan)">Accent</div>
+          </div>
+        </div>
+        <div style="font-size:11px;color:var(--text-2);margin-top:14px;line-height:1.5">All strokes use 1px weight at varying opacity — never thicker. Thin strokes create structure without visual noise. The border recedes; the content speaks.</div>
+      </div>
+      <div class="callout" style="max-width:none">
+        <p><strong>The positioning argument:</strong> Bloomberg and traditional finance use sharp corners — they signal "data terminal, not designed for you." Consumer fintechs like Cash App use full rounding — it says "friendly, maybe frivolous." <span class="redacted">BankIQ's</span> 6–10px radius says: "We took the time to design this carefully, and we take your money just as seriously."</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- 05 ── COLOR SYSTEM ─────────────────────────────── -->
+<div class="slide" data-title="Color System">
+  <div class="split">
+    <div>
+      <span class="tag">Color Architecture</span>
+      <h2>How color works.</h2>
+      <p class="sub">60+ CSS custom properties power a dual-theme system. Every surface, accent, and semantic color adapts — toggle this deck's theme to see it live.</p>
+      <!-- Visual: 70% blue demonstration -->
+      <div style="display:flex;gap:6px;margin:20px 0 16px;flex-wrap:wrap;max-width:400px">
+        <a href="https://plaid.com" target="_blank" rel="noopener" class="tip" data-tip="Plaid — #1E40AF" style="width:32px;height:32px;border-radius:6px;background:#1E40AF;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:7px;color:rgba(255,255,255,.5);text-decoration:none">Plaid</a>
+        <a href="https://stripe.com" target="_blank" rel="noopener" class="tip" data-tip="Stripe — #2563EB" style="width:32px;height:32px;border-radius:6px;background:#2563EB;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:7px;color:rgba(255,255,255,.5);text-decoration:none">Stripe</a>
+        <a href="https://posh.ai" target="_blank" rel="noopener" class="tip" data-tip="Posh.AI — #011D71" style="width:32px;height:32px;border-radius:6px;background:#011D71;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:7px;color:rgba(255,255,255,.5);text-decoration:none">Posh</a>
+        <a href="https://coinbase.com" target="_blank" rel="noopener" class="tip" data-tip="Coinbase — #0052FF" style="width:32px;height:32px;border-radius:6px;background:#0052FF;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:7px;color:rgba(255,255,255,.5);text-decoration:none">CB</a>
+        <a href="https://mercury.com" target="_blank" rel="noopener" class="tip" data-tip="Mercury — #5166E3" style="width:32px;height:32px;border-radius:6px;background:#5166E3;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:7px;color:rgba(255,255,255,.5);text-decoration:none">Merc</a>
+        <a href="https://optimafi.com" target="_blank" rel="noopener" class="tip" data-tip="OptimaFI — #2158B5" style="width:32px;height:32px;border-radius:6px;background:#2158B5;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:7px;color:rgba(255,255,255,.5);text-decoration:none">Optm</a>
+        <a href="https://sofi.com" target="_blank" rel="noopener" class="tip" data-tip="SoFi — #1A56DB" style="width:32px;height:32px;border-radius:6px;background:#1A56DB;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:7px;color:rgba(255,255,255,.5);text-decoration:none">SoFi</a>
+        <a href="https://paypal.com" target="_blank" rel="noopener" class="tip" data-tip="PayPal — #60CDF6" style="width:32px;height:32px;border-radius:6px;background:#60CDF6;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:7px;color:rgba(255,255,255,.7);text-decoration:none">PayPl</a>
+        <a href="https://klarivis.com" target="_blank" rel="noopener" class="tip" data-tip="Klarivis — #3B4FAE" style="width:32px;height:32px;border-radius:6px;background:#3B4FAE;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:7px;color:rgba(255,255,255,.5);text-decoration:none">Klar</a>
+        <div class="tip" data-tip="Client — Gold" style="width:32px;height:32px;border-radius:6px;background:var(--cyan);border:2px solid var(--cyan);box-shadow:var(--glow-sm);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:7px;color:var(--bg-0);font-weight:600;transition:background .4s,color .4s,box-shadow .4s"><span class="redacted">BIQ</span></div>
+      </div>
+      <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--text-2);margin-bottom:16px;letter-spacing:.04em">9 of 10 reach for blue. <span class="redacted">BankIQ</span> chose <span style="color:var(--cyan);font-weight:500">gold</span>.</div>
+      <div class="callout" style="max-width:400px">
+        <p><strong>Rule:</strong> Gold signals importance at every level — primary CTAs, key financial figures, card hierarchy borders, and status indicators. Five token expressions (<span style="font-family:'DM Mono',monospace;font-size:11px">--cyan</span> through <span style="font-family:'DM Mono',monospace;font-size:11px">--cyan-glow</span>) control intensity. Everything else stays neutral, so the eye goes where gold goes.</p>
+      </div>
+    </div>
+    <div>
+      <div class="swatches">
+        <div class="sw" style="background:var(--bg-1);color:var(--text-0);transition:background .4s,color .4s"><span class="sw-name">Vault</span><span class="sw-token">bg-1</span><span class="sw-hex" data-dark="#080808" data-light="#EEEEEE">#080808</span></div>
+        <div class="sw" style="background:var(--cyan);color:var(--bg-0);transition:background .4s,color .4s"><span class="sw-name">Gold</span><span class="sw-token">cyan</span><span class="sw-hex" data-dark="#C4A66C" data-light="#7A6537">#C4A66C</span></div>
+        <div class="sw" style="background:var(--cyan-soft);color:var(--bg-0);transition:background .4s,color .4s"><span class="sw-name">Soft</span><span class="sw-token">cyan-soft</span><span class="sw-hex" data-dark="#B89B60" data-light="#7A6537">#B89B60</span></div>
+        <div class="sw" style="background:var(--indigo);color:#fff;transition:background .4s"><span class="sw-name">AI</span><span class="sw-token">indigo</span><span class="sw-hex" data-dark="#818CF8" data-light="#4F46E5">#818CF8</span></div>
+        <div class="sw" style="background:var(--violet);color:#fff;transition:background .4s"><span class="sw-name">Violet</span><span class="sw-token">violet</span><span class="sw-hex" data-dark="#A78BFA" data-light="#7C3AED">#A78BFA</span></div>
+      </div>
+      <div style="display:flex;gap:3px;margin-top:3px;height:48px;border-radius:0 0 12px 12px;overflow:hidden">
+        <div style="flex:1;background:var(--success);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:10px;color:rgba(0,0,0,.6);transition:background .4s">Success</div>
+        <div style="flex:1;background:var(--warning);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:10px;color:rgba(0,0,0,.6);transition:background .4s">Warning</div>
+        <div style="flex:1;background:var(--danger);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:10px;color:rgba(0,0,0,.6);transition:background .4s">Danger</div>
+      </div>
+      <!-- Surface scale -->
+      <div style="display:flex;gap:3px;margin-top:12px;height:32px;border-radius:8px;overflow:hidden">
+        <div style="flex:1;background:var(--bg-0);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:8px;color:var(--text-2);transition:background .4s,color .4s">bg-0</div>
+        <div style="flex:1;background:var(--bg-1);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:8px;color:var(--text-2);transition:background .4s,color .4s">bg-1</div>
+        <div style="flex:1;background:var(--bg-2);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:8px;color:var(--text-2);transition:background .4s,color .4s">bg-2</div>
+        <div style="flex:1;background:var(--bg-3);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:8px;color:var(--text-2);transition:background .4s,color .4s">bg-3</div>
+        <div style="flex:1;background:var(--bg-4);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:8px;color:var(--text-2);transition:background .4s,color .4s">bg-4</div>
+      </div>
+      <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--text-2);margin-top:6px;letter-spacing:.03em">5-level surface scale — adapts per theme</div>
+      <div class="callout ai" style="margin-top:12px">
+        <p><strong>AI gets its own color.</strong> Indigo/violet is reserved for AI-generated content. Users always know what's data vs. intelligence.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 06 ── GLASS & TRANSLUCENCY ─────────────────────── -->
+<div class="slide" data-title="Glass & Translucency">
+  <div class="split">
+    <div>
+      <span class="tag">Translucency</span>
+      <h2>Layered<br>focus.</h2>
+      <p class="sub">Translucent panels keep the layer beneath visible while the foreground leads. Users drill into a modal, sheet, or filter and still see where they came from — context and focus in the same glance. Three tiers scale with how much attention the panel deserves.</p>
+      <div class="callout" style="max-width:520px;margin-top:18px">
+        <p style="margin-bottom:10px"><strong>The four ingredients:</strong></p>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="display:flex;gap:10px;align-items:baseline;white-space:nowrap">
+            <span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--cyan);min-width:112px;flex-shrink:0">background</span>
+            <span style="font-size:12px;color:var(--text-1);line-height:1.5">rgba white at 5–16% — color bleeds through</span>
+          </div>
+          <div style="display:flex;gap:10px;align-items:baseline;white-space:nowrap">
+            <span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--cyan);min-width:112px;flex-shrink:0">backdrop-filter</span>
+            <span style="font-size:12px;color:var(--text-1);line-height:1.5">blur + saturate — softens, keeps colors vivid</span>
+          </div>
+          <div style="display:flex;gap:10px;align-items:baseline;white-space:nowrap">
+            <span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--cyan);min-width:112px;flex-shrink:0">border</span>
+            <span style="font-size:12px;color:var(--text-1);line-height:1.5">gradient stroke — light top → dim bottom</span>
+          </div>
+          <div style="display:flex;gap:10px;align-items:baseline;white-space:nowrap">
+            <span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--cyan);min-width:112px;flex-shrink:0">inset shadow</span>
+            <span style="font-size:12px;color:var(--text-1);line-height:1.5">top highlight — sells the physical surface</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <!-- Theme-aware glass stage -->
+      <div class="glass-stage" id="glassStage">
+        <div class="glass-hint"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h8M4 8l3-3M4 8l3 3M12 8l-3-3M12 8l-3 3"/></svg>DRAG THE CARDS</div>
+        <div class="glass-grid"></div>
+
+        <!-- Unified dashboard background — visible around and partially beneath each card -->
+
+        <!-- Row 1: portfolio KPI, spans wider than t1 so right edge peeks out -->
+        <div class="glass-bg" style="top:20px;left:22px;font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.12em;opacity:.65">PORTFOLIO VALUE</div>
+        <div class="glass-bg" style="top:36px;left:22px;font-family:'Exo 2',sans-serif;font-weight:300;font-size:30px;letter-spacing:-.02em;line-height:1;white-space:nowrap">$2,847,392.18</div>
+        <div class="glass-bg" style="top:78px;left:22px;font-family:'DM Mono',monospace;font-size:9.5px;opacity:.75;white-space:nowrap">▲ +12.4% YTD  ·  +$314,208 QoQ</div>
+
+        <!-- Divider -->
+        <div class="glass-bg" style="top:110px;left:22px;right:22px;height:1px;background:currentColor;opacity:.12"></div>
+
+        <!-- Row 2: cash-flow bars, full-width so left + right edges sit outside t2 -->
+        <div class="glass-bg" style="top:118px;left:22px;font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.1em;opacity:.65">CASH FLOW · 14 WK</div>
+        <div class="glass-bg" style="top:134px;left:22px;right:22px;display:flex;gap:7px;align-items:flex-end;height:76px">
+          <div class="glass-bg-bar" style="flex:1;height:42%"></div>
+          <div class="glass-bg-bar" style="flex:1;height:58%"></div>
+          <div class="glass-bg-bar" style="flex:1;height:36%"></div>
+          <div class="glass-bg-bar" style="flex:1;height:72%"></div>
+          <div class="glass-bg-bar" style="flex:1;height:50%"></div>
+          <div class="glass-bg-bar" style="flex:1;height:84%"></div>
+          <div class="glass-bg-bar" style="flex:1;height:66%"></div>
+          <div class="glass-bg-bar" style="flex:1;height:92%;background:var(--cyan);opacity:1"></div>
+          <div class="glass-bg-bar" style="flex:1;height:78%"></div>
+          <div class="glass-bg-bar" style="flex:1;height:54%"></div>
+          <div class="glass-bg-bar" style="flex:1;height:68%"></div>
+          <div class="glass-bg-bar" style="flex:1;height:46%"></div>
+          <div class="glass-bg-bar" style="flex:1;height:60%"></div>
+          <div class="glass-bg-bar" style="flex:1;height:38%"></div>
+        </div>
+
+        <!-- Row 3: transaction list, full-width so left rows peek out beside t3 -->
+        <div class="glass-bg" style="top:222px;left:22px;font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.1em;opacity:.65">RECENT ACTIVITY</div>
+        <div class="glass-bg" style="top:238px;left:22px;right:22px;font-family:'DM Mono',monospace;font-size:9.5px;line-height:1.9">
+          <div style="display:flex;justify-content:space-between"><span>ACH · ACME CORPORATION</span><span>+48,210.00</span></div>
+          <div style="display:flex;justify-content:space-between"><span>WIRE · OVERSEAS VENDOR</span><span style="opacity:.85">−12,450.88</span></div>
+          <div style="display:flex;justify-content:space-between"><span>DEP · PAYROLL BATCH 04</span><span>+84,712.40</span></div>
+          <div style="display:flex;justify-content:space-between"><span>ACH · STRIPE PAYOUT</span><span>+6,281.19</span></div>
+          <div style="display:flex;justify-content:space-between"><span>FEE · MONTHLY SERVICE</span><span style="opacity:.85">−128.00</span></div>
+          <div style="display:flex;justify-content:space-between"><span>WIRE · LENDER DISBURSE</span><span style="opacity:.85">−220,000.00</span></div>
+        </div>
+
+        <div class="glass-tier t1">
+          <div class="label" style="font-size:10px">SUBTLE</div>
+          <div class="meta" style="font-size:8px">bg α 0.05<br>blur(8) &middot; sat(140%)</div>
+        </div>
+
+        <div class="glass-tier t2">
+          <div class="label" style="font-size:11px">MEDIUM</div>
+          <div class="meta" style="font-size:8.5px">bg α 0.07<br>blur(12) &middot; sat(142%)</div>
+        </div>
+
+        <div class="glass-tier t3">
+          <div>
+            <div class="label" style="font-size:12px">HEAVY</div>
+            <div class="meta" style="font-size:9px;margin-top:4px">bg α 0.16<br>blur(28) &middot; sat(160%)</div>
+          </div>
+          <div class="meta" style="font-size:8.5px;opacity:.78">Modal &middot; full-context overlay</div>
+        </div>
+      </div>
+
+      <div style="display:flex;justify-content:space-between;margin-top:10px;font-family:'DM Mono',monospace;font-size:9px;color:var(--text-2);letter-spacing:.03em">
+        <span>α 0.04</span>
+        <span>α 0.10</span>
+        <span>α 0.18</span>
+      </div>
+      <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--text-3);margin-top:4px;letter-spacing:.03em;text-align:center">More opacity &amp; blur as the panel claims more attention — but never opaque.</div>
+    </div>
+  </div>
+</div>
+
+<!-- 07 ── TYPOGRAPHY ───────────────────────────────── -->
+<div class="slide" data-title="Typography">
+  <div class="split">
+    <div>
+      <span class="tag">Typography</span>
+      <h2>Three fonts.<br>Three jobs.</h2>
+      <p class="sub">Display, body, and data each get a dedicated typeface. No ambiguity about which font does what.</p>
+      <div class="callout" style="max-width:400px">
+        <p><strong>Why not Inter?</strong> Inter is the default of SaaS. Using it would be the typographic equivalent of choosing blue — safe and invisible.</p>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div class="preview-box">
+        <div class="caption" style="margin-bottom:10px">Display — Exo 2</div>
+        <div style="font-family:'Exo 2',sans-serif;font-weight:700;font-size:20px;color:var(--text-0);line-height:1.1">Vault Overview</div>
+        <div style="font-family:'Exo 2',sans-serif;font-weight:200;font-size:38px;color:var(--text-0);letter-spacing:-.02em;line-height:1.1;margin-top:6px">Portfolio Performance</div>
+        <div style="font-size:12px;color:var(--text-2);margin-top:8px">Headlines, page titles, section headers — the brand voice</div>
+      </div>
+      <div class="preview-box">
+        <div class="caption" style="margin-bottom:10px">Body — DM Sans</div>
+        <div style="font-size:15px;color:var(--text-1);line-height:1.65">Campaign performance shows 12.4% growth across three segments this quarter.</div>
+        <div style="font-size:12px;color:var(--text-2);margin-top:8px">Body text, labels, buttons — readable in long sessions</div>
+      </div>
+      <div class="preview-box">
+        <div class="caption" style="margin-bottom:10px">Data — DM Mono</div>
+        <div style="font-family:'DM Mono',monospace;font-size:22px;color:var(--cyan);letter-spacing:-.01em">$2,847,392.00</div>
+        <div style="font-family:'DM Mono',monospace;font-size:13px;color:var(--text-1);line-height:1.8;margin-top:6px">txn: 0x8f3a...c291 &emsp;+12.4%<br>acct: ****-7842 &emsp;APY 4.75%</div>
+        <div style="font-size:12px;color:var(--text-2);margin-top:8px">All financial figures, IDs, percentages — numbers are always mono so columns align</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 08 ── TRUST INDICATORS ─────────────────────────── -->
+<div class="slide" data-title="Trust Scoring">
+  <div class="split">
+    <div>
+      <span class="tag">Visual Trust</span>
+      <h2>How users<br>decide to trust.</h2>
+      <p class="sub">Five visual dimensions drive trust perception in financial interfaces. <span class="redacted">BankIQ</span> leads in all five.</p>
+    </div>
+    <div>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div>
+          <div class="trust-row">
+            <span class="trust-label">Consistency</span>
+            <div class="trust-bar"><div class="trust-fill" style="width:96%"></div></div>
+            <span class="trust-num">96</span>
+          </div>
+          <div style="font-size:11px;color:var(--text-2);margin-left:114px;margin-top:4px">Token-driven system. Zero one-off values.</div>
+        </div>
+        <div>
+          <div class="trust-row">
+            <span class="trust-label">Security feel</span>
+            <div class="trust-bar"><div class="trust-fill" style="width:94%"></div></div>
+            <span class="trust-num">94</span>
+          </div>
+          <div style="font-size:11px;color:var(--text-2);margin-left:114px;margin-top:4px">Dark vault aesthetic. Controlled, guarded.</div>
+        </div>
+        <div>
+          <div class="trust-row">
+            <span class="trust-label">Clarity</span>
+            <div class="trust-bar"><div class="trust-fill" style="width:92%;background:var(--success)"></div></div>
+            <span class="trust-num">92</span>
+          </div>
+          <div style="font-size:11px;color:var(--text-2);margin-left:114px;margin-top:4px">5 depth levels, 4 text tiers, 3 fonts.</div>
+        </div>
+        <div>
+          <div class="trust-row">
+            <span class="trust-label">Distinction</span>
+            <div class="trust-bar"><div class="trust-fill" style="width:97%"></div></div>
+            <span class="trust-num">97</span>
+          </div>
+          <div style="font-size:11px;color:var(--text-2);margin-left:114px;margin-top:4px">Only dark + gold fintech in the market.</div>
+        </div>
+        <div>
+          <div class="trust-row">
+            <span class="trust-label">Accessibility</span>
+            <div class="trust-bar"><div class="trust-fill" style="width:91%;background:var(--indigo)"></div></div>
+            <span class="trust-num">91</span>
+          </div>
+          <div style="font-size:11px;color:var(--text-2);margin-left:114px;margin-top:4px">WCAG AAA contrast. 44px touch targets.</div>
+        </div>
+      </div>
+      <div style="margin-top:20px;padding:12px 16px;background:var(--bg-2);border-radius:8px;font-size:12px;color:var(--text-2);display:flex;justify-content:space-between;transition:background .4s">
+        <span>OptimaFI: <strong style="color:var(--text-1)">72.4</strong></span>
+        <span>KlariVis: <strong style="color:var(--text-1)">74.6</strong></span>
+        <span>Posh.AI: <strong style="color:var(--text-1)">76.2</strong></span>
+        <span>Mercury: <strong style="color:var(--text-1)">77.8</strong></span>
+        <span style="color:var(--cyan);font-weight:600"><span class="redacted">BankIQ</span>: 94.0</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 09 ── COMPONENT APPROACH ───────────────────────── -->
+<div class="slide" data-title="Component Styling">
+  <div class="split-wide">
+    <div>
+      <span class="tag">UI Approach</span>
+      <h2>Components carry<br>the strategy.</h2>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-top:24px">
+        <div class="callout" style="margin:0">
+          <p><strong>Buttons:</strong> Gold gradient = primary action. One per screen. Secondary + ghost stay neutral. The eye always knows where to go.</p>
+        </div>
+        <div class="callout" style="margin:0">
+          <p><strong>Cards:</strong> Subtle border at rest. Gold glow on hover. The interface responds to attention without cluttering the resting state.</p>
+        </div>
+        <div class="callout ai" style="margin:0">
+          <p><strong>AI surfaces:</strong> Indigo/violet gradient. If it's purple, AI made it. No exceptions, no blending.</p>
+        </div>
+        <div class="callout" style="margin:0">
+          <p><strong>Data tables:</strong> DM Mono for all numbers. Gold highlights key values. Subtle row borders — scannable without harsh zebra-striping.</p>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div class="preview-box" style="display:flex;flex-direction:column;gap:10px">
+        <div class="caption" style="margin-bottom:4px">Button Hierarchy</div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <div class="pbtn" style="background:var(--grad-cyan);color:var(--bg-1);box-shadow:var(--shadow-sm)">Approve Transfer</div>
+          <span style="font-size:11px;color:var(--text-3)">&larr; Primary</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <div class="pbtn" style="background:var(--bg-3);color:var(--text-0);border:1px solid var(--border-1)">View Details</div>
+          <span style="font-size:11px;color:var(--text-3)">&larr; Secondary</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <div class="pbtn" style="background:transparent;color:var(--text-2);border:1px solid var(--border-0)">Cancel</div>
+          <span style="font-size:11px;color:var(--text-3)">&larr; Ghost</span>
+        </div>
+      </div>
+      <div class="preview-box">
+        <div class="caption" style="margin-bottom:8px">Card — Hover State</div>
+        <div style="background:var(--bg-2);border:1px solid var(--border-accent);border-radius:10px;padding:16px;box-shadow:var(--glow-sm);transition:background .4s">
+          <div style="font-family:'Exo 2',sans-serif;font-weight:600;font-size:14px;color:var(--text-0)">Campaign Performance</div>
+          <div style="font-family:'DM Mono',monospace;font-size:22px;font-weight:700;color:var(--cyan);margin-top:8px">+12.4%</div>
+          <div style="font-size:11px;color:var(--text-2);margin-top:4px">vs. previous quarter</div>
+        </div>
+      </div>
+      <div style="position:relative;border-radius:8px;padding:1px;background:var(--grad-indigo);box-shadow:0 0 10px rgba(99,102,241,.18)">
+        <div style="background:var(--bg-2);border-radius:7px;padding:10px 12px;display:flex;align-items:center;gap:10px;transition:background .4s">
+          <div style="width:18px;height:18px;border-radius:5px;background:var(--grad-indigo);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+            <svg viewBox="0 0 16 16" width="10" height="10" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v3M8 11v3M2 8h3M11 8h3M3.8 3.8l2.1 2.1M10.1 10.1l2.1 2.1M3.8 12.2l2.1-2.1M10.1 5.9l2.1-2.1"/></svg>
+          </div>
+          <div style="font-size:11px;color:var(--text-1);line-height:1.4;flex:1"><span style="font-family:'DM Sans',sans-serif;font-weight:600;background:var(--grad-indigo);-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:.04em;text-transform:uppercase;font-size:10px">AI ·</span> Treasury trending <span style="color:var(--indigo);font-weight:600">3.2σ above</span> 90-day avg.</div>
+        </div>
+      </div>
+      <div class="preview-box">
+        <div class="caption" style="margin-bottom:8px">Data Table Fragment</div>
+        <table style="width:100%;border-collapse:collapse;font-size:12px">
+          <tr style="border-bottom:1px solid var(--border-1)">
+            <th style="text-align:left;padding:8px;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-2);font-weight:500">Account</th>
+            <th style="text-align:right;padding:8px;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-2);font-weight:500">Balance</th>
+            <th style="text-align:right;padding:8px;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-2);font-weight:500">Change</th>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border-0)">
+            <td style="padding:8px;color:var(--text-0);font-weight:500">Operating Reserve</td>
+            <td style="padding:8px;text-align:right;font-family:'DM Mono',monospace;color:var(--text-0)">$2,847,392</td>
+            <td style="padding:8px;text-align:right;font-family:'DM Mono',monospace;color:var(--success)">+4.2%</td>
+          </tr>
+          <tr>
+            <td style="padding:8px;color:var(--text-0);font-weight:500">Treasury</td>
+            <td style="padding:8px;text-align:right;font-family:'DM Mono',monospace;color:var(--cyan);font-weight:600">$5,091,200</td>
+            <td style="padding:8px;text-align:right;font-family:'DM Mono',monospace;color:var(--success)">+8.6%</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 10 ── MOTION & STATES ──────────────────────────── -->
+<div class="slide" data-title="Motion & States">
+  <div class="split-narrow">
+    <div>
+      <span class="tag">Interaction</span>
+      <h2>States that<br>signal.</h2>
+      <p class="sub">Every interactive element narrates where it stands — at rest, under cursor, focused, pressed, loading, empty, or alerting. Motion earns the user's trust because nothing feels dead.</p>
+      <div class="callout" style="max-width:420px;margin-top:18px">
+        <p><strong>120ms in, 200ms out.</strong> Hover arrives fast, eases out slower. Focus rings appear instantly — accessibility is not an animation.</p>
+      </div>
+      <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--text-2);margin-top:14px;letter-spacing:.04em">cubic-bezier(0.4, 0, 0.2, 1) &middot; 120 / 200ms</div>
+      <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--text-3);margin-top:6px;letter-spacing:.04em">Every demo on the right is live — hover to trigger.</div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:14px">
+
+      <!-- Button states — static reference + live sample -->
+      <div>
+        <div class="caption" style="margin-bottom:10px">Button — five states</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+          <button class="mo-btn-live">DEFAULT</button>
+          <div class="mo-btn mo-btn-hover">HOVER</div>
+          <div class="mo-btn mo-btn-focus">FOCUS</div>
+          <div class="mo-btn mo-btn-active">PRESSED</div>
+          <div class="mo-btn mo-btn-disabled">DISABLED</div>
+        </div>
+      </div>
+
+      <!-- Grid of live demos -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+
+        <!-- Card — production hover state -->
+        <div class="mo-tile">
+          <div class="mo-tile-label">Card · hover state</div>
+          <div class="mo-card-lift">
+            <div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--text-2);letter-spacing:.08em">PORTFOLIO</div>
+            <div style="font-family:'Exo 2',sans-serif;font-size:18px;font-weight:600;color:var(--text-0);margin-top:2px">$847K</div>
+            <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--text-3);margin-top:2px">+4.2% YTD</div>
+          </div>
+        </div>
+
+        <!-- Toggle -->
+        <div class="mo-tile">
+          <div class="mo-tile-label">Toggle · auto-invest</div>
+          <div style="display:flex;align-items:center;gap:10px;padding:14px 0 4px">
+            <div class="mo-toggle"></div>
+            <div style="font-size:11px;color:var(--text-1);font-family:'DM Sans',sans-serif">Auto-invest</div>
+          </div>
+        </div>
+
+        <!-- Toasts — vertical slide, centered at app bottom -->
+        <div class="mo-tile" style="grid-column:span 2">
+          <div class="mo-tile-label">Toast notifications · slide-up from bottom, auto-dismiss</div>
+          <div class="mo-app">
+            <div class="mo-app-header"><span class="mo-app-dot"></span><span class="mo-app-dot"></span><span class="mo-app-dot"></span></div>
+            <div class="mo-app-body">
+              <div class="mo-app-line" style="width:60%"></div>
+              <div class="mo-app-line" style="width:85%"></div>
+              <div class="mo-app-line" style="width:48%"></div>
+              <div class="mo-app-line" style="width:72%"></div>
+            </div>
+            <div class="mo-toast mo-toast-success"><span class="mo-toast-dot" style="background:var(--success)"></span>Transfer confirmed &middot; $12,450</div>
+            <div class="mo-toast mo-toast-ai"><span class="mo-toast-dot" style="background:var(--indigo)"></span>AI flagged 1 anomaly in activity</div>
+            <div class="mo-toast mo-toast-error"><span class="mo-toast-dot" style="background:var(--danger,#EF4444)"></span>Connection lost &middot; retrying</div>
+          </div>
+        </div>
+
+        <!-- Loading states -->
+        <div class="mo-tile">
+          <div class="mo-tile-label">Loading · skeleton</div>
+          <div style="display:flex;flex-direction:column;gap:6px;margin-top:4px">
+            <div class="mo-skel" style="width:72%"></div>
+            <div class="mo-skel" style="width:92%"></div>
+            <div class="mo-skel" style="width:54%"></div>
+            <div class="mo-skel" style="width:84%"></div>
+          </div>
+        </div>
+
+        <!-- Spinner + dots + progress -->
+        <div class="mo-tile">
+          <div class="mo-tile-label">In-flight indicators</div>
+          <div style="display:flex;align-items:center;gap:12px;margin-top:4px">
+            <div class="mo-spinner"></div>
+            <div class="mo-dots"><span></span><span></span><span></span></div>
+          </div>
+          <div class="mo-progress" style="margin-top:10px"><div class="mo-progress-fill"></div></div>
+        </div>
+
+        <!-- Empty state -->
+        <div class="mo-tile">
+          <div class="mo-tile-label">Empty state</div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px;padding:4px 0">
+            <div class="mo-empty-icon">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3.5" width="11" height="9" rx="1"/><path d="M5 7h6M5 10h4"/></svg>
+            </div>
+            <div style="font-size:11px;color:var(--text-1);text-align:center;font-family:'DM Sans',sans-serif">No transactions yet</div>
+            <div style="font-size:9.5px;color:var(--text-3);text-align:center;font-family:'DM Mono',monospace">Connect an account to begin</div>
+          </div>
+        </div>
+
+        <!-- Keyboard focus on input -->
+        <div class="mo-tile">
+          <div class="mo-tile-label">Keyboard focus ring</div>
+          <div style="display:flex;align-items:center;padding:10px 4px 4px">
+            <input type="text" value="acme.corp@client" readonly class="mo-input" />
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 11 ── CLOSE ────────────────────────────────────── -->
+<div class="slide" data-title="Summary">
+  <div class="center-col" style="gap:24px">
+    <span class="tag">Summary</span>
+    <h2 style="max-width:720px">Dark canvas. Gold accents.<br>Three fonts. Five elevation states.<br>One clear identity.</h2>
+    <p class="sub" style="text-align:center;max-width:460px">Every choice serves one purpose — making institutional users feel like <span class="redacted">BankIQ</span> is as serious as the data it handles.</p>
+    <div class="divider" style="margin:8px auto"></div>
+    <div style="display:flex;gap:24px;margin-top:8px">
+      <div style="text-align:center">
+        <div style="font-family:'Exo 2',sans-serif;font-weight:700;font-size:28px;color:var(--cyan)">60+</div>
+        <div class="caption" style="margin-top:4px">Design Tokens</div>
+      </div>
+      <div style="text-align:center">
+        <div style="font-family:'Exo 2',sans-serif;font-weight:700;font-size:28px;color:var(--cyan)">~200</div>
+        <div class="caption" style="margin-top:4px">Components Planned</div>
+      </div>
+      <div style="text-align:center">
+        <div style="font-family:'Exo 2',sans-serif;font-weight:700;font-size:28px;color:var(--cyan)">2.1 aa</div>
+        <div class="caption" style="margin-top:4px">WCAG Compliant</div>
+      </div>
+    </div>
+    <div style="font-size:13px;color:var(--text-2);margin-top:16px">Design System v1.0</div>
+  </div>
+</div>
+
+<!-- 11 ── CLOSING ────────────────────────── -->
+<div class="slide" data-title="Summary">
+  <div class="center-col" style="gap:24px">
+    <span class="tag">Summary</span>
+    <h2 style="max-width:680px">Every choice serves a purpose.</h2>
+    <p class="sub" style="text-align:center;max-width:520px">Color, radius, type, depth, motion — each design decision reinforces trust, authority, and institutional precision.</p>
+  </div>
+</div>
+
+</div><!-- /deck -->
+
+<!-- ================================================================
+     JS
+     ================================================================ -->
+<script>
+(function(){
+  const slides=Array.from(document.querySelectorAll('.slide')),T=slides.length;
+  let cur=0;
+  const counter=document.getElementById('counter'),
+        prog=document.getElementById('progress'),
+        prev=document.getElementById('prev'),
+        next=document.getElementById('next'),
+        pv=document.getElementById('previewText');
+
+  function go(i){if(i<0||i>=T)return;slides[cur].classList.remove('active');slides[cur].scrollTop=0;cur=i;slides[cur].classList.add('active');render()}
+  function render(){
+    const n=cur+1;
+    counter.textContent=String(n).padStart(2,'0')+' / '+String(T).padStart(2,'0');
+    prog.style.width=((n/T)*100).toFixed(1)+'%';
+    prev.disabled=cur===0;next.disabled=cur===T-1;
+    pv.textContent=cur<T-1?'Next: '+slides[cur+1].dataset.title:'End of deck';
+  }
+  prev.onclick=()=>go(cur-1);next.onclick=()=>go(cur+1);
+  document.onkeydown=e=>{
+    if(e.key==='ArrowRight'||e.key==='ArrowDown'||e.key===' '){e.preventDefault();go(cur+1)}
+    if(e.key==='ArrowLeft'||e.key==='ArrowUp'){e.preventDefault();go(cur-1)}
+  };
+  render();
+
+  /* ── Theme ── */
+  const tog=document.getElementById('toggle'),iD=document.getElementById('icoD'),iL=document.getElementById('icoL');
+  function setTheme(t){
+    document.documentElement.dataset.theme=t;
+    localStorage.setItem('so-theme',t);
+    if(iD)iD.classList.toggle('on',t==='dark');
+    if(iL)iL.classList.toggle('on',t==='light');
+    document.querySelectorAll('.sw-hex[data-dark]').forEach(el=>{
+      el.textContent = t==='dark' ? el.dataset.dark : el.dataset.light;
+    });
+    /* Keep SO nav icon in sync */
+    const navBtn=document.getElementById('themeToggle');
+    if(navBtn){
+      navBtn.innerHTML = t==='dark'
+        ? '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>'
+        : '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+    }
+  }
+  window._soSetTheme=setTheme;
+  tog.onclick=()=>setTheme(document.documentElement.dataset.theme==='dark'?'light':'dark');
+  tog.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();tog.click()}};
+
+  /* ── Glass tier drag + auto-move ── */
+  const stage=document.getElementById('glassStage');
+  if(stage){
+    const hint=stage.querySelector('.glass-hint');
+    const tiers=Array.from(stage.querySelectorAll('.glass-tier'));
+    let userDragged=false;
+
+    // Original positions (CSS values)
+    const homePos=[
+      {top:30,left:24},{top:118,left:118},{top:206,left:212}
+    ];
+    const driftPos=[
+      [{top:40,left:60},{top:25,left:140},{top:50,left:30}],
+      [{top:130,left:60},{top:105,left:200},{top:140,left:150}],
+      [{top:180,left:140},{top:220,left:100},{top:195,left:260}]
+    ];
+    let autoIdx=0;
+    function autoMoveTiers(){
+      if(userDragged)return;
+      tiers.forEach((el,i)=>{
+        const pos=driftPos[i][autoIdx%driftPos[i].length];
+        el.style.left=pos.left+'px';
+        el.style.top=pos.top+'px';
+      });
+      autoIdx++;
+    }
+    function resetTiers(){
+      tiers.forEach((el,i)=>{
+        el.style.left=homePos[i].left+'px';
+        el.style.top=homePos[i].top+'px';
+      });
+    }
+    // Start auto-move loop
+    let autoTimer=setInterval(autoMoveTiers,2500);
+    // Initial nudge after 1s
+    setTimeout(autoMoveTiers,1000);
+
+    tiers.forEach(el=>{
+      let dragging=false,offX=0,offY=0,stageRect=null,elW=0,elH=0;
+      el.addEventListener('pointerdown',e=>{
+        userDragged=true;clearInterval(autoTimer);
+        dragging=true;el.classList.add('dragging');
+        stageRect=stage.getBoundingClientRect();
+        const r=el.getBoundingClientRect();
+        elW=r.width;elH=r.height;
+        offX=e.clientX-r.left;offY=e.clientY-r.top;
+        el.style.right='auto';el.style.bottom='auto';
+        el.setPointerCapture(e.pointerId);
+        if(hint)hint.style.opacity='0';
+        e.preventDefault();
+      });
+      el.addEventListener('pointermove',e=>{
+        if(!dragging)return;
+        let x=e.clientX-stageRect.left-offX;
+        let y=e.clientY-stageRect.top-offY;
+        x=Math.max(0,Math.min(stageRect.width-elW,x));
+        y=Math.max(0,Math.min(stageRect.height-elH,y));
+        el.style.left=x+'px';el.style.top=y+'px';
+      });
+      const end=e=>{
+        if(!dragging)return;
+        dragging=false;el.classList.remove('dragging');
+        try{el.releasePointerCapture(e.pointerId)}catch(_){}
+      };
+      el.addEventListener('pointerup',end);
+      el.addEventListener('pointercancel',end);
+    });
+  }
+
+  /* ── Motion & States autoplay ── */
+  const motionSlide=document.querySelector('[data-title="Motion & States"]');
+  if(motionSlide){
+    const tiles=Array.from(motionSlide.querySelectorAll('.mo-tile'));
+    let moPaused=false,moTimer=null,moOrder=[],moIdx=0;
+
+    function shuffle(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]]}return arr}
+    function buildOrder(){moOrder=shuffle(tiles.map((_,i)=>i));moIdx=0}
+    buildOrder();
+
+    function moStep(){
+      if(moPaused)return;
+      tiles.forEach(t=>t.classList.remove('auto-active'));
+      if(moIdx>=moOrder.length)buildOrder();
+      const tile=tiles[moOrder[moIdx]];
+      if(tile){
+        tile.classList.add('auto-active');
+        // Trigger hover state on inner interactive elements
+        tile.dispatchEvent(new MouseEvent('mouseenter',{bubbles:true}));
+        setTimeout(()=>{
+          tile.dispatchEvent(new MouseEvent('mouseleave',{bubbles:true}));
+        },2000);
+      }
+      moIdx++;
+    }
+    moTimer=setInterval(moStep,2500);
+    setTimeout(moStep,800);
+
+    motionSlide.addEventListener('mouseenter',()=>{
+      moPaused=true;
+      clearInterval(moTimer);
+      tiles.forEach(t=>t.classList.remove('auto-active'));
+    });
+  }
+})();
+</script>
+<!-- Share confirmation modal -->
+<div class="share-modal" id="shareModal" role="dialog" aria-modal="true" aria-labelledby="shareModalTitle" hidden>
+  <div class="share-modal__backdrop" data-share-close></div>
+  <div class="share-modal__panel" role="document">
+    <button class="share-modal__close" type="button" data-share-close aria-label="Close">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13"/></svg>
+    </button>
+    <div class="share-modal__eyebrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.5 1.5"/><path d="M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.5-1.5"/></svg> Send as link</div>
+    <h2 class="share-modal__title" id="shareModalTitle">UX Brand ID</h2>
+    <p class="share-modal__lede">Anyone with this link lands directly on this page in standalone mode — the Single Origin nav and breadcrumbs are hidden so the customer sees the content, not the parent hub.</p>
+    <div class="share-modal__url-block">
+      <div class="share-modal__url-label">Standalone URL</div>
+      <div class="share-modal__url" id="shareModalUrl">about:blank</div>
+    </div>
+    <div class="share-modal__actions">
+      <button class="share-modal__btn share-modal__btn--ghost" type="button" data-share-close>Cancel</button>
+      <button class="share-modal__btn share-modal__btn--primary" type="button" id="shareModalCopy">Copy link</button>
+    </div>
+  </div>
+</div>
+<div class="share-toast" id="shareToast" role="status" aria-live="polite">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+  <span class="toast-text">Link copied</span>
+</div>
+
+<script>
+/* === Unified share button → modal (drop-in for any hub page) === */
+(function(){
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('share') === '1') document.body.classList.add('share-mode');
+
+  async function copyText(text){
+    try { if (navigator.clipboard && window.isSecureContext) { await navigator.clipboard.writeText(text); return true; } } catch(e){}
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.setAttribute('readonly','');
+    ta.style.cssText = 'position:fixed;top:0;left:0;width:1px;height:1px;opacity:0;border:0;padding:0;margin:0;';
+    document.body.appendChild(ta); ta.select();
+    let ok = false; try { ok = document.execCommand('copy'); } catch(e){}
+    document.body.removeChild(ta);
+    return ok;
+  }
+
+  const btn   = document.getElementById('shareBtn');
+  const modal = document.getElementById('shareModal');
+  const urlEl = document.getElementById('shareModalUrl');
+  const copyEl= document.getElementById('shareModalCopy');
+  const toast = document.getElementById('shareToast');
+  let toastTimer = null;
+
+  function showToast(msg){
+    if (!toast) return;
+    toast.querySelector('.toast-text').textContent = msg;
+    toast.classList.add('is-visible');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('is-visible'), 2400);
+  }
+  function buildShareUrl(){
+    const url = new URL(window.location.href);
+    url.search = '';
+    url.searchParams.set('share', '1');
+    return url.toString();
+  }
+  function openModal(){
+    if (!modal) return;
+    if (urlEl)  urlEl.textContent = buildShareUrl();
+    if (copyEl) { copyEl.classList.remove('is-success'); copyEl.textContent = 'Copy link'; }
+    modal.removeAttribute('hidden');
+    document.body.classList.add('modal-open');
+    setTimeout(() => copyEl && copyEl.focus(), 60);
+  }
+  function closeModal(){
+    if (!modal) return;
+    modal.setAttribute('hidden','');
+    document.body.classList.remove('modal-open');
+  }
+  if (btn)   btn.addEventListener('click', openModal);
+  if (modal) modal.addEventListener('click', e => { if (e.target.closest('[data-share-close]')) closeModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && modal && !modal.hasAttribute('hidden')) closeModal(); });
+  if (copyEl) copyEl.addEventListener('click', async () => {
+    const url = urlEl ? urlEl.textContent : buildShareUrl();
+    const ok = await copyText(url);
+    if (ok) {
+      copyEl.classList.add('is-success');
+      copyEl.innerHTML = 'Copied <svg style="width:14px;height:14px;margin-left:4px;vertical-align:-2px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>';
+      showToast('Link copied — paste anywhere to share');
+      setTimeout(closeModal, 1100);
+    } else {
+      window.prompt('Copy this link:', url);
+    }
+  });
+})();
+</script>
+
+
+<script>
+/* Unified theme toggle for .so-nav — delegates to shared setTheme */
+(function(){
+  const html = document.documentElement;
+  const saved = localStorage.getItem('so-theme');
+  if (saved && window._soSetTheme) window._soSetTheme(saved);
+  else if (saved) html.setAttribute('data-theme', saved);
+  const btn = document.getElementById('themeToggle');
+  if (!btn) return;
+  /* Set initial icon */
+  const isDark = html.getAttribute('data-theme') === 'dark';
+  btn.innerHTML = isDark
+    ? '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>'
+    : '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+  btn.addEventListener('click', () => {
+    const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    if (window._soSetTheme) window._soSetTheme(next);
+    else {
+      html.setAttribute('data-theme', next);
+      localStorage.setItem('so-theme', next);
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
