@@ -1,0 +1,207 @@
+/* =====================================================================
+   Single Origin — unified navigation header (SHARED across all pages)
+   This file is the single source of truth for the .so-nav header.
+   ===================================================================== */
+
+/* ---- Viewport normalization (eliminates scrollbar-induced layout shift) ---- */
+html.so-host {
+  overflow-y: scroll !important;
+  scrollbar-gutter: stable !important;
+}
+
+/* ---- Nav container ---- */
+.so-nav {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  height: 56px;
+  background: rgba(250,251,252,0.78);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  backdrop-filter: blur(20px) saturate(1.4);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+}
+[data-theme="dark"] .so-nav {
+  background: rgba(21,23,34,0.82);
+  border-bottom-color: rgba(255,255,255,0.08);
+}
+
+.so-nav__inner {
+  max-width: 1320px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.so-nav__brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+  color: inherit;
+  flex-shrink: 0;
+}
+
+.so-nav__logo {
+  display: flex;
+  align-items: center;
+}
+.so-nav__logo img {
+  height: 28px;
+  width: auto;
+  display: block;
+}
+
+/* ---- Breadcrumbs ---- */
+.so-nav__crumbs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+}
+.so-nav__crumb-sep {
+  font-size: 13px;
+  color: rgba(0,0,0,0.25);
+  flex-shrink: 0;
+}
+[data-theme="dark"] .so-nav__crumb-sep { color: rgba(255,255,255,0.3); }
+
+.so-nav__crumb {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  color: rgba(0,0,0,0.55);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.15s ease;
+}
+[data-theme="dark"] .so-nav__crumb { color: rgba(255,255,255,0.6); }
+.so-nav__crumb[href]:hover { color: #6B4FA8; }
+[data-theme="dark"] .so-nav__crumb[href]:hover { color: #C4B5E3; }
+.so-nav__crumb--current { color: #151722; font-weight: 600; }
+[data-theme="dark"] .so-nav__crumb--current { color: #FAFBFC; }
+
+/* ---- Actions ---- */
+.so-nav__actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.so-nav__share {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 34px;
+  padding: 0 14px;
+  border-radius: 100px;
+  border: 1px solid rgba(0,0,0,0.10);
+  background: rgba(255,255,255,0.95);
+  color: #151722;
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  white-space: nowrap;
+}
+.so-nav__share svg { width: 14px; height: 14px; opacity: 0.7; }
+.so-nav__share:hover {
+  border-color: rgba(0,0,0,0.18);
+  background: #FFFFFF;
+}
+.so-nav__share:hover svg { opacity: 1; }
+[data-theme="dark"] .so-nav__share {
+  border-color: rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.06);
+  color: #FAFBFC;
+}
+[data-theme="dark"] .so-nav__share:hover {
+  border-color: rgba(255,255,255,0.18);
+  background: rgba(255,255,255,0.10);
+}
+
+.so-nav__theme {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  border: 1px solid rgba(0,0,0,0.10);
+  background: rgba(255,255,255,0.95);
+  color: rgba(0,0,0,0.6);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.18s ease;
+  flex-shrink: 0;
+}
+.so-nav__theme svg { width: 16px; height: 16px; }
+.so-nav__theme:hover {
+  border-color: rgba(0,0,0,0.18);
+  background: #FFFFFF;
+  color: #151722;
+}
+[data-theme="dark"] .so-nav__theme {
+  border-color: rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.06);
+  color: rgba(255,255,255,0.6);
+}
+[data-theme="dark"] .so-nav__theme:hover {
+  border-color: rgba(255,255,255,0.18);
+  background: rgba(255,255,255,0.10);
+  color: #FAFBFC;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 720px) {
+  .so-nav__crumbs { display: none; }
+}
+@media (max-width: 540px) {
+  .so-nav__share .label { display: none; }
+  .so-nav__share { padding: 0 10px; }
+}
+
+body.share-mode .so-nav { display: none !important; }
+
+/* =====================================================================
+   Fast custom tooltip — used in place of native title attribute.
+   Element opts in by adding [data-tooltip="..."] attribute.
+   ===================================================================== */
+[data-tooltip] {
+  position: relative;
+}
+[data-tooltip]::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(2px);
+  background: rgba(21,23,34,0.94);
+  color: #FAFBFC;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  padding: 5px 9px;
+  border-radius: 5px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 120ms ease 60ms, transform 120ms ease 60ms;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+}
+[data-tooltip]:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+[data-theme="dark"] [data-tooltip]::after {
+  background: rgba(255,255,255,0.96);
+  color: #151722;
+}

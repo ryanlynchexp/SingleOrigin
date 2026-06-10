@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="so-host">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -102,6 +102,8 @@ html {
   background: var(--so-bg-page);
   -webkit-font-smoothing: antialiased;
   scroll-behavior: smooth;
+  overflow-y: scroll;
+  scrollbar-gutter: stable;
 }
 
 body {
@@ -1129,15 +1131,63 @@ body {
   overflow: hidden;
   border-radius: 0;
 }
-.ed-hero-cinema__media {
+/* Media + bbox layers share identical square "stage" geometry so the
+   detection boxes lock onto the same image pixels at every viewport size.
+   Top-aligned cover keeps the subject's head/headset in frame on wide heroes. */
+.ed-hero-cinema__media,
+.ed-hero-cinema__boxes {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 100%;
+  min-height: 100%;
+  aspect-ratio: 1800 / 1809; /* matches the source photo */
+}
+.ed-hero-cinema__media {
   background-color: #2A1D4A; /* fallback if photo URL fails */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   filter: saturate(0.95);
 }
+.ed-hero-cinema__boxes {
+  z-index: 1; /* above the scrim, below the headline content (z-index:2) */
+  pointer-events: none;
+}
+.hero-bbox {
+  position: absolute;
+  border: 2px solid;
+  border-radius: 2px;
+}
+.hero-bbox__label {
+  position: absolute;
+  top: -22px;
+  left: -2px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  padding: 2px 8px;
+  border-radius: 2px 2px 2px 0;
+  color: #0E0F18;
+  white-space: nowrap;
+}
+.hero-bbox--person {
+  left: 20%;
+  top: 18%;
+  width: 67%;
+  height: 82%;
+  border-color: rgba(196, 181, 227, 0.9);
+}
+.hero-bbox--person .hero-bbox__label { background: #C4B5E3; }
+.hero-bbox--device {
+  left: 25.3%;
+  top: 21%;
+  width: 28%;
+  height: 23%;
+  border-color: rgba(122, 181, 232, 0.9);
+}
+.hero-bbox--device .hero-bbox__label { background: #7AB5E8; }
 .ed-hero-cinema__scrim {
   position: absolute;
   inset: 0;
@@ -2495,200 +2545,53 @@ body {
 /* Lock body scroll while modal is open */
 body.modal-open { overflow: hidden; }
 
-/* =====================================================================
-   UNIFIED NAV (.so-nav) — shared across all hub pages
-   ===================================================================== */
-.so-nav {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  height: 56px;
-  background: rgba(250,251,252,0.78);
-  -webkit-backdrop-filter: blur(20px) saturate(1.4);
-  backdrop-filter: blur(20px) saturate(1.4);
-  border-bottom: 1px solid rgba(0,0,0,0.06);
-  font-family: var(--so-font);
-}
-[data-theme="dark"] .so-nav {
-  background: rgba(21,23,34,0.82);
-  border-bottom-color: rgba(255,255,255,0.08);
-}
-.so-nav__inner {
-  max-width: 1320px;
-  height: 100%;
-  margin: 0 auto;
-  padding: 0 24px;
-  display: flex;
-  align-items: center;
-  gap: 18px;
-}
-.so-nav__brand {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  text-decoration: none;
-  color: inherit;
-  flex-shrink: 0;
-}
-.so-nav__logo svg { width: 80px; height: 20px; display: block; }
-.so-nav__logo svg path { fill: #151722; transition: fill 0.2s ease; }
-[data-theme="dark"] .so-nav__logo svg path { fill: #FAFBFC; }
-.so-nav__brand-divider { width: 1px; height: 22px; background: rgba(0,0,0,0.12); }
-[data-theme="dark"] .so-nav__brand-divider { background: rgba(255,255,255,0.16); }
-.so-nav__product { display: flex; align-items: center; gap: 8px; }
-.so-nav__brand-mark {
-  width: 16px; height: 16px;
-  border-radius: 5px;
-  background: linear-gradient(135deg, #C4B5E3, #7AB5E8);
-  flex-shrink: 0;
-}
-.so-nav__product-name {
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  color: #151722;
-}
-[data-theme="dark"] .so-nav__product-name { color: #FAFBFC; }
 
-.so-nav__back {
-  display: none;
-  align-items: center;
-  justify-content: center;
-  width: 30px;
-  height: 30px;
-  border-radius: 8px;
-  border: 1px solid rgba(0,0,0,0.08);
-  background: transparent;
-  color: rgba(0,0,0,0.5);
-  cursor: pointer;
-  flex-shrink: 0;
-  transition: all 0.18s ease;
-}
-.so-nav__back:hover {
-  border-color: rgba(0,0,0,0.14);
-  color: #6B4FA8;
-  background: rgba(107,79,168,0.06);
-}
-.so-nav__back svg { width: 16px; height: 16px; }
-.so-nav__back.is-visible { display: flex; }
-[data-theme="dark"] .so-nav__back {
-  border-color: rgba(255,255,255,0.08);
-  color: rgba(255,255,255,0.5);
-}
-[data-theme="dark"] .so-nav__back:hover {
-  border-color: rgba(255,255,255,0.16);
-  color: #C4B5E3;
-  background: rgba(132,104,192,0.12);
-}
 
-.so-nav__crumbs {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex: 1;
-  min-width: 0;
-}
-.so-nav__crumb-sep {
-  font-size: 13px;
-  color: rgba(0,0,0,0.25);
-  flex-shrink: 0;
-}
-[data-theme="dark"] .so-nav__crumb-sep { color: rgba(255,255,255,0.3); }
-.so-nav__crumb {
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: -0.005em;
-  color: rgba(0,0,0,0.55);
-  text-decoration: none;
-  white-space: nowrap;
-  transition: color 0.15s ease;
-}
-[data-theme="dark"] .so-nav__crumb { color: rgba(255,255,255,0.6); }
-.so-nav__crumb[href]:hover { color: #6B4FA8; }
-[data-theme="dark"] .so-nav__crumb[href]:hover { color: #C4B5E3; }
-.so-nav__crumb--current { color: #151722; font-weight: 600; }
-[data-theme="dark"] .so-nav__crumb--current { color: #FAFBFC; }
 
-.so-nav__actions {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-shrink: 0;
-}
-.so-nav__share {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  height: 34px;
-  padding: 0 14px;
-  border-radius: 100px;
-  border: 1px solid rgba(0,0,0,0.10);
-  background: rgba(255,255,255,0.95);
-  color: #151722;
-  font-family: inherit;
-  font-size: 12.5px;
-  font-weight: 500;
-  letter-spacing: -0.005em;
-  cursor: pointer;
-  transition: all 0.18s ease;
-  white-space: nowrap;
-}
-.so-nav__share svg { width: 14px; height: 14px; opacity: 0.7; }
-.so-nav__share:hover {
-  border-color: rgba(0,0,0,0.16);
-  background: linear-gradient(135deg, #F7F5FB, #F0F6FC);
-  color: #6B4FA8;
-}
-.so-nav__share:hover svg { opacity: 1; }
-[data-theme="dark"] .so-nav__share {
-  border-color: rgba(255,255,255,0.10);
-  background: rgba(255,255,255,0.04);
-  color: #FAFBFC;
-}
-[data-theme="dark"] .so-nav__share:hover {
-  border-color: rgba(255,255,255,0.18);
-  background: rgba(132,104,192,0.16);
-  color: #C4B5E3;
-}
-.so-nav__theme {
-  width: 34px; height: 34px;
-  border-radius: 8px;
-  border: 1px solid rgba(0,0,0,0.10);
-  background: rgba(255,255,255,0.95);
-  color: rgba(0,0,0,0.6);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.18s ease;
-  flex-shrink: 0;
-}
-.so-nav__theme:hover {
-  border-color: rgba(0,0,0,0.16);
-  color: #151722;
-}
-[data-theme="dark"] .so-nav__theme {
-  border-color: rgba(255,255,255,0.10);
-  background: rgba(255,255,255,0.04);
-  color: rgba(255,255,255,0.6);
-}
-[data-theme="dark"] .so-nav__theme:hover {
-  border-color: rgba(255,255,255,0.18);
-  color: #FAFBFC;
-}
-.so-nav__theme svg { width: 16px; height: 16px; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @media (max-width: 720px) {
-  .so-nav__crumbs { display: none; }
-  .so-nav__brand-divider { display: none; }
+
+  
 }
 @media (max-width: 540px) {
-  .so-nav__share .label { display: none; }
-  .so-nav__share { padding: 0 10px; }
-  .so-nav__product-name { display: none; }
+
+
+  
 }
 
-body.share-mode .so-nav { display: none !important; }
+
 
 /* Share mode — strips chrome for customer-facing standalone view */
 body.share-mode .hub-nav     { display: none !important; }
@@ -2703,34 +2606,18 @@ body.share-mode:not([data-share="hub"]) .detail-back { display: none !important;
 body.share-mode .landing { padding-top: 16px; }
 body.share-mode .ed-hero-cinema__content { padding-top: 80px; }
 </style>
+  <link rel="stylesheet" href="../../assets/css/so-nav.css">
 </head>
 <body>
 
 <!-- UNIFIED NAV -->
 <nav class="so-nav">
   <div class="so-nav__inner">
-    <a class="so-nav__brand" href="../../index.html" aria-label="Single Origin home">
-      <span class="so-nav__logo">
-        <svg viewBox="0 0 80 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Experis">
-          <path d="M0 3.8h10.4v2.4H2.9v3.4h6.8v2.3H2.9v3.7h7.7v2.4H0V3.8z"/>
-          <path d="M14.8 10.2l-4.6-6.4h3.5l2.8 4.2 2.9-4.2h3.4l-4.6 6.3 5 6.9h-3.5l-3.2-4.7-3.2 4.7h-3.4l5-6.8z"/>
-          <path d="M24.4 3.8H30c3.6 0 5.6 1.9 5.6 4.6 0 2.7-2 4.7-5.6 4.7h-2.7v4.9h-2.9V3.8zm5.3 7c1.9 0 2.9-1 2.9-2.4 0-1.4-1-2.3-2.9-2.3h-2.4v4.7h2.4z"/>
-          <path d="M37.6 3.8H48v2.4h-7.5v3.4h6.8v2.3h-6.8v3.7h7.7v2.4H37.6V3.8z"/>
-          <path d="M50.4 3.8h5.2c3.5 0 5.5 1.7 5.5 4.3 0 2.1-1.1 3.5-3 4.1l3.5 5.8h-3.3l-3.1-5.4h-1.9v5.4h-2.9V3.8zm5 6.6c1.8 0 2.8-.9 2.8-2.2 0-1.3-1-2.1-2.8-2.1h-2.1v4.3h2.1z"/>
-          <path d="M64.2 3.8h2.9v14.2h-2.9V3.8z"/>
-          <path d="M69.6 14.8l1.7-2c1.2 1.1 2.5 1.8 4 1.8 1.5 0 2.3-.7 2.3-1.6 0-1-.7-1.5-3.2-2.2-3-0.8-4.6-1.9-4.6-4.2 0-2.5 2-4.1 4.8-4.1 2 0 3.6.6 5 1.8l-1.5 2.1c-1.1-.9-2.3-1.4-3.5-1.4-1.4 0-2.1.7-2.1 1.5 0 1 .7 1.5 3.3 2.2 3 .9 4.5 2 4.5 4.2 0 2.7-2.1 4.3-5.1 4.3-2.1 0-4-.7-5.6-2.3z"/>
-        </svg>
-      </span>
-      <span class="so-nav__brand-divider"></span>
-      <span class="so-nav__product">
-        <span class="so-nav__brand-mark"></span>
-        <span class="so-nav__product-name">Single Origin</span>
-      </span>
+    <a class="so-nav__brand" href="../../src/index.html#competency-ticker" aria-label="Experis home">
+      <span class="so-nav__logo"><img src="../../assets/logos/EXP_Bug_RGB_BLUE.svg" alt="Experis"></span>
     </a>
-    <button class="so-nav__back" id="navBack" aria-label="Go back">
-      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 12L6 8l4-4"/></svg>
-    </button>
     <div class="so-nav__crumbs" id="navCrumbs">
+      <a class="so-nav__crumb" href="../../src/index.html#competency-ticker">Hub</a>
       <span class="so-nav__crumb-sep">/</span>
       <a class="so-nav__crumb so-nav__crumb--current" id="crumbPage">Service Lines</a>
     </div>
@@ -3614,12 +3501,10 @@ body.share-mode .ed-hero-cinema__content { padding-top: 80px; }
     <div class="ed-hero-cinema__media" style="background-image:url('https://images.unsplash.com/photo-1593508512255-86ab42a8e620?w=1800&q=80&auto=format&fit=crop');"></div>
     <div class="ed-hero-cinema__scrim" style="background:linear-gradient(180deg, rgba(11,12,18,0.30) 0%, rgba(11,12,18,0.55) 50%, rgba(11,12,18,0.85) 100%);"></div>
 
-    <!-- Decorative bbox overlays on hero -->
-    <div style="position:absolute; top:18%; left:8%; width:180px; height:240px; border:2px solid rgba(196,181,227,0.85); border-radius:2px; z-index:1;">
-      <div style="position:absolute; top:-22px; left:-2px; background:#C4B5E3; color:#0E0F18; font-size:10px; font-weight:600; letter-spacing:0.06em; padding:2px 8px; border-radius:2px 2px 2px 0;">PERSON · 0.98</div>
-    </div>
-    <div style="position:absolute; top:42%; right:14%; width:120px; height:90px; border:2px solid rgba(122,181,232,0.85); border-radius:2px; z-index:1;">
-      <div style="position:absolute; top:-22px; left:-2px; background:#7AB5E8; color:#0E0F18; font-size:10px; font-weight:600; letter-spacing:0.06em; padding:2px 8px; border-radius:2px 2px 2px 0;">DEVICE · 0.94</div>
+    <!-- Decorative bbox overlays — anchored to the photo's coordinate space so they stay locked onto the subjects -->
+    <div class="ed-hero-cinema__boxes" aria-hidden="true">
+      <div class="hero-bbox hero-bbox--person"><div class="hero-bbox__label">PERSON · 0.98</div></div>
+      <div class="hero-bbox hero-bbox--device"><div class="hero-bbox__label">VR HEADSET · 0.94</div></div>
     </div>
 
     <div class="ed-hero-cinema__content">
@@ -3908,8 +3793,7 @@ const landingFooter = document.getElementById('landing-footer');
 const details = document.querySelectorAll('.detail-view');
 const cards = document.querySelectorAll('.service-card');
 
-// --- Breadcrumb & back button helpers ---
-const navBack   = document.getElementById('navBack');
+// --- Breadcrumb helpers ---
 const navCrumbs = document.getElementById('navCrumbs');
 const crumbPage = document.getElementById('crumbPage');
 
@@ -3923,20 +3807,19 @@ const SERVICE_NAMES = {
 
 function updateCrumbs(serviceId) {
   if (!navCrumbs) return;
+  const hubCrumb = '<a class="so-nav__crumb" href="../../src/index.html#competency-ticker">Hub</a><span class="so-nav__crumb-sep">/</span>';
   if (serviceId) {
-    // Detail view: Service Lines (clickable) / Service Name
+    // Detail view: Hub / Service Lines (clickable) / Service Name
     navCrumbs.innerHTML =
-      '<span class="so-nav__crumb-sep">/</span>' +
+      hubCrumb +
       '<a class="so-nav__crumb" href="javascript:void(0)" onclick="showLanding()">Service Lines</a>' +
       '<span class="so-nav__crumb-sep">/</span>' +
       '<span class="so-nav__crumb so-nav__crumb--current">' + (SERVICE_NAMES[serviceId] || serviceId) + '</span>';
-    if (navBack) navBack.classList.add('is-visible');
   } else {
-    // Landing view
+    // Landing view: Hub / Service Lines
     navCrumbs.innerHTML =
-      '<span class="so-nav__crumb-sep">/</span>' +
+      hubCrumb +
       '<span class="so-nav__crumb so-nav__crumb--current">Service Lines</span>';
-    if (navBack) navBack.classList.remove('is-visible');
   }
 }
 
@@ -3982,9 +3865,6 @@ function showLanding() {
   });
   updateCrumbs(null);
 }
-
-// Back button wired to go back one level
-if (navBack) navBack.addEventListener('click', showLanding);
 
 cards.forEach(card => {
   card.addEventListener('click', function() {

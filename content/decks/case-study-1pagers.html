@@ -1,0 +1,5111 @@
+<!DOCTYPE html>
+<html lang="en" class="so-host">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Case Study 1-Pagers — Experis Digital Services</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,450;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+<style>
+/* ================================================================
+   TOKENS
+   ================================================================ */
+:root {
+  --so-lavender-50:   #F7F5FB;
+  --so-lavender-100:  #EEEAF6;
+  --so-lavender-200:  #DDD5EE;
+  --so-lavender-300:  #C4B5E3;
+  --so-lavender-400:  #A48DD4;
+  --so-lavender-500:  #8468C0;
+  --so-lavender-600:  #6B4FA8;
+  --so-lavender-700:  #553E8A;
+
+  --so-azure-50:      #F0F6FC;
+  --so-azure-100:     #DEEAF7;
+  --so-azure-200:     #B8D4F0;
+  --so-azure-300:     #7AB5E8;
+  --so-azure-400:     #4A96DB;
+  --so-azure-500:     #2A7BC8;
+  --so-azure-600:     #1D60A3;
+
+  --so-aluminum-0:    #FFFFFF;
+  --so-aluminum-50:   #FAFBFC;
+  --so-aluminum-100:  #F4F5F7;
+  --so-aluminum-150:  #ECEDF1;
+  --so-aluminum-200:  #E2E4E9;
+  --so-aluminum-300:  #D0D3DA;
+  --so-aluminum-400:  #A1A6B4;
+  --so-aluminum-500:  #767C8E;
+  --so-aluminum-600:  #565C6E;
+  --so-aluminum-700:  #3B3F4F;
+  --so-aluminum-800:  #252836;
+  --so-aluminum-900:  #151722;
+
+  --so-gradient:         linear-gradient(135deg, #C4B5E3 0%, #7AB5E8 100%);
+  --so-gradient-subtle:  linear-gradient(135deg, #F7F5FB 0%, #F0F6FC 100%);
+  --so-gradient-vibrant: linear-gradient(135deg, #8468C0 0%, #4A96DB 100%);
+
+  --so-bg-page:      #FAFBFC;
+  --so-bg-card:      #FFFFFF;
+  --so-bg-inset:     #F4F5F7;
+  --so-text-primary:   #151722;
+  --so-text-secondary: #565C6E;
+  --so-text-tertiary:  #A1A6B4;
+  --so-text-accent:    #6B4FA8;
+
+  --so-border-hairline: rgba(0,0,0,0.06);
+  --so-border-light:    rgba(0,0,0,0.10);
+  --so-border-medium:   rgba(0,0,0,0.16);
+
+  --so-shadow-card: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02);
+  --so-shadow-md:   0 2px 8px rgba(0,0,0,0.06);
+  --so-shadow-lg:   0 4px 16px rgba(0,0,0,0.08);
+
+  --so-font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --so-radius-sm: 6px;
+  --so-radius-md: 10px;
+  --so-radius-lg: 14px;
+  --so-radius-xl: 20px;
+
+  --so-ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --so-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* DARK MODE */
+[data-theme="dark"] {
+  --so-bg-page:      #151722;
+  --so-bg-card:      #1E2030;
+  --so-bg-inset:     #252836;
+  --so-text-primary:   #F4F5F7;
+  --so-text-secondary: #A1A6B4;
+  --so-text-tertiary:  #767C8E;
+  --so-text-accent:    #C4B5E3;
+  --so-border-hairline: rgba(255,255,255,0.06);
+  --so-border-light:    rgba(255,255,255,0.10);
+  --so-border-medium:   rgba(255,255,255,0.16);
+  --so-shadow-card: 0 1px 3px rgba(0,0,0,0.2);
+  --so-shadow-md:   0 2px 8px rgba(0,0,0,0.3);
+  --so-shadow-lg:   0 4px 16px rgba(0,0,0,0.4);
+}
+
+/* ================================================================
+   RESET & BASE
+   ================================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  font-family: var(--so-font);
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--so-text-primary);
+  background: var(--so-bg-page);
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+  overflow-y: scroll;
+  scrollbar-gutter: stable;
+}
+
+body {
+  background: var(--so-bg-page);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ================================================================
+   SCROLL REVEAL
+   ================================================================ */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.scroll-reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+.scroll-reveal.revealed .sr-child:nth-child(1) { transition-delay: 0.05s; }
+.scroll-reveal.revealed .sr-child:nth-child(2) { transition-delay: 0.10s; }
+.scroll-reveal.revealed .sr-child:nth-child(3) { transition-delay: 0.15s; }
+.scroll-reveal.revealed .sr-child:nth-child(4) { transition-delay: 0.20s; }
+.scroll-reveal.revealed .sr-child:nth-child(5) { transition-delay: 0.25s; }
+.scroll-reveal.revealed .sr-child:nth-child(6) { transition-delay: 0.30s; }
+.sr-child {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+.scroll-reveal.revealed .sr-child {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ================================================================
+   NAV
+   ================================================================ */
+.hub-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  padding: 0 24px;
+  background: var(--so-bg-card);
+  border-bottom: 1px solid var(--so-border-hairline);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.hub-nav a {
+  text-decoration: none;
+  color: var(--so-text-primary);
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: -0.01em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hub-nav a svg { opacity: 0.5; }
+
+.nav-right { display: flex; align-items: center; gap: 12px; }
+
+.theme-toggle {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: 1px solid var(--so-border-light);
+  background: var(--so-bg-inset);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--so-text-secondary);
+  transition: all 0.2s var(--so-ease);
+}
+.theme-toggle:hover {
+  border-color: var(--so-border-medium);
+  color: var(--so-text-primary);
+}
+
+/* ================================================================
+   LANDING VIEW — Editorial splash for the service hub
+   ================================================================ */
+.landing { padding: 0 24px; position: relative; }
+
+.landing-hero {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 88px 24px 56px;
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 48px;
+  align-items: end;
+}
+
+.landing-hero__primary { position: relative; z-index: 1; }
+
+.landing-hero .eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--so-text-accent);
+  margin-bottom: 20px;
+}
+.landing-hero .eyebrow::before {
+  content: '';
+  width: 28px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.6;
+}
+
+.landing-hero h1 {
+  font-size: clamp(40px, 7vw, 88px);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 0.96;
+  color: var(--so-text-primary);
+  margin-bottom: 24px;
+}
+.landing-hero h1 em {
+  font-style: italic;
+  font-weight: 300;
+  background: var(--so-gradient-vibrant);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.landing-hero__secondary {
+  position: relative;
+  padding-bottom: 16px;
+}
+.landing-hero p {
+  font-size: 17px;
+  color: var(--so-text-secondary);
+  line-height: 1.65;
+  max-width: 480px;
+  margin-bottom: 24px;
+}
+
+/* Five-pip indicator — visual marker that there are 5 service lines */
+.landing-pips {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+.landing-pips__line {
+  width: 32px;
+  height: 1px;
+  background: var(--so-border-medium);
+}
+.landing-pips__dots { display: inline-flex; gap: 6px; }
+.landing-pips__dots span {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--so-aluminum-300);
+}
+.landing-pips__dots span:nth-child(1) { background: #C4B5E3; }
+.landing-pips__dots span:nth-child(2) { background: #B5C4E3; }
+.landing-pips__dots span:nth-child(3) { background: #A8C0E5; }
+.landing-pips__dots span:nth-child(4) { background: #92BFE8; }
+.landing-pips__dots span:nth-child(5) { background: #7AB5E8; }
+.landing-pips__count {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--so-text-tertiary);
+}
+
+@media (max-width: 900px) {
+  .landing-hero {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 56px 0 32px;
+  }
+  .landing-hero__secondary { padding-bottom: 0; }
+}
+
+/* ----- Service Rail — single horizontal row of 5 cards, no wrap ----- */
+.service-rail {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  max-width: 1320px;
+  margin: 0 auto 96px;
+  padding: 0 24px;
+}
+
+.service-card {
+  position: relative;
+  background: var(--so-bg-card);
+  border: 1px solid var(--so-border-hairline);
+  border-radius: 18px;
+  padding: 28px 22px 22px;
+  height: 380px;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow: var(--so-shadow-card);
+  transition: transform 0.4s var(--so-ease-out), box-shadow 0.4s var(--so-ease-out), border-color 0.3s var(--so-ease);
+}
+
+/* Per-card accent gradients — distinct hues sweeping across the row */
+.service-card[data-service="healthcare"]  { --accent-1: #C4B5E3; --accent-2: #8AA0E0; }
+.service-card[data-service="passport"]    { --accent-1: #9FAEE2; --accent-2: #82B8E8; }
+.service-card[data-service="carmax"]      { --accent-1: #B0A0DD; --accent-2: #A8B8E5; }
+.service-card[data-service="starbucks"]   { --accent-1: #8FB3E5; --accent-2: #5A93D6; }
+.service-card[data-service="walmart"]     { --accent-1: #7AB5E8; --accent-2: #4A8DCB; }
+
+/* Soft background tint on hover */
+.service-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(165deg, var(--accent-1, #C4B5E3) 0%, var(--accent-2, #7AB5E8) 100%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.45s var(--so-ease-out);
+}
+
+/* Top accent line on hover */
+.service-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.5s var(--so-ease-out);
+}
+
+.service-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 36px rgba(0,0,0,0.10), 0 4px 8px rgba(0,0,0,0.04);
+  border-color: var(--so-border-medium);
+}
+.service-card:hover::after  { transform: scaleX(1); }
+.service-card:hover::before { opacity: 0.05; }
+
+[data-theme="dark"] .service-card:hover {
+  box-shadow: 0 12px 36px rgba(0,0,0,0.5), 0 4px 8px rgba(0,0,0,0.3);
+}
+[data-theme="dark"] .service-card:hover::before { opacity: 0.10; }
+
+/* Watermark numeral — large, faint, brand-gradient text */
+.card-watermark {
+  position: absolute;
+  top: -34px;
+  right: -18px;
+  font-size: 240px;
+  line-height: 0.85;
+  font-weight: 200;
+  letter-spacing: -0.06em;
+  background: linear-gradient(165deg, var(--accent-1, #C4B5E3), var(--accent-2, #7AB5E8));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  opacity: 0.10;
+  pointer-events: none;
+  user-select: none;
+  transition: opacity 0.45s var(--so-ease-out), transform 0.5s var(--so-ease-out);
+  z-index: 0;
+}
+[data-theme="dark"] .card-watermark { opacity: 0.18; }
+.service-card:hover .card-watermark {
+  opacity: 0.20;
+  transform: translateY(-2px) scale(1.04);
+}
+
+/* Meta row: number + divider + total */
+.card-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 22px;
+  position: relative;
+  z-index: 1;
+}
+.card-num {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: var(--so-text-accent);
+  font-feature-settings: 'tnum';
+}
+.card-divider {
+  width: 22px;
+  height: 1px;
+  background: var(--so-border-medium);
+}
+.card-of {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: var(--so-text-tertiary);
+}
+
+.card-icon {
+  position: relative;
+  z-index: 1;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: var(--so-gradient-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--so-lavender-500);
+  margin-bottom: 24px;
+  transition: transform 0.4s var(--so-ease-out);
+}
+.service-card:hover .card-icon {
+  transform: scale(1.05) rotate(-2deg);
+}
+[data-theme="dark"] .card-icon { background: rgba(132,104,192,0.14); }
+
+.service-card h3 {
+  position: relative;
+  z-index: 1;
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: -0.022em;
+  line-height: 1.2;
+  color: var(--so-text-primary);
+  margin-bottom: 10px;
+}
+
+.service-card .tagline {
+  position: relative;
+  z-index: 1;
+  font-size: 13px;
+  color: var(--so-text-secondary);
+  line-height: 1.5;
+  margin-bottom: 18px;
+}
+
+.card-bottom {
+  position: relative;
+  z-index: 1;
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid var(--so-border-light);
+}
+
+.card-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--so-text-accent);
+  transition: gap 0.2s var(--so-ease);
+}
+.service-card:hover .card-cta { gap: 10px; }
+.card-cta svg { width: 12px; height: 12px; }
+
+/* Staggered entrance */
+.service-rail .service-card.scroll-reveal { transition-delay: 0s; }
+.service-rail .service-card.scroll-reveal:nth-child(1) { transition-delay: 0.05s; }
+.service-rail .service-card.scroll-reveal:nth-child(2) { transition-delay: 0.12s; }
+.service-rail .service-card.scroll-reveal:nth-child(3) { transition-delay: 0.19s; }
+.service-rail .service-card.scroll-reveal:nth-child(4) { transition-delay: 0.26s; }
+.service-rail .service-card.scroll-reveal:nth-child(5) { transition-delay: 0.33s; }
+
+/* Tablet — keep all 5 in row but allow horizontal scroll if cramped */
+@media (max-width: 1100px) {
+  .service-rail {
+    grid-template-columns: repeat(5, minmax(220px, 1fr));
+    overflow-x: auto;
+    padding: 0 24px 16px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+  .service-card { scroll-snap-align: start; }
+  .service-rail::after {
+    content: '';
+    width: 1px;
+  }
+}
+
+/* Mobile — vertical stack (still no horizontal wrap, just full-width column) */
+@media (max-width: 640px) {
+  .service-rail {
+    grid-template-columns: 1fr;
+    overflow-x: visible;
+    margin-bottom: 64px;
+  }
+  .service-card { height: auto; min-height: 220px; padding: 24px; }
+  .card-watermark { font-size: 180px; top: -22px; right: -10px; }
+}
+
+/* ================================================================
+   DETAIL VIEW — SHARED
+   ================================================================ */
+.detail-view {
+  display: none;
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.detail-view.active {
+  display: block;
+  animation: fadeSlideIn 0.45s var(--so-ease-out) forwards;
+}
+
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.detail-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 32px 24px 0;
+  max-width: 1060px;
+  margin: 0 auto;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--so-text-accent);
+  text-decoration: none;
+  cursor: pointer;
+  transition: gap 0.2s var(--so-ease);
+  width: 100%;
+}
+.detail-back:hover { gap: 10px; }
+
+/* Hero section — bigger with SVG overlay */
+.detail-hero {
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 24px 24px 0;
+}
+
+.detail-hero-inner {
+  background: var(--so-gradient-vibrant);
+  border-radius: var(--so-radius-xl);
+  padding: 72px 56px;
+  position: relative;
+  overflow: hidden;
+}
+
+.detail-hero-inner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+.detail-hero-inner::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.detail-hero .service-number {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 12px;
+}
+
+.detail-hero h2 {
+  font-size: clamp(30px, 4.5vw, 44px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.12;
+  color: #fff;
+  margin-bottom: 16px;
+}
+
+.detail-hero .hero-desc {
+  font-size: 18px;
+  color: rgba(255,255,255,0.85);
+  line-height: 1.6;
+  max-width: 620px;
+}
+
+@media (max-width: 680px) {
+  .detail-hero-inner { padding: 44px 28px; }
+}
+
+/* ================================================================
+   THE WHAT — Narrative Section
+   ================================================================ */
+.narrative-section {
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 48px 24px 0;
+}
+
+.narrative-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+.narrative-grid h3 {
+  font-size: clamp(22px, 3vw, 28px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+  color: var(--so-text-primary);
+  margin-bottom: 16px;
+}
+
+.narrative-grid p {
+  font-size: 16px;
+  color: var(--so-text-secondary);
+  line-height: 1.7;
+}
+
+.narrative-grid .narrative-right p + p {
+  margin-top: 16px;
+}
+
+@media (max-width: 680px) {
+  .narrative-grid { grid-template-columns: 1fr; gap: 24px; }
+}
+
+/* Full-width narrative (for simpler detail pages) */
+.narrative-full {
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 48px 24px 0;
+}
+.narrative-full h3 {
+  font-size: clamp(22px, 3vw, 28px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+  color: var(--so-text-primary);
+  margin-bottom: 16px;
+}
+.narrative-full p {
+  font-size: 16px;
+  color: var(--so-text-secondary);
+  line-height: 1.7;
+  max-width: 720px;
+}
+
+/* ================================================================
+   STATS BANNER
+   ================================================================ */
+.stats-banner {
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 40px 24px 0;
+}
+
+.stats-banner-inner {
+  background: var(--so-gradient-subtle);
+  border: 1px solid var(--so-border-hairline);
+  border-radius: var(--so-radius-xl);
+  padding: 40px 48px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+[data-theme="dark"] .stats-banner-inner {
+  background: rgba(132, 104, 192, 0.06);
+}
+
+.stat-item {
+  text-align: center;
+  position: relative;
+  padding: 0 24px;
+}
+
+.stat-item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: -2px;
+  top: 10%;
+  height: 80%;
+  width: 1px;
+  background: var(--so-border-light);
+}
+
+.stat-number {
+  font-size: clamp(32px, 4vw, 44px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--so-text-accent);
+  line-height: 1.1;
+}
+
+.stat-label {
+  font-size: 13px;
+  color: var(--so-text-secondary);
+  margin-top: 6px;
+  font-weight: 500;
+}
+
+@media (max-width: 680px) {
+  .stats-banner-inner { padding: 28px 24px; gap: 20px; }
+  .stat-item { padding: 0 16px; }
+  .stat-item:not(:last-child)::after { display: none; }
+  .stats-banner-inner { justify-content: center; }
+}
+
+/* ================================================================
+   CORE SERVICES GRID
+   ================================================================ */
+.services-section {
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 48px 24px 0;
+}
+
+.services-section-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--so-text-accent);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.services-section-label svg { width: 16px; height: 16px; opacity: 0.7; }
+
+.core-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.core-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+
+@media (max-width: 900px) {
+  .core-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 680px) {
+  .core-grid, .core-grid.cols-2 { grid-template-columns: 1fr; }
+}
+
+.core-card {
+  background: var(--so-bg-card);
+  border: 1px solid var(--so-border-hairline);
+  border-radius: var(--so-radius-lg);
+  padding: 24px;
+  box-shadow: var(--so-shadow-card);
+  transition: box-shadow 0.2s var(--so-ease), transform 0.2s var(--so-ease);
+}
+
+.core-card:hover {
+  box-shadow: var(--so-shadow-md);
+  transform: translateY(-1px);
+}
+
+.core-card-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--so-radius-sm);
+  background: var(--so-gradient-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+  color: var(--so-lavender-500);
+}
+
+[data-theme="dark"] .core-card-icon {
+  background: rgba(132, 104, 192, 0.1);
+}
+
+.core-card h4 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--so-text-primary);
+  margin-bottom: 6px;
+  letter-spacing: -0.01em;
+}
+
+.core-card p {
+  font-size: 13px;
+  color: var(--so-text-secondary);
+  line-height: 1.55;
+}
+
+/* ================================================================
+   AUXILIARY SERVICES — secondary list/grid
+   ================================================================ */
+.aux-section {
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 40px 24px 0;
+}
+
+.aux-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+@media (max-width: 680px) {
+  .aux-grid { grid-template-columns: 1fr; }
+}
+
+.aux-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: var(--so-bg-card);
+  border: 1px solid var(--so-border-hairline);
+  border-radius: var(--so-radius-md);
+  padding: 16px 20px;
+  box-shadow: var(--so-shadow-card);
+}
+
+.aux-bullet {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--so-gradient-vibrant);
+  flex-shrink: 0;
+  margin-top: 7px;
+}
+
+.aux-item-text h5 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--so-text-primary);
+  margin-bottom: 2px;
+}
+
+.aux-item-text p {
+  font-size: 13px;
+  color: var(--so-text-secondary);
+  line-height: 1.5;
+}
+
+/* ================================================================
+   PROCESS FLOW
+   ================================================================ */
+.process-flow {
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 48px 24px 0;
+}
+
+.process-flow-inner {
+  background: var(--so-bg-card);
+  border: 1px solid var(--so-border-hairline);
+  border-radius: var(--so-radius-xl);
+  padding: 36px 40px;
+  box-shadow: var(--so-shadow-card);
+}
+
+.process-flow .flow-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--so-text-tertiary);
+  margin-bottom: 24px;
+}
+
+.flow-steps {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.flow-step {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.flow-step-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.flow-step-num {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--so-text-accent);
+  letter-spacing: 0.04em;
+}
+
+.flow-step span {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--so-text-primary);
+  padding: 10px 20px;
+  background: var(--so-bg-inset);
+  border-radius: 100px;
+  border: 1px solid var(--so-border-hairline);
+}
+
+.flow-arrow {
+  color: var(--so-text-tertiary);
+  margin: 0 10px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 680px) {
+  .process-flow-inner { padding: 24px 20px; }
+  .flow-step span { padding: 8px 14px; font-size: 13px; }
+}
+
+/* ================================================================
+   DELIVERABLES — pill tags
+   ================================================================ */
+.deliverables-section {
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 40px 24px 0;
+}
+
+.pill-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.pill-tag {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--so-text-secondary);
+  background: var(--so-bg-card);
+  padding: 8px 16px;
+  border-radius: 100px;
+  border: 1px solid var(--so-border-light);
+  box-shadow: var(--so-shadow-card);
+  transition: all 0.2s var(--so-ease);
+}
+
+.pill-tag:hover {
+  border-color: var(--so-border-medium);
+  color: var(--so-text-primary);
+}
+
+/* ================================================================
+   WHY IT MATTERS
+   ================================================================ */
+.why-section {
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 48px 24px 0;
+}
+
+.why-inner {
+  background: var(--so-gradient-subtle);
+  border: 1px solid var(--so-border-hairline);
+  border-radius: var(--so-radius-xl);
+  padding: 44px 48px;
+  position: relative;
+  overflow: hidden;
+}
+
+.why-inner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle at 100% 0%, var(--so-lavender-200) 0%, transparent 70%);
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+[data-theme="dark"] .why-inner {
+  background: rgba(132, 104, 192, 0.06);
+}
+[data-theme="dark"] .why-inner::before { opacity: 0.05; }
+
+.why-inner .section-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--so-text-accent);
+  margin-bottom: 12px;
+}
+
+.why-inner .section-label svg { width: 16px; height: 16px; opacity: 0.7; }
+
+.why-inner p {
+  font-size: 18px;
+  color: var(--so-text-primary);
+  line-height: 1.65;
+  font-weight: 400;
+  max-width: 700px;
+  position: relative;
+}
+
+@media (max-width: 680px) {
+  .why-inner { padding: 32px 24px; }
+}
+
+/* ================================================================
+   FOOTER
+   ================================================================ */
+.detail-footer {
+  text-align: center;
+  padding: 64px 24px 48px;
+  font-size: 12px;
+  color: var(--so-text-tertiary);
+  letter-spacing: 0.02em;
+}
+
+.footer {
+  text-align: center;
+  padding: 48px 24px;
+  font-size: 12px;
+  color: var(--so-text-tertiary);
+  letter-spacing: 0.02em;
+}
+
+/* ================================================================
+   UTILITIES
+   ================================================================ */
+.hidden { display: none !important; }
+
+/* ================================================================
+   EDITORIAL LAYER — bold, magazine-style overhaul of detail views
+   Each service uses these primitives in different rhythms.
+   ================================================================ */
+
+/* Wrapper that lets sections break out of the 1060px frame */
+.ed-wide   { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+.ed-frame  { max-width: 1060px; margin: 0 auto; padding: 0 24px; }
+.ed-narrow { max-width: 820px;  margin: 0 auto; padding: 0 24px; }
+.ed-bleed  { width: 100%; }
+
+/* Vertical rhythm helpers — sections scroll-reveal individually */
+.ed-pad-xl { padding-top: 96px; }
+.ed-pad-lg { padding-top: 72px; }
+.ed-pad-md { padding-top: 56px; }
+.ed-pad-sm { padding-top: 32px; }
+
+/* Eyebrow tag used across the editorial layer */
+.ed-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--so-text-accent);
+}
+.ed-eyebrow::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.5;
+}
+.ed-eyebrow.on-dark { color: rgba(255,255,255,0.7); }
+.ed-eyebrow.on-photo { color: rgba(255,255,255,0.85); }
+
+/* Display headline — used inside editorial heroes */
+.ed-display {
+  font-size: clamp(40px, 7vw, 96px);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 0.98;
+  color: var(--so-text-primary);
+}
+.ed-display.on-photo,
+.ed-display.on-dark { color: #fff; }
+
+.ed-display em {
+  font-style: italic;
+  font-weight: 300;
+  background: var(--so-gradient-vibrant);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ----- Cinematic full-bleed hero (image-led) ----- */
+.ed-hero-cinema {
+  position: relative;
+  width: 100%;
+  min-height: clamp(480px, 72vh, 720px);
+  overflow: hidden;
+  border-radius: 0;
+}
+.ed-hero-cinema__media {
+  position: absolute;
+  inset: 0;
+  background-color: #2A1D4A; /* fallback if photo URL fails */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: saturate(0.95);
+}
+.ed-hero-cinema__scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(11,12,18,0.10) 0%, rgba(11,12,18,0.55) 60%, rgba(11,12,18,0.85) 100%),
+    linear-gradient(135deg, rgba(85,62,138,0.35) 0%, rgba(29,96,163,0.35) 100%);
+}
+.ed-hero-cinema__content {
+  position: relative;
+  z-index: 2;
+  padding: 96px 48px 56px;
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: clamp(480px, 72vh, 720px);
+}
+.ed-hero-cinema__service-num {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 16px;
+}
+.ed-hero-cinema h2 {
+  font-size: clamp(44px, 7.5vw, 110px);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 0.95;
+  color: #fff;
+  margin-bottom: 24px;
+  max-width: 14ch;
+}
+.ed-hero-cinema__lede {
+  font-size: clamp(17px, 1.6vw, 22px);
+  line-height: 1.45;
+  color: rgba(255,255,255,0.88);
+  max-width: 600px;
+  font-weight: 300;
+}
+.ed-hero-cinema__caption {
+  position: absolute;
+  right: 48px;
+  bottom: 48px;
+  z-index: 2;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+  text-align: right;
+  max-width: 240px;
+  line-height: 1.5;
+}
+@media (max-width: 720px) {
+  .ed-hero-cinema__content { padding: 80px 24px 40px; }
+  .ed-hero-cinema__caption { display: none; }
+}
+
+/* ----- Split hero (text + photo or art panel) ----- */
+.ed-hero-split {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 0;
+  min-height: 540px;
+  position: relative;
+}
+.ed-hero-split__text {
+  padding: 80px 56px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.ed-hero-split__media {
+  position: relative;
+  overflow: hidden;
+  background-color: #6B4FA8; /* fallback */
+  background-size: cover;
+  background-position: center;
+}
+.ed-hero-split__service-num {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--so-text-accent);
+  margin-bottom: 20px;
+}
+.ed-hero-split h2 {
+  font-size: clamp(40px, 6vw, 80px);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 0.98;
+  color: var(--so-text-primary);
+  margin-bottom: 24px;
+}
+.ed-hero-split__lede {
+  font-size: 19px;
+  line-height: 1.55;
+  color: var(--so-text-secondary);
+  max-width: 560px;
+  font-weight: 300;
+}
+@media (max-width: 900px) {
+  .ed-hero-split { grid-template-columns: 1fr; min-height: auto; }
+  .ed-hero-split__text { padding: 56px 24px; }
+  .ed-hero-split__media { min-height: 320px; }
+}
+
+/* ----- Pure-CSS gradient art panel (used as hero media) ----- */
+.ed-art-panel {
+  position: relative;
+  background:
+    radial-gradient(circle at 30% 20%, rgba(196,181,227,0.9), transparent 55%),
+    radial-gradient(circle at 80% 70%, rgba(122,181,232,0.85), transparent 60%),
+    linear-gradient(135deg, #F7F5FB 0%, #F0F6FC 100%);
+  overflow: hidden;
+}
+.ed-art-panel::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255,255,255,0.4) 1px, transparent 1px);
+  background-size: 14px 14px;
+  mix-blend-mode: overlay;
+  opacity: 0.4;
+}
+.ed-art-panel__circle {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--so-gradient-vibrant);
+  filter: blur(40px);
+  opacity: 0.55;
+}
+
+/* ----- Full-bleed editorial photo band ----- */
+.ed-photo-band {
+  width: 100%;
+  height: clamp(280px, 45vh, 460px);
+  background-color: #2A1D4A; /* fallback */
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  overflow: hidden;
+}
+.ed-photo-band__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(85,62,138,0.65), rgba(29,96,163,0.4));
+}
+.ed-photo-band__caption {
+  position: absolute;
+  inset: auto 48px 32px 48px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+}
+.ed-photo-band__caption-text {
+  font-size: clamp(22px, 3vw, 36px);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: #fff;
+  max-width: 720px;
+  line-height: 1.2;
+}
+.ed-photo-band__caption-meta {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.7);
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* ----- Manifesto / oversized intro split (number + paragraph) ----- */
+.ed-manifesto {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: start;
+}
+.ed-manifesto__num {
+  font-size: clamp(120px, 18vw, 240px);
+  font-weight: 200;
+  letter-spacing: -0.05em;
+  line-height: 0.85;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--so-text-accent);
+  background: var(--so-gradient-vibrant);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+.ed-manifesto__num.is-solid {
+  -webkit-text-stroke: 0;
+  color: var(--so-text-primary);
+  opacity: 0.92;
+}
+.ed-manifesto__body h3 {
+  font-size: clamp(26px, 3.4vw, 40px);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  color: var(--so-text-primary);
+  margin-bottom: 24px;
+}
+.ed-manifesto__body p {
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--so-text-secondary);
+  margin-bottom: 14px;
+}
+@media (max-width: 760px) {
+  .ed-manifesto { grid-template-columns: 1fr; gap: 0; }
+  .ed-manifesto__num { margin-bottom: 8px; }
+}
+
+/* ----- Asymmetric photo bento grid (2 col, varied row spans) ----- */
+.ed-bento {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-auto-rows: 180px;
+  gap: 16px;
+}
+.ed-bento__cell {
+  position: relative;
+  border-radius: var(--so-radius-lg);
+  overflow: hidden;
+  background: var(--so-bg-card);
+  border: 1px solid var(--so-border-hairline);
+  box-shadow: var(--so-shadow-card);
+  transition: transform 0.3s var(--so-ease), box-shadow 0.3s var(--so-ease);
+}
+.ed-bento__cell:hover { transform: translateY(-2px); box-shadow: var(--so-shadow-lg); }
+.ed-bento__cell.is-photo {
+  background-color: #553E8A; /* fallback */
+  background-size: cover;
+  background-position: center;
+  border: none;
+}
+.ed-bento__cell.is-photo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 40%, rgba(11,12,18,0.85) 100%);
+}
+.ed-bento__cell.is-art {
+  background: var(--so-gradient-vibrant);
+}
+.ed-bento__cell.span-3 { grid-column: span 3; }
+.ed-bento__cell.span-2 { grid-column: span 2; }
+.ed-bento__cell.span-4 { grid-column: span 4; }
+.ed-bento__cell.span-6 { grid-column: span 6; }
+.ed-bento__cell.tall { grid-row: span 2; }
+.ed-bento__cell.x-tall { grid-row: span 3; }
+.ed-bento__caption {
+  position: absolute;
+  inset: auto 0 0 0;
+  z-index: 2;
+  padding: 22px 24px;
+  color: #fff;
+}
+.ed-bento__caption.on-card { color: var(--so-text-primary); }
+.ed-bento__caption .num {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 6px;
+  display: block;
+}
+.ed-bento__caption.on-card .num { color: var(--so-text-tertiary); }
+.ed-bento__caption h4 {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+  margin-bottom: 6px;
+}
+.ed-bento__caption p {
+  font-size: 13px;
+  line-height: 1.5;
+  color: rgba(255,255,255,0.85);
+  max-width: 280px;
+}
+.ed-bento__caption.on-card p { color: var(--so-text-secondary); }
+
+.ed-bento__cell.padded { padding: 24px; display: flex; flex-direction: column; justify-content: space-between; }
+.ed-bento__cell.padded .ed-bento__caption {
+  position: static;
+  padding: 0;
+}
+.ed-bento__cell .icon-mark {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+.ed-bento__cell.padded.on-card .icon-mark {
+  background: var(--so-gradient-subtle);
+  color: var(--so-lavender-500);
+}
+@media (max-width: 900px) {
+  .ed-bento { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 200px; }
+  .ed-bento__cell.span-3, .ed-bento__cell.span-2, .ed-bento__cell.span-4, .ed-bento__cell.span-6 { grid-column: span 2; }
+  .ed-bento__cell.tall, .ed-bento__cell.x-tall { grid-row: auto; }
+}
+@media (max-width: 540px) {
+  .ed-bento { grid-template-columns: 1fr; }
+  .ed-bento__cell.span-3, .ed-bento__cell.span-2, .ed-bento__cell.span-4, .ed-bento__cell.span-6 { grid-column: span 1; }
+}
+
+/* ----- Asymmetric "split-spread" — image left, text right (or vice versa) ----- */
+.ed-spread {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 56px;
+  align-items: center;
+}
+.ed-spread.reverse { grid-template-columns: 0.95fr 1.05fr; }
+.ed-spread__media {
+  border-radius: var(--so-radius-xl);
+  overflow: hidden;
+  position: relative;
+  aspect-ratio: 4 / 5;
+  background-color: #6B4FA8; /* fallback if photo URL fails */
+  background-size: cover;
+  background-position: center;
+  box-shadow: var(--so-shadow-lg);
+}
+.ed-spread__media.wide { aspect-ratio: 5 / 4; }
+.ed-spread__media .ed-spread__media-tag {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: rgba(11,12,18,0.7);
+  backdrop-filter: blur(10px);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 8px 14px;
+  border-radius: 100px;
+}
+.ed-spread__text h3 {
+  font-size: clamp(26px, 3.6vw, 44px);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+  color: var(--so-text-primary);
+  margin-bottom: 20px;
+}
+.ed-spread__text p {
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--so-text-secondary);
+  margin-bottom: 14px;
+}
+.ed-spread__text .ed-eyebrow { margin-bottom: 16px; }
+@media (max-width: 900px) {
+  .ed-spread, .ed-spread.reverse { grid-template-columns: 1fr; gap: 28px; }
+  .ed-spread__media { aspect-ratio: 16/10; }
+}
+
+/* ----- Pull quote (oversized) ----- */
+.ed-pullquote {
+  text-align: center;
+  padding: 56px 24px;
+  position: relative;
+}
+.ed-pullquote__mark {
+  font-size: 96px;
+  line-height: 0;
+  color: var(--so-lavender-300);
+  display: block;
+  height: 32px;
+  margin-bottom: 16px;
+  font-family: Georgia, serif;
+  opacity: 0.5;
+}
+.ed-pullquote p {
+  font-size: clamp(24px, 3.8vw, 44px);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  color: var(--so-text-primary);
+  max-width: 920px;
+  margin: 0 auto;
+}
+.ed-pullquote p em {
+  font-style: italic;
+  background: var(--so-gradient-vibrant);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.ed-pullquote .attrib {
+  display: block;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--so-text-tertiary);
+  margin-top: 28px;
+}
+
+/* ----- Dark band (high-contrast section) ----- */
+.ed-dark-band {
+  width: 100%;
+  background: #0E0F18;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.ed-dark-band::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(132,104,192,0.30), transparent 50%),
+    radial-gradient(circle at 85% 80%, rgba(74,150,219,0.25), transparent 55%);
+  pointer-events: none;
+}
+.ed-dark-band__inner {
+  position: relative;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 80px 48px;
+}
+.ed-dark-band .ed-display { color: #fff; }
+.ed-dark-band p { color: rgba(255,255,255,0.8); }
+
+/* Dark stats — large numbers, single row */
+.ed-dark-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  margin-top: 40px;
+  border-top: 1px solid rgba(255,255,255,0.12);
+}
+.ed-dark-stats.cols-3 { grid-template-columns: repeat(3, 1fr); }
+.ed-dark-stat {
+  padding: 32px 24px;
+  border-right: 1px solid rgba(255,255,255,0.08);
+}
+.ed-dark-stat:last-child { border-right: none; }
+.ed-dark-stat .num {
+  font-size: clamp(40px, 5vw, 64px);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  background: linear-gradient(135deg, #C4B5E3, #7AB5E8);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 10px;
+}
+.ed-dark-stat .label {
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+}
+@media (max-width: 760px) {
+  .ed-dark-stats, .ed-dark-stats.cols-3 { grid-template-columns: repeat(2, 1fr); }
+  .ed-dark-stat { border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .ed-dark-stat:nth-child(2n) { border-right: none; }
+  .ed-dark-band__inner { padding: 56px 24px; }
+}
+
+/* ----- Numbered manifesto list (large, image-on-hover lookups) ----- */
+.ed-numbered {
+  display: flex;
+  flex-direction: column;
+}
+.ed-numbered__row {
+  display: grid;
+  grid-template-columns: 80px 1fr auto;
+  gap: 32px;
+  align-items: center;
+  padding: 28px 0;
+  border-top: 1px solid var(--so-border-light);
+  transition: padding 0.3s var(--so-ease);
+}
+.ed-numbered__row:last-child { border-bottom: 1px solid var(--so-border-light); }
+.ed-numbered__row:hover { padding-left: 12px; }
+.ed-numbered__num {
+  font-size: 32px;
+  font-weight: 300;
+  color: var(--so-text-tertiary);
+  letter-spacing: -0.02em;
+}
+.ed-numbered__text h4 {
+  font-size: clamp(20px, 2.4vw, 28px);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--so-text-primary);
+  margin-bottom: 4px;
+}
+.ed-numbered__text p {
+  font-size: 14px;
+  color: var(--so-text-secondary);
+  line-height: 1.5;
+}
+.ed-numbered__chip {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--so-text-accent);
+  background: var(--so-gradient-subtle);
+  padding: 6px 12px;
+  border-radius: 100px;
+  white-space: nowrap;
+}
+[data-theme="dark"] .ed-numbered__chip { background: rgba(132,104,192,0.12); }
+@media (max-width: 680px) {
+  .ed-numbered__row { grid-template-columns: 48px 1fr; gap: 16px; padding: 20px 0; }
+  .ed-numbered__num { font-size: 22px; }
+  .ed-numbered__chip { display: none; }
+}
+
+/* ----- Mosaic media-tile gallery (4-up with diverse media) ----- */
+.ed-mosaic {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+.ed-tile {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  border-radius: var(--so-radius-md);
+  overflow: hidden;
+  background-color: #1E2030; /* fallback */
+  background-size: cover;
+  background-position: center;
+  cursor: default;
+}
+.ed-tile::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(11,12,18,0.78) 100%);
+  z-index: 1;
+}
+.ed-tile__overlay {
+  position: absolute;
+  inset: auto 0 0 0;
+  z-index: 2;
+  padding: 18px;
+  color: #fff;
+}
+.ed-tile__overlay .num {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.7);
+}
+.ed-tile__overlay h5 {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-top: 4px;
+}
+.ed-tile__bbox {
+  position: absolute;
+  border: 2px solid #C4B5E3;
+  border-radius: 2px;
+  z-index: 1;
+  pointer-events: none;
+  box-shadow: 0 0 0 9999px rgba(0,0,0,0.0) inset;
+  animation: bboxPulse 3s ease-in-out infinite;
+}
+@keyframes bboxPulse {
+  0%, 100% { border-color: rgba(196,181,227,0.95); }
+  50% { border-color: rgba(122,181,232,0.95); }
+}
+.ed-tile__bbox::before {
+  content: attr(data-label);
+  position: absolute;
+  top: -22px;
+  left: -2px;
+  background: #C4B5E3;
+  color: #1a1a2e;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  padding: 2px 8px;
+  border-radius: 2px 2px 2px 0;
+}
+@media (max-width: 900px) {
+  .ed-mosaic { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ----- Code window (engineering hero motif) ----- */
+.ed-code-window {
+  position: relative;
+  border-radius: var(--so-radius-lg);
+  overflow: hidden;
+  background: #0E0F18;
+  box-shadow: var(--so-shadow-lg);
+  font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+}
+.ed-code-window__bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 16px;
+  background: rgba(255,255,255,0.04);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.ed-code-window__bar span {
+  width: 11px; height: 11px; border-radius: 50%;
+  background: rgba(255,255,255,0.18);
+}
+.ed-code-window__bar span:nth-child(1) { background: #FF5F57; }
+.ed-code-window__bar span:nth-child(2) { background: #FEBC2E; }
+.ed-code-window__bar span:nth-child(3) { background: #27C840; }
+.ed-code-window__bar .filename {
+  margin-left: 12px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.55);
+  letter-spacing: 0.02em;
+  background: transparent;
+}
+.ed-code-window__body {
+  padding: 24px 28px;
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.85);
+  white-space: pre;
+  overflow-x: auto;
+}
+.ed-code-window__body .tk-key { color: #C4B5E3; }
+.ed-code-window__body .tk-str { color: #7AB5E8; }
+.ed-code-window__body .tk-num { color: #F4D58D; }
+.ed-code-window__body .tk-com { color: rgba(255,255,255,0.4); font-style: italic; }
+.ed-code-window__body .tk-fn  { color: #B5E3C4; }
+.ed-code-window__body .tk-pun { color: rgba(255,255,255,0.55); }
+
+/* Tech-stack badge row */
+.ed-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 32px;
+}
+.ed-stack__badge {
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  color: rgba(255,255,255,0.85);
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.10);
+  padding: 8px 14px;
+  border-radius: 6px;
+}
+
+/* Capability cards on dark band */
+.ed-cap-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: rgba(255,255,255,0.08);
+  border-radius: var(--so-radius-lg);
+  overflow: hidden;
+  margin-top: 32px;
+}
+.ed-cap {
+  padding: 28px 24px;
+  background: #0E0F18;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: background 0.3s var(--so-ease);
+}
+.ed-cap:hover { background: #14162A; }
+.ed-cap__icon {
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  background: rgba(196,181,227,0.12);
+  display: flex; align-items: center; justify-content: center;
+  color: #C4B5E3;
+}
+.ed-cap h5 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: -0.01em;
+}
+.ed-cap p {
+  font-size: 13.5px;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.55;
+}
+@media (max-width: 900px) {
+  .ed-cap-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 540px) {
+  .ed-cap-grid { grid-template-columns: 1fr; }
+}
+
+/* ----- Vertical engagement-model trio ----- */
+.ed-trio {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.ed-trio__card {
+  background: var(--so-bg-card);
+  border: 1px solid var(--so-border-hairline);
+  border-radius: var(--so-radius-lg);
+  padding: 32px 28px;
+  position: relative;
+  overflow: hidden;
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: var(--so-shadow-card);
+  transition: transform 0.25s var(--so-ease), box-shadow 0.25s var(--so-ease);
+}
+.ed-trio__card:hover { transform: translateY(-3px); box-shadow: var(--so-shadow-lg); }
+.ed-trio__card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: var(--so-gradient-vibrant);
+}
+.ed-trio__card .num {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--so-text-accent);
+  margin-bottom: 16px;
+}
+.ed-trio__card h4 {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--so-text-primary);
+  margin-bottom: 12px;
+}
+.ed-trio__card p {
+  font-size: 14px;
+  color: var(--so-text-secondary);
+  line-height: 1.6;
+}
+.ed-trio__card .footnote {
+  margin-top: 24px;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--so-text-tertiary);
+}
+@media (max-width: 900px) {
+  .ed-trio { grid-template-columns: 1fr; }
+  .ed-trio__card { min-height: auto; }
+}
+
+/* ----- Photo strip (product categories / portrait shots) ----- */
+.ed-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+.ed-strip__item {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  border-radius: var(--so-radius-md);
+  overflow: hidden;
+  background-color: #6B4FA8; /* fallback */
+  background-size: cover;
+  background-position: center;
+}
+.ed-strip__item::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(11,12,18,0.85) 100%);
+}
+.ed-strip__item h5 {
+  position: absolute;
+  inset: auto 16px 14px 16px;
+  z-index: 2;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.ed-strip__item p {
+  position: absolute;
+  inset: auto 16px 36px 16px;
+  z-index: 2;
+  color: rgba(255,255,255,0.72);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+}
+@media (max-width: 760px) {
+  .ed-strip { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ----- Process rail (refined timeline) ----- */
+.ed-rail {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--so-border-light);
+  border-bottom: 1px solid var(--so-border-light);
+}
+.ed-rail.steps-4 { grid-template-columns: repeat(4, 1fr); }
+.ed-rail__step {
+  padding: 28px 20px;
+  border-right: 1px solid var(--so-border-light);
+  position: relative;
+}
+.ed-rail__step:last-child { border-right: none; }
+.ed-rail__step .num {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--so-text-accent);
+  margin-bottom: 8px;
+  display: block;
+}
+.ed-rail__step .label {
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  color: var(--so-text-primary);
+}
+.ed-rail__step .meta {
+  font-size: 12px;
+  color: var(--so-text-tertiary);
+  margin-top: 4px;
+}
+@media (max-width: 760px) {
+  .ed-rail, .ed-rail.steps-4 { grid-template-columns: repeat(2, 1fr); }
+  .ed-rail__step { border-bottom: 1px solid var(--so-border-light); }
+  .ed-rail__step:nth-child(2n) { border-right: none; }
+}
+
+/* ----- Closing why panel — image backdrop variant ----- */
+.ed-why {
+  position: relative;
+  border-radius: var(--so-radius-xl);
+  overflow: hidden;
+  padding: 64px 56px;
+  background: var(--so-gradient-subtle);
+  border: 1px solid var(--so-border-hairline);
+}
+.ed-why.on-photo {
+  background-color: #2A1D4A; /* fallback */
+  background-size: cover;
+  background-position: center;
+  border: none;
+  color: #fff;
+}
+.ed-why.on-photo::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(11,12,18,0.78), rgba(85,62,138,0.55));
+}
+.ed-why .ed-eyebrow { margin-bottom: 16px; }
+.ed-why p {
+  font-size: clamp(20px, 2.4vw, 28px);
+  font-weight: 300;
+  letter-spacing: -0.015em;
+  line-height: 1.4;
+  color: var(--so-text-primary);
+  max-width: 760px;
+  position: relative;
+}
+.ed-why.on-photo p { color: #fff; }
+.ed-why.on-photo .ed-eyebrow { color: rgba(255,255,255,0.85); }
+@media (max-width: 680px) {
+  .ed-why { padding: 40px 28px; }
+}
+
+/* ----- Section title used inside editorial layouts ----- */
+.ed-section-title {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 32px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--so-border-light);
+}
+.ed-section-title h3 {
+  font-size: clamp(24px, 3vw, 36px);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+  color: var(--so-text-primary);
+  max-width: 720px;
+}
+.ed-section-title .meta {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--so-text-tertiary);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+@media (max-width: 680px) {
+  .ed-section-title { flex-direction: column; gap: 8px; align-items: flex-start; }
+}
+
+/* ----- Pill row for deliverables (refined) ----- */
+.ed-pillrow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.ed-pillrow .pill-tag {
+  font-size: 12.5px;
+  padding: 7px 14px;
+}
+
+/* Detail back placement override for editorial heroes */
+.detail-view .detail-back.over-photo {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  z-index: 10;
+  padding: 0;
+  color: rgba(255,255,255,0.85);
+  background: rgba(11,12,18,0.45);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 8px 14px;
+  border-radius: 100px;
+  border: 1px solid rgba(255,255,255,0.18);
+  width: auto;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+}
+.detail-view .detail-back.over-photo:hover { background: rgba(11,12,18,0.65); }
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .ed-bento__cell { transition: none; }
+  .ed-trio__card { transition: none; }
+  .ed-numbered__row { transition: none; }
+  .ed-tile__bbox { animation: none; }
+}
+
+/* ================================================================
+   SHARE — "Send as link" button + share mode
+   ================================================================ */
+.share-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 36px;
+  padding: 0 14px;
+  border-radius: 100px;
+  border: 1px solid var(--so-border-light);
+  background: var(--so-bg-card);
+  color: var(--so-text-primary);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  cursor: pointer;
+  transition: all 0.2s var(--so-ease);
+  white-space: nowrap;
+}
+.share-action svg {
+  width: 14px; height: 14px;
+  opacity: 0.7;
+  transition: opacity 0.2s var(--so-ease);
+}
+.share-action:hover {
+  border-color: var(--so-border-medium);
+  background: var(--so-gradient-subtle);
+  color: var(--so-text-accent);
+}
+.share-action:hover svg { opacity: 1; }
+.share-action.is-success {
+  background: var(--so-gradient-vibrant);
+  border-color: transparent;
+  color: #fff;
+}
+.share-action.is-success svg { opacity: 1; }
+
+[data-theme="dark"] .share-action:hover {
+  background: rgba(132, 104, 192, 0.12);
+}
+
+@media (max-width: 540px) {
+  .share-action .label { display: none; }
+  .share-action { padding: 0 10px; }
+}
+
+/* Toast */
+.share-toast {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translate(-50%, 16px);
+  z-index: 1000;
+  background: var(--so-aluminum-900);
+  color: #fff;
+  padding: 12px 18px;
+  border-radius: 10px;
+  font-size: 13.5px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s var(--so-ease), transform 0.25s var(--so-ease);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.share-toast svg { width: 14px; height: 14px; }
+.share-toast.is-visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+  pointer-events: auto;
+}
+
+/* ----- Share confirmation modal ----- */
+.share-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+}
+.share-modal[hidden] { display: none; }
+.share-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(11,12,18,0.55);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  animation: shareModalFade 0.18s ease-out;
+}
+.share-modal__panel {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 92%;
+  max-width: 580px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: var(--so-bg-card);
+  color: var(--so-text-primary);
+  border-radius: 18px;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.28), 0 8px 24px rgba(0,0,0,0.10);
+  padding: 36px 36px 24px;
+  animation: shareModalIn 0.25s cubic-bezier(0.16,1,0.3,1);
+}
+@keyframes shareModalIn {
+  from { opacity: 0; transform: translate(-50%, -46%); }
+  to   { opacity: 1; transform: translate(-50%, -50%); }
+}
+@keyframes shareModalFade { from { opacity: 0; } to { opacity: 1; } }
+
+[data-theme="dark"] .share-modal__panel { background: #1E2030; }
+
+.share-modal__close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 32px;
+  height: 32px;
+  border: 0;
+  background: transparent;
+  border-radius: 8px;
+  color: var(--so-text-tertiary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s var(--so-ease);
+}
+.share-modal__close:hover {
+  background: var(--so-bg-inset);
+  color: var(--so-text-primary);
+}
+
+.share-modal__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--so-text-accent);
+  margin-bottom: 14px;
+}
+.share-modal__eyebrow svg { width: 14px; height: 14px; opacity: 0.8; }
+.share-modal__eyebrow .scope-tag {
+  margin-left: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  background: var(--so-gradient-subtle);
+  color: var(--so-text-accent);
+  padding: 3px 8px;
+  border-radius: 100px;
+}
+[data-theme="dark"] .share-modal__eyebrow .scope-tag { background: rgba(132,104,192,0.16); }
+
+.share-modal__title {
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.18;
+  color: var(--so-text-primary);
+  margin-bottom: 12px;
+}
+
+.share-modal__lede {
+  font-size: 14.5px;
+  color: var(--so-text-secondary);
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.share-modal__scope {
+  padding: 18px 20px;
+  background: var(--so-bg-inset);
+  border: 1px solid var(--so-border-hairline);
+  border-radius: 12px;
+  margin-bottom: 18px;
+}
+[data-theme="dark"] .share-modal__scope { background: #252836; }
+
+.share-modal__scope-label {
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--so-text-tertiary);
+  margin-bottom: 12px;
+}
+
+.share-modal__tree { display: flex; flex-direction: column; gap: 8px; }
+
+.share-modal__tree-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13.5px;
+  line-height: 1.4;
+  color: var(--so-text-primary);
+}
+.share-modal__tree-item .marker {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--so-aluminum-300);
+  flex-shrink: 0;
+}
+.share-modal__tree-item .num {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--so-text-tertiary);
+  width: 20px;
+  flex-shrink: 0;
+}
+.share-modal__tree-item.is-root {
+  font-weight: 600;
+  color: var(--so-text-primary);
+}
+.share-modal__tree-item.is-root .marker {
+  width: 9px;
+  height: 9px;
+  background: var(--so-gradient-vibrant);
+  box-shadow: 0 0 0 4px rgba(132,104,192,0.18);
+}
+.share-modal__tree-item.is-root .root-tag {
+  margin-left: 6px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--so-text-tertiary);
+  letter-spacing: 0;
+  text-transform: none;
+}
+.share-modal__tree-item.is-locked {
+  color: var(--so-text-tertiary);
+  text-decoration: line-through;
+}
+.share-modal__tree-item.is-locked .marker {
+  background: transparent;
+  border: 1px solid var(--so-aluminum-300);
+}
+
+.share-modal__tree-children {
+  margin-top: 8px;
+  margin-left: 4px;
+  padding-left: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-left: 1px solid var(--so-border-light);
+}
+.share-modal__tree-empty {
+  font-size: 12.5px;
+  color: var(--so-text-tertiary);
+  font-style: italic;
+  margin-top: 6px;
+  padding-left: 18px;
+}
+.share-modal__tree-divider {
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--so-text-tertiary);
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--so-border-light);
+}
+
+.share-modal__url-block {
+  padding: 14px 16px;
+  background: var(--so-bg-card);
+  border: 1px solid var(--so-border-light);
+  border-radius: 10px;
+  margin-bottom: 22px;
+}
+[data-theme="dark"] .share-modal__url-block { background: #151722; }
+
+.share-modal__url-label {
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--so-text-tertiary);
+  margin-bottom: 6px;
+}
+.share-modal__url {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12px;
+  color: var(--so-text-primary);
+  word-break: break-all;
+  line-height: 1.55;
+  user-select: all;
+  -webkit-user-select: all;
+}
+
+.share-modal__actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.share-modal__actions-right { display: flex; gap: 10px; }
+
+.share-modal__preview-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  color: var(--so-text-accent);
+  text-decoration: none;
+  font-weight: 500;
+}
+.share-modal__preview-link:hover { text-decoration: underline; }
+.share-modal__preview-link svg { width: 12px; height: 12px; }
+
+.share-modal__btn {
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  padding: 10px 18px;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: all 0.18s var(--so-ease);
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+.share-modal__btn--ghost {
+  background: transparent;
+  color: var(--so-text-secondary);
+  border-color: var(--so-border-light);
+}
+.share-modal__btn--ghost:hover {
+  background: var(--so-bg-inset);
+  color: var(--so-text-primary);
+}
+.share-modal__btn--primary {
+  background: var(--so-gradient-vibrant);
+  color: #fff;
+}
+.share-modal__btn--primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(132,104,192,0.30);
+}
+.share-modal__btn--primary.is-success {
+  background: #2A7BC8;
+}
+.share-modal__btn--primary svg {
+  width: 14px;
+  height: 14px;
+  margin-left: 4px;
+  vertical-align: -2px;
+}
+
+.share-modal__btn--download {
+  background: transparent;
+  color: var(--so-text-secondary);
+  border-color: var(--so-border-light);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.share-modal__btn--download:hover {
+  background: var(--so-bg-inset);
+  color: var(--so-text-primary);
+}
+[data-theme="dark"] .share-modal__btn--download {
+  border-color: rgba(255,255,255,0.10);
+}
+[data-theme="dark"] .share-modal__btn--download:hover {
+  background: var(--so-aluminum-800);
+  color: var(--so-aluminum-100);
+}
+.share-modal__btn--download svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+.share-modal__btn--download.is-success {
+  color: var(--so-azure-500);
+  border-color: var(--so-azure-500);
+}
+
+@media (max-width: 540px) {
+  .share-modal__panel { padding: 28px 22px 20px; }
+  .share-modal__actions { flex-direction: column-reverse; align-items: stretch; }
+  .share-modal__actions-right { display: flex; justify-content: stretch; }
+  .share-modal__actions-right .share-modal__btn { flex: 1; text-align: center; }
+}
+
+/* Lock body scroll while modal is open */
+body.modal-open { overflow: hidden; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 720px) {
+
+  
+}
+@media (max-width: 540px) {
+
+
+  
+}
+
+
+
+/* Share mode — strips chrome for customer-facing standalone view */
+body.share-mode .hub-nav     { display: none !important; }
+body.share-mode .share-action { display: none !important; }
+
+/* Service-line shares are locked to that single page (no back/up nav).
+   Hub shares retain the .detail-back link so customers can move between
+   landing and sub-pages within the shared scope. */
+body.share-mode:not([data-share="hub"]) .detail-back { display: none !important; }
+
+/* Push content down a bit since nav is gone */
+body.share-mode .landing { padding-top: 16px; }
+body.share-mode .ed-hero-cinema__content { padding-top: 80px; }
+
+/* ================================================================
+   UX TREATMENTS — first-class representations of design work itself
+   (component grids, screen mockups, flows, journey maps, tokens)
+   ================================================================ */
+
+/* Shared visual language for ux-* blocks */
+.ux-block {
+  background: var(--so-bg-card);
+  border: 1px solid var(--so-border-hairline);
+  border-radius: var(--so-radius-xl);
+  padding: 40px;
+  box-shadow: var(--so-shadow-card);
+}
+.ux-block + .ux-block { margin-top: 24px; }
+
+/* ---------- COMPONENT GRID ---------- */
+.ux-component-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.ux-component-grid .ux-card {
+  background: var(--so-bg-card);
+  border: 1px solid var(--so-border-hairline);
+  border-radius: var(--so-radius-lg);
+  padding: 18px 18px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-height: 168px;
+  transition: transform 0.25s var(--so-ease-out), box-shadow 0.25s var(--so-ease-out), border-color 0.25s var(--so-ease-out);
+  position: relative;
+}
+.ux-component-grid .ux-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--so-shadow-lg);
+  border-color: var(--so-lavender-300);
+}
+.ux-component-grid .ux-card.is-wide { grid-column: span 2; }
+.ux-component-grid .ux-card.is-tall { grid-row: span 2; }
+.ux-card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.ux-card__label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-weight: 600;
+  color: var(--so-text-tertiary);
+}
+.ux-card__state {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: var(--so-lavender-50);
+  color: var(--so-lavender-600);
+  letter-spacing: 0.04em;
+}
+.ux-card__body {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 0 2px;
+}
+.ux-card__caption {
+  font-size: 12px;
+  color: var(--so-text-secondary);
+  line-height: 1.4;
+}
+@media (max-width: 900px) {
+  .ux-component-grid { grid-template-columns: repeat(2, 1fr); }
+  .ux-component-grid .ux-card.is-wide { grid-column: span 2; }
+}
+@media (max-width: 540px) {
+  .ux-component-grid { grid-template-columns: 1fr; }
+  .ux-component-grid .ux-card.is-wide { grid-column: span 1; }
+}
+
+/* Button system inside a ux-card */
+.ux-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-family: var(--so-font);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  letter-spacing: -0.005em;
+  transition: all 0.2s var(--so-ease);
+}
+.ux-btn.is-primary { background: var(--so-gradient-vibrant); color: #fff; }
+.ux-btn.is-primary:hover { filter: brightness(1.05); }
+.ux-btn.is-secondary { background: var(--so-bg-card); color: var(--so-text-primary); border-color: var(--so-border-medium); }
+.ux-btn.is-ghost     { background: transparent; color: var(--so-lavender-600); }
+.ux-btn.is-disabled  { background: var(--so-aluminum-150); color: var(--so-aluminum-400); cursor: not-allowed; }
+.ux-btn-row { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
+
+/* Severity badges */
+.ux-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+  letter-spacing: 0.01em;
+}
+.ux-badge::before {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.ux-badge.is-critical { background: #FDECEC; color: #B6253A; }
+.ux-badge.is-warn     { background: #FFF4E0; color: #A05A06; }
+.ux-badge.is-info     { background: var(--so-azure-100); color: var(--so-azure-600); }
+.ux-badge-row { display: flex; flex-direction: column; gap: 6px; align-items: center; }
+
+/* Mini patient summary card */
+.ux-mini-patient {
+  width: 100%;
+  background: var(--so-bg-inset);
+  border-radius: 10px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.ux-mini-patient__avatar {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--so-gradient);
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  flex-shrink: 0;
+}
+.ux-mini-patient__meta { flex: 1; min-width: 0; }
+.ux-mini-patient__name {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--so-text-primary);
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ux-mini-patient__sub {
+  font-size: 10px;
+  color: var(--so-text-tertiary);
+  margin-top: 2px;
+  font-feature-settings: "tnum" 1;
+}
+
+/* Sparkline + vitals */
+.ux-vitals { width: 100%; display: flex; flex-direction: column; gap: 6px; align-items: center; }
+.ux-vitals__big {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--so-text-primary);
+  font-feature-settings: "tnum" 1;
+}
+.ux-vitals__big .unit { font-size: 11px; font-weight: 500; color: var(--so-text-tertiary); margin-left: 4px; }
+.ux-spark { display: block; width: 100%; height: 36px; }
+
+/* Medication list row */
+.ux-med-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: var(--so-bg-inset);
+  font-size: 11px;
+  color: var(--so-text-primary);
+}
+.ux-med-row + .ux-med-row { margin-top: 6px; }
+.ux-med-row__name { font-weight: 600; }
+.ux-med-row__dose { color: var(--so-text-tertiary); }
+.ux-med-row__pill {
+  font-size: 9px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 999px;
+  background: var(--so-lavender-100);
+  color: var(--so-lavender-600);
+  letter-spacing: 0.04em;
+}
+
+/* Care-timeline pill */
+.ux-timeline {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.ux-timeline__node {
+  flex: 1;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--so-aluminum-150);
+}
+.ux-timeline__node.is-done   { background: var(--so-lavender-500); }
+.ux-timeline__node.is-active { background: var(--so-azure-400); position: relative; box-shadow: 0 0 0 3px rgba(74,150,219,0.18); }
+
+/* Quick-actions toolbar */
+.ux-toolbar {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+  background: var(--so-bg-inset);
+  padding: 4px;
+  border-radius: 10px;
+}
+.ux-toolbar__btn {
+  display: grid;
+  place-items: center;
+  height: 32px;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--so-text-secondary);
+  font-size: 10px;
+  font-weight: 600;
+}
+.ux-toolbar__btn.is-active { background: var(--so-bg-card); color: var(--so-lavender-600); box-shadow: var(--so-shadow-card); }
+
+/* Tab nav bar */
+.ux-tabs {
+  width: 100%;
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--so-border-hairline);
+}
+.ux-tab {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 8px 12px;
+  color: var(--so-text-tertiary);
+  position: relative;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+}
+.ux-tab.is-active { color: var(--so-text-primary); border-bottom-color: var(--so-lavender-500); }
+
+/* Decision-support callout */
+.ux-cds {
+  width: 100%;
+  border-left: 3px solid var(--so-azure-500);
+  background: var(--so-azure-100);
+  padding: 10px 12px;
+  border-radius: 4px 8px 8px 4px;
+}
+.ux-cds__title { font-size: 11px; font-weight: 700; color: var(--so-azure-600); margin-bottom: 4px; letter-spacing: 0.01em; }
+.ux-cds__body  { font-size: 11px; color: var(--so-text-primary); line-height: 1.4; }
+
+/* Input field */
+.ux-input {
+  width: 100%;
+  height: 36px;
+  background: var(--so-bg-card);
+  border: 1px solid var(--so-border-medium);
+  border-radius: 8px;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  color: var(--so-text-secondary);
+}
+.ux-input.is-focus { border-color: var(--so-lavender-500); box-shadow: 0 0 0 3px rgba(132,104,192,0.18); color: var(--so-text-primary); }
+.ux-input .cursor { display: inline-block; width: 1px; height: 14px; background: var(--so-lavender-500); margin-left: 1px; animation: ux-blink 1.1s steps(2) infinite; }
+@keyframes ux-blink { 50% { opacity: 0; } }
+
+/* Ticket-stub card */
+.ux-ticket {
+  width: 100%;
+  background: var(--so-bg-card);
+  border: 1px solid var(--so-border-hairline);
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+}
+.ux-ticket::before, .ux-ticket::after {
+  content: '';
+  position: absolute;
+  top: 56%;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--so-bg-card);
+  border: 1px solid var(--so-border-hairline);
+}
+.ux-ticket::before { left: -6px; }
+.ux-ticket::after  { right: -6px; }
+.ux-ticket__top { padding: 10px 12px; background: var(--so-gradient); color: #fff; }
+.ux-ticket__zone { font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.85; }
+.ux-ticket__big  { font-size: 16px; font-weight: 700; letter-spacing: -0.01em; }
+.ux-ticket__body { padding: 8px 12px 10px; font-size: 10px; color: var(--so-text-secondary); display: flex; justify-content: space-between; }
+
+/* Payment method picker */
+.ux-pay {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.ux-pay__row {
+  display: flex; align-items: center; gap: 8px;
+  padding: 7px 9px;
+  border-radius: 8px;
+  border: 1px solid var(--so-border-hairline);
+  font-size: 11px;
+  color: var(--so-text-primary);
+}
+.ux-pay__row.is-selected { border-color: var(--so-lavender-500); background: var(--so-lavender-50); }
+.ux-pay__chip { width: 22px; height: 14px; border-radius: 3px; background: var(--so-aluminum-300); }
+.ux-pay__chip.is-visa { background: linear-gradient(135deg, #1a1f71, #4b5fc1); }
+.ux-pay__chip.is-mc   { background: linear-gradient(135deg, #eb001b, #f79e1b); }
+.ux-pay__chip.is-amex { background: linear-gradient(135deg, #006fcf, #2e8fd7); }
+.ux-pay__dot { width: 12px; height: 12px; border-radius: 50%; border: 1.5px solid var(--so-aluminum-300); margin-left: auto; }
+.ux-pay__row.is-selected .ux-pay__dot { border-color: var(--so-lavender-500); background: var(--so-lavender-500); box-shadow: inset 0 0 0 2px #fff; }
+
+/* Status pill set */
+.ux-statpills { display: flex; flex-direction: column; gap: 5px; width: 100%; }
+.ux-statpill { display: inline-flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 600; padding: 4px 9px; border-radius: 999px; }
+.ux-statpill::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+.ux-statpill.is-active   { background: #E6F4EC; color: #1A7F4B; }
+.ux-statpill.is-expiring { background: #FFF4E0; color: #A05A06; }
+.ux-statpill.is-expired  { background: var(--so-aluminum-150); color: var(--so-aluminum-600); }
+
+/* ---------- SCREEN STACK ---------- */
+.ux-screen-stack {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  perspective: 1600px;
+  padding: 24px 0 32px;
+}
+.ux-screen-stack .ux-screen {
+  background: var(--so-bg-card);
+  border: 1px solid var(--so-border-hairline);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: var(--so-shadow-lg);
+  transform: rotateY(-9deg) rotateX(4deg);
+  transform-origin: center;
+  transition: transform 0.5s var(--so-ease-out);
+}
+.ux-screen-stack .ux-screen:nth-child(2) { transform: rotateY(0deg) rotateX(2deg) translateY(-12px); z-index: 2; }
+.ux-screen-stack .ux-screen:nth-child(3) { transform: rotateY(9deg) rotateX(4deg); }
+.ux-screen-stack .ux-screen:hover { transform: rotateY(0deg) rotateX(0deg) translateY(-16px) scale(1.02); z-index: 5; }
+.ux-screen__chrome {
+  display: flex; align-items: center; gap: 5px;
+  padding: 8px 10px;
+  background: var(--so-aluminum-100);
+  border-bottom: 1px solid var(--so-border-hairline);
+}
+.ux-screen__dot { width: 8px; height: 8px; border-radius: 50%; background: var(--so-aluminum-300); }
+.ux-screen__chrome span:last-child { margin-left: auto; font-size: 10px; color: var(--so-text-tertiary); }
+.ux-screen__body { padding: 14px; min-height: 220px; }
+.ux-screen__eyebrow { font-size: 10px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--so-lavender-600); font-weight: 700; margin-bottom: 4px; }
+.ux-screen__title { font-size: 14px; font-weight: 700; color: var(--so-text-primary); margin-bottom: 10px; letter-spacing: -0.01em; }
+.ux-screen__bar { height: 6px; border-radius: 3px; background: var(--so-aluminum-150); margin: 4px 0; }
+.ux-screen__bar.is-accent { background: var(--so-gradient); width: 60%; }
+.ux-screen__bar.is-mid { width: 80%; }
+.ux-screen__caption {
+  text-align: center;
+  margin-top: 12px;
+  font-size: 11px;
+  color: var(--so-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+}
+@media (max-width: 900px) {
+  .ux-screen-stack { grid-template-columns: 1fr; }
+  .ux-screen-stack .ux-screen,
+  .ux-screen-stack .ux-screen:nth-child(2),
+  .ux-screen-stack .ux-screen:nth-child(3) { transform: none; }
+}
+
+/* ---------- FLOW (mini-screens + arrows) ---------- */
+.ux-flow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding: 8px 0 16px;
+}
+.ux-flow .ux-phone {
+  flex: 0 0 168px;
+  height: 312px;
+  background: var(--so-bg-card);
+  border: 1px solid var(--so-border-medium);
+  border-radius: 22px;
+  padding: 10px 9px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+  box-shadow: var(--so-shadow-md);
+  transition: transform 0.3s var(--so-ease-out), box-shadow 0.3s var(--so-ease-out);
+}
+.ux-flow .ux-phone:hover { transform: translateY(-4px); box-shadow: var(--so-shadow-lg); }
+.ux-phone__notch {
+  width: 38px; height: 5px; border-radius: 3px;
+  background: var(--so-aluminum-300);
+  margin: -2px auto 4px;
+}
+.ux-phone__status {
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 8px; font-weight: 700; color: var(--so-text-tertiary);
+  padding: 0 4px;
+}
+.ux-phone__status .dots { display: flex; gap: 2px; }
+.ux-phone__status .dots span { width: 3px; height: 3px; border-radius: 50%; background: var(--so-text-tertiary); }
+.ux-phone__header {
+  font-size: 11px; font-weight: 700;
+  color: var(--so-text-primary);
+  letter-spacing: -0.01em;
+  padding: 0 4px;
+}
+.ux-phone__sub {
+  font-size: 9px;
+  color: var(--so-text-tertiary);
+  padding: 0 4px;
+  margin-top: -4px;
+}
+.ux-phone__content {
+  flex: 1;
+  background: var(--so-bg-inset);
+  border-radius: 12px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.ux-phone__bar { height: 5px; border-radius: 3px; background: var(--so-aluminum-200); }
+.ux-phone__bar.is-fill { background: var(--so-gradient); width: 70%; }
+.ux-phone__bar.is-mid { width: 85%; }
+.ux-phone__chip {
+  font-size: 8px; font-weight: 700;
+  padding: 3px 7px;
+  border-radius: 999px;
+  background: var(--so-lavender-100);
+  color: var(--so-lavender-600);
+  align-self: flex-start;
+  letter-spacing: 0.04em;
+}
+.ux-phone__big {
+  font-size: 18px; font-weight: 800;
+  color: var(--so-text-primary);
+  letter-spacing: -0.02em;
+  font-feature-settings: "tnum" 1;
+}
+.ux-phone__cta {
+  background: var(--so-gradient-vibrant);
+  color: #fff;
+  border-radius: 8px;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 8px;
+  text-align: center;
+  letter-spacing: 0.02em;
+}
+.ux-phone__map {
+  background:
+    radial-gradient(circle at 30% 35%, var(--so-azure-200) 0 12%, transparent 13%),
+    radial-gradient(circle at 70% 60%, var(--so-lavender-200) 0 10%, transparent 11%),
+    linear-gradient(135deg, var(--so-aluminum-100), var(--so-aluminum-150));
+  flex: 1;
+  border-radius: 8px;
+  position: relative;
+}
+.ux-phone__map::after {
+  content: '';
+  position: absolute;
+  left: 48%; top: 42%;
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: var(--so-lavender-600);
+  box-shadow: 0 0 0 6px rgba(107,79,168,0.18), 0 0 0 12px rgba(107,79,168,0.08);
+}
+.ux-phone__check {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: var(--so-gradient-vibrant);
+  display: grid; place-items: center;
+  margin: 8px auto 4px;
+  color: #fff;
+  font-size: 22px;
+  font-weight: 700;
+}
+.ux-phone__label {
+  font-size: 9px;
+  color: var(--so-text-tertiary);
+  padding: 0 4px;
+  font-weight: 600;
+}
+.ux-flow__arrow {
+  flex: 0 0 36px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  color: var(--so-lavender-500);
+}
+.ux-flow__arrow svg { width: 36px; height: 24px; }
+.ux-flow__arrow svg path { stroke-dasharray: 90; stroke-dashoffset: 90; }
+.scroll-reveal.revealed .ux-flow__arrow svg path {
+  animation: ux-draw 0.9s var(--so-ease-out) forwards;
+}
+.scroll-reveal.revealed .ux-flow__arrow:nth-of-type(1) svg path { animation-delay: 0.35s; }
+.scroll-reveal.revealed .ux-flow__arrow:nth-of-type(2) svg path { animation-delay: 0.50s; }
+.scroll-reveal.revealed .ux-flow__arrow:nth-of-type(3) svg path { animation-delay: 0.65s; }
+.scroll-reveal.revealed .ux-flow__arrow:nth-of-type(4) svg path { animation-delay: 0.80s; }
+@keyframes ux-draw { to { stroke-dashoffset: 0; } }
+
+/* Flow scroll on mobile */
+@media (max-width: 900px) {
+  .ux-flow { overflow-x: auto; padding-bottom: 24px; }
+}
+
+/* ---------- JOURNEY MAP ---------- */
+.ux-journey {
+  display: grid;
+  grid-template-columns: 140px repeat(5, 1fr);
+  gap: 0;
+  border: 1px solid var(--so-border-hairline);
+  border-radius: var(--so-radius-lg);
+  overflow: hidden;
+  background: var(--so-bg-card);
+}
+.ux-journey__cell {
+  padding: 14px 14px;
+  border-right: 1px solid var(--so-border-hairline);
+  border-bottom: 1px solid var(--so-border-hairline);
+  font-size: 12px;
+  color: var(--so-text-primary);
+  line-height: 1.4;
+  transition: background 0.25s var(--so-ease-out);
+}
+.ux-journey__cell:last-child { border-right: 0; }
+.ux-journey__row:last-child .ux-journey__cell { border-bottom: 0; }
+.ux-journey__rowlabel {
+  background: var(--so-bg-inset);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--so-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  display: flex;
+  align-items: center;
+}
+.ux-journey__phase {
+  background: var(--so-aluminum-100);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--so-text-primary);
+}
+.ux-journey__phase .num {
+  display: inline-block;
+  background: var(--so-gradient-vibrant);
+  color: #fff;
+  font-size: 9px;
+  padding: 2px 6px;
+  border-radius: 999px;
+  margin-right: 6px;
+  letter-spacing: 0.06em;
+}
+/* Row groups behave as grid lines via display:contents */
+.ux-journey__head, .ux-journey__row { display: contents; }
+/* Phase column hover via :has() — brightens the whole column on phase-cell hover */
+.ux-journey__phase:hover { background: var(--so-lavender-100); cursor: default; }
+.ux-mood {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--so-text-primary);
+  margin-top: 4px;
+}
+.ux-mood__dot {
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  display: grid; place-items: center;
+  font-size: 9px;
+  color: #fff;
+  font-weight: 700;
+}
+.ux-mood__dot.is-neg  { background: #B6253A; }
+.ux-mood__dot.is-meh  { background: #A05A06; }
+.ux-mood__dot.is-ok   { background: var(--so-azure-500); }
+.ux-mood__dot.is-pos  { background: #1A7F4B; }
+.ux-opp {
+  font-size: 11px;
+  background: var(--so-lavender-50);
+  border-radius: 6px;
+  padding: 6px 8px;
+  color: var(--so-lavender-700);
+  font-weight: 600;
+  line-height: 1.35;
+}
+@media (max-width: 900px) {
+  .ux-journey { grid-template-columns: 1fr; }
+  .ux-journey__rowlabel, .ux-journey__phase { display: block; }
+}
+
+/* ---------- DESIGN TOKENS ---------- */
+.ux-tokens {
+  display: grid;
+  grid-template-columns: 1.1fr 1.2fr 1fr;
+  gap: 28px;
+}
+.ux-token-block h5 {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--so-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  margin-bottom: 14px;
+}
+.ux-swatches { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+.ux-swatch {
+  display: flex; flex-direction: column;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--so-border-hairline);
+}
+.ux-swatch__chip { aspect-ratio: 1; }
+.ux-swatch__label {
+  font-size: 9px;
+  padding: 6px 6px 4px;
+  color: var(--so-text-primary);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+.ux-swatch__hex {
+  font-size: 9px;
+  padding: 0 6px 6px;
+  color: var(--so-text-tertiary);
+  font-feature-settings: "tnum" 1;
+  letter-spacing: 0.02em;
+}
+.ux-type {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.ux-type__row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px dashed var(--so-border-hairline);
+}
+.ux-type__row:last-child { border-bottom: 0; }
+.ux-type__sample { color: var(--so-text-primary); letter-spacing: -0.02em; line-height: 1.05; }
+.ux-type__meta {
+  font-size: 9px;
+  color: var(--so-text-tertiary);
+  text-align: right;
+  font-feature-settings: "tnum" 1;
+  flex-shrink: 0;
+  letter-spacing: 0.04em;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.ux-spacing {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.ux-spacing__row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+}
+.ux-spacing__bar {
+  background: var(--so-gradient);
+  height: 12px;
+  border-radius: 3px;
+}
+.ux-spacing__label { color: var(--so-text-primary); font-weight: 600; font-feature-settings: "tnum" 1; }
+.ux-spacing__token { color: var(--so-text-tertiary); font-size: 10px; margin-left: auto; }
+@media (max-width: 900px) {
+  .ux-tokens { grid-template-columns: 1fr; gap: 32px; }
+}
+
+/* ---------- COMPARE (before / after) ---------- */
+.ux-compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  position: relative;
+}
+.ux-compare::before {
+  content: '';
+  position: absolute;
+  left: 50%; top: 24px; bottom: 24px;
+  width: 1px;
+  background: var(--so-border-hairline);
+  transform: translateX(-0.5px);
+}
+.ux-compare__col {
+  padding: 12px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.ux-compare__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--so-text-secondary);
+}
+.ux-compare__label::before {
+  content: '';
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--so-aluminum-400);
+}
+.ux-compare__col.is-after .ux-compare__label { color: var(--so-lavender-700); }
+.ux-compare__col.is-after .ux-compare__label::before { background: var(--so-gradient-vibrant); }
+.ux-compare__row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.ux-compare__mini {
+  border: 1px solid var(--so-border-hairline);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--so-bg-card);
+}
+.ux-compare__mini-head { padding: 6px 8px; font-size: 9px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #fff; }
+.ux-compare__mini-body { padding: 8px; display: flex; flex-direction: column; gap: 4px; min-height: 88px; }
+.ux-compare__mini-body .b { height: 4px; border-radius: 2px; background: var(--so-aluminum-150); }
+.ux-compare__mini-body .b.w-60 { width: 60%; }
+.ux-compare__mini-body .b.w-80 { width: 80%; }
+.ux-compare__mini-body .btn {
+  margin-top: auto;
+  height: 14px;
+  border-radius: 4px;
+}
+/* "Before" — inconsistent, ugly schemes */
+.ux-compare__mini.before-1 .ux-compare__mini-head { background: #B85C2B; }
+.ux-compare__mini.before-1 .btn { background: #D9853D; }
+.ux-compare__mini.before-2 .ux-compare__mini-head { background: #487048; }
+.ux-compare__mini.before-2 .btn { background: #6BA66B; }
+.ux-compare__mini.before-3 .ux-compare__mini-head { background: #4F2A6E; }
+.ux-compare__mini.before-3 .btn { background: #7B4FA8; }
+/* "After" — unified */
+.ux-compare__mini.after-1 .ux-compare__mini-head { background: var(--so-lavender-600); }
+.ux-compare__mini.after-1 .btn { background: var(--so-lavender-500); }
+.ux-compare__mini.after-2 .ux-compare__mini-head { background: var(--so-azure-500); }
+.ux-compare__mini.after-2 .btn { background: var(--so-azure-400); }
+.ux-compare__mini.after-3 .ux-compare__mini-head { background: #2A8C8A; }
+.ux-compare__mini.after-3 .btn { background: #4FB5B3; }
+.ux-compare__note {
+  font-size: 12px;
+  color: var(--so-text-secondary);
+  line-height: 1.4;
+  padding: 0 4px;
+}
+@media (max-width: 720px) {
+  .ux-compare { grid-template-columns: 1fr; }
+  .ux-compare::before { display: none; }
+}
+
+/* ---------- PERSONA CARDS ---------- */
+.ux-persona-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.ux-persona-card {
+  background: var(--so-bg-card);
+  border: 1px solid var(--so-border-hairline);
+  border-radius: var(--so-radius-lg);
+  padding: 22px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: transform 0.3s var(--so-ease-out), box-shadow 0.3s var(--so-ease-out);
+}
+.ux-persona-card:hover { transform: translateY(-3px); box-shadow: var(--so-shadow-lg); }
+.ux-persona-card__avatar {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  display: grid; place-items: center;
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.01em;
+}
+.ux-persona-card__avatar.tint-1 { background: linear-gradient(135deg, var(--so-lavender-400), var(--so-lavender-600)); }
+.ux-persona-card__avatar.tint-2 { background: linear-gradient(135deg, var(--so-azure-400), var(--so-azure-600)); }
+.ux-persona-card__avatar.tint-3 { background: linear-gradient(135deg, #4FB5B3, #1F7C7B); }
+.ux-persona-card__avatar.tint-4 { background: linear-gradient(135deg, #C97A45, #8A4621); }
+.ux-persona-card__name { font-size: 16px; font-weight: 700; letter-spacing: -0.01em; color: var(--so-text-primary); }
+.ux-persona-card__role { font-size: 11px; color: var(--so-text-tertiary); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; margin-top: -8px; }
+.ux-persona-card__quote {
+  font-size: 13px;
+  color: var(--so-text-secondary);
+  font-style: italic;
+  line-height: 1.5;
+  border-left: 2px solid var(--so-lavender-300);
+  padding-left: 10px;
+}
+.ux-persona-card__traits { display: flex; flex-wrap: wrap; gap: 5px; margin-top: auto; }
+.ux-trait {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: var(--so-aluminum-100);
+  color: var(--so-text-secondary);
+  letter-spacing: 0.02em;
+}
+@media (max-width: 900px) { .ux-persona-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 540px) { .ux-persona-grid { grid-template-columns: 1fr; } }
+
+/* ---------- DUAL FLOW (before/after process rhythm) ---------- */
+.ux-dualflow {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+.ux-dualflow__row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  position: relative;
+}
+.ux-dualflow__title {
+  flex: 0 0 130px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--so-text-secondary);
+}
+.ux-dualflow__row.is-new .ux-dualflow__title { color: var(--so-lavender-700); }
+.ux-node {
+  flex: 1;
+  background: var(--so-bg-card);
+  border: 1px solid var(--so-border-medium);
+  border-radius: 10px;
+  padding: 12px 10px;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--so-text-secondary);
+  position: relative;
+  line-height: 1.25;
+}
+.ux-node small { display: block; font-size: 9px; font-weight: 600; color: var(--so-text-tertiary); margin-top: 3px; letter-spacing: 0.04em; text-transform: uppercase; }
+.ux-dualflow__row.is-old .ux-node { background: var(--so-aluminum-100); color: var(--so-text-tertiary); border-color: var(--so-border-hairline); }
+.ux-dualflow__row.is-old .ux-node small { color: var(--so-aluminum-400); }
+.ux-dualflow__row.is-new .ux-node {
+  background: var(--so-bg-card);
+  border-color: var(--so-lavender-300);
+  color: var(--so-text-primary);
+  box-shadow: 0 2px 8px rgba(132,104,192,0.08);
+}
+.ux-dualflow__row.is-new .ux-node small { color: var(--so-lavender-600); }
+.ux-arrow {
+  flex: 0 0 22px;
+  display: grid; place-items: center;
+  color: var(--so-aluminum-400);
+}
+.ux-dualflow__row.is-new .ux-arrow { color: var(--so-lavender-500); }
+.ux-arrow svg { width: 22px; height: 14px; }
+.ux-dualflow__label {
+  text-align: center;
+  font-size: 11px;
+  color: var(--so-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+  margin-top: 4px;
+}
+@media (max-width: 900px) {
+  .ux-dualflow__row { flex-wrap: wrap; }
+  .ux-dualflow__title { flex: 0 0 100%; margin-bottom: 4px; }
+  .ux-node { flex: 1 1 30%; }
+}
+
+</style>
+  <link rel="stylesheet" href="../../assets/css/so-nav.css">
+</head>
+<body>
+
+<!-- UNIFIED NAV -->
+<nav class="so-nav">
+  <div class="so-nav__inner">
+    <a class="so-nav__brand" href="../../src/index.html#competency-ticker" aria-label="Experis home">
+      <span class="so-nav__logo"><img src="../../assets/logos/EXP_Bug_RGB_BLUE.svg" alt="Experis"></span>
+    </a>
+    <div class="so-nav__crumbs" id="navCrumbs">
+      <a class="so-nav__crumb" href="../../src/index.html#competency-ticker">Hub</a>
+      <span class="so-nav__crumb-sep">/</span>
+      <a class="so-nav__crumb so-nav__crumb--current" id="crumbPage">Case Studies</a>
+    </div>
+    <div class="so-nav__actions">
+      <button class="so-nav__share" id="shareBtn" type="button" aria-label="Send page as link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.5 1.5"/>
+          <path d="M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.5-1.5"/>
+        </svg>
+        <span class="label">Send as link</span>
+      </button>
+      <button class="so-nav__theme" id="themeToggle" type="button" aria-label="Toggle theme">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:none" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ============================================================
+     LANDING — Editorial splash, single 5-card rail
+     ============================================================ -->
+<section class="landing" id="landing">
+  <div class="landing-hero">
+    <div class="landing-hero__primary">
+      <div class="eyebrow">Experis Digital Services</div>
+      <h1>Quick-look<br/>case <em>studies.</em></h1>
+    </div>
+    <div class="landing-hero__secondary">
+      <p>Five engagements, end-to-end. Research-led, design-shipped. Each one a complete one-page story of how we turned signal into outcome.</p>
+      <div class="landing-pips">
+        <span class="landing-pips__count">Five case studies</span>
+        <span class="landing-pips__line"></span>
+        <span class="landing-pips__dots"><span></span><span></span><span></span><span></span><span></span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Single 5-card rail — no wrapping -->
+  <div class="service-rail" id="serviceRail">
+    <div class="service-card scroll-reveal" data-service="healthcare">
+      <span class="card-watermark">01</span>
+      <div class="card-meta">
+        <span class="card-num">01</span>
+        <span class="card-divider"></span>
+        <span class="card-of">of 05</span>
+      </div>
+      <div class="card-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"/><path d="M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4"/><circle cx="20" cy="10" r="2"/></svg>
+      </div>
+      <h3>Healthcare EHR<br/>Dashboard</h3>
+      <p class="tagline">EHR redesign that cut documentation time and gave clinicians their day back.</p>
+      <div class="card-bottom">
+        <span class="card-cta">
+          Open
+          <svg viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </div>
+    </div>
+
+    <div class="service-card scroll-reveal" data-service="passport">
+      <span class="card-watermark">02</span>
+      <div class="card-meta">
+        <span class="card-num">02</span>
+        <span class="card-divider"></span>
+        <span class="card-of">of 05</span>
+      </div>
+      <div class="card-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      </div>
+      <h3>Passport Parking<br/>App Integration</h3>
+      <p class="tagline">One mobile app. Multiple city brands. Zero UX seams between them.</p>
+      <div class="card-bottom">
+        <span class="card-cta">
+          Open
+          <svg viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </div>
+    </div>
+
+    <div class="service-card scroll-reveal" data-service="carmax">
+      <span class="card-watermark">03</span>
+      <div class="card-meta">
+        <span class="card-num">03</span>
+        <span class="card-divider"></span>
+        <span class="card-of">of 05</span>
+      </div>
+      <div class="card-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10"/><path d="M20.49 15a9 9 0 0 1-14.85 3.36L1 14"/></svg>
+      </div>
+      <h3>CarMax Agile<br/>QA Transformation</h3>
+      <p class="tagline">Rebuilt QA from waterfall into a rhythm that ships — and likes shipping.</p>
+      <div class="card-bottom">
+        <span class="card-cta">
+          Open
+          <svg viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </div>
+    </div>
+
+    <div class="service-card scroll-reveal" data-service="starbucks">
+      <span class="card-watermark">04</span>
+      <div class="card-meta">
+        <span class="card-num">04</span>
+        <span class="card-divider"></span>
+        <span class="card-of">of 05</span>
+      </div>
+      <div class="card-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+      </div>
+      <h3>Starbucks Loyalty<br/>UX Research</h3>
+      <p class="tagline">Behavioral teardown of the loyalty journey — where stars stop, and how to bring them back.</p>
+      <div class="card-bottom">
+        <span class="card-cta">
+          Open
+          <svg viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </div>
+    </div>
+
+    <div class="service-card scroll-reveal" data-service="walmart">
+      <span class="card-watermark">05</span>
+      <div class="card-meta">
+        <span class="card-num">05</span>
+        <span class="card-divider"></span>
+        <span class="card-of">of 05</span>
+      </div>
+      <div class="card-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
+      </div>
+      <h3>Walmart Disaster<br/>Recovery Tool</h3>
+      <p class="tagline">Enterprise-scale recovery platform built to keep stores running when everything else stops.</p>
+      <div class="card-bottom">
+        <span class="card-cta">
+          Open
+          <svg viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- ============================================================
+     DETAIL: Healthcare EHR Dashboard — CINEMATIC CASE STUDY
+     ============================================================ -->
+<section class="detail-view" id="detail-healthcare">
+  <a class="detail-back over-photo" onclick="showLanding()">
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    All case studies
+  </a>
+
+  <!-- Cinematic hero -->
+  <div class="ed-hero-cinema">
+    <div class="ed-hero-cinema__media" style="background-image:url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1800&q=80&auto=format&fit=crop');"></div>
+    <div class="ed-hero-cinema__scrim"></div>
+    <div class="ed-hero-cinema__content">
+      <div class="ed-hero-cinema__service-num">Case Study 01 / Five</div>
+      <h2>Care,<br/><em>made coherent.</em></h2>
+      <p class="ed-hero-cinema__lede">A regional hospital network running 12 facilities asked us to design and migrate to a FHIR-compliant EHR dashboard that finally fits the way clinicians actually work — not the way somebody once thought they should.</p>
+    </div>
+    <div class="ed-hero-cinema__caption">Healthcare EHR<br/>Dashboard</div>
+  </div>
+
+  <!-- Manifesto intro -->
+  <div class="ed-frame ed-pad-xl scroll-reveal">
+    <div class="ed-manifesto">
+      <div class="ed-manifesto__num">01</div>
+      <div class="ed-manifesto__body">
+        <div class="ed-eyebrow" style="margin-bottom:14px;">The What</div>
+        <h3>Twelve facilities. Eight systems per patient. One unified clinical view.</h3>
+        <p>Clinicians were losing <strong>40% of their day searching for data</strong> across fragmented platforms, switching systems eight times per patient visit, and dismissing alerts they could no longer trust. We led the research, the IA, and the redesign of a FHIR-first dashboard built to give that time back.</p>
+        <p>Fourteen months. Eight designers, four researchers. Contextual inquiry across every site, iterative prototyping with the people who'd actually use it, and an ML-ranked alert system that finally separates noise from signal.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section label + component grid (UX) -->
+  <div class="ed-frame ed-pad-xl scroll-reveal">
+    <div class="ed-section-title">
+      <h3>Eight components that brought the dashboard back to clinical reality.</h3>
+      <div class="meta">EHR component library</div>
+    </div>
+
+    <div class="ux-component-grid">
+      <div class="ux-card sr-child">
+        <div class="ux-card__head"><span class="ux-card__label">Patient Card</span><span class="ux-card__state">Default</span></div>
+        <div class="ux-card__body">
+          <div class="ux-mini-patient">
+            <div class="ux-mini-patient__avatar">JM</div>
+            <div class="ux-mini-patient__meta">
+              <div class="ux-mini-patient__name">Jordan Mercer</div>
+              <div class="ux-mini-patient__sub">MRN 4827-19 · 64F · Rm 4B-12</div>
+            </div>
+          </div>
+        </div>
+        <div class="ux-card__caption">Aggregated patient summary, one glance.</div>
+      </div>
+
+      <div class="ux-card sr-child">
+        <div class="ux-card__head"><span class="ux-card__label">Alert Badge</span><span class="ux-card__state">3 severities</span></div>
+        <div class="ux-card__body">
+          <div class="ux-badge-row">
+            <span class="ux-badge is-critical">Critical · Sepsis risk</span>
+            <span class="ux-badge is-warn">Watch · BP trend</span>
+            <span class="ux-badge is-info">Info · Lab ready</span>
+          </div>
+        </div>
+        <div class="ux-card__caption">ML-ranked, severity-tiered.</div>
+      </div>
+
+      <div class="ux-card sr-child">
+        <div class="ux-card__head"><span class="ux-card__label">Vitals · HR</span><span class="ux-card__state">Live</span></div>
+        <div class="ux-card__body">
+          <div class="ux-vitals">
+            <div class="ux-vitals__big">82<span class="unit">bpm</span></div>
+            <svg class="ux-spark" viewBox="0 0 120 36" preserveAspectRatio="none">
+              <path d="M0,22 L14,18 L24,24 L34,12 L44,16 L54,8 L62,20 L70,4 L80,22 L92,14 L104,20 L120,12"
+                    fill="none" stroke="url(#sparkGrad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <defs>
+                <linearGradient id="sparkGrad" x1="0" x2="1" y1="0" y2="0">
+                  <stop offset="0%" stop-color="#8468C0"/>
+                  <stop offset="100%" stop-color="#4A96DB"/>
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+        </div>
+        <div class="ux-card__caption">Predictive trend, 60-second window.</div>
+      </div>
+
+      <div class="ux-card sr-child">
+        <div class="ux-card__head"><span class="ux-card__label">Medication List</span><span class="ux-card__state">Active</span></div>
+        <div class="ux-card__body" style="align-items:stretch;">
+          <div style="width:100%;">
+            <div class="ux-med-row"><span class="ux-med-row__name">Metformin</span><span class="ux-med-row__dose">500mg · 2x</span><span class="ux-med-row__pill">PO</span></div>
+            <div class="ux-med-row"><span class="ux-med-row__name">Lisinopril</span><span class="ux-med-row__dose">10mg · 1x</span><span class="ux-med-row__pill">PO</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ux-card sr-child is-wide">
+        <div class="ux-card__head"><span class="ux-card__label">Care Plan Timeline</span><span class="ux-card__state">In progress</span></div>
+        <div class="ux-card__body">
+          <div class="ux-timeline">
+            <div class="ux-timeline__node is-done"></div>
+            <div class="ux-timeline__node is-done"></div>
+            <div class="ux-timeline__node is-done"></div>
+            <div class="ux-timeline__node is-active"></div>
+            <div class="ux-timeline__node"></div>
+            <div class="ux-timeline__node"></div>
+            <div class="ux-timeline__node"></div>
+            <div class="ux-timeline__node"></div>
+          </div>
+        </div>
+        <div class="ux-card__caption">Admit · Stabilize · Diagnose · Treat · Discharge — visible at a glance.</div>
+      </div>
+
+      <div class="ux-card sr-child">
+        <div class="ux-card__head"><span class="ux-card__label">Quick Actions</span><span class="ux-card__state">Toolbar</span></div>
+        <div class="ux-card__body">
+          <div class="ux-toolbar">
+            <div class="ux-toolbar__btn is-active">Order</div>
+            <div class="ux-toolbar__btn">Note</div>
+            <div class="ux-toolbar__btn">Refer</div>
+            <div class="ux-toolbar__btn">Sign</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ux-card sr-child">
+        <div class="ux-card__head"><span class="ux-card__label">Section Tabs</span><span class="ux-card__state">Selected</span></div>
+        <div class="ux-card__body">
+          <div class="ux-tabs">
+            <div class="ux-tab is-active">Overview</div>
+            <div class="ux-tab">Meds</div>
+            <div class="ux-tab">Labs</div>
+            <div class="ux-tab">Notes</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ux-card sr-child is-wide">
+        <div class="ux-card__head"><span class="ux-card__label">Clinical Decision Support</span><span class="ux-card__state">Suggestion</span></div>
+        <div class="ux-card__body">
+          <div class="ux-cds">
+            <div class="ux-cds__title">Sepsis bundle indicated</div>
+            <div class="ux-cds__body">HR &gt; 90 + WBC 13.2 + lactate 2.4 — consider 3-hour bundle. <strong>Review evidence →</strong></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dark band — stats -->
+  <div class="ed-pad-xl scroll-reveal">
+    <div class="ed-dark-band">
+      <div class="ed-dark-band__inner">
+        <div class="ed-eyebrow on-dark" style="margin-bottom:18px;">By the numbers</div>
+        <div class="ed-display on-dark" style="font-size:clamp(34px,4.4vw,56px); max-width:880px;">Six months after launch, the day looked different.</div>
+        <div class="ed-dark-stats">
+          <div class="ed-dark-stat sr-child"><div class="num">91%</div><div class="label">User Satisfaction</div></div>
+          <div class="ed-dark-stat sr-child"><div class="num">58%</div><div class="label">Faster Data Access</div></div>
+          <div class="ed-dark-stat sr-child"><div class="num">47%</div><div class="label">Fewer Clicks</div></div>
+          <div class="ed-dark-stat sr-child"><div class="num">2.1M</div><div class="label">Patient Records</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Screen stack — three EHR dashboard mockups -->
+  <div class="ed-frame ed-pad-xl scroll-reveal">
+    <div class="ed-section-title">
+      <h3>Three screens, one continuous clinical view.</h3>
+      <div class="meta">Hero surfaces</div>
+    </div>
+    <div class="ux-screen-stack">
+      <div class="ux-screen sr-child">
+        <div class="ux-screen__chrome"><span class="ux-screen__dot"></span><span class="ux-screen__dot"></span><span class="ux-screen__dot"></span><span>EHR · Overview</span></div>
+        <div class="ux-screen__body">
+          <div class="ux-screen__eyebrow">Patient Overview</div>
+          <div class="ux-screen__title">Jordan Mercer · 64F</div>
+          <div class="ux-mini-patient" style="margin-bottom:10px;">
+            <div class="ux-mini-patient__avatar">JM</div>
+            <div class="ux-mini-patient__meta">
+              <div class="ux-mini-patient__name">Stable · Day 2 admit</div>
+              <div class="ux-mini-patient__sub">MRN 4827-19 · Rm 4B-12</div>
+            </div>
+          </div>
+          <div class="ux-badge is-warn" style="margin-bottom:8px;">Watch · BP trend</div>
+          <div class="ux-screen__bar is-accent"></div>
+          <div class="ux-screen__bar is-mid"></div>
+          <div class="ux-screen__bar"></div>
+        </div>
+        <div class="ux-screen__caption">Patient Overview</div>
+      </div>
+
+      <div class="ux-screen sr-child">
+        <div class="ux-screen__chrome"><span class="ux-screen__dot"></span><span class="ux-screen__dot"></span><span class="ux-screen__dot"></span><span>EHR · Meds</span></div>
+        <div class="ux-screen__body">
+          <div class="ux-screen__eyebrow">Med Reconciliation</div>
+          <div class="ux-screen__title">Active medications</div>
+          <div class="ux-med-row"><span class="ux-med-row__name">Metformin</span><span class="ux-med-row__dose">500mg · 2x</span><span class="ux-med-row__pill">PO</span></div>
+          <div class="ux-med-row"><span class="ux-med-row__name">Lisinopril</span><span class="ux-med-row__dose">10mg · 1x</span><span class="ux-med-row__pill">PO</span></div>
+          <div class="ux-med-row"><span class="ux-med-row__name">Atorvastatin</span><span class="ux-med-row__dose">20mg · 1x</span><span class="ux-med-row__pill">PO</span></div>
+          <div class="ux-med-row"><span class="ux-med-row__name">Furosemide</span><span class="ux-med-row__dose">40mg · 1x</span><span class="ux-med-row__pill">IV</span></div>
+        </div>
+        <div class="ux-screen__caption">Medication Reconciliation</div>
+      </div>
+
+      <div class="ux-screen sr-child">
+        <div class="ux-screen__chrome"><span class="ux-screen__dot"></span><span class="ux-screen__dot"></span><span class="ux-screen__dot"></span><span>EHR · Care Plan</span></div>
+        <div class="ux-screen__body">
+          <div class="ux-screen__eyebrow">Care Plan</div>
+          <div class="ux-screen__title">Sepsis bundle · Day 2</div>
+          <div class="ux-timeline" style="margin:8px 0 12px;">
+            <div class="ux-timeline__node is-done"></div>
+            <div class="ux-timeline__node is-done"></div>
+            <div class="ux-timeline__node is-active"></div>
+            <div class="ux-timeline__node"></div>
+            <div class="ux-timeline__node"></div>
+          </div>
+          <div class="ux-cds">
+            <div class="ux-cds__title">Next: 6-hr lactate recheck</div>
+            <div class="ux-cds__body">Trend is improving — projected discharge Tue.</div>
+          </div>
+        </div>
+        <div class="ux-screen__caption">Care Plan</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Process rail -->
+  <div class="ed-frame ed-pad-xl scroll-reveal">
+    <div class="ed-section-title">
+      <h3>How the work moved.</h3>
+      <div class="meta">14-month phased approach</div>
+    </div>
+    <div class="ed-rail">
+      <div class="ed-rail__step"><span class="num">01</span><div class="label">Discover</div><div class="meta">Contextual inquiry · 12 sites</div></div>
+      <div class="ed-rail__step"><span class="num">02</span><div class="label">Define</div><div class="meta">FHIR-first IA</div></div>
+      <div class="ed-rail__step"><span class="num">03</span><div class="label">Design</div><div class="meta">Iterative with clinicians</div></div>
+      <div class="ed-rail__step"><span class="num">04</span><div class="label">Build</div><div class="meta">Frontend + accessibility</div></div>
+      <div class="ed-rail__step"><span class="num">05</span><div class="label">Deploy</div><div class="meta">Train · tune · optimize</div></div>
+    </div>
+  </div>
+
+  <!-- Deliverables pill row -->
+  <div class="ed-frame ed-pad-lg scroll-reveal">
+    <div class="ed-eyebrow" style="margin-bottom:18px;">What was delivered</div>
+    <div class="ed-pillrow">
+      <div class="pill-tag">FHIR-Compliant Dashboard</div>
+      <div class="pill-tag">Clinical Workflow Research</div>
+      <div class="pill-tag">Smart Alert System</div>
+      <div class="pill-tag">Design System Documentation</div>
+      <div class="pill-tag">Accessibility Audit</div>
+      <div class="pill-tag">Role-Based Views</div>
+      <div class="pill-tag">Training &amp; Onboarding</div>
+    </div>
+  </div>
+
+  <!-- Tokens — the design-system reference -->
+  <div class="ed-frame ed-pad-xl scroll-reveal">
+    <div class="ed-section-title">
+      <h3>The system behind the screens.</h3>
+      <div class="meta">Design tokens · shipped</div>
+    </div>
+    <div class="ux-tokens">
+      <div class="ux-token-block sr-child">
+        <h5>Color</h5>
+        <div class="ux-swatches">
+          <div class="ux-swatch"><div class="ux-swatch__chip" style="background:#6B4FA8;"></div><div class="ux-swatch__label">Primary</div><div class="ux-swatch__hex">#6B4FA8</div></div>
+          <div class="ux-swatch"><div class="ux-swatch__chip" style="background:#2A7BC8;"></div><div class="ux-swatch__label">Accent</div><div class="ux-swatch__hex">#2A7BC8</div></div>
+          <div class="ux-swatch"><div class="ux-swatch__chip" style="background:#1A7F4B;"></div><div class="ux-swatch__label">Success</div><div class="ux-swatch__hex">#1A7F4B</div></div>
+          <div class="ux-swatch"><div class="ux-swatch__chip" style="background:#A05A06;"></div><div class="ux-swatch__label">Warn</div><div class="ux-swatch__hex">#A05A06</div></div>
+          <div class="ux-swatch"><div class="ux-swatch__chip" style="background:#B6253A;"></div><div class="ux-swatch__label">Critical</div><div class="ux-swatch__hex">#B6253A</div></div>
+        </div>
+      </div>
+      <div class="ux-token-block sr-child">
+        <h5>Typography</h5>
+        <div class="ux-type">
+          <div class="ux-type__row"><span class="ux-type__sample" style="font-size:30px;font-weight:700;">Patient name</span><span class="ux-type__meta">Display · 30/36</span></div>
+          <div class="ux-type__row"><span class="ux-type__sample" style="font-size:20px;font-weight:700;">Section header</span><span class="ux-type__meta">H2 · 20/26</span></div>
+          <div class="ux-type__row"><span class="ux-type__sample" style="font-size:14px;font-weight:600;">Body emphasis</span><span class="ux-type__meta">Body · 14/20</span></div>
+          <div class="ux-type__row"><span class="ux-type__sample" style="font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;">Meta label</span><span class="ux-type__meta">Caption · 11/14</span></div>
+        </div>
+      </div>
+      <div class="ux-token-block sr-child">
+        <h5>Spacing</h5>
+        <div class="ux-spacing">
+          <div class="ux-spacing__row"><div class="ux-spacing__bar" style="width:8px;"></div><span class="ux-spacing__label">4</span><span class="ux-spacing__token">space.xs</span></div>
+          <div class="ux-spacing__row"><div class="ux-spacing__bar" style="width:16px;"></div><span class="ux-spacing__label">8</span><span class="ux-spacing__token">space.sm</span></div>
+          <div class="ux-spacing__row"><div class="ux-spacing__bar" style="width:32px;"></div><span class="ux-spacing__label">16</span><span class="ux-spacing__token">space.md</span></div>
+          <div class="ux-spacing__row"><div class="ux-spacing__bar" style="width:48px;"></div><span class="ux-spacing__label">24</span><span class="ux-spacing__token">space.lg</span></div>
+          <div class="ux-spacing__row"><div class="ux-spacing__bar" style="width:80px;"></div><span class="ux-spacing__label">40</span><span class="ux-spacing__token">space.xl</span></div>
+          <div class="ux-spacing__row"><div class="ux-spacing__bar" style="width:128px;"></div><span class="ux-spacing__label">64</span><span class="ux-spacing__token">space.2xl</span></div>
+        </div>
+      </div>
+    </div>
+    <p style="max-width:760px; margin:28px auto 0; text-align:center; color:var(--so-text-secondary); font-size:14px; line-height:1.6;">When a clinician spends less time hunting for data, they spend more time on the patient. Cognitive load is patient safety — and the tokens make that load lighter, system-wide.</p>
+  </div>
+
+  <div class="detail-footer">Experis Digital Services · Case Study 01</div>
+</section>
+
+
+<!-- ============================================================
+     DETAIL: Passport Parking — CINEMATIC CASE STUDY
+     ============================================================ -->
+<section class="detail-view" id="detail-passport">
+  <a class="detail-back over-photo" onclick="showLanding()">
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    All case studies
+  </a>
+
+  <!-- Cinematic hero -->
+  <div class="ed-hero-cinema">
+    <div class="ed-hero-cinema__media" style="background-image:url('https://images.unsplash.com/photo-1568000914486-4a7919d985b9?w=1800&q=80&auto=format&fit=crop');"></div>
+    <div class="ed-hero-cinema__scrim"></div>
+    <div class="ed-hero-cinema__content">
+      <div class="ed-hero-cinema__service-num">Case Study 02 / Five</div>
+      <h2>One app.<br/><em>Every city.</em></h2>
+      <p class="ed-hero-cinema__lede">Passport acquired a competing parking app with 250K+ loyal users. Two products. Two identities. Our job: merge them without losing the people who made them worth acquiring.</p>
+    </div>
+    <div class="ed-hero-cinema__caption">Passport Parking<br/>App Integration</div>
+  </div>
+
+  <!-- Manifesto intro -->
+  <div class="ed-frame ed-pad-xl scroll-reveal">
+    <div class="ed-manifesto">
+      <div class="ed-manifesto__num">02</div>
+      <div class="ed-manifesto__body">
+        <div class="ed-eyebrow" style="margin-bottom:14px;">The What</div>
+        <h3>An acquisition that feels like an upgrade, not a rebrand.</h3>
+        <p>68% of acquired-app users were openly anxious about losing features they loved. The two products were perceived very differently — one "premium and reliable," the other "functional but corporate." A bad merge would have churned a quarter-million users overnight.</p>
+        <p>Nine months. Six designers, three developers. <strong>47 features unified</strong>, <strong>156 brand touchpoints reconciled</strong>, and a phased migration that kept service continuous from day one of the rollout.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- User-flow walkthrough -->
+  <div class="ed-frame ed-pad-xl scroll-reveal">
+    <div class="ed-section-title">
+      <h3>Five taps. Forty seconds. One unified flow.</h3>
+      <div class="meta">Core user flow</div>
+    </div>
+
+    <div class="ux-flow">
+      <!-- Step 1: Open -->
+      <div class="ux-phone sr-child">
+        <div class="ux-phone__notch"></div>
+        <div class="ux-phone__status"><span>9:41</span><div class="dots"><span></span><span></span><span></span></div></div>
+        <div class="ux-phone__header">Passport</div>
+        <div class="ux-phone__sub">Welcome back, Maya</div>
+        <div class="ux-phone__content" style="justify-content:center;align-items:center;text-align:center;">
+          <div style="font-size:32px;font-weight:800;background:var(--so-gradient-vibrant);-webkit-background-clip:text;background-clip:text;color:transparent;">P</div>
+          <div class="ux-phone__bar is-fill" style="width:60%;align-self:center;"></div>
+        </div>
+        <div class="ux-phone__cta">Find Parking</div>
+        <div class="ux-phone__label" style="text-align:center;text-transform:uppercase;letter-spacing:0.1em;">01 · Open</div>
+      </div>
+
+      <div class="ux-flow__arrow"><svg viewBox="0 0 36 24" fill="none"><path d="M2 12 H30 M24 6 L30 12 L24 18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+
+      <!-- Step 2: Find spot -->
+      <div class="ux-phone sr-child">
+        <div class="ux-phone__notch"></div>
+        <div class="ux-phone__status"><span>9:41</span><div class="dots"><span></span><span></span><span></span></div></div>
+        <div class="ux-phone__header">Nearby zones</div>
+        <div class="ux-phone__sub">Within 0.3 mi</div>
+        <div class="ux-phone__content" style="padding:0;">
+          <div class="ux-phone__map"></div>
+        </div>
+        <div class="ux-phone__chip" style="margin:-4px 4px 0;">Zone 4827 · $2/hr</div>
+        <div class="ux-phone__label" style="text-align:center;text-transform:uppercase;letter-spacing:0.1em;">02 · Find spot</div>
+      </div>
+
+      <div class="ux-flow__arrow"><svg viewBox="0 0 36 24" fill="none"><path d="M2 12 H30 M24 6 L30 12 L24 18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+
+      <!-- Step 3: Confirm time -->
+      <div class="ux-phone sr-child">
+        <div class="ux-phone__notch"></div>
+        <div class="ux-phone__status"><span>9:41</span><div class="dots"><span></span><span></span><span></span></div></div>
+        <div class="ux-phone__header">Set duration</div>
+        <div class="ux-phone__sub">Zone 4827 · Downtown</div>
+        <div class="ux-phone__content" style="align-items:center;justify-content:center;">
+          <div class="ux-phone__big">2:00</div>
+          <div style="font-size:9px;color:var(--so-text-tertiary);">until 11:41 AM</div>
+          <div class="ux-phone__bar is-fill" style="width:70%;margin-top:8px;align-self:center;"></div>
+          <div class="ux-phone__bar" style="width:90%;align-self:center;"></div>
+        </div>
+        <div class="ux-phone__cta">Continue</div>
+        <div class="ux-phone__label" style="text-align:center;text-transform:uppercase;letter-spacing:0.1em;">03 · Confirm time</div>
+      </div>
+
+      <div class="ux-flow__arrow"><svg viewBox="0 0 36 24" fill="none"><path d="M2 12 H30 M24 6 L30 12 L24 18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+
+      <!-- Step 4: Pay -->
+      <div class="ux-phone sr-child">
+        <div class="ux-phone__notch"></div>
+        <div class="ux-phone__status"><span>9:41</span><div class="dots"><span></span><span></span><span></span></div></div>
+        <div class="ux-phone__header">Pay $4.50</div>
+        <div class="ux-phone__sub">2 hrs · Zone 4827</div>
+        <div class="ux-phone__content" style="padding:8px;">
+          <div class="ux-pay">
+            <div class="ux-pay__row is-selected"><span class="ux-pay__chip is-visa"></span>Visa ••4821<span class="ux-pay__dot"></span></div>
+            <div class="ux-pay__row"><span class="ux-pay__chip is-mc"></span>MC ••9012<span class="ux-pay__dot"></span></div>
+            <div class="ux-pay__row"><span class="ux-pay__chip is-amex"></span>AmEx ••3007<span class="ux-pay__dot"></span></div>
+          </div>
+        </div>
+        <div class="ux-phone__cta">Confirm payment</div>
+        <div class="ux-phone__label" style="text-align:center;text-transform:uppercase;letter-spacing:0.1em;">04 · Pay</div>
+      </div>
+
+      <div class="ux-flow__arrow"><svg viewBox="0 0 36 24" fill="none"><path d="M2 12 H30 M24 6 L30 12 L24 18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+
+      <!-- Step 5: Receipt -->
+      <div class="ux-phone sr-child">
+        <div class="ux-phone__notch"></div>
+        <div class="ux-phone__status"><span>9:41</span><div class="dots"><span></span><span></span><span></span></div></div>
+        <div class="ux-phone__header">You're parked.</div>
+        <div class="ux-phone__sub">Receipt sent to maya@…</div>
+        <div class="ux-phone__content" style="align-items:center;text-align:center;justify-content:center;">
+          <div class="ux-phone__check">&#10003;</div>
+          <div class="ux-phone__big">1:59:48</div>
+          <div style="font-size:9px;color:var(--so-text-tertiary);">remaining</div>
+          <div class="ux-phone__chip" style="margin-top:6px;">Active session</div>
+        </div>
+        <div class="ux-phone__cta" style="background:var(--so-aluminum-700);">Extend +30 min</div>
+        <div class="ux-phone__label" style="text-align:center;text-transform:uppercase;letter-spacing:0.1em;">05 · Receipt</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dark band — stats -->
+  <div class="ed-pad-xl scroll-reveal">
+    <div class="ed-dark-band">
+      <div class="ed-dark-band__inner">
+        <div class="ed-eyebrow on-dark" style="margin-bottom:18px;">By the numbers</div>
+        <div class="ed-display on-dark" style="font-size:clamp(34px,4.4vw,56px); max-width:880px;">Three months post-migration, the math held.</div>
+        <div class="ed-dark-stats">
+          <div class="ed-dark-stat sr-child"><div class="num">96%</div><div class="label">User Retention</div></div>
+          <div class="ed-dark-stat sr-child"><div class="num">+77%</div><div class="label">Daily Active Users</div></div>
+          <div class="ed-dark-stat sr-child"><div class="num">$2.4M</div><div class="label">Annual Savings</div></div>
+          <div class="ed-dark-stat sr-child"><div class="num">76%</div><div class="label">Faster Response Time</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Compare — multi-brand fragmentation vs unified system -->
+  <div class="ed-frame ed-pad-xl scroll-reveal">
+    <div class="ed-section-title">
+      <h3>From eight identities to one continuous one.</h3>
+      <div class="meta">Before / After</div>
+    </div>
+    <div class="ux-compare">
+      <div class="ux-compare__col sr-child">
+        <div class="ux-compare__label">Before · 3 cities, 3 visual languages</div>
+        <div class="ux-compare__row">
+          <div class="ux-compare__mini before-1">
+            <div class="ux-compare__mini-head">Phoenix Park</div>
+            <div class="ux-compare__mini-body"><div class="b w-80"></div><div class="b w-60"></div><div class="b"></div><div class="btn"></div></div>
+          </div>
+          <div class="ux-compare__mini before-2">
+            <div class="ux-compare__mini-head">GreenPark</div>
+            <div class="ux-compare__mini-body"><div class="b w-60"></div><div class="b w-80"></div><div class="b"></div><div class="btn"></div></div>
+          </div>
+          <div class="ux-compare__mini before-3">
+            <div class="ux-compare__mini-head">UrbanPay</div>
+            <div class="ux-compare__mini-body"><div class="b w-80"></div><div class="b"></div><div class="b w-60"></div><div class="btn"></div></div>
+          </div>
+        </div>
+        <p class="ux-compare__note">Three apps. Three button shapes. Three flows users had to relearn at every city line.</p>
+      </div>
+      <div class="ux-compare__col is-after sr-child">
+        <div class="ux-compare__label">After · 8 cities, one system</div>
+        <div class="ux-compare__row">
+          <div class="ux-compare__mini after-1">
+            <div class="ux-compare__mini-head">Phoenix</div>
+            <div class="ux-compare__mini-body"><div class="b w-80"></div><div class="b w-60"></div><div class="b"></div><div class="btn"></div></div>
+          </div>
+          <div class="ux-compare__mini after-2">
+            <div class="ux-compare__mini-head">Seattle</div>
+            <div class="ux-compare__mini-body"><div class="b w-80"></div><div class="b w-60"></div><div class="b"></div><div class="btn"></div></div>
+          </div>
+          <div class="ux-compare__mini after-3">
+            <div class="ux-compare__mini-head">Austin</div>
+            <div class="ux-compare__mini-body"><div class="b w-80"></div><div class="b w-60"></div><div class="b"></div><div class="btn"></div></div>
+          </div>
+        </div>
+        <p class="ux-compare__note">One structure. One interaction model. Brand color is the only thing that changes — and it changes everything.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Process rail -->
+  <div class="ed-frame ed-pad-xl scroll-reveal">
+    <div class="ed-section-title">
+      <h3>How the merge ran.</h3>
+      <div class="meta">9-month integration</div>
+    </div>
+    <div class="ed-rail">
+      <div class="ed-rail__step"><span class="num">01</span><div class="label">Audit</div><div class="meta">Brand &amp; UX comparison</div></div>
+      <div class="ed-rail__step"><span class="num">02</span><div class="label">Unify</div><div class="meta">Design system + framework</div></div>
+      <div class="ed-rail__step"><span class="num">03</span><div class="label">Design</div><div class="meta">Prototyping + usability</div></div>
+      <div class="ed-rail__step"><span class="num">04</span><div class="label">Migrate</div><div class="meta">Phased rollout · data</div></div>
+      <div class="ed-rail__step"><span class="num">05</span><div class="label">Launch</div><div class="meta">QA · support · sunset</div></div>
+    </div>
+  </div>
+
+  <!-- Deliverables pill row -->
+  <div class="ed-frame ed-pad-lg scroll-reveal">
+    <div class="ed-eyebrow" style="margin-bottom:18px;">What was delivered</div>
+    <div class="ed-pillrow">
+      <div class="pill-tag">Unified Design System</div>
+      <div class="pill-tag">Brand Integration Framework</div>
+      <div class="pill-tag">Full App Redesign</div>
+      <div class="pill-tag">User Research Study</div>
+      <div class="pill-tag">Phased Migration Plan</div>
+      <div class="pill-tag">Component Library</div>
+      <div class="pill-tag">Usability Validation</div>
+    </div>
+  </div>
+
+  <!-- Component library extracted from the integration -->
+  <div class="ed-frame ed-pad-xl scroll-reveal">
+    <div class="ed-section-title">
+      <h3>One library. Eight brands.</h3>
+      <div class="meta">Components shipped</div>
+    </div>
+    <div class="ux-component-grid">
+      <div class="ux-card sr-child is-wide">
+        <div class="ux-card__head"><span class="ux-card__label">Primary Button</span><span class="ux-card__state">4 brand themes</span></div>
+        <div class="ux-card__body">
+          <div class="ux-btn-row">
+            <button class="ux-btn is-primary" style="background:linear-gradient(135deg,var(--so-lavender-600),var(--so-lavender-400));">Phoenix</button>
+            <button class="ux-btn is-primary" style="background:linear-gradient(135deg,var(--so-azure-600),var(--so-azure-400));">Seattle</button>
+            <button class="ux-btn is-primary" style="background:linear-gradient(135deg,#2A8C8A,#4FB5B3);">Austin</button>
+            <button class="ux-btn is-primary" style="background:linear-gradient(135deg,#B85C2B,#D9853D);">Denver</button>
+          </div>
+        </div>
+        <div class="ux-card__caption">Same component. Token-themed per city.</div>
+      </div>
+
+      <div class="ux-card sr-child">
+        <div class="ux-card__head"><span class="ux-card__label">Button States</span><span class="ux-card__state">4 states</span></div>
+        <div class="ux-card__body">
+          <div class="ux-btn-row" style="flex-direction:column;align-items:stretch;">
+            <button class="ux-btn is-primary">Pay $4.50</button>
+            <button class="ux-btn is-secondary">Cancel</button>
+            <button class="ux-btn is-ghost">Need help?</button>
+            <button class="ux-btn is-disabled">Pay $4.50</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="ux-card sr-child">
+        <div class="ux-card__head"><span class="ux-card__label">Input · Zone</span><span class="ux-card__state">Focused</span></div>
+        <div class="ux-card__body" style="align-items:stretch;">
+          <div style="width:100%;display:flex;flex-direction:column;gap:8px;">
+            <div class="ux-input">Search by zone or address</div>
+            <div class="ux-input is-focus">4827<span class="cursor"></span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ux-card sr-child">
+        <div class="ux-card__head"><span class="ux-card__label">Ticket Stub</span><span class="ux-card__state">Active session</span></div>
+        <div class="ux-card__body">
+          <div class="ux-ticket">
+            <div class="ux-ticket__top">
+              <div class="ux-ticket__zone">Zone 4827</div>
+              <div class="ux-ticket__big">1:42 remaining</div>
+            </div>
+            <div class="ux-ticket__body"><span>Visa ••4821</span><span>$4.50</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ux-card sr-child">
+        <div class="ux-card__head"><span class="ux-card__label">Payment Picker</span><span class="ux-card__state">3 methods</span></div>
+        <div class="ux-card__body" style="align-items:stretch;">
+          <div class="ux-pay" style="width:100%;">
+            <div class="ux-pay__row is-selected"><span class="ux-pay__chip is-visa"></span>Visa ••4821<span class="ux-pay__dot"></span></div>
+            <div class="ux-pay__row"><span class="ux-pay__chip is-mc"></span>MC ••9012<span class="ux-pay__dot"></span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ux-card sr-child">
+        <div class="ux-card__head"><span class="ux-card__label">Status Pill</span><span class="ux-card__state">Session states</span></div>
+        <div class="ux-card__body" style="align-items:stretch;">
+          <div class="ux-statpills">
+            <span class="ux-statpill is-active">Active · 1h 42m left</span>
+            <span class="ux-statpill is-expiring">Expiring · 4 min left</span>
+            <span class="ux-statpill is-expired">Expired · ended 9:41 AM</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ux-card sr-child">
+        <div class="ux-card__head"><span class="ux-card__label">Brand Color Token</span><span class="ux-card__state">--brand-primary</span></div>
+        <div class="ux-card__body">
+          <div class="ux-swatches" style="grid-template-columns:repeat(4,1fr);width:100%;">
+            <div class="ux-swatch"><div class="ux-swatch__chip" style="background:var(--so-lavender-600);"></div></div>
+            <div class="ux-swatch"><div class="ux-swatch__chip" style="background:var(--so-azure-500);"></div></div>
+            <div class="ux-swatch"><div class="ux-swatch__chip" style="background:#2A8C8A;"></div></div>
+            <div class="ux-swatch"><div class="ux-swatch__chip" style="background:#B85C2B;"></div></div>
+          </div>
+        </div>
+        <div class="ux-card__caption">One token. Eight values.</div>
+      </div>
+    </div>
+    <p style="max-width:760px; margin:28px auto 0; text-align:center; color:var(--so-text-secondary); font-size:14px; line-height:1.6;">Acquisitions usually break the people who made them worth doing. The merge stopped feeling like a merge — because the library carried the brand, not the brand carrying the app.</p>
+  </div>
+
+  <div class="detail-footer">Experis Digital Services · Case Study 02</div>
+</section>
+
+
+<!-- ============================================================
+     DETAIL: CarMax Agile QA Transformation — CINEMATIC CASE STUDY
+     ============================================================ -->
+<section class="detail-view" id="detail-carmax">
+  <a class="detail-back over-photo" onclick="showLanding()">
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    All case studies
+  </a>
+
+  <!-- Cinematic hero -->
+  <div class="ed-hero-cinema">
+    <div class="ed-hero-cinema__media" style="background-image:url('https://images.unsplash.com/photo-1486006920555-c77dcf18193c?w=1800&q=80&auto=format&fit=crop');"></div>
+    <div class="ed-hero-cinema__scrim"></div>
+    <div class="ed-hero-cinema__content">
+      <div class="ed-hero-cinema__service-num">Case Study 03 / Five</div>
+      <h2>QA<br/><em>that ships.</em></h2>
+      <p class="ed-hero-cinema__lede">CarMax was moving from Waterfall to Agile. QA was perceived as the bottleneck, not the partner. They asked us to independently assess readiness, name the pain, and chart the path forward.</p>
+    </div>
+    <div class="ed-hero-cinema__caption">CarMax Agile QA<br/>Transformation</div>
+  </div>
+
+  <!-- Manifesto intro -->
+  <div class="ed-frame ed-pad-xl scroll-reveal">
+    <div class="ed-manifesto">
+      <div class="ed-manifesto__num">03</div>
+      <div class="ed-manifesto__body">
+        <div class="ed-eyebrow" style="margin-bottom:14px;">The What</div>
+        <h3>Rigor without the gate. Speed without the regret.</h3>
+        <p>QA had been the team you handed work to at the end. Agile asked it to be the team you build with from the start. We ran <strong>32 stakeholder interviews</strong>, mapped current and future states, built personas grounded in real interview data, and delivered an impact-vs-effort roadmap leadership could actually act on.</p>
+        <p>Five months. Four researchers, two designers. Independent perspective, deliberately — so the recommendations were trusted across QA, engineering, and product alike.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- QA workflow journey map -->
+  <div class="ed-frame ed-pad-xl scroll-reveal">
+    <div class="ed-section-title">
+      <h3>The QA workday, mapped end-to-end.</h3>
+      <div class="meta">Current-state journey</div>
+    </div>
+
+    <div class="ux-journey">
+      <!-- Header row: phases -->
+      <div class="ux-journey__head">
+        <div class="ux-journey__cell ux-journey__phase" style="background:var(--so-aluminum-150);">Phase</div>
+        <div class="ux-journey__cell ux-journey__phase"><span class="num">01</span>Discovery</div>
+        <div class="ux-journey__cell ux-journey__phase"><span class="num">02</span>Triage</div>
+        <div class="ux-journey__cell ux-journey__phase"><span class="num">03</span>Test Authoring</div>
+        <div class="ux-journey__cell ux-journey__phase"><span class="num">04</span>Execution</div>
+        <div class="ux-journey__cell ux-journey__phase"><span class="num">05</span>Reporting</div>
+      </div>
+
+      <!-- Row: Actions -->
+      <div class="ux-journey__row">
+        <div class="ux-journey__cell ux-journey__rowlabel">Actions</div>
+        <div class="ux-journey__cell">Read tickets, chase requirements, hunt acceptance criteria.</div>
+        <div class="ux-journey__cell">Prioritize defects across five inboxes and three trackers.</div>
+        <div class="ux-journey__cell">Write cases manually, duplicate work across teams.</div>
+        <div class="ux-journey__cell">Run regression by hand. Smoke. Repeat.</div>
+        <div class="ux-journey__cell">Stitch dashboards for status meetings.</div>
+      </div>
+
+      <!-- Row: Thoughts -->
+      <div class="ux-journey__row">
+        <div class="ux-journey__cell ux-journey__rowlabel">Thoughts</div>
+        <div class="ux-journey__cell">"What am I actually testing for?"</div>
+        <div class="ux-journey__cell">"Which of these blocks the release?"</div>
+        <div class="ux-journey__cell">"Has someone already written this?"</div>
+        <div class="ux-journey__cell">"This will take all afternoon."</div>
+        <div class="ux-journey__cell">"How do I prove QA's value here?"</div>
+      </div>
+
+      <!-- Row: Feelings -->
+      <div class="ux-journey__row">
+        <div class="ux-journey__cell ux-journey__rowlabel">Feelings</div>
+        <div class="ux-journey__cell"><div class="ux-mood"><span class="ux-mood__dot is-meh">–</span>Frustrated</div></div>
+        <div class="ux-journey__cell"><div class="ux-mood"><span class="ux-mood__dot is-neg">!</span>Overwhelmed</div></div>
+        <div class="ux-journey__cell"><div class="ux-mood"><span class="ux-mood__dot is-meh">–</span>Bored</div></div>
+        <div class="ux-journey__cell"><div class="ux-mood"><span class="ux-mood__dot is-neg">!</span>Drained</div></div>
+        <div class="ux-journey__cell"><div class="ux-mood"><span class="ux-mood__dot is-ok">~</span>Anxious</div></div>
+      </div>
+
+      <!-- Row: Opportunities -->
+      <div class="ux-journey__row">
+        <div class="ux-journey__cell ux-journey__rowlabel">Opportunities</div>
+        <div class="ux-journey__cell"><div class="ux-opp">Embed QA at story-writing — not at handoff.</div></div>
+        <div class="ux-journey__cell"><div class="ux-opp">Unified triage queue with severity rules.</div></div>
+        <div class="ux-journey__cell"><div class="ux-opp">Shared test library, contract-tested.</div></div>
+        <div class="ux-journey__cell"><div class="ux-opp">Automation framework for regression.</div></div>
+        <div class="ux-journey__cell"><div class="ux-opp">Outcome metrics QA, dev, &amp; PO can agree on.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dark band — stats -->
+  <div class="ed-pad-xl scroll-reveal">
+    <div class="ed-dark-band">
+      <div class="ed-dark-band__inner">
+        <div class="ed-eyebrow on-dark" style="margin-bottom:18px;">By the numbers</div>
+        <div class="ed-display on-dark" style="font-size:clamp(34px,4.4vw,56px); max-width:880px;">Six months after the roadmap, the rhythm changed.</div>
+        <div class="ed-dark-stats">
+          <div class="ed-dark-stat sr-child"><div class="num">63%</div><div class="label">Faster Releases</div></div>
+          <div class="ed-dark-stat sr-child"><div class="num">91%</div><div class="label">Test Automation</div></div>
+          <div class="ed-dark-stat sr-child"><div class="num">54%</div><div class="label">Fewer Prod Defects</div></div>
+          <div class="ed-dark-stat sr-child"><div class="num">+57%</div><div class="label">QA-Dev Collab Score</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Persona cards — the four humans we designed for -->
+  <div class="ed-frame ed-pad-xl scroll-reveal">
+    <div class="ed-section-title">
+      <h3>The four humans we were designing for.</h3>
+      <div class="meta">Personas grounded in 32 interviews</div>
+    </div>
+    <div class="ux-persona-grid">
+      <div class="ux-persona-card sr-child">
+        <div class="ux-persona-card__avatar tint-1">S</div>
+        <div class="ux-persona-card__name">Sarah</div>
+        <div class="ux-persona-card__role">QA Engineer</div>
+        <div class="ux-persona-card__quote">"I want to write better tests, but I spend most of my day navigating unclear requirements."</div>
+        <div class="ux-persona-card__traits">
+          <span class="ux-trait">Wants automation</span>
+          <span class="ux-trait">Early collaboration</span>
+          <span class="ux-trait">Clearer specs</span>
+        </div>
+      </div>
+
+      <div class="ux-persona-card sr-child">
+        <div class="ux-persona-card__avatar tint-2">M</div>
+        <div class="ux-persona-card__name">Marcus</div>
+        <div class="ux-persona-card__role">QA Manager</div>
+        <div class="ux-persona-card__quote">"How do I prove QA's value when our old metrics don't apply in Agile?"</div>
+        <div class="ux-persona-card__traits">
+          <span class="ux-trait">Needs new metrics</span>
+          <span class="ux-trait">Career risk</span>
+          <span class="ux-trait">Coaches a team</span>
+        </div>
+      </div>
+
+      <div class="ux-persona-card sr-child">
+        <div class="ux-persona-card__avatar tint-3">J</div>
+        <div class="ux-persona-card__name">Jennifer</div>
+        <div class="ux-persona-card__role">Product Owner</div>
+        <div class="ux-persona-card__quote">"I need QA embedded in our sprints, not as a gate at the end."</div>
+        <div class="ux-persona-card__traits">
+          <span class="ux-trait">Velocity-focused</span>
+          <span class="ux-trait">Customer of change</span>
+          <span class="ux-trait">Quality-first</span>
+        </div>
+      </div>
+
+      <div class="ux-persona-card sr-child">
+        <div class="ux-persona-card__avatar tint-4">E</div>
+        <div class="ux-persona-card__name">Engineering Partners</div>
+        <div class="ux-persona-card__role">Dev counterparts</div>
+        <div class="ux-persona-card__quote">"Bring QA closer. Treat them as collaborators, not the brake at the end of the line."</div>
+        <div class="ux-persona-card__traits">
+          <span class="ux-trait">Pair-friendly</span>
+          <span class="ux-trait">Wants context</span>
+          <span class="ux-trait">Faster feedback</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Process rail -->
+  <div class="ed-frame ed-pad-xl scroll-reveal">
+    <div class="ed-section-title">
+      <h3>How we built the roadmap.</h3>
+      <div class="meta">5-month research engagement</div>
+    </div>
+    <div class="ed-rail">
+      <div class="ed-rail__step"><span class="num">01</span><div class="label">Plan</div><div class="meta">Stakeholder alignment</div></div>
+      <div class="ed-rail__step"><span class="num">02</span><div class="label">Interview</div><div class="meta">32 stakeholders</div></div>
+      <div class="ed-rail__step"><span class="num">03</span><div class="label">Map</div><div class="meta">Current &amp; future journeys</div></div>
+      <div class="ed-rail__step"><span class="num">04</span><div class="label">Synthesize</div><div class="meta">Personas + insights</div></div>
+      <div class="ed-rail__step"><span class="num">05</span><div class="label">Rollout</div><div class="meta">Impact-vs-effort roadmap</div></div>
+    </div>
+  </div>
+
+  <!-- Deliverables pill row -->
+  <div class="ed-frame ed-pad-lg scroll-reveal">
+    <div class="ed-eyebrow" style="margin-bottom:18px;">What was delivered</div>
+    <div class="ed-pillrow">
+      <div class="pill-tag">32 Stakeholder Interviews</div>
+      <div class="pill-tag">Current-State Journey Map</div>
+      <div class="pill-tag">Future-State Journey Map</div>
+      <div class="pill-tag">QA Personas</div>
+      <div class="pill-tag">Affinity Synthesis</div>
+      <div class="pill-tag">Priority Matrix</div>
+      <div class="pill-tag">Transformation Roadmap</div>
+      <div class="pill-tag">Leadership Readout</div>
+    </div>
+  </div>
+
+  <!-- Dual flow — old waterfall vs new agile rhythm -->
+  <div class="ed-frame ed-pad-xl scroll-reveal">
+    <div class="ed-section-title">
+      <h3>From bottleneck to rhythm.</h3>
+      <div class="meta">Waterfall → Agile QA</div>
+    </div>
+
+    <div class="ux-dualflow">
+      <div class="ux-dualflow__row is-old sr-child">
+        <div class="ux-dualflow__title">Before · Waterfall</div>
+        <div class="ux-node">Requirements<small>6 weeks</small></div>
+        <div class="ux-arrow"><svg viewBox="0 0 22 14" fill="none"><path d="M2 7 H18 M14 3 L18 7 L14 11" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="ux-node">Design<small>4 weeks</small></div>
+        <div class="ux-arrow"><svg viewBox="0 0 22 14" fill="none"><path d="M2 7 H18 M14 3 L18 7 L14 11" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="ux-node">Dev<small>8 weeks</small></div>
+        <div class="ux-arrow"><svg viewBox="0 0 22 14" fill="none"><path d="M2 7 H18 M14 3 L18 7 L14 11" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="ux-node">QA Gate<small>3 weeks · bottleneck</small></div>
+        <div class="ux-arrow"><svg viewBox="0 0 22 14" fill="none"><path d="M2 7 H18 M14 3 L18 7 L14 11" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="ux-node">Release<small>1 / quarter</small></div>
+      </div>
+
+      <div class="ux-dualflow__row is-new sr-child">
+        <div class="ux-dualflow__title">After · Agile rhythm</div>
+        <div class="ux-node">Story Refinement<small>QA embedded</small></div>
+        <div class="ux-arrow"><svg viewBox="0 0 22 14" fill="none"><path d="M2 7 H18 M14 3 L18 7 L14 11" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="ux-node">Sprint Plan<small>Acceptance shared</small></div>
+        <div class="ux-arrow"><svg viewBox="0 0 22 14" fill="none"><path d="M2 7 H18 M14 3 L18 7 L14 11" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="ux-node">Build &amp; Test<small>In parallel</small></div>
+        <div class="ux-arrow"><svg viewBox="0 0 22 14" fill="none"><path d="M2 7 H18 M14 3 L18 7 L14 11" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="ux-node">CI Validation<small>Automated</small></div>
+        <div class="ux-arrow"><svg viewBox="0 0 22 14" fill="none"><path d="M2 7 H18 M14 3 L18 7 L14 11" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="ux-node">Release<small>Every sprint</small></div>
+      </div>
+    </div>
+
+    <p style="max-width:760px; margin:36px auto 0; text-align:center; color:var(--so-text-secondary); font-size:14px; line-height:1.6;">Agile fails when QA is treated as a phase instead of a partner. Rigor inside the sprint — not at the end of it — is how teams ship faster and trust what they ship. The transformation wasn't a process change. It was a culture one.</p>
+  </div>
+
+  <div class="detail-footer">Experis Digital Services · Case Study 03</div>
+</section>
+
+
+<!-- ============================================================
+     DETAIL: Starbucks Loyalty UX Research — STUB
+     ============================================================ -->
+<section class="detail-view" id="detail-starbucks">
+  <a class="detail-back over-photo" onclick="showLanding()">
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    All case studies
+  </a>
+
+  <!-- Cinematic hero -->
+  <div class="ed-hero-cinema">
+    <div class="ed-hero-cinema__media" style="background-image:url('https://images.unsplash.com/photo-1545231027-637d2f6210f8?w=1800&q=80&auto=format&fit=crop');"></div>
+    <div class="ed-hero-cinema__scrim"></div>
+    <div class="ed-hero-cinema__content">
+      <div class="ed-hero-cinema__service-num">Case Study 04 / Five</div>
+      <h2>Stars,<br/><em>stalled.</em></h2>
+      <p class="ed-hero-cinema__lede">A behavioral teardown of the Starbucks loyalty journey — finding the points where members stop earning, stop redeeming, and stop coming back. Strategic recommendations to bring them back in.</p>
+    </div>
+    <div class="ed-hero-cinema__caption">Starbucks Loyalty<br/>UX Research</div>
+  </div>
+
+  <!-- Manifesto intro -->
+  <div class="ed-frame ed-pad-xl scroll-reveal">
+    <div class="ed-manifesto">
+      <div class="ed-manifesto__num">04</div>
+      <div class="ed-manifesto__body">
+        <div class="ed-eyebrow" style="margin-bottom:14px;">The What</div>
+        <h3>Loyalty isn't earned at signup. It's lost in the middle.</h3>
+        <p>Starbucks asked for an independent UX research engagement on the loyalty app — usage patterns, friction points, behavioral drop-off, and the strategic moves that could lift retention. Mixed-methods, qualitative-heavy, with comparative analysis against category leaders.</p>
+        <p>Deliverables: a behavioral journey map, prioritized opportunity matrix, and strategic recommendations grounded in the actual data.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stub placeholder -->
+  <div class="ed-frame ed-pad-xl scroll-reveal">
+    <div style="text-align:center;padding:48px 24px;">
+      <div class="ed-eyebrow" style="margin-bottom:18px;justify-content:center;display:inline-flex;">In progress</div>
+      <h3 style="font-size:clamp(28px,3.5vw,42px);max-width:680px;margin:0 auto;text-align:center;line-height:1.2;">Detailed one-pager landing soon. The work happened; we're packaging it.</h3>
+    </div>
+  </div>
+
+  <div class="detail-footer">Experis Digital Services · Case Study 04</div>
+</section>
+
+
+<!-- ============================================================
+     DETAIL: Walmart Disaster Recovery — STUB
+     ============================================================ -->
+<section class="detail-view" id="detail-walmart">
+  <a class="detail-back over-photo" onclick="showLanding()">
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    All case studies
+  </a>
+
+  <!-- Cinematic hero -->
+  <div class="ed-hero-cinema">
+    <div class="ed-hero-cinema__media" style="background-image:url('https://images.unsplash.com/photo-1495020689067-958852a7765e?w=1800&q=80&auto=format&fit=crop');"></div>
+    <div class="ed-hero-cinema__scrim"></div>
+    <div class="ed-hero-cinema__content">
+      <div class="ed-hero-cinema__service-num">Case Study 05 / Five</div>
+      <h2>When everything<br/><em>else stops.</em></h2>
+      <p class="ed-hero-cinema__lede">An enterprise-scale disaster recovery platform built for Walmart — designed to keep stores running when networks go dark, power fails, and supply chains buckle. Resilience as a product.</p>
+    </div>
+    <div class="ed-hero-cinema__caption">Walmart Disaster<br/>Recovery Tool</div>
+  </div>
+
+  <!-- Manifesto intro -->
+  <div class="ed-frame ed-pad-xl scroll-reveal">
+    <div class="ed-manifesto">
+      <div class="ed-manifesto__num">05</div>
+      <div class="ed-manifesto__body">
+        <div class="ed-eyebrow" style="margin-bottom:14px;">The What</div>
+        <h3>A platform built for the day the lights don't come back on.</h3>
+        <p>Walmart needed a unified disaster recovery tool — region-wide visibility, store-level status, decision support for crisis managers, and operational continuity workflows that hold up under real failure conditions.</p>
+        <p>Multi-disciplinary engagement spanning research, IA, design, and engineering — designed for the field teams who use it under pressure, not the boardroom that signs off on it.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stub placeholder -->
+  <div class="ed-frame ed-pad-xl scroll-reveal">
+    <div style="text-align:center;padding:48px 24px;">
+      <div class="ed-eyebrow" style="margin-bottom:18px;justify-content:center;display:inline-flex;">In progress</div>
+      <h3 style="font-size:clamp(28px,3.5vw,42px);max-width:680px;margin:0 auto;text-align:center;line-height:1.2;">Detailed one-pager landing soon. The work happened; we're packaging it.</h3>
+    </div>
+  </div>
+
+  <div class="detail-footer">Experis Digital Services · Case Study 05</div>
+</section>
+
+
+<!-- Landing footer -->
+<div class="footer" id="landing-footer">Experis Digital Services</div>
+
+<!-- Share confirmation modal — must be in the DOM before the script runs -->
+<div class="share-modal" id="shareModal" role="dialog" aria-modal="true" aria-labelledby="shareModalTitle" hidden>
+  <div class="share-modal__backdrop" data-share-close></div>
+  <div class="share-modal__panel" role="document">
+    <button class="share-modal__close" type="button" data-share-close aria-label="Close">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
+        <path d="M3 3l10 10M13 3L3 13"/>
+      </svg>
+    </button>
+
+    <div class="share-modal__eyebrow">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.5 1.5"/>
+        <path d="M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.5-1.5"/>
+      </svg>
+      Send as link
+      <span class="scope-tag" id="shareModalScopeTag">Hub</span>
+    </div>
+
+    <h2 class="share-modal__title" id="shareModalTitle">Case Studies — Splash</h2>
+    <p class="share-modal__lede" id="shareModalLede"></p>
+
+    <div class="share-modal__scope">
+      <div class="share-modal__scope-label">Scope of this link</div>
+      <div class="share-modal__tree" id="shareModalTree"></div>
+    </div>
+
+    <div class="share-modal__url-block">
+      <div class="share-modal__url-label">Standalone URL</div>
+      <div class="share-modal__url" id="shareModalUrl">about:blank</div>
+    </div>
+
+    <div class="share-modal__actions">
+      <a href="#" id="shareModalPreview" class="share-modal__preview-link" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+          <polyline points="15 3 21 3 21 9"/>
+          <line x1="10" y1="14" x2="21" y2="3"/>
+        </svg>
+        Preview in new tab
+      </a>
+      <button class="share-modal__btn share-modal__btn--download" type="button" id="shareModalDownload">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download .html
+      </button>
+      <div class="share-modal__actions-right">
+        <button class="share-modal__btn share-modal__btn--ghost" type="button" data-share-close>Cancel</button>
+        <button class="share-modal__btn share-modal__btn--primary" type="button" id="shareModalCopy">Copy link</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Share toast -->
+<div class="share-toast" id="shareToast" role="status" aria-live="polite">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <polyline points="20 6 9 17 4 12"/>
+  </svg>
+  <span class="toast-text">Link copied</span>
+</div>
+
+<script>
+/* ================================================================
+   THEME
+   ================================================================ */
+(function() {
+  const html = document.documentElement;
+  const saved = localStorage.getItem('so-theme');
+  if (saved) html.setAttribute('data-theme', saved);
+
+  const toggle = document.getElementById('themeToggle');
+  const sunIcon = toggle.querySelector('.icon-sun');
+  const moonIcon = toggle.querySelector('.icon-moon');
+
+  function updateIcons() {
+    const isDark = html.getAttribute('data-theme') === 'dark';
+    sunIcon.style.display = isDark ? 'none' : 'block';
+    moonIcon.style.display = isDark ? 'block' : 'none';
+  }
+  updateIcons();
+
+  toggle.addEventListener('click', function() {
+    const isDark = html.getAttribute('data-theme') === 'dark';
+    const next = isDark ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('so-theme', next);
+    updateIcons();
+  });
+})();
+
+/* ================================================================
+   NAVIGATION
+   ================================================================ */
+const landing = document.getElementById('landing');
+const landingFooter = document.getElementById('landing-footer');
+const details = document.querySelectorAll('.detail-view');
+const cards = document.querySelectorAll('.service-card');
+
+// --- Breadcrumb helpers ---
+const navCrumbs = document.getElementById('navCrumbs');
+const crumbPage = document.getElementById('crumbPage');
+
+const SERVICE_NAMES = {
+  healthcare: 'Healthcare EHR Dashboard',
+  passport:   'Passport Parking App',
+  carmax:     'CarMax Agile QA',
+  starbucks:  'Starbucks Loyalty Research',
+  walmart:    'Walmart Disaster Recovery'
+};
+
+function updateCrumbs(serviceId) {
+  if (!navCrumbs) return;
+  const hubCrumb = '<a class="so-nav__crumb" href="../../src/index.html#competency-ticker">Hub</a><span class="so-nav__crumb-sep">/</span>';
+  if (serviceId) {
+    // Detail view: Hub / Case Studies (clickable) / Case Study Name
+    navCrumbs.innerHTML =
+      hubCrumb +
+      '<a class="so-nav__crumb" href="javascript:void(0)" onclick="showLanding()">Case Studies</a>' +
+      '<span class="so-nav__crumb-sep">/</span>' +
+      '<span class="so-nav__crumb so-nav__crumb--current">' + (SERVICE_NAMES[serviceId] || serviceId) + '</span>';
+  } else {
+    // Landing view: Hub / Case Studies
+    navCrumbs.innerHTML =
+      hubCrumb +
+      '<span class="so-nav__crumb so-nav__crumb--current">Case Studies</span>';
+  }
+}
+
+// Store scroll position when leaving landing
+let landingScrollY = 0;
+
+function showDetail(serviceId) {
+  landingScrollY = window.scrollY;
+  landing.style.display = 'none';
+  landingFooter.style.display = 'none';
+  details.forEach(d => { d.classList.remove('active'); d.style.display = 'none'; });
+  const target = document.getElementById('detail-' + serviceId);
+  if (target) {
+    target.style.display = 'block';
+    void target.offsetWidth;
+    target.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Reset scroll reveals in this detail view
+    target.querySelectorAll('.scroll-reveal').forEach(el => el.classList.remove('revealed'));
+    setTimeout(() => {
+      target.querySelectorAll('.scroll-reveal').forEach(el => scrollObserver.observe(el));
+    }, 100);
+  }
+  updateCrumbs(serviceId);
+}
+
+function showLanding() {
+  details.forEach(d => { d.classList.remove('active'); d.style.display = 'none'; });
+  landing.style.display = 'block';
+  landingFooter.style.display = 'block';
+  landing.style.opacity = '0';
+  landing.style.transform = 'translateY(8px)';
+  void landing.offsetWidth;
+  landing.style.transition = 'opacity 0.4s cubic-bezier(0.16,1,0.3,1), transform 0.4s cubic-bezier(0.16,1,0.3,1)';
+  landing.style.opacity = '1';
+  landing.style.transform = 'translateY(0)';
+  // Restore scroll position instead of jumping to top
+  window.scrollTo({ top: landingScrollY, behavior: 'instant' });
+  // Re-observe landing cards so they re-stagger in
+  document.querySelectorAll('.landing .scroll-reveal').forEach(el => {
+    el.classList.remove('revealed');
+    scrollObserver.observe(el);
+  });
+  updateCrumbs(null);
+}
+
+cards.forEach(card => {
+  card.addEventListener('click', function() {
+    showDetail(this.dataset.service);
+  });
+});
+
+/* ================================================================
+   SCROLL REVEAL (IntersectionObserver)
+   ================================================================ */
+const scrollObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('revealed');
+      scrollObserver.unobserve(entry.target);
+    }
+  });
+}, {
+  threshold: 0.12,
+  rootMargin: '0px 0px -40px 0px'
+});
+
+document.querySelectorAll('.scroll-reveal').forEach(el => {
+  scrollObserver.observe(el);
+});
+
+/* ================================================================
+   SHARE — generate standalone link, copy to clipboard, route on load
+   ================================================================ */
+(function() {
+  // Track which view is currently visible
+  window.__currentView = 'hub';
+  const validShares = new Set(['hub','healthcare','passport','carmax','starbucks','walmart']);
+
+  // Wrap existing showDetail / showLanding to track current view
+  const _origShowDetail  = window.showDetail;
+  const _origShowLanding = window.showLanding;
+  window.showDetail = function(serviceId) {
+    window.__currentView = serviceId;
+    return _origShowDetail.apply(this, arguments);
+  };
+  window.showLanding = function() {
+    window.__currentView = 'hub';
+    return _origShowLanding.apply(this, arguments);
+  };
+
+  // Clipboard with fallback for non-secure contexts (file://)
+  async function copyText(text) {
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+        return true;
+      }
+    } catch (e) { /* fall through to legacy */ }
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly','');
+    ta.style.cssText = 'position:fixed;top:0;left:0;width:1px;height:1px;opacity:0;border:0;padding:0;margin:0;';
+    document.body.appendChild(ta);
+    ta.select();
+    let ok = false;
+    try { ok = document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta);
+    return ok;
+  }
+
+  // Toast
+  const toast = document.getElementById('shareToast');
+  let toastTimer = null;
+  function showToast(msg, ms) {
+    if (!toast) return;
+    toast.querySelector('.toast-text').textContent = msg;
+    toast.classList.add('is-visible');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('is-visible'), ms || 2400);
+  }
+
+  // Build a shareable URL for the current view
+  function buildShareUrl() {
+    const url = new URL(window.location.href);
+    // Drop any existing query to keep the link clean
+    url.search = '';
+    url.searchParams.set('share', window.__currentView || 'hub');
+    return url.toString();
+  }
+
+  // ----- Scope metadata: what each share target unlocks for the customer -----
+  const SHARE_PAGES = {
+    hub: {
+      title: 'Case Studies — Splash',
+      scopeTag: 'Hub-level',
+      lede: 'Customer lands on the splash page with all five case studies and can browse freely between them. The parent Single Origin breadcrumb is hidden, so they can’t reach the rest of the sales hub.',
+      accessible: [
+        { id: 'healthcare', title: 'Healthcare EHR Dashboard',   num: '01' },
+        { id: 'passport',   title: 'Passport Parking App',       num: '02' },
+        { id: 'carmax',     title: 'CarMax Agile QA',            num: '03' },
+        { id: 'starbucks',  title: 'Starbucks Loyalty Research', num: '04' },
+        { id: 'walmart',    title: 'Walmart Disaster Recovery',  num: '05' }
+      ],
+      locked: ['Single Origin (parent sales hub)']
+    },
+    healthcare: {
+      title: 'Healthcare EHR Dashboard',
+      num: '01',
+      scopeTag: 'Case-study',
+      lede: 'Customer lands directly on this single case-study one-pager. No back link, no case-study splash, no other case studies reachable.',
+      accessible: [],
+      locked: ['Case-study splash', 'Other case studies', 'Single Origin (parent hub)']
+    },
+    passport: {
+      title: 'Passport Parking App',
+      num: '02',
+      scopeTag: 'Case-study',
+      lede: 'Customer lands directly on this single case-study one-pager. No back link, no case-study splash, no other case studies reachable.',
+      accessible: [],
+      locked: ['Case-study splash', 'Other case studies', 'Single Origin (parent hub)']
+    },
+    carmax: {
+      title: 'CarMax Agile QA',
+      num: '03',
+      scopeTag: 'Case-study',
+      lede: 'Customer lands directly on this single case-study one-pager. No back link, no case-study splash, no other case studies reachable.',
+      accessible: [],
+      locked: ['Case-study splash', 'Other case studies', 'Single Origin (parent hub)']
+    },
+    starbucks: {
+      title: 'Starbucks Loyalty Research',
+      num: '04',
+      scopeTag: 'Case-study',
+      lede: 'Customer lands directly on this single case-study one-pager. No back link, no case-study splash, no other case studies reachable.',
+      accessible: [],
+      locked: ['Case-study splash', 'Other case studies', 'Single Origin (parent hub)']
+    },
+    walmart: {
+      title: 'Walmart Disaster Recovery',
+      num: '05',
+      scopeTag: 'Case-study',
+      lede: 'Customer lands directly on this single case-study one-pager. No back link, no case-study splash, no other case studies reachable.',
+      accessible: [],
+      locked: ['Case-study splash', 'Other case studies', 'Single Origin (parent hub)']
+    }
+  };
+
+  function escHtml(s) {
+    return String(s).replace(/[&<>"']/g, c => ({
+      '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+    }[c]));
+  }
+
+  // ----- Modal logic -----
+  const modal     = document.getElementById('shareModal');
+  const titleEl   = document.getElementById('shareModalTitle');
+  const ledeEl    = document.getElementById('shareModalLede');
+  const scopeTag  = document.getElementById('shareModalScopeTag');
+  const treeEl    = document.getElementById('shareModalTree');
+  const urlEl     = document.getElementById('shareModalUrl');
+  const previewEl = document.getElementById('shareModalPreview');
+  const copyEl    = document.getElementById('shareModalCopy');
+
+  function renderTree(data) {
+    if (!treeEl) return;
+    treeEl.innerHTML = '';
+
+    // Root node
+    const root = document.createElement('div');
+    root.className = 'share-modal__tree-item is-root';
+    const rootNum = data.num ? '<span class="num">' + escHtml(data.num) + '</span>' : '';
+    root.innerHTML =
+      '<span class="marker"></span>' + rootNum +
+      '<span class="text">' + escHtml(data.title) +
+      '<span class="root-tag">  — entry point</span></span>';
+    treeEl.appendChild(root);
+
+    // Accessible children
+    if (data.accessible && data.accessible.length) {
+      const wrap = document.createElement('div');
+      wrap.className = 'share-modal__tree-children';
+      data.accessible.forEach(ch => {
+        const item = document.createElement('div');
+        item.className = 'share-modal__tree-item';
+        item.innerHTML =
+          '<span class="marker"></span>' +
+          '<span class="num">' + escHtml(ch.num) + '</span>' +
+          '<span class="text">' + escHtml(ch.title) + '</span>';
+        wrap.appendChild(item);
+      });
+      treeEl.appendChild(wrap);
+    } else {
+      const empty = document.createElement('div');
+      empty.className = 'share-modal__tree-empty';
+      empty.textContent = 'No additional pages reachable from this link.';
+      treeEl.appendChild(empty);
+    }
+
+    // Locked / hidden
+    if (data.locked && data.locked.length) {
+      const div = document.createElement('div');
+      div.className = 'share-modal__tree-divider';
+      div.textContent = 'Hidden from the customer';
+      treeEl.appendChild(div);
+      data.locked.forEach(name => {
+        const item = document.createElement('div');
+        item.className = 'share-modal__tree-item is-locked';
+        item.innerHTML =
+          '<span class="marker"></span>' +
+          '<span class="text">' + escHtml(name) + '</span>';
+        treeEl.appendChild(item);
+      });
+    }
+  }
+
+  function openShareModal() {
+    if (!modal) return;
+    const view = window.__currentView || 'hub';
+    const data = SHARE_PAGES[view];
+    if (!data) return;
+    const url  = buildShareUrl();
+
+    titleEl.textContent = data.title;
+    ledeEl.textContent  = data.lede;
+    scopeTag.textContent = data.scopeTag;
+    urlEl.textContent    = url;
+    previewEl.href       = url;
+    renderTree(data);
+
+    // Reset button states
+    copyEl.classList.remove('is-success');
+    copyEl.textContent = 'Copy link';
+    if (downloadEl) {
+      downloadEl.classList.remove('is-success');
+      downloadEl.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:14px;height:14px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download .html';
+    }
+
+    modal.removeAttribute('hidden');
+    document.body.classList.add('modal-open');
+    setTimeout(() => copyEl && copyEl.focus(), 60);
+  }
+
+  function closeShareModal() {
+    if (!modal) return;
+    modal.setAttribute('hidden', '');
+    document.body.classList.remove('modal-open');
+  }
+
+  // Wire share button → open modal (no longer copies directly)
+  const btn = document.getElementById('shareBtn');
+  if (btn) btn.addEventListener('click', openShareModal);
+
+  // Close: backdrop, X button, Cancel button
+  if (modal) {
+    modal.addEventListener('click', e => {
+      if (e.target.closest('[data-share-close]')) closeShareModal();
+    });
+  }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && modal && !modal.hasAttribute('hidden')) closeShareModal();
+  });
+
+  // Copy button inside modal does the actual copy
+  if (copyEl) {
+    copyEl.addEventListener('click', async () => {
+      const url = urlEl.textContent;
+      const ok = await copyText(url);
+      if (ok) {
+        copyEl.classList.add('is-success');
+        copyEl.innerHTML = 'Copied <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>';
+        showToast('Link copied — paste anywhere to share');
+        setTimeout(closeShareModal, 1100);
+      } else {
+        // Last-resort fallback
+        window.prompt('Copy this link:', url);
+      }
+    });
+  }
+
+  // Download HTML button — packages current share scope as a standalone .html file
+  const downloadEl = document.getElementById('shareModalDownload');
+  if (downloadEl) {
+    downloadEl.addEventListener('click', () => {
+      const view = window.__currentView || 'hub';
+      const data = SHARE_PAGES[view];
+
+      // Clone the full document
+      const clone = document.documentElement.cloneNode(true);
+      const cloneBody = clone.querySelector('body') || clone;
+
+      // Apply share mode
+      cloneBody.classList.add('share-mode');
+      cloneBody.setAttribute('data-share', view);
+
+      // Remove the share modal, toast, and share button from the clone
+      const removeSelectors = ['#shareModal', '.share-toast', '#shareBtn'];
+      removeSelectors.forEach(sel => {
+        const el = clone.querySelector(sel);
+        if (el) el.remove();
+      });
+
+      // Inject a script that auto-routes to the correct share view on load
+      const autoScript = document.createElement('script');
+      autoScript.textContent =
+        "document.body.classList.add('share-mode');" +
+        "document.body.setAttribute('data-share','" + view + "');" +
+        (view !== 'hub'
+          ? "requestAnimationFrame(function(){if(typeof window.showDetail==='function')window.showDetail('" + view + "');});"
+          : '');
+      cloneBody.appendChild(autoScript);
+
+      // Build HTML string
+      const attrs = Array.from(clone.attributes).map(a => a.name + '="' + a.value + '"').join(' ');
+      const html = '<!DOCTYPE html>\n<html ' + attrs + '>\n' + clone.innerHTML + '\n</html>';
+
+      // Create blob and trigger download
+      const filename = data
+        ? data.title.replace(/[^a-zA-Z0-9]+/g, '-').replace(/-+$/, '') + '.html'
+        : 'Service-Lines.html';
+      const blob = new Blob([html], { type: 'text/html' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(a.href);
+
+      // Visual feedback
+      downloadEl.classList.add('is-success');
+      downloadEl.innerHTML =
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:14px;height:14px;"><polyline points="20 6 9 17 4 12"/></svg> Downloaded';
+      showToast('HTML file saved — open it in any browser');
+      setTimeout(closeShareModal, 1100);
+    });
+  }
+
+  // Route on load: if ?share=... is present, enter share mode + show that view.
+  // Hub share = full hub experience minus the parent-hub breadcrumb (sub-pages
+  // remain navigable, back-to-landing works). Service share = locked to that
+  // single sub-page (no back/up nav, no escape to landing).
+  function routeFromQuery() {
+    const params = new URLSearchParams(window.location.search);
+    const target = params.get('share');
+    if (!target || !validShares.has(target)) return;
+    document.body.classList.add('share-mode');
+    document.body.setAttribute('data-share', target);
+    if (target === 'hub') {
+      // landing is already the default; no-op
+    } else {
+      // Defer to next frame so existing init has wired up listeners
+      requestAnimationFrame(() => {
+        if (typeof window.showDetail === 'function') window.showDetail(target);
+      });
+    }
+  }
+  routeFromQuery();
+})();
+</script>
+
+</body>
+</html>

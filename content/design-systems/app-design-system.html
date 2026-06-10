@@ -1,1378 +1,1685 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="dark" class="so-host">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>App Design System</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@200;300;400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@300;400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>App Design System — Experis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@200;300;400;500;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
-/* ================================================================
-   TOKENS
-   ================================================================ */
-:root,[data-theme="dark"]{
-  --bg-0:#000000;--bg-1:#080808;--bg-2:#0A0A0A;--bg-3:#111111;--bg-4:#1A1A1A;
-  --text-0:#EBEBEB;--text-1:#CCCCCC;--text-2:#888888;--text-3:#828282;
-  --cyan:#C4A66C;--cyan-soft:#B89B60;--cyan-dim:rgba(196,166,108,.10);
-  --indigo:#818CF8;--indigo-dim:rgba(129,140,248,.10);--violet:#A78BFA;
-  --success:#10B981;--warning:#F59E0B;--danger:#EF4444;
-  --border-0:rgba(255,255,255,.06);--border-1:rgba(255,255,255,.12);
-  --border-2:rgba(255,255,255,.24);--border-accent:rgba(196,166,108,.30);
-  --glass-bg:rgba(8,8,8,.80);--glass-border:rgba(255,255,255,.08);
-  --grad-cyan:linear-gradient(135deg,#C4A66C,#A08A52);
-  --grad-indigo:linear-gradient(135deg,#818CF8,#A78BFA);
-  --shadow-sm:0 2px 8px rgba(0,0,0,.55);--shadow-md:0 4px 20px rgba(0,0,0,.65);
-  --glow-sm:0 0 12px rgba(196,166,108,.10);
-  --toggle-track:rgba(255,255,255,.08);--toggle-knob:#C4A66C;
+
+/* ═══════════════════════════════════════════════════
+   DESIGN TOKENS — LIGHT MODE (default)
+═══════════════════════════════════════════════════ */
+:root {
+  /* Backgrounds — near-true-black, neutral temperature (Crusoe approach) */
+  --bg-0:        #000000;
+  --bg-1:        #080808;
+  --bg-2:        #0A0A0A;
+  --bg-3:        #111111;
+  --bg-4:        #1A1A1A;
+
+  /* Glass — neutral with subtle warmth */
+  --glass-bg:        rgba(8, 8, 8, 0.80);
+  --glass-border:    rgba(255,255,255,0.08);
+  --glass-highlight: rgba(255,255,255,0.03);
+  --glass-inner:     rgba(196,166,108,0.03);
+
+  /* Accent — refined gold, used sparingly like Crusoe uses lime */
+  --cyan:        #C4A66C;
+  --cyan-soft:   #B89B60;
+  --cyan-dim:    rgba(196,166,108,0.10);
+  --cyan-glow:   rgba(196,166,108,0.15);
+  --blue:        #A08A52;
+  --indigo:      #818CF8;
+  --indigo-dim:  rgba(129,140,248,0.10);
+  --violet:      #A78BFA;
+  --success:     #10B981;
+  --warning:     #F59E0B;
+  --danger:      #EF4444;
+  --success-dim: rgba(16,185,129,0.12);
+  --warning-dim: rgba(245,158,11,0.12);
+  --danger-dim:  rgba(239,68,68,0.12);
+
+  /* Text — clean whites and neutral grays, not gold-tinted */
+  --text-0:  #EBEBEB;
+  --text-1:  #CCCCCC;
+  --text-2:  #888888;
+  --text-3:  #828282;
+
+  /* Borders — neutral white-based, minimal */
+  --border-0: rgba(255,255,255,0.06);
+  --border-1: rgba(255,255,255,0.12);
+  --border-2: rgba(255,255,255,0.24);
+  --border-accent: rgba(196,166,108,0.30);
+
+  /* Shadows — pure black depth, no color bleed */
+  --shadow-xs: 0 1px 2px rgba(0,0,0,0.5);
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.55), 0 0 0 1px var(--border-0);
+  --shadow-md: 0 4px 20px rgba(0,0,0,0.65), 0 0 0 1px var(--border-0);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,0.75), 0 0 0 1px var(--border-0);
+  --shadow-glow-sm: 0 0 12px rgba(196,166,108,0.10);
+  --shadow-glow-md: 0 0 24px rgba(196,166,108,0.08), 0 0 60px rgba(196,166,108,0.03);
+
+  /* Radius */
+  --r-xs: 2px;
+  --r-sm: 3px;
+  --r-md: 6px;
+  --r-lg: 10px;
+  --r-xl: 14px;
+  --r-full: 9999px;
+
+  /* Typography */
+  --font-display: 'Exo 2', sans-serif;
+  --font-body:    'DM Sans', sans-serif;
+  --font-mono:    'DM Mono', monospace;
+
+  /* Gradients — subtle, mostly neutral with gold reserved for accents */
+  --grad-cyan:    linear-gradient(135deg, #C4A66C 0%, #A08A52 100%);
+  --grad-indigo:  linear-gradient(135deg, #818CF8 0%, #A78BFA 100%);
+  --grad-surface: linear-gradient(160deg, rgba(196,166,108,0.04) 0%, rgba(99,102,241,0.02) 50%, rgba(0,0,0,0) 100%);
+  --grad-card:    linear-gradient(160deg, rgba(196,166,108,0.05) 0%, rgba(0,0,0,0) 60%);
+  --grad-mesh:
+    radial-gradient(ellipse 80% 60% at 15% 0%,   rgba(196,166,108,0.04) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 85% 5%,   rgba(99,102,241,0.03) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 50% 100%,  rgba(196,166,108,0.02) 0%, transparent 60%);
+
+  /* Transition */
+  --t-fast:   120ms cubic-bezier(.4,0,.2,1);
+  --t-base:   200ms cubic-bezier(.4,0,.2,1);
+  --t-slow:   350ms cubic-bezier(.4,0,.2,1);
 }
-[data-theme="light"]{
-  --bg-0:#E8E8E8;--bg-1:#EEEEEE;--bg-2:#F4F4F4;--bg-3:#FAFAFA;--bg-4:#FFFFFF;
-  --text-0:#000000;--text-1:#404040;--text-2:#636973;--text-3:#616161;
-  --cyan:#7A6537;--cyan-soft:#7A6537;--cyan-dim:rgba(122,101,55,.08);
-  --indigo:#4F46E5;--indigo-dim:rgba(79,70,229,.08);--violet:#7C3AED;
-  --success:#057550;--warning:#9A4A0E;--danger:#B91C1C;
-  --border-0:rgba(0,0,0,.06);--border-1:rgba(0,0,0,.12);
-  --border-2:rgba(0,0,0,.24);--border-accent:rgba(122,101,55,.30);
-  --glass-bg:rgba(255,255,255,.80);--glass-border:rgba(0,0,0,.08);
-  --grad-cyan:linear-gradient(135deg,#7A6537,#7A6537);
-  --grad-indigo:linear-gradient(135deg,#4F46E5,#7C3AED);
-  --shadow-sm:0 2px 8px rgba(0,0,0,.07);--shadow-md:0 4px 20px rgba(0,0,0,.08);
-  --glow-sm:0 0 12px rgba(122,101,55,.08);
-  --toggle-track:rgba(0,0,0,.08);--toggle-knob:#7A6537;
+
+/* ═══════════════════════════════════════════════════
+   LIGHT MODE OVERRIDES
+═══════════════════════════════════════════════════ */
+[data-theme="light"] {
+  /* Backgrounds — monotonic ramp: elevation = brighter, modals land on pure white */
+  --bg-0:        #E8E8E8;
+  --bg-1:        #EEEEEE;
+  --bg-2:        #F4F4F4;
+  --bg-3:        #FAFAFA;
+  --bg-4:        #FFFFFF;
+
+  /* Glass — neutral, barely tinted */
+  --glass-bg:        rgba(255,255,255,0.80);
+  --glass-border:    rgba(0,0,0,0.08);
+  --glass-highlight: rgba(255,255,255,0.9);
+  --glass-inner:     rgba(160,138,82,0.03);
+
+  /* Primary accent: refined dark gold — darkened for AA contrast on light surfaces */
+  --cyan:        #7A6537;
+  --cyan-soft:   #7A6537;
+  --cyan-dim:    rgba(122,101,55,0.08);
+  --cyan-glow:   rgba(122,101,55,0.12);
+  --blue:        #6A5B33;
+  --indigo:      #4F46E5;
+  --indigo-dim:  rgba(79,70,229,0.08);
+  --violet:      #7C3AED;
+
+  /* Text — true neutrals, WCAG AA compliant on all bg levels */
+  --text-0:  #000000;
+  --text-1:  #404040;
+  --text-2:  #636973;
+  --text-3:  #616161;
+
+  /* Borders — neutral black-based */
+  --border-0: rgba(0,0,0,0.06);
+  --border-1: rgba(0,0,0,0.12);
+  --border-2: rgba(0,0,0,0.24);
+  --border-accent: rgba(122,101,55,0.30);
+
+  /* Shadows — neutral depth */
+  --shadow-xs: 0 1px 2px rgba(0,0,0,0.05);
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.07), 0 0 0 1px var(--border-0);
+  --shadow-md: 0 4px 20px rgba(0,0,0,0.08), 0 0 0 1px var(--border-0);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,0.12), 0 0 0 1px var(--border-0);
+  --shadow-glow-sm: 0 0 12px rgba(122,101,55,0.08);
+  --shadow-glow-md: 0 0 24px rgba(122,101,55,0.06), 0 0 60px rgba(122,101,55,0.02);
+
+  /* Semantic — darkened for AA contrast on light surfaces */
+  --success:     #057550;
+  --warning:     #9A4A0E;
+  --danger:      #B91C1C;
+  --success-dim: rgba(5,117,80,0.10);
+  --warning-dim: rgba(154,74,14,0.10);
+  --danger-dim:  rgba(185,28,28,0.10);
+
+  /* Gradients — nearly invisible, just enough warmth */
+  --grad-indigo:  linear-gradient(135deg, #4F46E5, #7C3AED);
+  --grad-cyan:    linear-gradient(135deg, #7A6537 0%, #7A6537 100%);
+  --grad-surface: linear-gradient(160deg, rgba(139,115,64,0.03) 0%, rgba(79,70,229,0.02) 50%, rgba(0,0,0,0) 100%);
+  --grad-card:    linear-gradient(160deg, rgba(139,115,64,0.04) 0%, rgba(255,255,255,0) 60%);
+  --grad-mesh:
+    radial-gradient(ellipse 80% 60% at 15% 0%,   rgba(139,115,64,0.03) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 85% 5%,   rgba(79,70,229,0.02) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 50% 100%,  rgba(139,115,64,0.02) 0%, transparent 60%);
 }
 
-/* Redacted */
-.redacted{filter:blur(3.5px);-webkit-filter:blur(3.5px);user-select:none;pointer-events:none;display:inline-block}
+/* ═══════════════════════════════════════════════════
+   RESET & BASE
+═══════════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
 
-/* ================================================================
-   RESET
-   ================================================================ */
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{
-  font-family:'DM Sans',system-ui,sans-serif;
-  background:var(--bg-0);color:var(--text-0);
-  -webkit-font-smoothing:antialiased;
-  transition:background .4s,color .4s;
-  overflow-x:hidden;
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-0);
+  background-image: var(--grad-mesh);
+  background-attachment: fixed;
+  color: var(--text-0);
+  line-height: 1.6;
+  min-height: 100vh;
+  transition: background-color var(--t-slow), color var(--t-slow);
+  -webkit-font-smoothing: antialiased;
 }
 
-/* ================================================================
-   SO-NAV (matches Single Origin hub)
-   ================================================================ */
-.so-nav {
-  position:sticky;top:0;z-index:200;height:56px;
-  background:rgba(250,251,252,0.78);
-  -webkit-backdrop-filter:blur(20px) saturate(1.4);
-  backdrop-filter:blur(20px) saturate(1.4);
-  border-bottom:1px solid rgba(0,0,0,0.06);
-  font-family:'Inter',-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
-}
-[data-theme="dark"] .so-nav{background:rgba(21,23,34,0.82);border-bottom-color:rgba(255,255,255,0.08)}
-.so-nav__inner{max-width:1320px;height:100%;margin:0 auto;padding:0 24px;display:flex;align-items:center;gap:18px}
-.so-nav__brand{display:flex;align-items:center;gap:14px;text-decoration:none;color:inherit;flex-shrink:0}
-.so-nav__logo svg{width:80px;height:20px;display:block}
-.so-nav__logo svg path{fill:#151722;transition:fill .2s}
-[data-theme="dark"] .so-nav__logo svg path{fill:#FAFBFC}
-.so-nav__brand-divider{width:1px;height:22px;background:rgba(0,0,0,0.12)}
-[data-theme="dark"] .so-nav__brand-divider{background:rgba(255,255,255,0.16)}
-.so-nav__product{display:flex;align-items:center;gap:8px}
-.so-nav__brand-mark{width:16px;height:16px;border-radius:5px;background:linear-gradient(135deg,#C4B5E3,#7AB5E8);flex-shrink:0}
-.so-nav__product-name{font-size:13px;font-weight:600;letter-spacing:-0.01em;color:#151722}
-[data-theme="dark"] .so-nav__product-name{color:#FAFBFC}
-.so-nav__crumbs{display:flex;align-items:center;gap:8px;flex:1;min-width:0}
-.so-nav__crumb-sep{font-size:13px;color:rgba(0,0,0,0.25);flex-shrink:0}
-[data-theme="dark"] .so-nav__crumb-sep{color:rgba(255,255,255,0.3)}
-.so-nav__crumb{font-size:13px;font-weight:500;letter-spacing:-0.005em;color:rgba(0,0,0,0.55);text-decoration:none;white-space:nowrap;transition:color .15s}
-[data-theme="dark"] .so-nav__crumb{color:rgba(255,255,255,0.6)}
-.so-nav__crumb--current{color:#151722;font-weight:600}
-[data-theme="dark"] .so-nav__crumb--current{color:#FAFBFC}
-.so-nav__actions{display:flex;align-items:center;gap:8px;flex-shrink:0}
-.so-nav__share{display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 14px;border-radius:100px;border:1px solid rgba(0,0,0,0.10);background:rgba(255,255,255,0.95);color:#151722;font-family:inherit;font-size:12.5px;font-weight:500;cursor:pointer;transition:all .18s;white-space:nowrap}
-.so-nav__share svg{width:14px;height:14px;opacity:0.7}
-.so-nav__share:hover{border-color:rgba(0,0,0,0.16);background:linear-gradient(135deg,#F7F5FB,#F0F6FC);color:#6B4FA8}
-.so-nav__share:hover svg{opacity:1}
-[data-theme="dark"] .so-nav__share{border-color:rgba(255,255,255,0.10);background:rgba(255,255,255,0.04);color:#FAFBFC}
-[data-theme="dark"] .so-nav__share:hover{border-color:rgba(255,255,255,0.18);background:rgba(132,104,192,0.16);color:#C4B5E3}
-.so-nav__theme{width:34px;height:34px;border-radius:8px;border:1px solid rgba(0,0,0,0.10);background:rgba(255,255,255,0.95);color:rgba(0,0,0,0.6);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .18s;flex-shrink:0}
-.so-nav__theme:hover{border-color:rgba(0,0,0,0.16);color:#151722}
-[data-theme="dark"] .so-nav__theme{border-color:rgba(255,255,255,0.10);background:rgba(255,255,255,0.04);color:rgba(255,255,255,0.6)}
-[data-theme="dark"] .so-nav__theme:hover{border-color:rgba(255,255,255,0.18);color:#FAFBFC}
-.so-nav__theme svg{width:16px;height:16px}
-@media(max-width:720px){.so-nav__crumbs{display:none}.so-nav__brand-divider{display:none}}
-@media(max-width:540px){.so-nav__share .label{display:none}.so-nav__share{padding:0 10px}.so-nav__product-name{display:none}}
-body.share-mode .so-nav{display:none!important}
-
-/* ================================================================
-   SHARE MODAL
-   ================================================================ */
-.share-modal{position:fixed;inset:0;z-index:9999}
-.share-modal[hidden]{display:none}
-.share-modal__backdrop{position:absolute;inset:0;background:rgba(11,12,18,0.55);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
-.share-modal__panel{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:92%;max-width:540px;max-height:90vh;overflow-y:auto;background:#FFFFFF;color:#151722;border-radius:18px;box-shadow:0 30px 80px rgba(0,0,0,0.28),0 8px 24px rgba(0,0,0,0.10);padding:32px 32px 22px;animation:smIn .25s cubic-bezier(.16,1,.3,1)}
-@keyframes smIn{from{opacity:0;transform:translate(-50%,-46%)}to{opacity:1;transform:translate(-50%,-50%)}}
-[data-theme="dark"] .share-modal__panel{background:#1E2030;color:#FAFBFC}
-.share-modal__close{position:absolute;top:14px;right:14px;width:32px;height:32px;border:0;background:transparent;border-radius:8px;color:rgba(0,0,0,0.45);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}
-.share-modal__close:hover{background:rgba(0,0,0,0.05);color:#151722}
-[data-theme="dark"] .share-modal__close{color:rgba(255,255,255,0.45)}
-[data-theme="dark"] .share-modal__close:hover{background:rgba(255,255,255,0.06);color:#FAFBFC}
-.share-modal__eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#6B4FA8;margin-bottom:14px;font-family:'Inter',system-ui,sans-serif}
-.share-modal__eyebrow svg{width:14px;height:14px;opacity:0.8}
-[data-theme="dark"] .share-modal__eyebrow{color:#C4B5E3}
-.share-modal__title{font-size:24px;font-weight:600;letter-spacing:-0.025em;line-height:1.18;margin-bottom:12px;font-family:'Inter',system-ui,sans-serif}
-.share-modal__lede{font-size:14.5px;line-height:1.6;margin-bottom:22px;color:rgba(0,0,0,0.6);font-family:'Inter',system-ui,sans-serif}
-[data-theme="dark"] .share-modal__lede{color:rgba(255,255,255,0.6)}
-.share-modal__url-block{padding:14px 16px;background:rgba(0,0,0,0.03);border:1px solid rgba(0,0,0,0.06);border-radius:10px;margin-bottom:22px}
-[data-theme="dark"] .share-modal__url-block{background:rgba(255,255,255,0.03);border-color:rgba(255,255,255,0.06)}
-.share-modal__url-label{font-size:10.5px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:rgba(0,0,0,0.45);margin-bottom:6px;font-family:'Inter',system-ui,sans-serif}
-[data-theme="dark"] .share-modal__url-label{color:rgba(255,255,255,0.45)}
-.share-modal__url{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px;word-break:break-all;line-height:1.55;user-select:all}
-.share-modal__actions{display:flex;align-items:center;justify-content:flex-end;gap:10px}
-.share-modal__btn{font-family:'Inter',system-ui,sans-serif;font-size:13.5px;font-weight:500;padding:10px 18px;border-radius:100px;cursor:pointer;transition:all .18s;border:1px solid transparent;white-space:nowrap}
-.share-modal__btn--ghost{background:transparent;color:rgba(0,0,0,0.6);border-color:rgba(0,0,0,0.10)}
-.share-modal__btn--ghost:hover{background:rgba(0,0,0,0.04);color:#151722}
-[data-theme="dark"] .share-modal__btn--ghost{color:rgba(255,255,255,0.6);border-color:rgba(255,255,255,0.10)}
-[data-theme="dark"] .share-modal__btn--ghost:hover{background:rgba(255,255,255,0.06);color:#FAFBFC}
-.share-modal__btn--primary{background:linear-gradient(135deg,#8468C0,#4A96DB);color:#fff}
-.share-modal__btn--primary:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(132,104,192,0.30)}
-.share-modal__btn--primary.is-success{background:#2A7BC8}
-.share-modal__btn--download{background:transparent;color:rgba(0,0,0,0.6);border-color:rgba(0,0,0,0.10)}
-.share-modal__btn--download:hover{background:rgba(0,0,0,0.04);color:#151722}
-[data-theme="dark"] .share-modal__btn--download{color:rgba(255,255,255,0.6);border-color:rgba(255,255,255,0.10)}
-[data-theme="dark"] .share-modal__btn--download:hover{background:rgba(255,255,255,0.06);color:#FAFBFC}
-.share-toast{position:fixed;bottom:32px;left:50%;transform:translate(-50%,16px);z-index:10000;background:#151722;color:#fff;padding:12px 18px;border-radius:10px;font-size:13.5px;font-weight:500;box-shadow:0 10px 30px rgba(0,0,0,0.18);opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;display:inline-flex;align-items:center;gap:8px;font-family:'Inter',system-ui,sans-serif}
-.share-toast svg{width:14px;height:14px}
-.share-toast.is-visible{opacity:1;transform:translate(-50%,0);pointer-events:auto}
-body.modal-open{overflow:hidden}
-
-/* ================================================================
-   SCROLL REVEAL
-   ================================================================ */
-.scroll-reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
-.scroll-reveal.revealed{opacity:1;transform:translateY(0)}
-
-/* ================================================================
-   PAGE LAYOUT
-   ================================================================ */
-.page-content{width:100%;overflow-x:hidden}
-.section{padding:140px 32px;position:relative}
-.section:first-child{padding-top:100px}
-@media(max-width:768px){.section{padding:80px 20px}}
-.section__inner{max-width:1100px;margin:0 auto;width:100%}
-.section-divider{height:1px;background:var(--border-0);max-width:1100px;margin:0 auto}
-
-/* ================================================================
+/* ═══════════════════════════════════════════════════
    TYPOGRAPHY
-   ================================================================ */
-.tag{
-  font-family:'DM Mono',monospace;font-size:10px;
-  letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);
-  margin-bottom:12px;display:block;
+═══════════════════════════════════════════════════ */
+.font-display { font-family: var(--font-display); }
+.font-mono    { font-family: var(--font-mono); }
+
+.t-display {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
 }
-h2.section-title{
-  font-family:'Exo 2',sans-serif;font-weight:600;
-  font-size:clamp(28px,4vw,48px);letter-spacing:-.03em;
-  line-height:1.1;color:var(--text-0);margin-bottom:16px;
+.t-h1 { font-family: var(--font-display); font-size: 2.25rem; font-weight: 600; letter-spacing: -0.015em; line-height: 1.2; }
+.t-h2 { font-family: var(--font-display); font-size: 1.625rem; font-weight: 600; letter-spacing: -0.01em;  line-height: 1.25; }
+.t-h3 { font-family: var(--font-display); font-size: 1.25rem;  font-weight: 500; letter-spacing: -0.005em; line-height: 1.3; }
+.t-h4 { font-family: var(--font-display); font-size: 1rem;     font-weight: 500; letter-spacing: 0.01em;   line-height: 1.4; }
+.t-body-lg  { font-size: 1.0625rem; font-weight: 400; line-height: 1.65; }
+.t-body     { font-size: 0.9375rem; font-weight: 400; line-height: 1.6;  }
+.t-body-sm  { font-size: 0.8125rem; font-weight: 400; line-height: 1.55; }
+.t-caption  { font-size: 0.75rem;   font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; }
+.t-label    { font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; }
+.t-mono     { font-family: var(--font-mono); font-size: 0.875rem; }
+.t-mono-sm  { font-family: var(--font-mono); font-size: 0.75rem; }
+
+.c-0 { color: var(--text-0); }
+.c-1 { color: var(--text-1); }
+.c-2 { color: var(--text-2); }
+.c-3 { color: var(--text-3); }
+.c-cyan   { color: var(--cyan); }
+.c-indigo { color: var(--indigo); }
+
+/* ═══════════════════════════════════════════════════
+   TOP NAV
+═══════════════════════════════════════════════════ */
+.topnav {
+  position: sticky; top: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 32px;
+  height: 56px;
+  background: var(--glass-bg);
+  border-bottom: 1px solid var(--border-0);
+  backdrop-filter: blur(20px) saturate(1.6);
+  -webkit-backdrop-filter: blur(20px) saturate(1.6);
+  transition: background var(--t-slow);
 }
-.section-sub{font-size:16px;line-height:1.7;color:var(--text-1);max-width:560px;margin-bottom:48px}
-.callout{
-  font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.7;color:var(--text-1);
-  padding:24px 28px;border-left:2px solid var(--cyan);
-  background:var(--cyan-dim);border-radius:0 10px 10px 0;
-  margin-top:40px;max-width:640px;
+.topnav-left  { display: flex; align-items: center; gap: 32px; }
+.topnav-right { display: flex; align-items: center; gap: 12px; }
+.topnav-links { display: flex; align-items: center; gap: 4px; }
+.topnav-links span {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--text-1);
+  padding: 5px 12px;
+  border-radius: var(--r-sm);
+  transition: color var(--t-fast), background var(--t-fast);
+  cursor: default;
+}
+.topnav-links span:hover { color: var(--text-0); background: var(--border-0); }
+.topnav-links span.active { color: var(--cyan); }
+
+/* Sidebar nav */
+.sidenav {
+  width: 220px; min-height: 100%;
+  background: var(--bg-2);
+  border-right: 1px solid var(--border-0);
+  padding: 24px 0;
+  flex-shrink: 0;
+}
+.sidenav-section { padding: 0 16px 16px; }
+.sidenav-label {
+  font-size: 0.625rem; font-weight: 700;
+  letter-spacing: 0.10em; text-transform: uppercase;
+  color: var(--text-3);
+  padding: 0 12px 8px;
+}
+.sidenav-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 7px 12px;
+  border-radius: var(--r-sm);
+  font-size: 0.8125rem; font-weight: 400;
+  color: var(--text-1);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all var(--t-fast);
+  position: relative;
+}
+.sidenav-item:hover { background: var(--border-0); color: var(--text-0); }
+.sidenav-item.active {
+  background: var(--cyan-dim);
+  color: var(--cyan);
+  font-weight: 500;
+}
+.sidenav-item.active::before {
+  content: '';
+  position: absolute; left: 0; top: 50%;
+  transform: translateY(-50%);
+  width: 2px; height: 18px;
+  background: var(--cyan);
+  border-radius: 0 2px 2px 0;
+}
+.sidenav-badge {
+  margin-left: auto;
+  font-size: 0.625rem; font-weight: 700;
+  padding: 1px 6px; border-radius: var(--r-full);
+  background: var(--cyan-dim);
+  color: var(--cyan);
 }
 
-/* ================================================================
-   HERO
-   ================================================================ */
-.hero{
-  min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
-  text-align:center;position:relative;overflow:hidden;
-  padding:120px 32px 100px;
+/* ═══════════════════════════════════════════════════
+   LOGO SVG
+═══════════════════════════════════════════════════ */
+.logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.logo-mark { flex-shrink: 0; }
+.logo-text {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text-0);
 }
-.hero__glow{
-  position:absolute;top:50%;left:50%;width:600px;height:600px;
-  transform:translate(-50%,-50%);
-  background:radial-gradient(circle,rgba(196,166,108,.08) 0%,transparent 70%);
-  pointer-events:none;
+.logo-text span { color: var(--cyan); }
+
+/* ═══════════════════════════════════════════════════
+   BUTTONS
+═══════════════════════════════════════════════════ */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+  font-family: var(--font-body);
+  font-weight: 500;
+  border: none; cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all var(--t-fast);
+  position: relative; overflow: hidden;
+  flex-shrink: 0;
 }
-[data-theme="light"] .hero__glow{background:radial-gradient(circle,rgba(122,101,55,.06) 0%,transparent 70%)}
-.hero__vault-lines{
-  position:absolute;inset:0;pointer-events:none;overflow:hidden;opacity:.12;
+.btn::after {
+  content: ''; position: absolute; inset: 0;
+  background: rgba(255,255,255,0);
+  transition: background var(--t-fast);
 }
-.hero__vault-lines::before,.hero__vault-lines::after{
-  content:'';position:absolute;border:1px solid var(--cyan);border-radius:50%;
-  top:50%;left:50%;transform:translate(-50%,-50%);
+.btn:hover::after  { background: rgba(255,255,255,0.07); }
+.btn:active::after { background: rgba(0,0,0,0.10); }
+
+/* Sizes */
+.btn-xs { font-size: 0.6875rem; padding: 5px 10px;  border-radius: var(--r-sm); height: 26px; }
+.btn-sm { font-size: 0.8125rem; padding: 6px 14px;  border-radius: var(--r-sm); height: 32px; }
+.btn-md { font-size: 0.875rem;  padding: 8px 18px;  border-radius: var(--r-md); height: 38px; }
+.btn-lg { font-size: 0.9375rem; padding: 10px 24px; border-radius: var(--r-md); height: 44px; }
+
+/* Primary */
+.btn-primary {
+  background: var(--grad-cyan);
+  color: var(--bg-1);
+  font-weight: 600;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.12);
 }
-.hero__vault-lines::before{width:420px;height:420px}
-.hero__vault-lines::after{width:280px;height:280px}
-.hero__tag{
-  font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--cyan);margin-bottom:24px;position:relative;z-index:1;
+.btn-primary:hover { box-shadow: var(--shadow-glow-sm), 0 2px 8px rgba(0,0,0,0.4); }
+
+/* Light mode primary CTA — lighter box-shadow for light surfaces */
+[data-theme="light"] .btn-primary {
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 0 0 1px rgba(122,101,55,0.15);
 }
-.hero__title{
-  font-family:'Exo 2',sans-serif;font-weight:700;
-  font-size:clamp(36px,6vw,72px);letter-spacing:-.04em;line-height:1.05;
-  color:var(--text-0);position:relative;z-index:1;margin-bottom:20px;
-}
-.hero__subtitle{
-  font-size:17px;line-height:1.7;color:var(--text-2);max-width:540px;
-  position:relative;z-index:1;margin-bottom:48px;
-}
-.hero__stats{
-  display:flex;gap:32px;flex-wrap:wrap;justify-content:center;
-  position:relative;z-index:1;
-}
-.hero__stat{
-  display:flex;flex-direction:column;align-items:center;gap:6px;
-  padding:16px 24px;border-radius:12px;
-  background:var(--bg-3);border:1px solid var(--border-0);
-  transition:background .4s,border-color .4s;
-}
-.hero__stat-value{
-  font-family:'DM Mono',monospace;font-size:22px;font-weight:500;color:var(--cyan);
-}
-.hero__stat-label{
-  font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3);
+[data-theme="light"] .btn-primary:hover {
+  box-shadow: var(--shadow-glow-sm), 0 2px 8px rgba(0,0,0,0.12);
 }
 
-/* ================================================================
-   COLOR SYSTEM
-   ================================================================ */
-.color-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:48px}
-@media(max-width:768px){.color-grid{grid-template-columns:repeat(3,1fr)}}
-.color-swatch{
-  border-radius:10px;overflow:hidden;border:1px solid var(--border-0);
-  transition:transform .2s,box-shadow .2s;cursor:default;
+/* Secondary */
+.btn-secondary {
+  background: var(--bg-3);
+  color: var(--text-0);
+  border: 1px solid var(--border-1);
+  box-shadow: var(--shadow-xs);
 }
-.color-swatch:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}
-.color-swatch__fill{height:72px;position:relative}
-.color-swatch__info{padding:10px 12px;background:var(--bg-3);transition:background .4s}
-.color-swatch__name{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.06em;color:var(--text-2);margin-bottom:2px}
-.color-swatch__hex{font-family:'DM Mono',monospace;font-size:11px;color:var(--text-0);font-weight:500}
+.btn-secondary:hover { border-color: var(--border-2); background: var(--bg-4); }
 
-.accent-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:48px}
-.accent-swatch{
-  border-radius:10px;padding:20px 16px;text-align:center;
-  border:1px solid var(--border-0);transition:all .2s;cursor:default;
+/* Ghost */
+.btn-ghost {
+  background: transparent;
+  color: var(--text-1);
+  border: 1px solid var(--border-0);
 }
-.accent-swatch:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}
-.accent-swatch__dot{
-  width:40px;height:40px;border-radius:50%;margin:0 auto 12px;
-  box-shadow:0 2px 12px rgba(0,0,0,.2);
-}
-.accent-swatch__name{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-2);margin-bottom:4px}
-.accent-swatch__hex{font-family:'DM Mono',monospace;font-size:11px;color:var(--text-0)}
+.btn-ghost:hover { color: var(--text-0); border-color: var(--border-1); background: var(--border-0); }
 
-.semantic-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-@media(max-width:600px){.semantic-row{grid-template-columns:1fr}}
-.semantic-card{
-  border-radius:10px;padding:20px;
-  border:1px solid var(--border-0);background:var(--bg-2);
-  display:flex;align-items:center;gap:16px;transition:all .4s;
+/* Accent ghost */
+.btn-ghost-accent {
+  background: var(--cyan-dim);
+  color: var(--cyan);
+  border: 1px solid var(--border-accent);
 }
-.semantic-card__dot{width:14px;height:14px;border-radius:50%;flex-shrink:0}
-.semantic-card__label{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.06em;color:var(--text-1)}
-.semantic-card__hex{font-family:'DM Mono',monospace;font-size:11px;color:var(--text-2);margin-left:auto}
+.btn-ghost-accent:hover { background: rgba(196,166,108,0.15); }
 
-/* ================================================================
-   TYPOGRAPHY SECTION
-   ================================================================ */
-.type-specimen{
-  padding:32px;border-radius:12px;border:1px solid var(--border-0);
-  background:var(--bg-2);margin-bottom:20px;transition:all .4s;
+/* Danger */
+.btn-danger {
+  background: var(--danger-dim);
+  color: var(--danger);
+  border: 1px solid rgba(239,68,68,0.20);
 }
-.type-specimen__label{
-  font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;
-  text-transform:uppercase;color:var(--cyan);margin-bottom:8px;display:flex;align-items:center;gap:12px;
-}
-.type-specimen__label span{color:var(--text-3);letter-spacing:.04em;text-transform:none}
-.type-specimen__sample-display{
-  font-family:'Exo 2',sans-serif;font-size:clamp(32px,4vw,52px);font-weight:600;
-  letter-spacing:-.03em;line-height:1.15;color:var(--text-0);margin-bottom:8px;
-}
-.type-specimen__sample-body{
-  font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.7;
-  color:var(--text-1);max-width:600px;
-}
-.type-specimen__sample-mono{
-  font-family:'DM Mono',monospace;font-size:14px;line-height:1.7;
-  color:var(--text-1);letter-spacing:.02em;
-}
+.btn-danger:hover { background: rgba(239,68,68,0.22); }
 
-.type-scale{display:grid;gap:2px;margin-top:40px}
-.type-scale__row{
-  display:flex;align-items:baseline;gap:20px;
-  padding:12px 16px;border-radius:8px;
-  transition:background .2s;
+/* Icon-only */
+.btn-icon {
+  padding: 0; width: 38px; height: 38px;
+  background: var(--bg-3);
+  color: var(--text-1);
+  border: 1px solid var(--border-0);
+  border-radius: var(--r-md);
 }
-.type-scale__row:hover{background:var(--bg-3)}
-.type-scale__size{font-family:'DM Mono',monospace;font-size:11px;color:var(--cyan);width:48px;flex-shrink:0}
-.type-scale__preview{color:var(--text-0);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.btn-icon.sm { width: 30px; height: 30px; border-radius: var(--r-sm); }
+.btn-icon:hover { color: var(--text-0); border-color: var(--border-1); }
 
-/* ================================================================
-   ELEVATION & DEPTH
-   ================================================================ */
-.elevation-stack{
-  display:flex;flex-direction:column;gap:0;position:relative;
-  margin-top:32px;
+/* Loading */
+.btn-loading { opacity: 0.7; cursor: not-allowed; pointer-events: none; }
+.spinner {
+  width: 14px; height: 14px;
+  border: 2px solid rgba(5,12,24,0.3);
+  border-top-color: var(--bg-1);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
 }
-.elevation-level{
-  display:flex;align-items:center;gap:24px;
-  padding:28px 32px;border:1px solid var(--border-0);
-  transition:all .3s;position:relative;
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ═══════════════════════════════════════════════════
+   TABS
+═══════════════════════════════════════════════════ */
+/* Default underline tabs */
+.tabs {
+  display: flex; align-items: stretch;
+  border-bottom: 1px solid var(--border-0);
+  gap: 0;
 }
-.elevation-level:first-child{border-radius:12px 12px 0 0}
-.elevation-level:last-child{border-radius:0 0 12px 12px}
-.elevation-level + .elevation-level{border-top:none}
-.elevation-level__label{
-  font-family:'DM Mono',monospace;font-size:12px;font-weight:500;
-  color:var(--cyan);width:60px;flex-shrink:0;
+.tab {
+  font-family: var(--font-body);
+  font-size: 0.875rem; font-weight: 500;
+  color: var(--text-2);
+  padding: 10px 18px;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: all var(--t-fast);
+  white-space: nowrap;
+  display: flex; align-items: center; gap: 7px;
+  position: relative;
+  background: none; border-top: none; border-left: none; border-right: none;
 }
-.elevation-level__desc{font-size:13px;color:var(--text-2);flex:1}
-.elevation-level__demo{
-  width:64px;height:40px;border-radius:8px;flex-shrink:0;
-  border:1px solid var(--border-0);
+.tab:hover { color: var(--text-0); }
+.tab.active {
+  color: var(--cyan);
+  border-bottom-color: var(--cyan);
 }
 
-/* ================================================================
-   STROKE & ROUNDING
-   ================================================================ */
-.radius-spectrum{
-  display:flex;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-top:32px;margin-bottom:48px;
+/* Pill tabs */
+.tabs-pill {
+  display: inline-flex; align-items: center;
+  background: var(--bg-2);
+  border: 1px solid var(--border-0);
+  border-radius: var(--r-md);
+  padding: 3px;
+  gap: 2px;
 }
-.radius-item{
-  display:flex;flex-direction:column;align-items:center;gap:12px;
+.tab-pill {
+  font-size: 0.8125rem; font-weight: 500;
+  color: var(--text-2);
+  padding: 6px 14px;
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  transition: none;
+  white-space: nowrap;
+  background: none; border: none;
 }
-.radius-item__box{
-  width:72px;height:72px;border:2px solid var(--cyan);
-  transition:all .3s;
+.tab-pill:hover { color: var(--text-0); background: var(--border-0); }
+.tab-pill.active {
+  background: var(--bg-4);
+  color: var(--text-0);
+  box-shadow: var(--shadow-xs);
+  border: 1px solid var(--border-1);
 }
-.radius-item__label{font-family:'DM Mono',monospace;font-size:10px;color:var(--text-2);letter-spacing:.04em}
-.radius-item__tag{font-family:'DM Mono',monospace;font-size:9px;color:var(--cyan);letter-spacing:.08em;text-transform:uppercase}
-.radius-item--active .radius-item__box{box-shadow:0 0 20px var(--cyan-dim);border-color:var(--cyan)}
 
-.stroke-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-@media(max-width:600px){.stroke-grid{grid-template-columns:repeat(2,1fr)}}
-.stroke-card{
-  padding:24px;border-radius:10px;text-align:center;
-  transition:all .3s;background:var(--bg-2);
+/* Vertical tabs */
+.tabs-vert {
+  display: flex; flex-direction: column; gap: 2px;
+  border-right: 1px solid var(--border-0);
+  padding-right: 0; min-width: 160px;
 }
-.stroke-card__line{height:2px;margin:0 auto 16px;width:80%}
-.stroke-card__name{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-2);margin-bottom:4px}
-.stroke-card__value{font-family:'DM Mono',monospace;font-size:11px;color:var(--text-0)}
+.tab-vert {
+  font-size: 0.8125rem; font-weight: 400;
+  color: var(--text-2);
+  padding: 8px 16px 8px 12px;
+  cursor: pointer;
+  border-right: 2px solid transparent;
+  transition: all var(--t-fast);
+  white-space: nowrap; text-align: left;
+  background: none; border-top: none; border-left: none; border-bottom: none;
+}
+.tab-vert:hover { color: var(--text-0); background: var(--border-0); }
+.tab-vert.active { color: var(--cyan); border-right-color: var(--cyan); background: var(--cyan-dim); }
 
-/* ================================================================
-   GLASS & TRANSLUCENCY
-   ================================================================ */
-.glass-demo{
-  position:relative;border-radius:16px;overflow:hidden;
-  min-height:400px;margin-top:32px;
-  background:var(--bg-2);border:1px solid var(--border-0);
+/* ═══════════════════════════════════════════════════
+   CHIPS / BADGES
+═══════════════════════════════════════════════════ */
+.chip {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 0.6875rem; font-weight: 600;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: var(--r-sm);
+  white-space: nowrap;
 }
-.glass-demo__bg{
-  position:absolute;inset:0;padding:24px;opacity:.6;
-  display:grid;grid-template-columns:repeat(3,1fr);gap:12px;
+.chip-dot {
+  width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0;
 }
-.glass-demo__bg-card{
-  background:var(--bg-3);border-radius:8px;padding:16px;
-}
-.glass-demo__bg-bar{height:8px;border-radius:4px;background:var(--border-1);margin-bottom:8px}
-.glass-demo__bg-bar--short{width:60%}
-.glass-demo__bg-bar--accent{background:var(--cyan-dim);width:80%}
-.glass-demo__bg-num{font-family:'DM Mono',monospace;font-size:20px;color:var(--text-2);margin-bottom:8px}
+/* Chip variants */
+.chip-default  { background: var(--border-0);   color: var(--text-1);  border: 1px solid var(--border-0); }
+.chip-cyan     { background: var(--cyan-dim);    color: var(--cyan);    border: 1px solid rgba(196,166,108,0.12); }
+.chip-indigo   { background: var(--indigo-dim);  color: var(--indigo);  border: 1px solid rgba(99,102,241,0.18); }
+.chip-success  { background: var(--success-dim); color: var(--success); border: 1px solid rgba(16,185,129,0.18); }
+.chip-warning  { background: var(--warning-dim); color: var(--warning); border: 1px solid rgba(245,158,11,0.18); }
+.chip-danger   { background: var(--danger-dim);  color: var(--danger);  border: 1px solid rgba(239,68,68,0.18); }
 
-.glass-tiers{
-  position:relative;z-index:1;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;
-  padding:24px;height:100%;min-height:400px;align-items:center;
+/* Category chips (clickable) */
+.chip-tag {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 0.75rem; font-weight: 500;
+  padding: 4px 10px;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--border-1);
+  color: var(--text-1);
+  background: var(--bg-3);
+  cursor: pointer;
+  transition: all var(--t-fast);
 }
-@media(max-width:768px){.glass-tiers{grid-template-columns:1fr}}
-.glass-tier{
-  padding:28px 24px;border-radius:12px;text-align:center;
-  transition:transform .3s,box-shadow .3s;
-}
-.glass-tier:hover{transform:translateY(-4px)}
-.glass-tier--subtle{
-  background:rgba(8,8,8,.40);
-  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
-  border:1px solid rgba(255,255,255,.04);
-}
-[data-theme="light"] .glass-tier--subtle{background:rgba(255,255,255,.40);border-color:rgba(0,0,0,.04)}
-.glass-tier--medium{
-  background:rgba(8,8,8,.65);
-  -webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);
-  border:1px solid rgba(255,255,255,.08);
-}
-[data-theme="light"] .glass-tier--medium{background:rgba(255,255,255,.65);border-color:rgba(0,0,0,.06)}
-.glass-tier--heavy{
-  background:rgba(8,8,8,.85);
-  -webkit-backdrop-filter:blur(24px) saturate(1.2);backdrop-filter:blur(24px) saturate(1.2);
-  border:1px solid rgba(255,255,255,.12);
-}
-[data-theme="light"] .glass-tier--heavy{background:rgba(255,255,255,.85);border-color:rgba(0,0,0,.08)}
+.chip-tag:hover { border-color: var(--border-accent); color: var(--cyan); background: var(--cyan-dim); }
+.chip-tag.selected { border-color: var(--border-accent); color: var(--cyan); background: var(--cyan-dim); }
 
-.glass-tier__name{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);margin-bottom:8px}
-.glass-tier__spec{font-family:'DM Mono',monospace;font-size:10px;color:var(--text-3);line-height:1.6}
+/* Count badge */
+.badge {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 18px; height: 18px;
+  padding: 0 5px;
+  border-radius: var(--r-full);
+  font-size: 0.625rem; font-weight: 700;
+  line-height: 1;
+}
+.badge-cyan    { background: var(--cyan);    color: var(--bg-1); }
+.badge-indigo  { background: var(--indigo);  color: #fff; }
+.badge-muted   { background: var(--bg-4);    color: var(--text-1); border: 1px solid var(--border-1); }
+.badge-danger  { background: var(--danger);  color: #fff; }
 
-/* ================================================================
-   COMPONENT STYLING
-   ================================================================ */
-.comp-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:32px}
+/* ═══════════════════════════════════════════════════
+   CARDS
+═══════════════════════════════════════════════════ */
 
-/* Buttons */
-.demo-btn{
-  display:inline-flex;align-items:center;gap:8px;
-  padding:10px 22px;border-radius:8px;font-family:'DM Sans',sans-serif;
-  font-size:13px;font-weight:500;cursor:pointer;
-  border:1px solid transparent;transition:all .2s;
+/* Base card */
+.card {
+  background: var(--bg-2);
+  border: 1px solid var(--border-0);
+  border-radius: var(--r-lg);
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--t-base);
 }
-.demo-btn--primary{
-  background:var(--grad-cyan);color:var(--bg-0);border-color:transparent;
-  box-shadow:0 2px 8px rgba(196,166,108,.2);
-}
-.demo-btn--primary:hover{box-shadow:0 4px 20px rgba(196,166,108,.35);transform:translateY(-1px)}
-[data-theme="light"] .demo-btn--primary{color:#fff}
-.demo-btn--secondary{
-  background:var(--bg-3);color:var(--text-1);border-color:var(--border-1);
-}
-.demo-btn--secondary:hover{background:var(--bg-4);color:var(--text-0);border-color:var(--border-2)}
-.demo-btn--ghost{
-  background:transparent;color:var(--text-2);border-color:transparent;
-}
-.demo-btn--ghost:hover{color:var(--text-0);background:var(--bg-3)}
-.demo-btn--ai{
-  background:var(--grad-indigo);color:#fff;border-color:transparent;
-  box-shadow:0 2px 8px rgba(129,140,248,.2);
-}
-.demo-btn--ai:hover{box-shadow:0 4px 20px rgba(129,140,248,.35);transform:translateY(-1px)}
+.card:hover { box-shadow: var(--shadow-md); border-color: var(--border-1); }
 
-/* Cards */
-.demo-card{
-  padding:24px;border-radius:10px;background:var(--bg-3);
-  border:1px solid var(--border-0);transition:all .3s;max-width:320px;
+/* Elevated card */
+.card-elevated {
+  background: var(--bg-3);
+  border: 1px solid var(--border-1);
+  border-radius: var(--r-lg);
+  padding: 24px;
+  box-shadow: var(--shadow-md);
 }
-.demo-card:hover{border-color:var(--border-accent);box-shadow:var(--glow-sm),var(--shadow-md);transform:translateY(-2px)}
-.demo-card__title{font-family:'Exo 2',sans-serif;font-size:15px;font-weight:600;color:var(--text-0);margin-bottom:8px}
-.demo-card__text{font-size:13px;color:var(--text-2);line-height:1.6;margin-bottom:12px}
-.demo-card__metric{font-family:'DM Mono',monospace;font-size:20px;font-weight:500;color:var(--cyan)}
 
-.demo-card--ai{
-  background:var(--indigo-dim);border-color:rgba(129,140,248,.15);
+/* Glass card */
+.card-glass {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--r-lg);
+  padding: 24px;
+  backdrop-filter: blur(24px) saturate(1.4);
+  -webkit-backdrop-filter: blur(24px) saturate(1.4);
+  box-shadow: var(--shadow-md), inset 0 1px 0 var(--glass-highlight);
+  position: relative; overflow: hidden;
+  transition: all var(--t-base);
 }
-.demo-card--ai:hover{border-color:rgba(129,140,248,.30);box-shadow:0 0 16px rgba(129,140,248,.12),var(--shadow-md)}
-.demo-card--ai .demo-card__title{color:var(--indigo)}
-.demo-card--ai .demo-card__metric{color:var(--violet)}
+.card-glass::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: var(--glass-inner);
+  pointer-events: none;
+}
+.card-glass:hover {
+  border-color: rgba(196,166,108,0.15);
+  box-shadow: var(--shadow-lg), var(--shadow-glow-sm), inset 0 1px 0 var(--glass-highlight);
+}
 
-/* Data table */
-.demo-table{
-  width:100%;border-collapse:collapse;font-size:13px;margin-top:24px;
-  border-radius:10px;overflow:hidden;border:1px solid var(--border-0);
+/* Gradient card */
+.card-gradient {
+  background: var(--grad-card), var(--bg-2);
+  border: 1px solid var(--border-accent);
+  border-radius: var(--r-lg);
+  padding: 24px;
+  box-shadow: var(--shadow-md), var(--shadow-glow-sm);
+  position: relative; overflow: hidden;
+  transition: all var(--t-base);
 }
-.demo-table th{
-  font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;
-  text-transform:uppercase;color:var(--text-3);text-align:left;
-  padding:12px 16px;background:var(--bg-2);border-bottom:1px solid var(--border-0);
+.card-gradient::after {
+  content: '';
+  position: absolute; top: -1px; left: 24px; right: 24px; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+  opacity: 0.5;
 }
-.demo-table td{
-  padding:12px 16px;border-bottom:1px solid var(--border-0);
-  color:var(--text-1);transition:background .2s;
-}
-.demo-table tr:hover td{background:var(--bg-3)}
-.demo-table .mono{font-family:'DM Mono',monospace;color:var(--text-0)}
-.demo-table .up{color:var(--success)}
-.demo-table .down{color:var(--danger)}
+.card-gradient:hover { box-shadow: var(--shadow-lg), var(--shadow-glow-md); }
 
-/* Toast notifications */
-.demo-toast-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
-.demo-toast{
-  display:inline-flex;align-items:center;gap:10px;
-  padding:12px 18px;border-radius:10px;font-size:13px;font-weight:500;
-  border:1px solid;
+/* Data / metric card — precision instrument style */
+.card-metric {
+  background: var(--bg-1);
+  border: 1px solid var(--border-0);
+  border-top: 2px solid var(--metric-accent, var(--cyan));
+  border-radius: 0 0 var(--r-md) var(--r-md);
+  padding: 18px 20px 16px;
+  position: relative; overflow: hidden;
+  transition: all var(--t-base);
+  display: flex; flex-direction: column; gap: 0;
 }
-.demo-toast--success{background:rgba(16,185,129,.08);border-color:rgba(16,185,129,.2);color:var(--success)}
-.demo-toast--warning{background:rgba(245,158,11,.08);border-color:rgba(245,158,11,.2);color:var(--warning)}
-.demo-toast--danger{background:rgba(239,68,68,.08);border-color:rgba(239,68,68,.2);color:var(--danger)}
-.demo-toast__icon{width:16px;height:16px;flex-shrink:0}
+.card-metric::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 60px;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--metric-accent, var(--cyan)) 6%, transparent) 0%, transparent 100%);
+  pointer-events: none;
+}
+.card-metric:hover {
+  border-top-color: var(--metric-accent, var(--cyan));
+  box-shadow: 0 0 0 1px var(--border-0), 0 4px 24px rgba(0,0,0,0.5);
+}
+.card-metric-label {
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 0.625rem; font-weight: 700;
+  letter-spacing: 0.10em; text-transform: uppercase;
+  color: var(--metric-accent, var(--cyan));
+  opacity: 0.75;
+  margin-bottom: 10px;
+  font-family: var(--font-mono);
+}
+.card-metric-icon {
+  opacity: 0.55;
+  flex-shrink: 0;
+  color: var(--metric-accent, var(--cyan));
+}
+.card-metric-value {
+  font-family: var(--font-display);
+  font-size: 2.4rem; font-weight: 200;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--text-0);
+  font-variant-numeric: tabular-nums;
+}
+.card-metric-change {
+  display: inline-flex; align-items: center; gap: 3px;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem; font-weight: 500;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border-0);
+}
+.card-metric-change.up   { color: var(--success); }
+.card-metric-change.down { color: var(--danger); }
+/* no sparkline bar */
 
-/* ================================================================
-   MOTION & STATES
-   ================================================================ */
-.states-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin-bottom:48px}
-.state-item{
-  display:flex;flex-direction:column;align-items:center;gap:10px;
-  padding:20px 12px;border-radius:10px;background:var(--bg-2);
-  border:1px solid var(--border-0);transition:all .3s;
+/* ═══════════════════════════════════════════════════
+   INPUTS
+═══════════════════════════════════════════════════ */
+.input-wrap { display: flex; flex-direction: column; gap: 5px; }
+.input-label { font-size: 0.75rem; font-weight: 600; color: var(--text-1); letter-spacing: 0.02em; }
+.input-field {
+  font-family: var(--font-body);
+  font-size: 0.875rem; color: var(--text-0);
+  background: var(--bg-2);
+  border: 1px solid var(--border-1);
+  border-radius: var(--r-md);
+  padding: 9px 13px;
+  outline: none;
+  width: 100%;
+  transition: all var(--t-fast);
+  -webkit-appearance: none;
 }
-.state-item__btn{
-  padding:8px 18px;border-radius:8px;font-family:'DM Sans',sans-serif;
-  font-size:12px;font-weight:500;cursor:pointer;
-  border:1px solid transparent;transition:all .2s;
-}
-.state-item__btn--default{background:var(--grad-cyan);color:var(--bg-0)}
-[data-theme="light"] .state-item__btn--default{color:#fff}
-.state-item__btn--hover{background:var(--grad-cyan);color:var(--bg-0);box-shadow:0 4px 20px rgba(196,166,108,.35);transform:translateY(-1px)}
-[data-theme="light"] .state-item__btn--hover{color:#fff}
-.state-item__btn--focus{background:var(--grad-cyan);color:var(--bg-0);outline:2px solid var(--cyan);outline-offset:2px}
-[data-theme="light"] .state-item__btn--focus{color:#fff}
-.state-item__btn--active{background:var(--cyan-soft);color:var(--bg-0);transform:translateY(1px)}
-[data-theme="light"] .state-item__btn--active{color:#fff}
-.state-item__btn--disabled{background:var(--bg-3);color:var(--text-3);border-color:var(--border-0);cursor:not-allowed;opacity:.5}
-.state-item__label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3)}
+.input-field::placeholder { color: var(--text-3); }
+.input-field:hover   { border-color: var(--border-2); }
+.input-field:focus   { border-color: var(--cyan); box-shadow: 0 0 0 3px var(--cyan-dim); }
+.input-field.error   { border-color: var(--danger); box-shadow: 0 0 0 3px var(--danger-dim); }
+.input-field:disabled { opacity: 0.45; cursor: not-allowed; }
 
-/* Loading patterns */
-.loading-demos{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:48px}
-.loading-card{
-  padding:24px;border-radius:10px;background:var(--bg-2);
-  border:1px solid var(--border-0);display:flex;flex-direction:column;align-items:center;gap:16px;
-  min-height:140px;justify-content:center;
+.input-icon-wrap { position: relative; }
+.input-icon-wrap .input-field { padding-left: 38px; }
+.input-icon-prefix {
+  position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+  color: var(--text-2); pointer-events: none;
 }
-.loading-card__label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3)}
 
-/* Skeleton shimmer */
-.skeleton{
-  height:14px;border-radius:6px;background:var(--bg-3);
-  position:relative;overflow:hidden;width:100%;
-}
-.skeleton::after{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,.06),transparent);
-  animation:shimmer 1.8s infinite;
-}
-[data-theme="light"] .skeleton::after{background:linear-gradient(90deg,transparent,rgba(0,0,0,.04),transparent)}
-@keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
-.skeleton--short{width:60%}
-.skeleton--xs{width:40%;height:10px}
+/* ═══════════════════════════════════════════════════
+   DESIGN TOKEN SHOWCASES
+═══════════════════════════════════════════════════ */
 
-/* Spinner */
-.spinner{
-  width:28px;height:28px;border:2.5px solid var(--border-1);
-  border-top-color:var(--cyan);border-radius:50%;animation:spin .8s linear infinite;
+/* Stroke styles */
+.stroke-demo {
+  height: 40px; border-radius: var(--r-md);
+  display: flex; align-items: center; padding: 0 14px;
+  font-size: 0.75rem; font-weight: 500; color: var(--text-1);
 }
-@keyframes spin{to{transform:rotate(360deg)}}
+.stroke-1 { border: 1px solid var(--border-0); background: transparent; }
+.stroke-2 { border: 1px solid var(--border-1); background: rgba(255,255,255,0.018); }
+.stroke-3 { border: 1px solid var(--border-2); background: rgba(255,255,255,0.04); }
+.stroke-accent { border: 1px solid var(--border-accent); color: var(--cyan); }
+.stroke-double {
+  border: 1px solid var(--border-accent);
+  box-shadow: 0 0 0 1px var(--glass-border), inset 0 0 0 1px var(--glass-border);
+}
+.stroke-glow {
+  border: 1px solid var(--border-accent);
+  box-shadow: var(--shadow-glow-sm);
+  color: var(--cyan);
+}
+.stroke-top { border-top: 1px solid var(--cyan); border-bottom: none; border-left: none; border-right: none; border-radius: 0; }
 
-/* Dots */
-.dots{display:flex;gap:6px}
-.dot{
-  width:8px;height:8px;border-radius:50%;background:var(--cyan);
-  animation:dotPulse 1.2s infinite ease-in-out;
-}
-.dot:nth-child(2){animation-delay:.15s}
-.dot:nth-child(3){animation-delay:.3s}
-@keyframes dotPulse{0%,80%,100%{opacity:.25;transform:scale(.8)}40%{opacity:1;transform:scale(1)}}
+/* Glass levels — four-ingredient recipe:
+   background (low-alpha tint), backdrop-filter (blur + saturate),
+   gradient refraction stroke (::before), inset top highlight */
 
-/* Progress bar */
-.progress-demo{width:100%;height:4px;border-radius:2px;background:var(--bg-4);overflow:hidden}
-.progress-demo__fill{height:100%;border-radius:2px;background:var(--grad-cyan);animation:progressFill 2.4s ease-in-out infinite}
-@keyframes progressFill{0%{width:0}50%{width:75%}100%{width:100%}}
+/* Shared refraction stroke */
+.glass-1::before, .glass-2::before, .glass-3::before {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1px;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none;
+  transition: background .4s;
+}
 
-/* Toggle */
-.toggle-demo{
-  width:44px;height:24px;border-radius:12px;
-  background:var(--toggle-track);border:1px solid var(--border-1);
-  cursor:pointer;position:relative;transition:background .3s,border-color .3s;
+/* Tier 1 — Subtle */
+.glass-1 {
+  position: relative;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border-0);
+  backdrop-filter: blur(8px) saturate(140%);
+  -webkit-backdrop-filter: blur(8px) saturate(140%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.18), 0 4px 16px rgba(0,0,0,0.28);
 }
-.toggle-demo::after{
-  content:'';position:absolute;top:3px;left:3px;
-  width:16px;height:16px;border-radius:50%;background:var(--text-3);
-  transition:transform .3s cubic-bezier(.16,1,.3,1),background .3s;
+.glass-1::before {
+  background: linear-gradient(135deg, rgba(255,255,255,0.32), rgba(255,255,255,0.04) 55%, rgba(255,255,255,0.02));
 }
-.toggle-demo.is-on{background:var(--cyan-dim);border-color:var(--border-accent)}
-.toggle-demo.is-on::after{transform:translateX(20px);background:var(--cyan)}
+[data-theme="light"] .glass-1 {
+  background: rgba(255,255,255,0.42);
+  backdrop-filter: blur(8px) saturate(135%);
+  -webkit-backdrop-filter: blur(8px) saturate(135%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.7), 0 4px 14px rgba(0,0,0,0.06);
+}
+[data-theme="light"] .glass-1::before {
+  background: linear-gradient(135deg, rgba(255,255,255,0.85), rgba(0,0,0,0.06) 60%, rgba(0,0,0,0.04));
+}
 
-/* Empty state */
-.empty-state{
-  padding:48px 32px;text-align:center;border-radius:12px;
-  border:1px dashed var(--border-1);background:var(--bg-2);
-  transition:all .4s;
+/* Tier 2 — Medium */
+.glass-2 {
+  position: relative;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid var(--border-1);
+  backdrop-filter: blur(12px) saturate(142%);
+  -webkit-backdrop-filter: blur(12px) saturate(142%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.20), inset 0 -1px 0 rgba(255,255,255,0.03), 0 6px 18px rgba(0,0,0,0.28);
 }
-.empty-state__icon{
-  width:48px;height:48px;margin:0 auto 16px;border-radius:12px;
-  background:var(--cyan-dim);display:flex;align-items:center;justify-content:center;
+.glass-2::before {
+  background: linear-gradient(135deg, rgba(255,255,255,0.38), rgba(255,255,255,0.05) 55%, rgba(255,255,255,0.02));
 }
-.empty-state__icon svg{width:24px;height:24px;color:var(--cyan)}
-.empty-state__title{font-family:'Exo 2',sans-serif;font-size:16px;font-weight:600;color:var(--text-0);margin-bottom:6px}
-.empty-state__desc{font-size:13px;color:var(--text-2);max-width:280px;margin:0 auto}
+[data-theme="light"] .glass-2 {
+  background: rgba(255,255,255,0.48);
+  backdrop-filter: blur(12px) saturate(137%);
+  -webkit-backdrop-filter: blur(12px) saturate(137%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.76), 0 6px 16px rgba(0,0,0,0.07);
+}
+[data-theme="light"] .glass-2::before {
+  background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(0,0,0,0.07) 55%, rgba(0,0,0,0.03));
+}
 
-/* ================================================================
-   TOC (floating)
-   ================================================================ */
-.toc{
-  position:fixed;right:24px;top:50%;transform:translateY(-50%);
-  z-index:100;display:flex;flex-direction:column;gap:4px;
+/* Tier 3 — Heavy */
+.glass-3 {
+  position: relative;
+  background: rgba(255,255,255,0.16);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(28px) saturate(160%);
+  -webkit-backdrop-filter: blur(28px) saturate(160%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.36), inset 0 -1px 0 rgba(255,255,255,0.05), 0 14px 32px rgba(0,0,0,0.4);
 }
-@media(max-width:1280px){.toc{display:none}}
-.toc__dot{
-  width:6px;height:6px;border-radius:50%;background:var(--border-1);
-  cursor:pointer;transition:all .3s;position:relative;
+.glass-3::before {
+  background: linear-gradient(135deg, rgba(255,255,255,0.6), rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.02));
 }
-.toc__dot:hover,.toc__dot.active{background:var(--cyan);transform:scale(1.4)}
-.toc__dot::after{
-  content:attr(data-label);position:absolute;right:16px;top:50%;transform:translateY(-50%);
-  font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.06em;
-  color:var(--text-3);white-space:nowrap;opacity:0;transition:opacity .2s;pointer-events:none;
+[data-theme="light"] .glass-3 {
+  background: rgba(255,255,255,0.72);
+  backdrop-filter: blur(28px) saturate(150%);
+  -webkit-backdrop-filter: blur(28px) saturate(150%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.95), 0 14px 30px rgba(0,0,0,0.1);
 }
-.toc__dot:hover::after{opacity:1}
-body.share-mode .toc{display:none}
+[data-theme="light"] .glass-3::before {
+  background: linear-gradient(135deg, #fff, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.04));
+}
+
+/* Gradients */
+.grad-1 { background: var(--grad-cyan); }
+.grad-2 { background: var(--grad-indigo); }
+.grad-3 { background: linear-gradient(135deg, #C4A66C 0%, #A08A52 100%); }
+.grad-4 { background: linear-gradient(135deg, #111111 0%, #1A1A1A 40%, #141414 100%); border: 1px solid var(--border-accent); }
+.grad-5 {
+  background:
+    radial-gradient(circle at 30% 50%, rgba(196,166,108,0.12) 0%, transparent 60%),
+    radial-gradient(circle at 80% 20%, rgba(99,102,241,0.14) 0%, transparent 55%),
+    var(--bg-2);
+}
+.grad-6 {
+  background: linear-gradient(160deg, rgba(196,166,108,0.08) 0%, rgba(99,102,241,0.04) 50%, rgba(0,0,0,0) 100%),
+    var(--bg-2);
+  border: 1px solid var(--border-accent);
+}
+
+/* Depth levels */
+.depth-0 { background: var(--bg-0); border: 1px solid var(--border-0); }
+.depth-1 { background: var(--bg-1); border: 1px solid var(--border-0); }
+.depth-2 { background: var(--bg-2); border: 1px solid var(--border-0); }
+.depth-3 { background: var(--bg-3); border: 1px solid var(--border-1); box-shadow: var(--shadow-sm); }
+.depth-4 { background: var(--bg-4); border: 1px solid var(--border-1); box-shadow: var(--shadow-md); }
+
+/* ═══════════════════════════════════════════════════
+   ICONS
+═══════════════════════════════════════════════════ */
+.icon-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(72px, 1fr));
+  gap: 8px;
+}
+.icon-cell {
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  padding: 14px 8px;
+  border-radius: var(--r-md);
+  border: 1px solid var(--border-0);
+  background: var(--bg-2);
+  cursor: pointer;
+  transition: all var(--t-fast);
+  color: var(--text-1);
+}
+.icon-cell:hover { border-color: var(--border-accent); color: var(--cyan); background: var(--cyan-dim); }
+.icon-cell span { font-size: 0.5625rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-3); text-align: center; line-height: 1.2; }
+
+/* ═══════════════════════════════════════════════════
+   THEME TOGGLE
+═══════════════════════════════════════════════════ */
+.theme-toggle {
+  display: flex; align-items: center; gap: 8px;
+  padding: 5px 12px 5px 6px;
+  background: var(--bg-3);
+  border: 1px solid var(--border-1);
+  border-radius: var(--r-full);
+  cursor: pointer;
+  font-size: 0.75rem; font-weight: 600;
+  color: var(--text-1);
+  transition: all var(--t-fast);
+  letter-spacing: 0.03em;
+}
+.theme-toggle:hover { border-color: var(--border-accent); color: var(--cyan); }
+.toggle-track {
+  width: 30px; height: 17px;
+  background: var(--bg-4);
+  border: 1px solid var(--border-1);
+  border-radius: var(--r-full);
+  position: relative;
+  transition: background var(--t-fast);
+  flex-shrink: 0;
+}
+.toggle-thumb {
+  position: absolute; top: 2px; left: 2px;
+  width: 11px; height: 11px;
+  border-radius: 50%;
+  background: var(--text-2);
+  transition: all var(--t-base);
+}
+[data-theme="light"] .toggle-thumb {
+  left: 15px;
+  background: var(--cyan);
+}
+[data-theme="light"] .toggle-track { background: var(--cyan-dim); border-color: var(--border-accent); }
+
+/* ═══════════════════════════════════════════════════
+   SECTION LAYOUT
+═══════════════════════════════════════════════════ */
+.ds-page {
+  display: flex; min-height: 100vh;
+}
+.ds-main {
+  flex: 1; padding: 48px; max-width: 100%;
+  overflow-x: hidden;
+}
+.ds-section { margin-bottom: 72px; }
+.ds-section-header { margin-bottom: 28px; }
+.ds-section-title {
+  font-family: var(--font-display);
+  font-size: 1.0rem; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text-2);
+  display: flex; align-items: center; gap: 12px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border-0);
+}
+.ds-section-title::before {
+  content: '';
+  width: 3px; height: 16px;
+  background: var(--grad-cyan);
+  border-radius: 2px;
+}
+.ds-section-desc { margin-top: 8px; font-size: 0.875rem; color: var(--text-2); }
+
+.ds-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-start; margin-bottom: 12px; }
+.ds-col { display: flex; flex-direction: column; gap: 12px; }
+.ds-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.ds-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+.ds-grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; }
+
+/* Token label */
+.token-label {
+  font-size: 0.6875rem; font-weight: 600;
+  color: var(--text-3); letter-spacing: 0.05em;
+  text-transform: uppercase; margin-top: 6px;
+}
+
+/* Color swatch */
+.swatch-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+.swatch {
+  display: flex; flex-direction: column; gap: 6px;
+}
+.swatch-block {
+  width: 80px; height: 52px;
+  border-radius: var(--r-md);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.swatch-name { font-family: var(--font-mono); font-size: 0.625rem; color: var(--text-2); }
+.swatch-val  { font-family: var(--font-mono); font-size: 0.5625rem; color: var(--text-3); }
+
+/* Divider */
+.ds-divider { height: 1px; background: var(--border-0); margin: 32px 0; }
+
+/* ═══════════════════════════════════════════════════
+   ANIMATED BACKGROUND GRID
+═══════════════════════════════════════════════════ */
+.bg-grid {
+  position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background-image:
+    linear-gradient(var(--border-0) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border-0) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 0%, black 0%, transparent 100%);
+  opacity: 0.5;
+}
+[data-theme="light"] .bg-grid { opacity: 0.3; }
+
+/* Logo previews — hide the opposite-mode preview */
+[data-theme="dark"] [data-light-preview] { display: none !important; }
+[data-theme="light"] [data-dark-preview] { display: none !important; }
+
+/* ═══════════════════════════════════════════════════
+   MISC UTILITIES
+═══════════════════════════════════════════════════ */
+.inline-code {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  background: var(--bg-3);
+  border: 1px solid var(--border-1);
+  padding: 1px 6px;
+  border-radius: var(--r-xs);
+  color: var(--cyan);
+}
+
+.tag-new {
+  font-size: 0.5625rem; font-weight: 800;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  background: var(--cyan);
+  color: var(--bg-1);
+  padding: 1px 5px;
+  border-radius: var(--r-xs);
+}
+
+.separator { width: 1px; height: 20px; background: var(--border-0); flex-shrink: 0; }
+
+.notification-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 8px var(--cyan-glow);
+  flex-shrink: 0;
+}
+
+/* ═══════════════════════════════════════════════════
+   MINIMAP / SCROLLSPY (page nav)
+═══════════════════════════════════════════════════ */
+.page-nav {
+  position: sticky; top: 72px;
+  width: 200px; flex-shrink: 0;
+  padding: 24px 16px 24px 0;
+  display: flex; flex-direction: column; gap: 2px;
+  align-self: flex-start;
+}
+.page-nav-item {
+  font-size: 0.75rem; font-weight: 400;
+  color: var(--text-3);
+  padding: 5px 10px;
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  transition: all var(--t-fast);
+  text-decoration: none; display: block;
+}
+.page-nav-item:hover { color: var(--text-1); background: var(--border-0); }
+.page-nav-item.active { color: var(--cyan); background: var(--cyan-dim); font-weight: 500; }
+
+
+
 </style>
+  <link rel="stylesheet" href="../../assets/css/so-nav.css">
 </head>
+
 <body>
 
-<!-- UNIFIED NAV -->
+<!-- Single Origin UNIFIED NAV -->
 <nav class="so-nav">
   <div class="so-nav__inner">
-    <a class="so-nav__brand" href="../../index.html" aria-label="Single Origin home">
-      <span class="so-nav__logo"><svg viewBox="0 0 80 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Experis"><path d="M0 3.8h10.4v2.4H2.9v3.4h6.8v2.3H2.9v3.7h7.7v2.4H0V3.8z"/><path d="M14.8 10.2l-4.6-6.4h3.5l2.8 4.2 2.9-4.2h3.4l-4.6 6.3 5 6.9h-3.5l-3.2-4.7-3.2 4.7h-3.4l5-6.8z"/><path d="M24.4 3.8H30c3.6 0 5.6 1.9 5.6 4.6 0 2.7-2 4.7-5.6 4.7h-2.7v4.9h-2.9V3.8zm5.3 7c1.9 0 2.9-1 2.9-2.4 0-1.4-1-2.3-2.9-2.3h-2.4v4.7h2.4z"/><path d="M37.6 3.8H48v2.4h-7.5v3.4h6.8v2.3h-6.8v3.7h7.7v2.4H37.6V3.8z"/><path d="M50.4 3.8h5.2c3.5 0 5.5 1.7 5.5 4.3 0 2.1-1.1 3.5-3 4.1l3.5 5.8h-3.3l-3.1-5.4h-1.9v5.4h-2.9V3.8zm5 6.6c1.8 0 2.8-.9 2.8-2.2 0-1.3-1-2.1-2.8-2.1h-2.1v4.3h2.1z"/><path d="M64.2 3.8h2.9v14.2h-2.9V3.8z"/><path d="M69.6 14.8l1.7-2c1.2 1.1 2.5 1.8 4 1.8 1.5 0 2.3-.7 2.3-1.6 0-1-.7-1.5-3.2-2.2-3-0.8-4.6-1.9-4.6-4.2 0-2.5 2-4.1 4.8-4.1 2 0 3.6.6 5 1.8l-1.5 2.1c-1.1-.9-2.3-1.4-3.5-1.4-1.4 0-2.1.7-2.1 1.5 0 1 .7 1.5 3.3 2.2 3 .9 4.5 2 4.5 4.2 0 2.7-2.1 4.3-5.1 4.3-2.1 0-4-.7-5.6-2.3z"/></svg></span>
-      <span class="so-nav__brand-divider"></span>
-      <span class="so-nav__product"><span class="so-nav__brand-mark"></span><span class="so-nav__product-name">Single Origin</span></span>
+    <a class="so-nav__brand" href="../../src/index.html#competency-ticker" aria-label="Experis home">
+      <span class="so-nav__logo"><img src="../../assets/logos/EXP_Bug_RGB_BLUE.svg" alt="Experis"></span>
     </a>
     <div class="so-nav__crumbs">
+      <a class="so-nav__crumb" href="../../src/index.html#competency-ticker">Hub</a>
       <span class="so-nav__crumb-sep">/</span>
       <span class="so-nav__crumb so-nav__crumb--current">App Design System</span>
     </div>
     <div class="so-nav__actions">
-      <button class="so-nav__share" id="shareBtn" type="button" aria-label="Send page as link">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.5 1.5"/><path d="M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.5-1.5"/></svg>
-        <span class="label">Send as link</span>
-      </button>
-      <button class="so-nav__theme" id="themeToggle" type="button" aria-label="Toggle theme">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="8" cy="8" r="3.5"/><path d="M8 1.5v1M8 13.5v1M1.5 8h1M13.5 8h1M3.4 3.4l.7.7M11.9 11.9l.7.7M3.4 12.6l.7-.7M11.9 4.1l.7-.7"/></svg>
+      <button class="so-nav__theme" id="themeToggle" type="button" aria-label="Toggle theme" onclick="toggleTheme()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
       </button>
     </div>
   </div>
 </nav>
 
-<!-- TABLE OF CONTENTS (floating dots) -->
-<div class="toc" id="toc">
-  <div class="toc__dot active" data-label="Hero" data-target="hero"></div>
-  <div class="toc__dot" data-label="Color" data-target="color"></div>
-  <div class="toc__dot" data-label="Typography" data-target="typography"></div>
-  <div class="toc__dot" data-label="Elevation" data-target="elevation"></div>
-  <div class="toc__dot" data-label="Radius" data-target="radius"></div>
-  <div class="toc__dot" data-label="Glass" data-target="glass"></div>
-  <div class="toc__dot" data-label="Components" data-target="components"></div>
-  <div class="toc__dot" data-label="Motion" data-target="motion"></div>
+
+<!-- Subtle background grid -->
+<div class="bg-grid"></div>
+
+<!-- ═══════════════════════════════════════════════
+     TOP NAVIGATION
+═══════════════════════════════════════════════ -->
+
+<!-- ═══════════════════════════════════════════════
+     PAGE LAYOUT
+═══════════════════════════════════════════════ -->
+<div style="max-width:1240px;margin:0 auto;padding:0 32px;">
+
+<!-- Page header -->
+<div style="padding:52px 0 36px;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+    <span class="chip chip-cyan"><span class="chip-dot" style="background:var(--cyan);"></span>Design System v0.1</span></div>
+  <h1 class="t-display" style="margin-bottom:10px;"><span>Aurum</span> <span style="color:var(--cyan);">Component Library</span></h1>
+  <p class="t-body-lg c-1" style="max-width:560px;">Primary design tokens, components, and pattern references for the <span>Aurum</span> MVP. Light mode default. All values are Tailwind-compatible CSS custom properties.</p>
 </div>
 
-<!-- ================================================================
-     PAGE CONTENT
-     ================================================================ -->
-<div class="page-content">
+<!-- ═══════════════════════════════════════════════
+     SECTION 01 — LOGO
+═══════════════════════════════════════════════ -->
+<div class="ds-section" id="logo">
+  <div class="ds-section-title">01 — Logo</div>
+  <div class="ds-row" style="align-items:center;gap:40px;flex-wrap:wrap;">
 
-<!-- ──────────────── 1. HERO ──────────────── -->
-<section class="hero" id="hero">
-  <div class="hero__glow"></div>
-  <div class="hero__vault-lines"></div>
-  <div class="hero__tag">Design System Reference</div>
-  <h1 class="hero__title scroll-reveal">App Design System</h1>
-  <p class="hero__subtitle scroll-reveal">A living reference for the enterprise banking interface &mdash; tokens, patterns, and principles that scale.</p>
-  <div class="hero__stats scroll-reveal">
-    <div class="hero__stat">
-      <span class="hero__stat-value">60+</span>
-      <span class="hero__stat-label">Tokens</span>
+    <!-- Dark bg logo -->
+    <div style="padding:32px 40px;background:var(--bg-1);border:1px solid var(--border-0);border-radius:var(--r-lg);display:flex;flex-direction:column;align-items:center;gap:24px;" data-dark-preview>
+      <a class="logo" style="scale:1.5;transform-origin:center;pointer-events:none;">
+        <svg width="28" height="28" viewBox="20 20 62 62" fill="none">
+          <rect x="51.875" y="24" width="26.125" height="26.125" rx="3" fill="var(--cyan)" fill-opacity="0.3"/>
+          <rect x="24" y="51.875" width="26.125" height="26.125" rx="3" fill="var(--cyan)" fill-opacity="0.9"/>
+          <rect x="37.47" y="37.937" width="26.125" height="26.125" rx="3" fill="var(--cyan)" fill-opacity="0.6"/>
+        </svg>
+        <span class="logo-text">Aur<span>um</span></span>
+      </a>
+      <span class="token-label">On Dark</span>
     </div>
-    <div class="hero__stat">
-      <span class="hero__stat-value">3</span>
-      <span class="hero__stat-label">Typefaces</span>
+
+    <!-- Light bg logo -->
+    <div style="padding:32px 40px;background:var(--bg-0);border:1px solid var(--border-0);border-radius:var(--r-lg);display:flex;flex-direction:column;align-items:center;gap:24px;" data-light-preview>
+      <a class="logo" style="scale:1.5;transform-origin:center;pointer-events:none;">
+        <svg width="28" height="28" viewBox="20 20 62 62" fill="none">
+          <rect x="51.875" y="24" width="26.125" height="26.125" rx="3" fill="#7A6537" fill-opacity="0.3"/>
+          <rect x="24" y="51.875" width="26.125" height="26.125" rx="3" fill="#7A6537" fill-opacity="0.9"/>
+          <rect x="37.47" y="37.937" width="26.125" height="26.125" rx="3" fill="#7A6537" fill-opacity="0.6"/>
+        </svg>
+        <span class="logo-text" style="color:#000000;">Aur<span style="color:#7A6537;">um</span></span>
+      </a>
+      <span class="token-label" style="color:var(--text-3);">On Light</span>
     </div>
-    <div class="hero__stat">
-      <span class="hero__stat-value">5</span>
-      <span class="hero__stat-label">Depth Levels</span>
+
+    <!-- Mark only (sizes) -->
+    <div style="padding:24px 32px;background:var(--bg-2);border:1px solid var(--border-0);border-radius:var(--r-lg);display:flex;align-items:flex-end;gap:24px;">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
+        <svg width="16" height="16" viewBox="20 20 62 62" fill="none"><rect x="51.875" y="24" width="26.125" height="26.125" rx="3" fill="var(--cyan)" fill-opacity="0.3"/><rect x="24" y="51.875" width="26.125" height="26.125" rx="3" fill="var(--cyan)" fill-opacity="0.9"/><rect x="37.47" y="37.937" width="26.125" height="26.125" rx="3" fill="var(--cyan)" fill-opacity="0.6"/></svg>
+        <span class="token-label">16px</span>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
+        <svg width="24" height="24" viewBox="20 20 62 62" fill="none"><rect x="51.875" y="24" width="26.125" height="26.125" rx="3" fill="var(--cyan)" fill-opacity="0.3"/><rect x="24" y="51.875" width="26.125" height="26.125" rx="3" fill="var(--cyan)" fill-opacity="0.9"/><rect x="37.47" y="37.937" width="26.125" height="26.125" rx="3" fill="var(--cyan)" fill-opacity="0.6"/></svg>
+        <span class="token-label">24px</span>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
+        <svg width="40" height="40" viewBox="20 20 62 62" fill="none"><rect x="51.875" y="24" width="26.125" height="26.125" rx="3" fill="var(--cyan)" fill-opacity="0.3"/><rect x="24" y="51.875" width="26.125" height="26.125" rx="3" fill="var(--cyan)" fill-opacity="0.9"/><rect x="37.47" y="37.937" width="26.125" height="26.125" rx="3" fill="var(--cyan)" fill-opacity="0.6"/></svg>
+        <span class="token-label">40px</span>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
+        <svg width="64" height="64" viewBox="20 20 62 62" fill="none"><rect x="51.875" y="24" width="26.125" height="26.125" rx="3" fill="var(--cyan)" fill-opacity="0.3"/><rect x="24" y="51.875" width="26.125" height="26.125" rx="3" fill="var(--cyan)" fill-opacity="0.9"/><rect x="37.47" y="37.937" width="26.125" height="26.125" rx="3" fill="var(--cyan)" fill-opacity="0.6"/></svg>
+        <span class="token-label">64px</span>
+      </div>
     </div>
-    <div class="hero__stat">
-      <span class="hero__stat-value">2</span>
-      <span class="hero__stat-label">Themes</span>
-    </div>
+
   </div>
-</section>
+</div>
 
-<div class="section-divider"></div>
-
-<!-- ──────────────── 2. COLOR SYSTEM ──────────────── -->
-<section class="section" id="color">
-  <div class="section__inner">
-    <span class="tag scroll-reveal">Color System</span>
-    <h2 class="section-title scroll-reveal">Surface &amp; Accent Palette</h2>
-    <p class="section-sub scroll-reveal">A five-step surface scale anchored to near-black, with gold as the primary accent and indigo reserved for AI-driven surfaces.</p>
-
-    <!-- Surface scale -->
-    <div class="color-grid scroll-reveal" id="surfaceGrid">
-      <div class="color-swatch">
-        <div class="color-swatch__fill" style="background:var(--bg-0)"></div>
-        <div class="color-swatch__info">
-          <div class="color-swatch__name">bg-0</div>
-          <div class="color-swatch__hex" data-dark="#000000" data-light="#E8E8E8">#000000</div>
+<!-- ═══════════════════════════════════════════════
+     SECTION 02 — TYPOGRAPHY
+═══════════════════════════════════════════════ -->
+<div class="ds-section" id="typography">
+  <div class="ds-section-title">02 — Typography</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;">
+    <div>
+      <div class="token-label" style="margin-bottom:20px;">Exo 2 — Display & Headings</div>
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        <div><div class="t-display">Display 40</div><div class="token-label">Exo 2 · 700 · −0.02em</div></div>
+        <div style="height:1px;background:var(--border-0);"></div>
+        <div><div class="t-h1">Heading One</div><div class="token-label">Exo 2 · 600 · 2.25rem</div></div>
+        <div><div class="t-h2">Heading Two</div><div class="token-label">Exo 2 · 600 · 1.625rem</div></div>
+        <div><div class="t-h3">Heading Three</div><div class="token-label">Exo 2 · 500 · 1.25rem</div></div>
+        <div><div class="t-h4">Heading Four</div><div class="token-label">Exo 2 · 500 · 1rem</div></div>
+      </div>
+    </div>
+    <div>
+      <div class="token-label" style="margin-bottom:20px;">DM Sans — Body, UI, Labels</div>
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        <div><p class="t-body-lg">Body Large — The platform that turns customer data into actionable intelligence for community banking teams.</p><div class="token-label">DM Sans · 400 · 1.0625rem</div></div>
+        <div><p class="t-body">Body — Insight-driven outreach workflows, built on deterministic rule engines with explainable AI at every step.</p><div class="token-label">DM Sans · 400 · 0.9375rem</div></div>
+        <div><p class="t-body-sm c-1">Body Small — Confidence scores, ingestion status, referral tracking metadata, and session attribution details.</p><div class="token-label">DM Sans · 400 · 0.8125rem</div></div>
+        <div style="height:1px;background:var(--border-0);"></div>
+        <div class="ds-row" style="gap:20px;">
+          <div><div class="t-caption c-2">CAPTION LABEL</div><div class="token-label">500 · 0.75rem · +0.04em</div></div>
+          <div><div class="t-label c-3">MICRO LABEL</div><div class="token-label">700 · 0.6875rem · +0.07em</div></div>
         </div>
-      </div>
-      <div class="color-swatch">
-        <div class="color-swatch__fill" style="background:var(--bg-1)"></div>
-        <div class="color-swatch__info">
-          <div class="color-swatch__name">bg-1</div>
-          <div class="color-swatch__hex" data-dark="#080808" data-light="#EEEEEE">#080808</div>
-        </div>
-      </div>
-      <div class="color-swatch">
-        <div class="color-swatch__fill" style="background:var(--bg-2)"></div>
-        <div class="color-swatch__info">
-          <div class="color-swatch__name">bg-2</div>
-          <div class="color-swatch__hex" data-dark="#0A0A0A" data-light="#F4F4F4">#0A0A0A</div>
-        </div>
-      </div>
-      <div class="color-swatch">
-        <div class="color-swatch__fill" style="background:var(--bg-3)"></div>
-        <div class="color-swatch__info">
-          <div class="color-swatch__name">bg-3</div>
-          <div class="color-swatch__hex" data-dark="#111111" data-light="#FAFAFA">#111111</div>
-        </div>
-      </div>
-      <div class="color-swatch">
-        <div class="color-swatch__fill" style="background:var(--bg-4)"></div>
-        <div class="color-swatch__info">
-          <div class="color-swatch__name">bg-4</div>
-          <div class="color-swatch__hex" data-dark="#1A1A1A" data-light="#FFFFFF">#1A1A1A</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Primary accents -->
-    <div class="accent-row scroll-reveal">
-      <div class="accent-swatch" style="background:var(--bg-2)">
-        <div class="accent-swatch__dot" style="background:var(--cyan)"></div>
-        <div class="accent-swatch__name">Gold / Cyan</div>
-        <div class="accent-swatch__hex" data-dark="#C4A66C" data-light="#7A6537">#C4A66C</div>
-      </div>
-      <div class="accent-swatch" style="background:var(--bg-2)">
-        <div class="accent-swatch__dot" style="background:var(--cyan-soft)"></div>
-        <div class="accent-swatch__name">Soft</div>
-        <div class="accent-swatch__hex" data-dark="#B89B60" data-light="#7A6537">#B89B60</div>
-      </div>
-      <div class="accent-swatch" style="background:var(--bg-2)">
-        <div class="accent-swatch__dot" style="background:var(--indigo)"></div>
-        <div class="accent-swatch__name">AI / Indigo</div>
-        <div class="accent-swatch__hex" data-dark="#818CF8" data-light="#4F46E5">#818CF8</div>
-      </div>
-      <div class="accent-swatch" style="background:var(--bg-2)">
-        <div class="accent-swatch__dot" style="background:var(--violet)"></div>
-        <div class="accent-swatch__name">Violet</div>
-        <div class="accent-swatch__hex" data-dark="#A78BFA" data-light="#7C3AED">#A78BFA</div>
-      </div>
-    </div>
-
-    <!-- Semantic -->
-    <div class="semantic-row scroll-reveal">
-      <div class="semantic-card">
-        <div class="semantic-card__dot" style="background:var(--success)"></div>
-        <div class="semantic-card__label">Success</div>
-        <div class="semantic-card__hex" data-dark="#10B981" data-light="#057550">#10B981</div>
-      </div>
-      <div class="semantic-card">
-        <div class="semantic-card__dot" style="background:var(--warning)"></div>
-        <div class="semantic-card__label">Warning</div>
-        <div class="semantic-card__hex" data-dark="#F59E0B" data-light="#9A4A0E">#F59E0B</div>
-      </div>
-      <div class="semantic-card">
-        <div class="semantic-card__dot" style="background:var(--danger)"></div>
-        <div class="semantic-card__label">Danger</div>
-        <div class="semantic-card__hex" data-dark="#EF4444" data-light="#B91C1C">#EF4444</div>
-      </div>
-    </div>
-
-    <div class="callout scroll-reveal">Gold signals importance. Indigo signals AI. Everything else stays neutral.</div>
-  </div>
-</section>
-
-<div class="section-divider"></div>
-
-<!-- ──────────────── 3. TYPOGRAPHY ──────────────── -->
-<section class="section" id="typography">
-  <div class="section__inner">
-    <span class="tag scroll-reveal">Typography</span>
-    <h2 class="section-title scroll-reveal">Three Voices, One System</h2>
-    <p class="section-sub scroll-reveal">Each typeface serves a distinct role &mdash; display weight for authority, body weight for readability, monospace for precision.</p>
-
-    <div class="type-specimen scroll-reveal">
-      <div class="type-specimen__label">Display &mdash; <span>Exo 2, 200&ndash;800</span></div>
-      <div class="type-specimen__sample-display">Institutional Trust,<br>Designed at Scale</div>
-    </div>
-
-    <div class="type-specimen scroll-reveal">
-      <div class="type-specimen__label">Body &mdash; <span>DM Sans, 300&ndash;700</span></div>
-      <div class="type-specimen__sample-body">Clarity is the baseline. Every label, paragraph, and control surface uses DM Sans &mdash; a geometric humanist typeface optimized for UI density at any viewport size. Italics are reserved for contextual emphasis only.</div>
-    </div>
-
-    <div class="type-specimen scroll-reveal">
-      <div class="type-specimen__label">Data &mdash; <span>DM Mono, 300&ndash;500</span></div>
-      <div class="type-specimen__sample-mono">$14,238,901.42 &nbsp;&middot;&nbsp; +3.72% &nbsp;&middot;&nbsp; 2026-05-12<br>--cyan: #C4A66C &nbsp;&middot;&nbsp; border-radius: 8px &nbsp;&middot;&nbsp; blur(24px)</div>
-    </div>
-
-    <!-- Size scale -->
-    <div class="type-scale scroll-reveal">
-      <div class="type-scale__row">
-        <span class="type-scale__size">48px</span>
-        <span class="type-scale__preview" style="font-family:'Exo 2',sans-serif;font-size:48px;font-weight:600;letter-spacing:-.03em;line-height:1.1">Page Title</span>
-      </div>
-      <div class="type-scale__row">
-        <span class="type-scale__size">32px</span>
-        <span class="type-scale__preview" style="font-family:'Exo 2',sans-serif;font-size:32px;font-weight:600;letter-spacing:-.02em;line-height:1.15">Section Header</span>
-      </div>
-      <div class="type-scale__row">
-        <span class="type-scale__size">20px</span>
-        <span class="type-scale__preview" style="font-family:'Exo 2',sans-serif;font-size:20px;font-weight:600;letter-spacing:-.01em">Card Title</span>
-      </div>
-      <div class="type-scale__row">
-        <span class="type-scale__size">16px</span>
-        <span class="type-scale__preview" style="font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.6">Body text at default reading size</span>
-      </div>
-      <div class="type-scale__row">
-        <span class="type-scale__size">13px</span>
-        <span class="type-scale__preview" style="font-family:'DM Sans',sans-serif;font-size:13px">Button label, secondary copy</span>
-      </div>
-      <div class="type-scale__row">
-        <span class="type-scale__size">11px</span>
-        <span class="type-scale__preview" style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.04em">TOKEN REFERENCE &middot; CAPTION &middot; METADATA</span>
-      </div>
-      <div class="type-scale__row">
-        <span class="type-scale__size">10px</span>
-        <span class="type-scale__preview" style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan)">EYEBROW TAG</span>
+        <div><div class="t-mono c-cyan">insight.confidence = 0.92</div><div class="token-label">DM Mono · 400 · 0.875rem</div></div>
       </div>
     </div>
   </div>
-</section>
+</div>
 
-<div class="section-divider"></div>
+<!-- ═══════════════════════════════════════════════
+     SECTION 03 — COLOR
+═══════════════════════════════════════════════ -->
+<div class="ds-section" id="color">
+  <div class="ds-section-title">03 — Color</div>
 
-<!-- ──────────────── 4. ELEVATION & DEPTH ──────────────── -->
-<section class="section" id="elevation">
-  <div class="section__inner">
-    <span class="tag scroll-reveal">Elevation &amp; Depth</span>
-    <h2 class="section-title scroll-reveal">Five Surface Levels</h2>
-    <p class="section-sub scroll-reveal">Each level increases in brightness and shadow weight. Higher surfaces draw attention; lower surfaces recede.</p>
+  <div class="token-label" style="margin-bottom:14px;">Core Backgrounds</div>
+  <div class="swatch-grid" style="margin-bottom:28px;">
+    <div class="swatch"><div class="swatch-block" style="background:#000000;border:1px solid rgba(255,255,255,0.12);"></div><div class="swatch-name">bg-0</div><div class="swatch-val">#000000</div></div>
+    <div class="swatch"><div class="swatch-block" style="background:#080808;"></div><div class="swatch-name">bg-1</div><div class="swatch-val">#080808</div></div>
+    <div class="swatch"><div class="swatch-block" style="background:#111111;"></div><div class="swatch-name">bg-2</div><div class="swatch-val">#111111</div></div>
+    <div class="swatch"><div class="swatch-block" style="background:#1A1A1A;"></div><div class="swatch-name">bg-3</div><div class="swatch-val">#1A1A1A</div></div>
+    <div class="swatch"><div class="swatch-block" style="background:#232323;"></div><div class="swatch-name">bg-4</div><div class="swatch-val">#232323</div></div>
+  </div>
 
-    <div class="elevation-stack scroll-reveal">
-      <div class="elevation-level" style="background:var(--bg-0)">
-        <span class="elevation-level__label">bg-0</span>
-        <span class="elevation-level__desc">Canvas / viewport background</span>
-        <div class="elevation-level__demo" style="background:var(--bg-0);box-shadow:none"></div>
+  <div class="token-label" style="margin-bottom:14px;">Accent / Brand</div>
+  <div class="swatch-grid" style="margin-bottom:28px;">
+    <div class="swatch"><div class="swatch-block" style="background:#C4A66C;"></div><div class="swatch-name">gold</div><div class="swatch-val">#C4A66C</div></div>
+    <div class="swatch"><div class="swatch-block" style="background:#B89B60;"></div><div class="swatch-name">gold-soft</div><div class="swatch-val">#B89B60</div></div>
+    <div class="swatch"><div class="swatch-block" style="background:rgba(196,166,108,0.10);border:1px solid rgba(196,166,108,0.20);"></div><div class="swatch-name">gold-dim</div><div class="swatch-val">rgba …10%</div></div>
+    <div class="swatch"><div class="swatch-block" style="background:#A08A52;"></div><div class="swatch-name">gold-muted</div><div class="swatch-val">#A08A52</div></div>
+    <div class="swatch"><div class="swatch-block" style="background:#6366F1;"></div><div class="swatch-name">indigo</div><div class="swatch-val">#6366F1</div></div>
+    <div class="swatch"><div class="swatch-block" style="background:#8B5CF6;"></div><div class="swatch-name">violet</div><div class="swatch-val">#8B5CF6</div></div>
+  </div>
+
+  <div class="token-label" style="margin-bottom:14px;">Semantic</div>
+  <div class="swatch-grid" style="margin-bottom:28px;">
+    <div class="swatch"><div class="swatch-block" style="background:#10B981;"></div><div class="swatch-name">success</div><div class="swatch-val">#10B981</div></div>
+    <div class="swatch"><div class="swatch-block" style="background:#F59E0B;"></div><div class="swatch-name">warning</div><div class="swatch-val">#F59E0B</div></div>
+    <div class="swatch"><div class="swatch-block" style="background:#EF4444;"></div><div class="swatch-name">danger</div><div class="swatch-val">#EF4444</div></div>
+  </div>
+
+  <div class="token-label" style="margin-bottom:14px;">Text Scale</div>
+  <div class="swatch-grid">
+    <div class="swatch"><div class="swatch-block" style="background:#EDF4FF;"></div><div class="swatch-name">text-0</div><div class="swatch-val">#EDF4FF</div></div>
+    <div class="swatch"><div class="swatch-block" style="background:#A0BAD4;"></div><div class="swatch-name">text-1</div><div class="swatch-val">#A0BAD4</div></div>
+    <div class="swatch"><div class="swatch-block" style="background:#5A7A94;"></div><div class="swatch-name">text-2</div><div class="swatch-val">#5A7A94</div></div>
+    <div class="swatch"><div class="swatch-block" style="background:#2E4A60;"></div><div class="swatch-name">text-3</div><div class="swatch-val">#2E4A60</div></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 04 — NAVIGATION
+═══════════════════════════════════════════════ -->
+<div class="ds-section" id="navigation">
+  <div class="ds-section-title">04 — Navigation</div>
+
+  <!-- Sidebar nav demo -->
+  <div class="token-label" style="margin-bottom:12px;">Side Navigation</div>
+  <div style="display:flex;gap:0;background:var(--bg-1);border:1px solid var(--border-0);border-radius:var(--r-lg);overflow:hidden;width:fit-content;margin-bottom:28px;">
+    <div class="sidenav" style="min-height:360px;position:relative;">
+      <div style="padding:0 16px 20px;display:flex;align-items:center;gap:8px;">
+        <svg width="20" height="20" viewBox="20 20 62 62" fill="none"><rect x="51.875" y="24" width="26.125" height="26.125" rx="3" fill="var(--cyan)" fill-opacity="0.3"/><rect x="24" y="51.875" width="26.125" height="26.125" rx="3" fill="var(--cyan)" fill-opacity="0.9"/><rect x="37.47" y="37.937" width="26.125" height="26.125" rx="3" fill="var(--cyan)" fill-opacity="0.6"/></svg>
+        <span class="logo-text" style="font-size:0.9rem;">Aur<span>um</span></span>
       </div>
-      <div class="elevation-level" style="background:var(--bg-1)">
-        <span class="elevation-level__label">bg-1</span>
-        <span class="elevation-level__desc">App shell, sidebar, nav background</span>
-        <div class="elevation-level__demo" style="background:var(--bg-1)"></div>
+      <div class="sidenav-section">
+        <div class="sidenav-label">Platform</div>
+        <a class="sidenav-item active">
+          <svg width="14" height="14" viewBox="0 0 100 100" fill="none"><path fill="currentColor" d="M94.4,41.6c0-4.4-2.6-8.4-6.6-10.2c-1-6.2-6.1-11-12.3-11.5c-1.7-3.5-5.3-5.8-9.3-5.8c0,0,0,0,0,0c0,0,0,0,0,0 c-0.5,0-1,0.1-1.5,0.1c0,0-0.1,0-0.1,0c-0.5,0.1-1.1,0.2-1.6,0.4C61,13,58.5,12,55.9,12c-2.1,0-4.2,0.6-5.9,1.8 c-1.8-0.8-3.8-1.2-5.9-1.2c-4.1,0-8,1.7-10.7,4.8c-0.9-0.2-1.7-0.3-2.6-0.3c-3.6,0-6.9,1.8-8.8,4.9c-0.1,0-0.3,0-0.4,0 c-0.2,0-0.4,0-0.5,0c-0.2,0-0.4,0.1-0.6,0.1c-0.2,0-0.3,0.1-0.5,0.1c-0.2,0-0.4,0.1-0.6,0.2c-0.2,0-0.3,0.1-0.5,0.1 c-0.2,0.1-0.4,0.1-0.5,0.2c-0.2,0.1-0.4,0.1-0.5,0.2c-0.1,0.1-0.3,0.1-0.4,0.2c-0.2,0.1-0.4,0.2-0.6,0.3c0,0,0,0,0,0 c-3.5,1.9-5.9,5.6-6.2,9.8c0,0,0,0.1,0,0.1c-3.2,3-5,7.3-5,11.7c0,8.9,7.3,16.2,16.2,16.2c0.9,0,1.9-0.1,2.8-0.2 c1.2,0.4,2.5,0.6,3.8,0.7c2.6,6.4,7.8,9.8,14.9,9.8c6.8,0,15,6.9,15,15V88L69.8,88l-1.3-9.3c7.9,0.8,15.4-4.3,17.4-12.2 c0.3-1.4,0.5-2.8,0.5-4.1c4.7-1.7,8-6.2,8-11.3c0-1.7-0.3-3.3-1-4.8C94,44.8,94.4,43.2,94.4,41.6z M90.1,47c0.7,1.3,1,2.6,1,4.1 c0,3.4-2,6.5-5.1,7.9c-1.3-5.9-5.9-10.7-11.8-12.2c-0.9-0.2-1.8,0.3-2,1.2c-0.2,0.9,0.3,1.8,1.2,2c5.3,1.3,9.2,5.8,9.7,11.2 c0.2,1.5,0,3-0.3,4.5C81,72.7,74,76.9,67,75.1l-2.3-0.6l1.4,10.2l-4.6,0c-1-9.4-10.4-16.7-18.2-16.7c-5.4,0-9.2-2.2-11.4-6.6 c0-0.1,0-0.2-0.1-0.3c-1.7-3.5-0.2-7.8,3.4-9.5c0.8-0.4,1.2-1.4,0.8-2.2c-0.4-0.8-1.4-1.2-2.2-0.8c-3.8,1.8-5.9,5.6-5.9,9.5 c-0.9-0.1-1.8-0.3-2.6-0.6l-0.4-0.2l-0.4,0.1c-0.8,0.2-1.7,0.3-2.6,0.3c-7.1,0-13-5.8-13-13c0-2.6,0.8-5.2,2.3-7.3 c1.2,3.8,4.4,6.8,8.3,7.8c-0.3,0.5-0.5,1-0.6,1.5c-0.4,1.8-0.2,3.6,0.8,5.2c0.3,0.5,0.8,0.8,1.4,0.8c0.3,0,0.6-0.1,0.8-0.2 c0.8-0.5,1-1.5,0.6-2.2c-0.5-0.8-0.6-1.8-0.4-2.7c0.2-0.9,0.8-1.7,1.6-2.2c0.8-0.5,1-1.5,0.6-2.2c-0.4-0.6-1.1-0.9-1.8-0.7 c-4.7-0.1-8.6-4-8.6-8.7c0-4.8,3.9-8.7,8.7-8.7c0.1,0,0.1,0,0.2,0l1.3,0.1l0.5-1c1.2-2.5,3.7-4,6.4-4c0.9,0,1.7,0.2,2.6,0.5 l1.1,0.4l0.7-1c2.1-2.8,5.4-4.4,8.9-4.4c1.8,0,3.7,0.5,5.3,1.3l1,0.5l0.8-0.7c1.3-1.1,2.9-1.7,4.6-1.7c1.4,0,2.8,0.4,3.9,1.2 c-2.4,1.9-4,4.8-4,8.1c0,0.9,0.7,1.6,1.6,1.6c0.9,0,1.6-0.7,1.6-1.6c0-2.7,1.5-5,3.6-6.2l0.5-0.2c1-0.4,2-0.7,3-0.7 c3,0,5.6,1.9,6.7,4.7l0.4,1.1l1.1,0c5.4,0,9.9,4.3,10.3,9.6l0.1,1.1l1,0.3c3.2,1.1,5.4,4.1,5.4,7.5c0,1.3-0.3,2.7-1,3.8l-0.4,0.8 L90.1,47z"/><path fill="currentColor" opacity=".55" d="M55.7,55.3c0-3-1.5-5.8-4-7.5c0,0,0,0,0,0c-4.3-2-7.3-6.1-7.9-10.8c-0.1-0.7,0.4-1.4,1.1-1.5c0.7-0.1,1.4,0.4,1.5,1.1 c0.6,4.3,3.5,7.9,7.6,9.3c2.9,1,6,0.8,8.8-0.5c2.8-1.3,4.8-3.7,5.8-6.6c0.2-0.7,1-1,1.7-0.8c0.7,0.2,1,1,0.8,1.7 c-1.2,3.6-3.8,6.4-7.2,8c-1.9,0.9-4,1.4-6.1,1.4c-0.4,0-0.8,0-1.3-0.1c1.1,1.8,1.8,3.9,1.8,6.2c0,0.7-0.6,1.3-1.3,1.3 S55.7,56,55.7,55.3z M80.4,40.3c0,0.7-0.6,1.3-1.3,1.3s-1.3-0.6-1.3-1.3c0-5.9-4.8-10.7-10.7-10.7c-0.7,0-1.3-0.6-1.3-1.3 s0.6-1.3,1.3-1.3C74.4,27,80.4,33,80.4,40.3z M46,26.9c0-0.7,0.6-1.3,1.3-1.3c5.7,0,10.4,4.6,10.4,10.4c0,0.7-0.6,1.3-1.3,1.3 s-1.3-0.6-1.3-1.3c0-4.3-3.5-7.8-7.8-7.8C46.6,28.2,46,27.6,46,26.9z M42.9,56.6c-0.2,0.4-0.7,0.6-1.1,0.6c-0.2,0-0.5-0.1-0.7-0.2 c-0.6-0.4-0.8-1.2-0.4-1.8c2.2-3.5,1.1-8.1-2.4-10.3c-0.6-0.4-0.8-1.2-0.4-1.8c0.4-0.6,1.2-0.8,1.8-0.4 C44.4,45.7,45.8,51.9,42.9,56.6z M41.7,33.6c-2,0-3.8-0.9-5.2-2.2c-2.3,3.3-6.1,5.1-9.9,5.1c-2,0-4.1-0.5-6-1.6 c-0.6-0.4-0.8-1.2-0.5-1.8c0.4-0.6,1.2-0.8,1.8-0.5c4.5,2.6,10.3,1.1,13-3.5c-0.5-1.1-0.8-2.3-0.8-3.5c0-0.7,0.6-1.3,1.3-1.3 c0.7,0,1.3,0.6,1.3,1.3c-0.1,2.8,2.2,5.2,5,5.3c0.7,0,1.3,0.6,1.3,1.3C43,33.1,42.4,33.6,41.7,33.6C41.7,33.6,41.7,33.6,41.7,33.6z M72.2,59c0.6,0.4,0.7,1.2,0.3,1.8c-2.5,3.6-6.5,5.6-10.6,5.6c-2.5,0-5-0.7-7.2-2.2c-0.6-0.4-0.7-1.2-0.3-1.8 c0.4-0.6,1.2-0.7,1.8-0.3c2.3,1.5,5,2.1,7.7,1.6c2.7-0.5,5-2,6.6-4.3C70.8,58.8,71.6,58.6,72.2,59z"/></svg>
+          Intelligence
+        </a>
+        <a class="sidenav-item">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><line x1="3.5" y1="1.5" x2="3.5" y2="14.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M3.5 2 L12.5 5.5 L3.5 9 Z" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/><line x1="2" y1="14.5" x2="5" y2="14.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          Campaigns
+          <span class="sidenav-badge">4</span>
+        </a>
+        <a class="sidenav-item">
+          <svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3" width="13" height="13" rx="1.5" stroke-width="1.25"/><path d="M15.5 4 L17.5 2.5 L17.5 14.5 L15.5 16" stroke-width="1.1"/><line x1="15.5" y1="3" x2="17.5" y2="1.5" stroke-width="1.1" opacity=".4"/><line x1="12" y1="4.5" x2="12" y2="14.5" stroke-width="0.75" opacity=".35"/><circle cx="8" cy="9.5" r="3" stroke-width="1.25" fill="none"/><circle cx="8" cy="9.5" r="1" fill="currentColor"/><line x1="8" y1="6.5" x2="8" y2="7.5" stroke-width="0.9"/><line x1="8" y1="11.5" x2="8" y2="12.5" stroke-width="0.9"/><line x1="5" y1="9.5" x2="6" y2="9.5" stroke-width="0.9"/><line x1="10" y1="9.5" x2="11" y2="9.5" stroke-width="0.9"/><line x1="13.5" y1="8.5" x2="13.5" y2="10.5" stroke-width="1.4"/><line x1="4" y1="16" x2="5.5" y2="16" stroke-width="1.1"/><line x1="12.5" y1="16" x2="14" y2="16" stroke-width="1.1"/></svg>
+          Vault
+        </a>
+        <a class="sidenav-item">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 2.5 H13 Q14.5 2.5 14.5 4 V9.5 Q14.5 11 13 11 H6.5 L2 14 V4 Q2 2.5 3 2.5 Z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/><line x1="4.5" y1="6" x2="11.5" y2="6" stroke="currentColor" stroke-width="1"/><line x1="4.5" y1="8.5" x2="8.5" y2="8.5" stroke="currentColor" stroke-width="1"/></svg>
+          Ask <span>Aurum</span>
+        </a>
       </div>
-      <div class="elevation-level" style="background:var(--bg-2)">
-        <span class="elevation-level__label">bg-2</span>
-        <span class="elevation-level__desc">Content area, section backgrounds</span>
-        <div class="elevation-level__demo" style="background:var(--bg-2);box-shadow:var(--shadow-sm)"></div>
+      <div class="sidenav-section">
+        <div class="sidenav-label">Admin</div>
+        <a class="sidenav-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z"/><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          Settings
+        </a>
+        <a class="sidenav-item">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="4.5" cy="4" r="2.25" stroke="currentColor" stroke-width="1.1"/><path d="M1 13 C1 11 2.5 9.5 4.5 9.5 C6.5 9.5 8 11 8 13" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><circle cx="11.5" cy="4" r="2.25" stroke="currentColor" stroke-width="1.1"/><path d="M8 13 C8 11 9.5 9.5 11.5 9.5 C13.5 9.5 15 11 15 13" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>
+          Referrals
+        </a>
       </div>
-      <div class="elevation-level" style="background:var(--bg-3)">
-        <span class="elevation-level__label">bg-3</span>
-        <span class="elevation-level__desc">Cards, panels, elevated containers</span>
-        <div class="elevation-level__demo" style="background:var(--bg-3);box-shadow:var(--shadow-sm)"></div>
-      </div>
-      <div class="elevation-level" style="background:var(--bg-4)">
-        <span class="elevation-level__label">bg-4</span>
-        <span class="elevation-level__desc">Popovers, tooltips, dropdowns, modals</span>
-        <div class="elevation-level__demo" style="background:var(--bg-4);box-shadow:var(--shadow-md)"></div>
-      </div>
+    </div>
+    <div style="width:320px;height:360px;display:flex;align-items:center;justify-content:center;background:var(--bg-0);flex-direction:column;gap:8px;">
+      <span class="t-caption c-3">Main Content Area</span>
+      <span class="t-label" style="color:var(--text-3);">320 × 360</span>
     </div>
   </div>
-</section>
 
-<div class="section-divider"></div>
-
-<!-- ──────────────── 5. STROKE & ROUNDING ──────────────── -->
-<section class="section" id="radius">
-  <div class="section__inner">
-    <span class="tag scroll-reveal">Stroke &amp; Rounding</span>
-    <h2 class="section-title scroll-reveal">Corner Radius Spectrum</h2>
-    <p class="section-sub scroll-reveal">Sharp for data density, soft for interaction surfaces. The 6&ndash;10px range is the <span class="redacted">BankIQ</span> sweet spot.</p>
-
-    <div class="radius-spectrum scroll-reveal">
-      <div class="radius-item">
-        <div class="radius-item__box" style="border-radius:0"></div>
-        <span class="radius-item__label">0px</span>
-        <span class="radius-item__tag">Sharp</span>
-      </div>
-      <div class="radius-item">
-        <div class="radius-item__box" style="border-radius:4px"></div>
-        <span class="radius-item__label">4px</span>
-        <span class="radius-item__tag">Tight</span>
-      </div>
-      <div class="radius-item radius-item--active">
-        <div class="radius-item__box" style="border-radius:6px"></div>
-        <span class="radius-item__label">6px</span>
-        <span class="radius-item__tag">Default</span>
-      </div>
-      <div class="radius-item radius-item--active">
-        <div class="radius-item__box" style="border-radius:8px"></div>
-        <span class="radius-item__label">8px</span>
-        <span class="radius-item__tag">Primary</span>
-      </div>
-      <div class="radius-item radius-item--active">
-        <div class="radius-item__box" style="border-radius:10px"></div>
-        <span class="radius-item__label">10px</span>
-        <span class="radius-item__tag">Cards</span>
-      </div>
-      <div class="radius-item">
-        <div class="radius-item__box" style="border-radius:16px"></div>
-        <span class="radius-item__label">16px</span>
-        <span class="radius-item__tag">Panels</span>
-      </div>
-      <div class="radius-item">
-        <div class="radius-item__box" style="border-radius:24px"></div>
-        <span class="radius-item__label">24px</span>
-        <span class="radius-item__tag">Pills</span>
-      </div>
-    </div>
-
-    <!-- Stroke weight -->
-    <h3 style="font-family:'Exo 2',sans-serif;font-size:20px;font-weight:600;color:var(--text-0);margin-bottom:20px" class="scroll-reveal">Stroke Weight System</h3>
-    <div class="stroke-grid scroll-reveal">
-      <div class="stroke-card">
-        <div class="stroke-card__line" style="background:var(--border-0)"></div>
-        <div class="stroke-card__name">border-0</div>
-        <div class="stroke-card__value">6% opacity</div>
-      </div>
-      <div class="stroke-card">
-        <div class="stroke-card__line" style="background:var(--border-1)"></div>
-        <div class="stroke-card__name">border-1</div>
-        <div class="stroke-card__value">12% opacity</div>
-      </div>
-      <div class="stroke-card">
-        <div class="stroke-card__line" style="background:var(--border-2)"></div>
-        <div class="stroke-card__name">border-2</div>
-        <div class="stroke-card__value">24% opacity</div>
-      </div>
-      <div class="stroke-card">
-        <div class="stroke-card__line" style="background:var(--border-accent)"></div>
-        <div class="stroke-card__name">Accent</div>
-        <div class="stroke-card__value">Gold 30%</div>
-      </div>
-    </div>
+  <!-- Top nav sub-section already shown at top of page -->
+  <div class="token-label" style="margin-bottom:12px;">Breadcrumb</div>
+  <div style="display:flex;align-items:center;gap:6px;padding:10px 14px;background:var(--bg-2);border:1px solid var(--border-0);border-radius:var(--r-md);width:fit-content;">
+    <span class="t-body-sm c-2">Platform</span>
+    <span class="t-body-sm" style="color:var(--text-3);">/</span>
+    <span class="t-body-sm c-2">Campaigns</span>
+    <span class="t-body-sm" style="color:var(--text-3);">/</span>
+    <span class="t-body-sm c-0">New Campaign</span>
   </div>
-</section>
+</div>
 
-<div class="section-divider"></div>
+<!-- ═══════════════════════════════════════════════
+     SECTION 05 — TABS
+═══════════════════════════════════════════════ -->
+<div class="ds-section" id="tabs">
+  <div class="ds-section-title">05 — Tabs</div>
 
-<!-- ──────────────── 6. GLASS & TRANSLUCENCY ──────────────── -->
-<section class="section" id="glass">
-  <div class="section__inner">
-    <span class="tag scroll-reveal">Glass &amp; Translucency</span>
-    <h2 class="section-title scroll-reveal">Three Tiers of Depth</h2>
-    <p class="section-sub scroll-reveal">Glass panels layer over dashboard content with increasing opacity and blur. Each tier serves a different context.</p>
-
-    <div class="glass-demo scroll-reveal">
-      <!-- Background content visible beneath -->
-      <div class="glass-demo__bg">
-        <div class="glass-demo__bg-card">
-          <div class="glass-demo__bg-num">$4.2M</div>
-          <div class="glass-demo__bg-bar"></div>
-          <div class="glass-demo__bg-bar glass-demo__bg-bar--short"></div>
-        </div>
-        <div class="glass-demo__bg-card">
-          <div class="glass-demo__bg-num">+12.4%</div>
-          <div class="glass-demo__bg-bar glass-demo__bg-bar--accent"></div>
-          <div class="glass-demo__bg-bar"></div>
-        </div>
-        <div class="glass-demo__bg-card">
-          <div class="glass-demo__bg-num">847</div>
-          <div class="glass-demo__bg-bar"></div>
-          <div class="glass-demo__bg-bar glass-demo__bg-bar--short"></div>
-        </div>
-        <div class="glass-demo__bg-card">
-          <div class="glass-demo__bg-bar glass-demo__bg-bar--accent"></div>
-          <div class="glass-demo__bg-bar"></div>
-          <div class="glass-demo__bg-bar glass-demo__bg-bar--short"></div>
-        </div>
-        <div class="glass-demo__bg-card">
-          <div class="glass-demo__bg-num">$891K</div>
-          <div class="glass-demo__bg-bar"></div>
-          <div class="glass-demo__bg-bar"></div>
-        </div>
-        <div class="glass-demo__bg-card">
-          <div class="glass-demo__bg-bar"></div>
-          <div class="glass-demo__bg-bar glass-demo__bg-bar--short"></div>
-          <div class="glass-demo__bg-bar glass-demo__bg-bar--accent"></div>
-        </div>
-      </div>
-      <!-- Glass tiers -->
-      <div class="glass-tiers">
-        <div class="glass-tier glass-tier--subtle">
-          <div class="glass-tier__name">Subtle</div>
-          <div class="glass-tier__spec">opacity: 40%<br>blur: 8px<br>border: 4% white</div>
-        </div>
-        <div class="glass-tier glass-tier--medium">
-          <div class="glass-tier__name">Medium</div>
-          <div class="glass-tier__spec">opacity: 65%<br>blur: 16px<br>border: 8% white</div>
-        </div>
-        <div class="glass-tier glass-tier--heavy">
-          <div class="glass-tier__name">Heavy</div>
-          <div class="glass-tier__spec">opacity: 85%<br>blur: 24px<br>border: 12% white<br>saturate: 1.2</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="section-divider"></div>
-
-<!-- ──────────────── 7. COMPONENT STYLING ──────────────── -->
-<section class="section" id="components">
-  <div class="section__inner">
-    <span class="tag scroll-reveal">Component Styling</span>
-    <h2 class="section-title scroll-reveal">Interactive Surfaces</h2>
-    <p class="section-sub scroll-reveal">Buttons, cards, data tables, and notification patterns &mdash; all built from the same token vocabulary.</p>
-
-    <!-- Button hierarchy -->
-    <h3 style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);margin-bottom:16px" class="scroll-reveal">Button Hierarchy</h3>
-    <div class="comp-row scroll-reveal">
-      <button class="demo-btn demo-btn--primary" type="button">Primary Action</button>
-      <button class="demo-btn demo-btn--secondary" type="button">Secondary</button>
-      <button class="demo-btn demo-btn--ghost" type="button">Ghost</button>
-      <button class="demo-btn demo-btn--ai" type="button">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2 7h7l-5.5 4 2 7L12 16l-5.5 4 2-7L3 9h7z"/></svg>
-        AI Insight
+  <div class="token-label" style="margin-bottom:10px;">Underline Tabs</div>
+  <div style="background:var(--bg-2);border:1px solid var(--border-0);border-radius:var(--r-lg);overflow:hidden;margin-bottom:24px;">
+    <div class="tabs" style="padding:0 20px;">
+      <button class="tab active">
+        <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor"><path d="M2 2h5v5H2V2zm0 7h5v5H2V9zm7-7h5v5H9V2zm0 7h5v5H9V9z"/></svg>
+        Overview
       </button>
+      <button class="tab">Customers <span class="badge badge-muted" style="margin-left:2px;">24</span></button>
+      <button class="tab">Insights</button>
+      <button class="tab">History</button>
     </div>
+    <div style="padding:24px;color:var(--text-2);font-size:0.875rem;">Tab panel content area</div>
+  </div>
 
-    <!-- Cards -->
-    <h3 style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);margin-bottom:16px;margin-top:48px" class="scroll-reveal">Card Hover States</h3>
-    <div class="comp-row scroll-reveal" style="align-items:stretch">
-      <div class="demo-card">
-        <div class="demo-card__title">Portfolio Value</div>
-        <div class="demo-card__text">Total AUM across managed accounts for the current fiscal quarter.</div>
-        <div class="demo-card__metric">$14.2M</div>
-      </div>
-      <div class="demo-card demo-card--ai">
-        <div class="demo-card__title">AI Recommendation</div>
-        <div class="demo-card__text">Model confidence score for the suggested rebalancing strategy.</div>
-        <div class="demo-card__metric">94.7%</div>
-      </div>
+  <div class="token-label" style="margin-bottom:10px;">Pill Tabs</div>
+  <div class="ds-row" style="margin-bottom:24px;">
+    <div class="tabs-pill">
+      <button class="tab-pill active">All</button>
+      <button class="tab-pill">Active</button>
+      <button class="tab-pill">Pending</button>
+      <button class="tab-pill">Closed</button>
     </div>
-
-    <!-- Data table -->
-    <h3 style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);margin-bottom:16px;margin-top:48px" class="scroll-reveal">Data Table</h3>
-    <div class="scroll-reveal" style="overflow-x:auto">
-      <table class="demo-table">
-        <thead>
-          <tr><th>Account</th><th>Type</th><th style="text-align:right">Balance</th><th style="text-align:right">Change</th></tr>
-        </thead>
-        <tbody>
-          <tr><td class="mono">Operating Fund</td><td>Checking</td><td class="mono" style="text-align:right">$4,238,901.42</td><td class="mono up" style="text-align:right">+3.72%</td></tr>
-          <tr><td class="mono">Reserve Pool</td><td>Savings</td><td class="mono" style="text-align:right">$12,891,004.18</td><td class="mono up" style="text-align:right">+1.08%</td></tr>
-          <tr><td class="mono">Growth Portfolio</td><td>Investment</td><td class="mono" style="text-align:right">$8,412,337.90</td><td class="mono down" style="text-align:right">-0.44%</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- Toasts -->
-    <h3 style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);margin-bottom:16px;margin-top:48px" class="scroll-reveal">Toast Notifications</h3>
-    <div class="demo-toast-row scroll-reveal">
-      <div class="demo-toast demo-toast--success">
-        <svg class="demo-toast__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-        Transaction completed
-      </div>
-      <div class="demo-toast demo-toast--warning">
-        <svg class="demo-toast__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-        Rate limit approaching
-      </div>
-      <div class="demo-toast demo-toast--danger">
-        <svg class="demo-toast__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
-        Authentication expired
-      </div>
+    <div class="tabs-pill">
+      <button class="tab-pill active">7D</button>
+      <button class="tab-pill">30D</button>
+      <button class="tab-pill">90D</button>
+      <button class="tab-pill">YTD</button>
     </div>
   </div>
-</section>
 
-<div class="section-divider"></div>
-
-<!-- ──────────────── 8. MOTION & STATES ──────────────── -->
-<section class="section" id="motion">
-  <div class="section__inner">
-    <span class="tag scroll-reveal">Motion &amp; States</span>
-    <h2 class="section-title scroll-reveal">Interactive Feedback</h2>
-    <p class="section-sub scroll-reveal">Every interactive element communicates state through consistent timing and easing. Transitions stay under 300ms to feel instant.</p>
-
-    <!-- Button states -->
-    <h3 style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);margin-bottom:16px" class="scroll-reveal">Button States</h3>
-    <div class="states-grid scroll-reveal">
-      <div class="state-item">
-        <span class="state-item__btn state-item__btn--default">Button</span>
-        <span class="state-item__label">Default</span>
-      </div>
-      <div class="state-item">
-        <span class="state-item__btn state-item__btn--hover">Button</span>
-        <span class="state-item__label">Hover</span>
-      </div>
-      <div class="state-item">
-        <span class="state-item__btn state-item__btn--focus">Button</span>
-        <span class="state-item__label">Focus</span>
-      </div>
-      <div class="state-item">
-        <span class="state-item__btn state-item__btn--active">Button</span>
-        <span class="state-item__label">Active</span>
-      </div>
-      <div class="state-item">
-        <span class="state-item__btn state-item__btn--disabled">Button</span>
-        <span class="state-item__label">Disabled</span>
-      </div>
+  <div class="token-label" style="margin-bottom:10px;">Vertical Tabs</div>
+  <div style="display:flex;gap:0;background:var(--bg-2);border:1px solid var(--border-0);border-radius:var(--r-lg);overflow:hidden;width:fit-content;">
+    <div class="tabs-vert" style="padding:16px 0;">
+      <button class="tab-vert active">Org Profile</button>
+      <button class="tab-vert">Product Builder</button>
+      <button class="tab-vert">Audience Builder</button>
+      <button class="tab-vert">Intelligence</button>
+      <button class="tab-vert">Vault</button>
     </div>
-
-    <!-- Loading patterns -->
-    <h3 style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);margin-bottom:16px" class="scroll-reveal">Loading Patterns</h3>
-    <div class="loading-demos scroll-reveal">
-      <div class="loading-card">
-        <div style="width:100%;display:flex;flex-direction:column;gap:10px">
-          <div class="skeleton"></div>
-          <div class="skeleton skeleton--short"></div>
-          <div class="skeleton skeleton--xs"></div>
-        </div>
-        <div class="loading-card__label">Skeleton Shimmer</div>
-      </div>
-      <div class="loading-card">
-        <div class="spinner"></div>
-        <div class="loading-card__label">Spinner</div>
-      </div>
-      <div class="loading-card">
-        <div class="dots">
-          <div class="dot"></div>
-          <div class="dot"></div>
-          <div class="dot"></div>
-        </div>
-        <div class="loading-card__label">Thinking Dots</div>
-      </div>
-      <div class="loading-card">
-        <div class="progress-demo"><div class="progress-demo__fill"></div></div>
-        <div class="loading-card__label">Progress Bar</div>
-      </div>
-    </div>
-
-    <!-- Toggle -->
-    <h3 style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);margin-bottom:16px" class="scroll-reveal">Toggle Animation</h3>
-    <div class="comp-row scroll-reveal" style="gap:24px">
-      <div class="toggle-demo" id="toggleDemo1"></div>
-      <div class="toggle-demo is-on" id="toggleDemo2"></div>
-      <span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text-3)">cubic-bezier(.16, 1, .3, 1) &middot; 300ms</span>
-    </div>
-
-    <!-- Empty state -->
-    <h3 style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);margin-bottom:16px;margin-top:48px" class="scroll-reveal">Empty State</h3>
-    <div class="empty-state scroll-reveal" style="max-width:400px">
-      <div class="empty-state__icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
-      </div>
-      <div class="empty-state__title">No accounts found</div>
-      <div class="empty-state__desc">Add your first account to start tracking portfolio performance.</div>
-    </div>
-
-    <!-- Spacing note -->
-    <div class="callout scroll-reveal" style="margin-top:64px">
-      All transitions use <code style="font-family:'DM Mono',monospace;font-size:12px;background:var(--bg-3);padding:2px 6px;border-radius:4px">ease</code> or <code style="font-family:'DM Mono',monospace;font-size:12px;background:var(--bg-3);padding:2px 6px;border-radius:4px">cubic-bezier(.16, 1, .3, 1)</code> timing. Hover: 200ms. Theme switch: 400ms. Scroll reveal: 600ms.
-    </div>
+    <div style="width:240px;padding:24px;color:var(--text-2);font-size:0.875rem;">Panel content</div>
   </div>
-</section>
+</div>
 
-<!-- Footer spacer -->
-<div style="height:120px"></div>
+<!-- ═══════════════════════════════════════════════
+     SECTION 06 — CHIPS & BADGES
+═══════════════════════════════════════════════ -->
+<div class="ds-section" id="chips">
+  <div class="ds-section-title">06 — Chips & Badges</div>
 
-</div><!-- /page-content -->
+  <div class="token-label" style="margin-bottom:10px;">Status Chips</div>
+  <div class="ds-row" style="margin-bottom:24px;">
+    <span class="chip chip-success"><span class="chip-dot" style="background:var(--success);"></span>Active</span>
+    <span class="chip chip-cyan"><span class="chip-dot" style="background:var(--cyan);"></span>Processing</span>
+    <span class="chip chip-warning"><span class="chip-dot" style="background:var(--warning);"></span>Pending Review</span>
+    <span class="chip chip-danger"><span class="chip-dot" style="background:var(--danger);"></span>Failed</span>
+    <span class="chip chip-indigo"><span class="chip-dot" style="background:var(--indigo);"></span>AI Generated</span>
+    <span class="chip chip-default">Inactive</span>
+  </div>
 
-<!-- ================================================================
-     SHARE MODAL
-     ================================================================ -->
-<div class="share-modal" id="shareModal" role="dialog" aria-modal="true" aria-labelledby="shareModalTitle" hidden>
-  <div class="share-modal__backdrop" data-share-close></div>
-  <div class="share-modal__panel" role="document">
-    <button class="share-modal__close" type="button" data-share-close aria-label="Close">
-      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13"/></svg>
+  <div class="token-label" style="margin-bottom:10px;">Tag Chips (interactive)</div>
+  <div class="ds-row" style="margin-bottom:24px;">
+    <span class="chip-tag selected">Dormant Account</span>
+    <span class="chip-tag">Deposit Flight Risk</span>
+    <span class="chip-tag">SMB Growth</span>
+    <span class="chip-tag selected">Relationship Gap</span>
+    <span class="chip-tag">All Insights</span>
+  </div>
+
+  <div class="token-label" style="margin-bottom:10px;">Count Badges</div>
+  <div class="ds-row" style="align-items:center;">
+    <span class="badge badge-cyan">3</span>
+    <span class="badge badge-indigo">12</span>
+    <span class="badge badge-muted">7</span>
+    <span class="badge badge-danger">!</span>
+    <div style="display:flex;align-items:center;gap:8px;margin-left:12px;padding:7px 14px;background:var(--bg-2);border:1px solid var(--border-0);border-radius:var(--r-md);">
+      <span class="t-body-sm">Campaigns</span>
+      <span class="badge badge-cyan">4</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;padding:7px 14px;background:var(--bg-2);border:1px solid var(--border-0);border-radius:var(--r-md);">
+      <span class="t-body-sm">Pending Approval</span>
+      <span class="badge badge-danger">2</span>
+    </div>
+    <span class="tag-new">New</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 07 — BUTTONS
+═══════════════════════════════════════════════ -->
+<div class="ds-section" id="buttons">
+  <div class="ds-section-title">07 — Buttons</div>
+
+  <div class="token-label" style="margin-bottom:10px;">Primary Actions</div>
+  <div class="ds-row" style="margin-bottom:20px;align-items:center;">
+    <button class="btn btn-primary btn-lg">Launch Campaign</button>
+    <button class="btn btn-primary btn-md">New Campaign</button>
+    <button class="btn btn-primary btn-sm">Add</button>
+    <button class="btn btn-primary btn-xs">Submit</button>
+  </div>
+
+  <div class="token-label" style="margin-bottom:10px;">Secondary & Ghost</div>
+  <div class="ds-row" style="margin-bottom:20px;align-items:center;">
+    <button class="btn btn-secondary btn-md">Export CSV</button>
+    <button class="btn btn-ghost btn-md">Cancel</button>
+    <button class="btn btn-ghost-accent btn-md">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1a7 7 0 100 14A7 7 0 008 1zm0 3a1 1 0 110 2A1 1 0 018 4zm0 3.5a.75.75 0 01.75.75v3a.75.75 0 01-1.5 0v-3A.75.75 0 018 7.5z"/></svg>
+      Ask <span>Aurum</span>
     </button>
-    <div class="share-modal__eyebrow">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.5 1.5"/><path d="M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.5-1.5"/></svg>
-      Send as link
+    <button class="btn btn-danger btn-md">Reject</button>
+  </div>
+
+  <div class="token-label" style="margin-bottom:10px;">Icon Buttons</div>
+  <div class="ds-row" style="align-items:center;margin-bottom:20px;">
+    <button class="btn btn-icon">
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor"><path d="M8 2a6 6 0 100 12A6 6 0 008 2zm1 7H7V7h2v2zm0-3H7V4h2v2z"/></svg>
+    </button>
+    <button class="btn btn-icon">
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor"><path d="M2 4h12v1H2V4zm0 3.5h12v1H2v-1zM2 11h8v1H2v-1z"/></svg>
+    </button>
+    <button class="btn btn-icon">
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 4v4l3 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg>
+    </button>
+    <button class="btn btn-primary btn-md btn-loading">
+      <div class="spinner"></div>
+      Processing…
+    </button>
+  </div>
+
+  <div class="token-label" style="margin-bottom:10px;">With Icons</div>
+  <div class="ds-row" style="align-items:center;">
+    <button class="btn btn-primary btn-md">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 2v12M2 8h12" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+      New Insight
+    </button>
+    <button class="btn btn-secondary btn-md">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M13 3H3a1 1 0 00-1 1v8a1 1 0 001 1h10a1 1 0 001-1V4a1 1 0 00-1-1zm-5 7l-3-3h2V6h2v1h2l-3 3z"/></svg>
+      Export
+    </button>
+    <button class="btn btn-ghost btn-md">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 2a6 6 0 100 12A6 6 0 008 2z" opacity=".25"/><path d="M8 5v4l2.5 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg>
+      View History
+    </button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 08 — CARDS
+═══════════════════════════════════════════════ -->
+<div class="ds-section" id="cards">
+  <div class="ds-section-title">08 — Cards</div>
+
+  <!-- Metric cards -->
+  <div class="token-label" style="margin-bottom:10px;">Metric / Data Cards</div>
+  <div class="ds-grid-4" style="margin-bottom:28px;">
+    <div class="card-metric" style="--metric-accent: var(--cyan);">
+      <div class="card-metric-label">
+        Active Insights
+        <svg class="card-metric-icon" width="13" height="13" viewBox="0 0 100 100" fill="none"><path fill="currentColor" d="M94.4,41.6c0-4.4-2.6-8.4-6.6-10.2c-1-6.2-6.1-11-12.3-11.5c-1.7-3.5-5.3-5.8-9.3-5.8c0,0,0,0,0,0c0,0,0,0,0,0 c-0.5,0-1,0.1-1.5,0.1c0,0-0.1,0-0.1,0c-0.5,0.1-1.1,0.2-1.6,0.4C61,13,58.5,12,55.9,12c-2.1,0-4.2,0.6-5.9,1.8 c-1.8-0.8-3.8-1.2-5.9-1.2c-4.1,0-8,1.7-10.7,4.8c-0.9-0.2-1.7-0.3-2.6-0.3c-3.6,0-6.9,1.8-8.8,4.9c-0.1,0-0.3,0-0.4,0 c-0.2,0-0.4,0-0.5,0c-0.2,0-0.4,0.1-0.6,0.1c-0.2,0-0.3,0.1-0.5,0.1c-0.2,0-0.4,0.1-0.6,0.2c-0.2,0-0.3,0.1-0.5,0.1 c-0.2,0.1-0.4,0.1-0.5,0.2c-0.2,0.1-0.4,0.1-0.5,0.2c-0.1,0.1-0.3,0.1-0.4,0.2c-0.2,0.1-0.4,0.2-0.6,0.3c0,0,0,0,0,0 c-3.5,1.9-5.9,5.6-6.2,9.8c0,0,0,0.1,0,0.1c-3.2,3-5,7.3-5,11.7c0,8.9,7.3,16.2,16.2,16.2c0.9,0,1.9-0.1,2.8-0.2 c1.2,0.4,2.5,0.6,3.8,0.7c2.6,6.4,7.8,9.8,14.9,9.8c6.8,0,15,6.9,15,15V88L69.8,88l-1.3-9.3c7.9,0.8,15.4-4.3,17.4-12.2 c0.3-1.4,0.5-2.8,0.5-4.1c4.7-1.7,8-6.2,8-11.3c0-1.7-0.3-3.3-1-4.8C94,44.8,94.4,43.2,94.4,41.6z M90.1,47c0.7,1.3,1,2.6,1,4.1 c0,3.4-2,6.5-5.1,7.9c-1.3-5.9-5.9-10.7-11.8-12.2c-0.9-0.2-1.8,0.3-2,1.2c-0.2,0.9,0.3,1.8,1.2,2c5.3,1.3,9.2,5.8,9.7,11.2 c0.2,1.5,0,3-0.3,4.5C81,72.7,74,76.9,67,75.1l-2.3-0.6l1.4,10.2l-4.6,0c-1-9.4-10.4-16.7-18.2-16.7c-5.4,0-9.2-2.2-11.4-6.6 c0-0.1,0-0.2-0.1-0.3c-1.7-3.5-0.2-7.8,3.4-9.5c0.8-0.4,1.2-1.4,0.8-2.2c-0.4-0.8-1.4-1.2-2.2-0.8c-3.8,1.8-5.9,5.6-5.9,9.5 c-0.9-0.1-1.8-0.3-2.6-0.6l-0.4-0.2l-0.4,0.1c-0.8,0.2-1.7,0.3-2.6,0.3c-7.1,0-13-5.8-13-13c0-2.6,0.8-5.2,2.3-7.3 c1.2,3.8,4.4,6.8,8.3,7.8c-0.3,0.5-0.5,1-0.6,1.5c-0.4,1.8-0.2,3.6,0.8,5.2c0.3,0.5,0.8,0.8,1.4,0.8c0.3,0,0.6-0.1,0.8-0.2 c0.8-0.5,1-1.5,0.6-2.2c-0.5-0.8-0.6-1.8-0.4-2.7c0.2-0.9,0.8-1.7,1.6-2.2c0.8-0.5,1-1.5,0.6-2.2c-0.4-0.6-1.1-0.9-1.8-0.7 c-4.7-0.1-8.6-4-8.6-8.7c0-4.8,3.9-8.7,8.7-8.7c0.1,0,0.1,0,0.2,0l1.3,0.1l0.5-1c1.2-2.5,3.7-4,6.4-4c0.9,0,1.7,0.2,2.6,0.5 l1.1,0.4l0.7-1c2.1-2.8,5.4-4.4,8.9-4.4c1.8,0,3.7,0.5,5.3,1.3l1,0.5l0.8-0.7c1.3-1.1,2.9-1.7,4.6-1.7c1.4,0,2.8,0.4,3.9,1.2 c-2.4,1.9-4,4.8-4,8.1c0,0.9,0.7,1.6,1.6,1.6c0.9,0,1.6-0.7,1.6-1.6c0-2.7,1.5-5,3.6-6.2l0.5-0.2c1-0.4,2-0.7,3-0.7 c3,0,5.6,1.9,6.7,4.7l0.4,1.1l1.1,0c5.4,0,9.9,4.3,10.3,9.6l0.1,1.1l1,0.3c3.2,1.1,5.4,4.1,5.4,7.5c0,1.3-0.3,2.7-1,3.8l-0.4,0.8 L90.1,47z"/><path fill="currentColor" opacity=".55" d="M55.7,55.3c0-3-1.5-5.8-4-7.5c0,0,0,0,0,0c-4.3-2-7.3-6.1-7.9-10.8c-0.1-0.7,0.4-1.4,1.1-1.5c0.7-0.1,1.4,0.4,1.5,1.1 c0.6,4.3,3.5,7.9,7.6,9.3c2.9,1,6,0.8,8.8-0.5c2.8-1.3,4.8-3.7,5.8-6.6c0.2-0.7,1-1,1.7-0.8c0.7,0.2,1,1,0.8,1.7 c-1.2,3.6-3.8,6.4-7.2,8c-1.9,0.9-4,1.4-6.1,1.4c-0.4,0-0.8,0-1.3-0.1c1.1,1.8,1.8,3.9,1.8,6.2c0,0.7-0.6,1.3-1.3,1.3 S55.7,56,55.7,55.3z M80.4,40.3c0,0.7-0.6,1.3-1.3,1.3s-1.3-0.6-1.3-1.3c0-5.9-4.8-10.7-10.7-10.7c-0.7,0-1.3-0.6-1.3-1.3 s0.6-1.3,1.3-1.3C74.4,27,80.4,33,80.4,40.3z M46,26.9c0-0.7,0.6-1.3,1.3-1.3c5.7,0,10.4,4.6,10.4,10.4c0,0.7-0.6,1.3-1.3,1.3 s-1.3-0.6-1.3-1.3c0-4.3-3.5-7.8-7.8-7.8C46.6,28.2,46,27.6,46,26.9z M42.9,56.6c-0.2,0.4-0.7,0.6-1.1,0.6c-0.2,0-0.5-0.1-0.7-0.2 c-0.6-0.4-0.8-1.2-0.4-1.8c2.2-3.5,1.1-8.1-2.4-10.3c-0.6-0.4-0.8-1.2-0.4-1.8c0.4-0.6,1.2-0.8,1.8-0.4 C44.4,45.7,45.8,51.9,42.9,56.6z M41.7,33.6c-2,0-3.8-0.9-5.2-2.2c-2.3,3.3-6.1,5.1-9.9,5.1c-2,0-4.1-0.5-6-1.6 c-0.6-0.4-0.8-1.2-0.5-1.8c0.4-0.6,1.2-0.8,1.8-0.5c4.5,2.6,10.3,1.1,13-3.5c-0.5-1.1-0.8-2.3-0.8-3.5c0-0.7,0.6-1.3,1.3-1.3 c0.7,0,1.3,0.6,1.3,1.3c-0.1,2.8,2.2,5.2,5,5.3c0.7,0,1.3,0.6,1.3,1.3C43,33.1,42.4,33.6,41.7,33.6C41.7,33.6,41.7,33.6,41.7,33.6z M72.2,59c0.6,0.4,0.7,1.2,0.3,1.8c-2.5,3.6-6.5,5.6-10.6,5.6c-2.5,0-5-0.7-7.2-2.2c-0.6-0.4-0.7-1.2-0.3-1.8 c0.4-0.6,1.2-0.7,1.8-0.3c2.3,1.5,5,2.1,7.7,1.6c2.7-0.5,5-2,6.6-4.3C70.8,58.8,71.6,58.6,72.2,59z"/></svg>
+      </div>
+      <div class="card-metric-value">1,284</div>
+      <div class="card-metric-change up">
+        <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M6 2v8M2 6l4-4 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        +12.4% vs last month
+      </div>
     </div>
-    <h2 class="share-modal__title" id="shareModalTitle">App Design System</h2>
-    <p class="share-modal__lede">Anyone with this link lands directly on this page in standalone mode &mdash; the Single Origin nav and breadcrumbs are hidden so the customer sees the content, not the parent hub.</p>
-    <div class="share-modal__url-block">
-      <div class="share-modal__url-label">Standalone URL</div>
-      <div class="share-modal__url" id="shareModalUrl">about:blank</div>
+    <div class="card-metric" style="--metric-accent: var(--indigo);">
+      <div class="card-metric-label">
+        Customers Reached
+        <svg class="card-metric-icon" width="13" height="13" viewBox="0 0 16 16" fill="none">
+          <circle cx="6.5" cy="5.5" r="2.5" stroke="currentColor" stroke-width="1.25"/>
+          <path d="M1 13.5c0-2.5 2.4-4 5.5-4s5.5 1.5 5.5 4" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/>
+          <circle cx="12" cy="5" r="1.75" stroke="currentColor" stroke-width="1.25" opacity=".5"/>
+          <path d="M14.5 13c0-1.8-1-3-2.5-3.5" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" opacity=".5"/>
+        </svg>
+      </div>
+      <div class="card-metric-value">342</div>
+      <div class="card-metric-change up">
+        <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M6 2v8M2 6l4-4 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        +8.1% vs last month
+      </div>
     </div>
-    <div class="share-modal__actions">
-      <button class="share-modal__btn share-modal__btn--download" type="button" id="shareModalDownload">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:4px"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        Download .html
-      </button>
-      <button class="share-modal__btn share-modal__btn--ghost" type="button" data-share-close>Cancel</button>
-      <button class="share-modal__btn share-modal__btn--primary" type="button" id="shareModalCopy">Copy link</button>
+    <div class="card-metric" style="--metric-accent: var(--success);">
+      <div class="card-metric-label">
+        Campaigns Closed
+        <svg class="card-metric-icon" width="13" height="13" viewBox="0 0 16 16" fill="none">
+          <circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.25" opacity=".35"/>
+          <path d="M5 8l2.5 2.5L11 5.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="card-metric-value">47</div>
+      <div class="card-metric-change down">
+        <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M6 10V2M2 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        −3.2% vs last month
+      </div>
+    </div>
+    <div class="card-metric" style="--metric-accent: var(--warning);">
+      <div class="card-metric-label">
+        Pending Review
+        <svg class="card-metric-icon" width="13" height="13" viewBox="0 0 16 16" fill="none">
+          <circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.25" opacity=".35"/>
+          <line x1="8" y1="5" x2="8" y2="9" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+          <circle cx="8" cy="11" r="0.7" fill="currentColor"/>
+        </svg>
+      </div>
+      <div class="card-metric-value">6</div>
+      <div class="card-metric-change" style="color:var(--text-2);">— No change</div>
+    </div>
+  </div>
+
+  <!-- Card style variants -->
+  <div class="token-label" style="margin-bottom:10px;">Card Styles</div>
+  <div class="ds-grid-3" style="margin-bottom:0;">
+    <div class="card">
+      <div class="t-caption c-3" style="margin-bottom:10px;">Standard Card</div>
+      <div class="t-h4" style="margin-bottom:6px;">Dormant Account Insight</div>
+      <p class="t-body-sm c-1">Customer has not had any activity in 90+ days. Eligible for reactivation outreach.</p>
+      <div style="margin-top:14px;display:flex;gap:8px;">
+        <span class="chip chip-warning"><span class="chip-dot" style="background:var(--warning);"></span>Dormant</span>
+        <span class="t-mono-sm c-2" style="align-self:center;">conf. 0.87</span>
+      </div>
+    </div>
+
+    <div class="card-glass" style="position:relative;">
+      <div class="t-caption c-3" style="margin-bottom:10px;">Glass Card</div>
+      <div class="t-h4" style="margin-bottom:6px;">Relationship Gap</div>
+      <p class="t-body-sm c-1">Customer holds checking and savings but no investment or loan products. High cross-sell probability.</p>
+      <div style="margin-top:14px;display:flex;gap:8px;">
+        <span class="chip chip-indigo"><span class="chip-dot" style="background:var(--indigo);"></span>AI Matched</span>
+        <span class="t-mono-sm c-2" style="align-self:center;">conf. 0.94</span>
+      </div>
+    </div>
+
+    <div class="card-gradient">
+      <div class="t-caption" style="color:var(--cyan);opacity:0.7;margin-bottom:10px;">Gradient Card</div>
+      <div class="t-h4" style="margin-bottom:6px;">SMB Growth Opportunity</div>
+      <p class="t-body-sm c-1">Business customer showing increased transaction volume. Flagged for business lending review.</p>
+      <div style="margin-top:14px;display:flex;gap:8px;">
+        <span class="chip chip-cyan"><span class="chip-dot" style="background:var(--cyan);"></span>High Priority</span>
+        <span class="t-mono-sm" style="color:var(--cyan);opacity:0.7;align-self:center;">conf. 0.91</span>
+      </div>
     </div>
   </div>
 </div>
-<div class="share-toast" id="shareToast" role="status" aria-live="polite">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-  <span class="toast-text">Link copied</span>
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 09 — ICONS
+═══════════════════════════════════════════════ -->
+<div class="ds-section" id="icons">
+  <div class="ds-section-title">09 — Icons</div>
+  <div class="icon-grid">
+    <!-- Intelligence (brain icon — ported from brain.svg) -->
+    <div class="icon-cell"><svg width="20" height="20" viewBox="0 0 100 100" fill="none"><path fill="currentColor" d="M94.4,41.6c0-4.4-2.6-8.4-6.6-10.2c-1-6.2-6.1-11-12.3-11.5c-1.7-3.5-5.3-5.8-9.3-5.8c0,0,0,0,0,0c0,0,0,0,0,0 c-0.5,0-1,0.1-1.5,0.1c0,0-0.1,0-0.1,0c-0.5,0.1-1.1,0.2-1.6,0.4C61,13,58.5,12,55.9,12c-2.1,0-4.2,0.6-5.9,1.8 c-1.8-0.8-3.8-1.2-5.9-1.2c-4.1,0-8,1.7-10.7,4.8c-0.9-0.2-1.7-0.3-2.6-0.3c-3.6,0-6.9,1.8-8.8,4.9c-0.1,0-0.3,0-0.4,0 c-0.2,0-0.4,0-0.5,0c-0.2,0-0.4,0.1-0.6,0.1c-0.2,0-0.3,0.1-0.5,0.1c-0.2,0-0.4,0.1-0.6,0.2c-0.2,0-0.3,0.1-0.5,0.1 c-0.2,0.1-0.4,0.1-0.5,0.2c-0.2,0.1-0.4,0.1-0.5,0.2c-0.1,0.1-0.3,0.1-0.4,0.2c-0.2,0.1-0.4,0.2-0.6,0.3c0,0,0,0,0,0 c-3.5,1.9-5.9,5.6-6.2,9.8c0,0,0,0.1,0,0.1c-3.2,3-5,7.3-5,11.7c0,8.9,7.3,16.2,16.2,16.2c0.9,0,1.9-0.1,2.8-0.2 c1.2,0.4,2.5,0.6,3.8,0.7c2.6,6.4,7.8,9.8,14.9,9.8c6.8,0,15,6.9,15,15V88L69.8,88l-1.3-9.3c7.9,0.8,15.4-4.3,17.4-12.2 c0.3-1.4,0.5-2.8,0.5-4.1c4.7-1.7,8-6.2,8-11.3c0-1.7-0.3-3.3-1-4.8C94,44.8,94.4,43.2,94.4,41.6z M90.1,47c0.7,1.3,1,2.6,1,4.1 c0,3.4-2,6.5-5.1,7.9c-1.3-5.9-5.9-10.7-11.8-12.2c-0.9-0.2-1.8,0.3-2,1.2c-0.2,0.9,0.3,1.8,1.2,2c5.3,1.3,9.2,5.8,9.7,11.2 c0.2,1.5,0,3-0.3,4.5C81,72.7,74,76.9,67,75.1l-2.3-0.6l1.4,10.2l-4.6,0c-1-9.4-10.4-16.7-18.2-16.7c-5.4,0-9.2-2.2-11.4-6.6 c0-0.1,0-0.2-0.1-0.3c-1.7-3.5-0.2-7.8,3.4-9.5c0.8-0.4,1.2-1.4,0.8-2.2c-0.4-0.8-1.4-1.2-2.2-0.8c-3.8,1.8-5.9,5.6-5.9,9.5 c-0.9-0.1-1.8-0.3-2.6-0.6l-0.4-0.2l-0.4,0.1c-0.8,0.2-1.7,0.3-2.6,0.3c-7.1,0-13-5.8-13-13c0-2.6,0.8-5.2,2.3-7.3 c1.2,3.8,4.4,6.8,8.3,7.8c-0.3,0.5-0.5,1-0.6,1.5c-0.4,1.8-0.2,3.6,0.8,5.2c0.3,0.5,0.8,0.8,1.4,0.8c0.3,0,0.6-0.1,0.8-0.2 c0.8-0.5,1-1.5,0.6-2.2c-0.5-0.8-0.6-1.8-0.4-2.7c0.2-0.9,0.8-1.7,1.6-2.2c0.8-0.5,1-1.5,0.6-2.2c-0.4-0.6-1.1-0.9-1.8-0.7 c-4.7-0.1-8.6-4-8.6-8.7c0-4.8,3.9-8.7,8.7-8.7c0.1,0,0.1,0,0.2,0l1.3,0.1l0.5-1c1.2-2.5,3.7-4,6.4-4c0.9,0,1.7,0.2,2.6,0.5 l1.1,0.4l0.7-1c2.1-2.8,5.4-4.4,8.9-4.4c1.8,0,3.7,0.5,5.3,1.3l1,0.5l0.8-0.7c1.3-1.1,2.9-1.7,4.6-1.7c1.4,0,2.8,0.4,3.9,1.2 c-2.4,1.9-4,4.8-4,8.1c0,0.9,0.7,1.6,1.6,1.6c0.9,0,1.6-0.7,1.6-1.6c0-2.7,1.5-5,3.6-6.2l0.5-0.2c1-0.4,2-0.7,3-0.7 c3,0,5.6,1.9,6.7,4.7l0.4,1.1l1.1,0c5.4,0,9.9,4.3,10.3,9.6l0.1,1.1l1,0.3c3.2,1.1,5.4,4.1,5.4,7.5c0,1.3-0.3,2.7-1,3.8l-0.4,0.8 L90.1,47z"/><path fill="currentColor" opacity=".55" d="M55.7,55.3c0-3-1.5-5.8-4-7.5c0,0,0,0,0,0c-4.3-2-7.3-6.1-7.9-10.8c-0.1-0.7,0.4-1.4,1.1-1.5c0.7-0.1,1.4,0.4,1.5,1.1 c0.6,4.3,3.5,7.9,7.6,9.3c2.9,1,6,0.8,8.8-0.5c2.8-1.3,4.8-3.7,5.8-6.6c0.2-0.7,1-1,1.7-0.8c0.7,0.2,1,1,0.8,1.7 c-1.2,3.6-3.8,6.4-7.2,8c-1.9,0.9-4,1.4-6.1,1.4c-0.4,0-0.8,0-1.3-0.1c1.1,1.8,1.8,3.9,1.8,6.2c0,0.7-0.6,1.3-1.3,1.3 S55.7,56,55.7,55.3z M80.4,40.3c0,0.7-0.6,1.3-1.3,1.3s-1.3-0.6-1.3-1.3c0-5.9-4.8-10.7-10.7-10.7c-0.7,0-1.3-0.6-1.3-1.3 s0.6-1.3,1.3-1.3C74.4,27,80.4,33,80.4,40.3z M46,26.9c0-0.7,0.6-1.3,1.3-1.3c5.7,0,10.4,4.6,10.4,10.4c0,0.7-0.6,1.3-1.3,1.3 s-1.3-0.6-1.3-1.3c0-4.3-3.5-7.8-7.8-7.8C46.6,28.2,46,27.6,46,26.9z M42.9,56.6c-0.2,0.4-0.7,0.6-1.1,0.6c-0.2,0-0.5-0.1-0.7-0.2 c-0.6-0.4-0.8-1.2-0.4-1.8c2.2-3.5,1.1-8.1-2.4-10.3c-0.6-0.4-0.8-1.2-0.4-1.8c0.4-0.6,1.2-0.8,1.8-0.4 C44.4,45.7,45.8,51.9,42.9,56.6z M41.7,33.6c-2,0-3.8-0.9-5.2-2.2c-2.3,3.3-6.1,5.1-9.9,5.1c-2,0-4.1-0.5-6-1.6 c-0.6-0.4-0.8-1.2-0.5-1.8c0.4-0.6,1.2-0.8,1.8-0.5c4.5,2.6,10.3,1.1,13-3.5c-0.5-1.1-0.8-2.3-0.8-3.5c0-0.7,0.6-1.3,1.3-1.3 c0.7,0,1.3,0.6,1.3,1.3c-0.1,2.8,2.2,5.2,5,5.3c0.7,0,1.3,0.6,1.3,1.3C43,33.1,42.4,33.6,41.7,33.6C41.7,33.6,41.7,33.6,41.7,33.6z M72.2,59c0.6,0.4,0.7,1.2,0.3,1.8c-2.5,3.6-6.5,5.6-10.6,5.6c-2.5,0-5-0.7-7.2-2.2c-0.6-0.4-0.7-1.2-0.3-1.8 c0.4-0.6,1.2-0.7,1.8-0.3c2.3,1.5,5,2.1,7.7,1.6c2.7-0.5,5-2,6.6-4.3C70.8,58.8,71.6,58.6,72.2,59z"/></svg><span>Intelligence</span></div>
+    <!-- Chart -->
+    <div class="icon-cell"><svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path d="M3 14l4-5 3 3 4-7 3 3" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round" stroke-linecap="round"/><line x1="3" y1="17" x2="17" y2="17" stroke="currentColor" stroke-width="1.25"/></svg><span>Chart</span></div>
+    <!-- Users -->
+    <div class="icon-cell"><svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><circle cx="8" cy="7" r="3.5" fill="none" stroke="currentColor" stroke-width="1.25"/><path d="M1 17c0-3 3-5 7-5s7 2 7 5" stroke="currentColor" stroke-width="1.25" fill="none" stroke-linecap="round"/><circle cx="15" cy="7" r="2.5" fill="none" stroke="currentColor" stroke-width="1.25" opacity=".5"/><path d="M18 17c0-2-1.3-3.5-3-4" stroke="currentColor" stroke-width="1.25" fill="none" stroke-linecap="round" opacity=".5"/></svg><span>Customers</span></div>
+    <!-- Campaigns -->
+    <div class="icon-cell"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><line x1="4.5" y1="2" x2="4.5" y2="18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M4.5 2.5 L15.5 7 L4.5 11.5 Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><line x1="2.5" y1="18" x2="6.5" y2="18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span>Campaign</span></div>
+    <!-- Vault (safe illustration style) -->
+    <div class="icon-cell"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><!-- Safe body --><rect x="2.5" y="3" width="13" height="13" rx="1.5" stroke-width="1.25"/><!-- 3D side edge --><path d="M15.5 4 L17.5 2.5 L17.5 14.5 L15.5 16" stroke-width="1.1"/><line x1="15.5" y1="3" x2="17.5" y2="1.5" stroke-width="1.1" opacity=".4"/><!-- Door seam --><line x1="12" y1="4.5" x2="12" y2="14.5" stroke-width="0.75" opacity=".35"/><!-- Combination dial --><circle cx="8" cy="9.5" r="3" stroke-width="1.25" fill="none"/><circle cx="8" cy="9.5" r="1" fill="currentColor"/><line x1="8" y1="6.5" x2="8" y2="7.5" stroke-width="0.9"/><line x1="8" y1="11.5" x2="8" y2="12.5" stroke-width="0.9"/><line x1="5" y1="9.5" x2="6" y2="9.5" stroke-width="0.9"/><line x1="10" y1="9.5" x2="11" y2="9.5" stroke-width="0.9"/><!-- Handle --><line x1="13.5" y1="8.5" x2="13.5" y2="10.5" stroke-width="1.4"/><!-- Feet --><line x1="4" y1="16" x2="5.5" y2="16" stroke-width="1.1"/><line x1="12.5" y1="16" x2="14" y2="16" stroke-width="1.1"/></svg><span>Vault</span></div>
+    <!-- NLQ / Chat -->
+    <div class="icon-cell"><svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path d="M3 4h14a1 1 0 011 1v8a1 1 0 01-1 1H7l-4 3V5a1 1 0 011-1z" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/><line x1="7" y1="8" x2="13" y2="8" stroke="currentColor" stroke-width="1.25"/><line x1="7" y1="11" x2="10" y2="11" stroke="currentColor" stroke-width="1.25"/></svg><span>Ask <span>Aurum</span></span></div>
+    <!-- Settings -->
+    <div class="icon-cell"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z"/><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg><span>Settings</span></div>
+    <!-- Referrals -->
+    <div class="icon-cell"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="6" cy="5.5" r="2.75" stroke="currentColor" stroke-width="1.25"/><path d="M1.5 17 C1.5 14 3.5 12.5 6 12.5 C8.5 12.5 10.5 14 10.5 17" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/><circle cx="14" cy="5.5" r="2.75" stroke="currentColor" stroke-width="1.25"/><path d="M9.5 17 C9.5 14 11.5 12.5 14 12.5 C16.5 12.5 18.5 14 18.5 17" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg><span>Referrals</span></div>
+    <!-- Insight -->
+    <div class="icon-cell"><svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path d="M10 3a5 5 0 014 8l-1 1v2H7v-2L6 11a5 5 0 014-8zM7.5 16h5M10 18v-2" stroke="currentColor" stroke-width="1.25" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Insight</span></div>
+    <!-- Approval -->
+    <div class="icon-cell"><svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path d="M5 10l4 4 6-8" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="1.25" opacity=".35"/></svg><span>Approved</span></div>
+    <!-- Alert -->
+    <div class="icon-cell"><svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path d="M10 3L2 17h16L10 3z" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/><line x1="10" y1="9" x2="10" y2="13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="10" cy="15" r="0.75" fill="currentColor"/></svg><span>Alert</span></div>
+    <!-- Filter -->
+    <div class="icon-cell"><svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path d="M3 5h14M6 10h8M9 15h2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span>Filter</span></div>
+    <!-- Upload -->
+    <div class="icon-cell"><svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path d="M10 13V4M7 7l3-3 3 3" stroke="currentColor" stroke-width="1.25" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 13v3h12v-3" stroke="currentColor" stroke-width="1.25" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Upload</span></div>
+    <!-- Export -->
+    <div class="icon-cell"><svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path d="M10 7v9M7 13l3 3 3-3" stroke="currentColor" stroke-width="1.25" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 7V4h12v3" stroke="currentColor" stroke-width="1.25" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Export</span></div>
+    <!-- AI Spark -->
+    <div class="icon-cell"><svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path d="M10 2l1.8 5.4L17 9l-5.2 1.6L10 16l-1.8-5.4L3 9l5.2-1.6L10 2z" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/><circle cx="5" cy="5" r="1" fill="currentColor" opacity=".4"/><circle cx="15" cy="15" r="0.75" fill="currentColor" opacity=".4"/></svg><span>AI Spark</span></div>
+    <!-- Data Node -->
+    <div class="icon-cell"><svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><circle cx="10" cy="10" r="2.5" fill="none" stroke="currentColor" stroke-width="1.25"/><circle cx="4" cy="5" r="1.5" fill="none" stroke="currentColor" stroke-width="1.25"/><circle cx="16" cy="5" r="1.5" fill="none" stroke="currentColor" stroke-width="1.25"/><circle cx="4" cy="15" r="1.5" fill="none" stroke="currentColor" stroke-width="1.25"/><circle cx="16" cy="15" r="1.5" fill="none" stroke="currentColor" stroke-width="1.25"/><line x1="5.5" y1="5.5" x2="8.2" y2="8.5" stroke="currentColor" stroke-width="1" opacity=".6"/><line x1="14.5" y1="5.5" x2="11.8" y2="8.5" stroke="currentColor" stroke-width="1" opacity=".6"/><line x1="5.5" y1="14.5" x2="8.2" y2="11.5" stroke="currentColor" stroke-width="1" opacity=".6"/><line x1="14.5" y1="14.5" x2="11.8" y2="11.5" stroke="currentColor" stroke-width="1" opacity=".6"/></svg><span>Data Node</span></div>
+  </div>
 </div>
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 10 — INPUTS
+═══════════════════════════════════════════════ -->
+<div class="ds-section" id="inputs">
+  <div class="ds-section-title">10 — Inputs</div>
+  <div class="ds-grid-3">
+    <div class="input-wrap">
+      <label class="input-label">Default</label>
+      <input class="input-field" type="text" placeholder="Search customers…"/>
+    </div>
+    <div class="input-wrap">
+      <label class="input-label">With icon</label>
+      <div class="input-icon-wrap">
+        <svg class="input-icon-prefix" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><circle cx="7" cy="7" r="4.5" fill="none" stroke="currentColor" stroke-width="1.5"/><line x1="10.5" y1="10.5" x2="14" y2="14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <input class="input-field" type="text" placeholder="Search insights…"/>
+      </div>
+    </div>
+    <div class="input-wrap">
+      <label class="input-label">Error State</label>
+      <input class="input-field error" type="text" value="invalid@"/>
+    </div>
+    <div class="input-wrap">
+      <label class="input-label">Disabled</label>
+      <input class="input-field" type="text" value="Read only value" disabled/>
+    </div>
+    <div class="input-wrap">
+      <label class="input-label">Select</label>
+      <select class="input-field">
+        <option>All Insight Types</option>
+        <option>Dormant Account</option>
+        <option>Deposit Flight Risk</option>
+        <option>SMB Growth</option>
+      </select>
+    </div>
+    <div class="input-wrap">
+      <label class="input-label">Textarea</label>
+      <textarea class="input-field" rows="3" placeholder="Add campaign notes…" style="resize:vertical;"></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 11 — STROKES, GLASS & GRADIENTS
+═══════════════════════════════════════════════ -->
+<div class="ds-section" id="tokens">
+  <div class="ds-section-title">11 — Strokes, Glass & Gradients</div>
+
+  <div class="token-label" style="margin-bottom:10px;">Border / Stroke Styles</div>
+  <div class="ds-grid-3" style="margin-bottom:28px;">
+    <div class="stroke-demo stroke-1">border-0 — 4.5% opacity · ghost divider</div>
+    <div class="stroke-demo stroke-2">border-1 — 13% opacity · default card edge</div>
+    <div class="stroke-demo stroke-3">border-2 — 28% opacity · prominent / focused</div>
+    <div class="stroke-demo stroke-accent">border-accent — active/focus</div>
+    <div class="stroke-demo stroke-double">double stroke — outer + inner ring</div>
+    <div class="stroke-demo stroke-glow">stroke-glow — luminous edge</div>
+  </div>
+
+  <div class="token-label" style="margin-bottom:10px;">Glassmorphism Levels</div>
+  <div style="padding:32px;border-radius:var(--r-lg);margin-bottom:28px;position:relative;overflow:hidden;background:linear-gradient(135deg,rgba(196,166,108,0.12) 0%,rgba(99,102,241,0.14) 50%,rgba(196,166,108,0.10) 100%),var(--bg-1);">
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;">
+      <div class="glass-1" style="padding:20px 16px;border-radius:var(--r-md);"><span class="token-label">Glass 1 — blur 8px</span><p class="t-body-sm c-1" style="margin-top:6px;">Subtle, for layered surfaces</p></div>
+      <div class="glass-2" style="padding:20px 16px;border-radius:var(--r-md);"><span class="token-label">Glass 2 — blur 16px</span><p class="t-body-sm c-1" style="margin-top:6px;">Standard card overlay</p></div>
+      <div class="glass-3" style="padding:20px 16px;border-radius:var(--r-md);"><span class="token-label">Glass 3 — blur 28px</span><p class="t-body-sm c-1" style="margin-top:6px;">Modal, nav, primary panels</p></div>
+    </div>
+  </div>
+
+  <div class="token-label" style="margin-bottom:10px;">Gradient Styles</div>
+  <div class="ds-grid-3">
+    <div style="height:80px;border-radius:var(--r-md);overflow:hidden;display:flex;align-items:flex-end;padding:10px 14px;" class="grad-1"><span class="token-label" style="color:rgba(5,12,24,0.7);">grad-cyan — primary CTA</span></div>
+    <div style="height:80px;border-radius:var(--r-md);overflow:hidden;display:flex;align-items:flex-end;padding:10px 14px;" class="grad-2"><span class="token-label" style="color:rgba(255,255,255,0.6);">grad-indigo — AI surface</span></div>
+    <div style="height:80px;border-radius:var(--r-md);overflow:hidden;display:flex;align-items:flex-end;padding:10px 14px;" class="grad-3"><span class="token-label" style="color:rgba(5,12,24,0.6);">grad-full — hero / emphasis</span></div>
+    <div style="height:80px;border-radius:var(--r-md);overflow:hidden;display:flex;align-items:flex-end;padding:10px 14px;" class="grad-4"><span class="token-label">grad-dark-card — deep surface</span></div>
+    <div style="height:80px;border-radius:var(--r-md);overflow:hidden;display:flex;align-items:flex-end;padding:10px 14px;" class="grad-5"><span class="token-label">grad-radial — layered glow</span></div>
+    <div style="height:80px;border-radius:var(--r-md);overflow:hidden;display:flex;align-items:flex-end;padding:10px 14px;" class="grad-6"><span class="token-label">grad-diagonal — card tint</span></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 12 — DEPTH & RADIUS
+═══════════════════════════════════════════════ -->
+<div class="ds-section" id="depth">
+  <div class="ds-section-title">12 — Depth & Radius</div>
+
+  <div class="token-label" style="margin-bottom:10px;">Surface Depth Scale</div>
+  <div class="ds-row" style="margin-bottom:28px;align-items:flex-end;flex-wrap:wrap;">
+    <div class="depth-0" style="padding:16px 20px;border-radius:var(--r-md);display:flex;flex-direction:column;gap:4px;"><span class="t-mono-sm c-2">bg-0</span><span class="token-label">#000000</span></div>
+    <div class="depth-1" style="padding:16px 20px;border-radius:var(--r-md);display:flex;flex-direction:column;gap:4px;"><span class="t-mono-sm c-2">bg-1</span><span class="token-label">#080808</span></div>
+    <div class="depth-2" style="padding:16px 20px;border-radius:var(--r-md);display:flex;flex-direction:column;gap:4px;box-shadow:var(--shadow-sm);"><span class="t-mono-sm c-2">bg-2</span><span class="token-label">#111111</span></div>
+    <div class="depth-3" style="padding:16px 20px;border-radius:var(--r-md);display:flex;flex-direction:column;gap:4px;"><span class="t-mono-sm c-2">bg-3 + shadow-sm</span><span class="token-label">#1A1A1A</span></div>
+    <div class="depth-4" style="padding:16px 20px;border-radius:var(--r-md);display:flex;flex-direction:column;gap:4px;"><span class="t-mono-sm c-2">bg-4 + shadow-md</span><span class="token-label">#232323</span></div>
+  </div>
+
+  <div class="token-label" style="margin-bottom:10px;">Corner Radius Scale</div>
+  <div class="ds-row" style="align-items:center;">
+    <div style="width:52px;height:52px;background:var(--bg-4);border:1px solid var(--border-1);border-radius:var(--r-xs);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;"><span class="token-label" style="line-height:1;">r-xs</span><span class="t-mono-sm c-3">2px</span></div>
+    <div style="width:52px;height:52px;background:var(--bg-4);border:1px solid var(--border-1);border-radius:var(--r-sm);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;"><span class="token-label" style="line-height:1;">r-sm</span><span class="t-mono-sm c-3">3px</span></div>
+    <div style="width:52px;height:52px;background:var(--bg-4);border:1px solid var(--border-1);border-radius:var(--r-md);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;"><span class="token-label" style="line-height:1;">r-md</span><span class="t-mono-sm c-3">6px</span></div>
+    <div style="width:64px;height:64px;background:var(--bg-4);border:1px solid var(--border-1);border-radius:var(--r-lg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;"><span class="token-label" style="line-height:1;">r-lg</span><span class="t-mono-sm c-3">10px</span></div>
+    <div style="width:72px;height:72px;background:var(--bg-4);border:1px solid var(--border-1);border-radius:var(--r-xl);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;"><span class="token-label" style="line-height:1;">r-xl</span><span class="t-mono-sm c-3">14px</span></div>
+    <div style="width:52px;height:52px;background:var(--bg-4);border:1px solid var(--border-1);border-radius:var(--r-full);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;"><span class="token-label" style="line-height:1;">full</span><span class="t-mono-sm c-3">9999</span></div>
+  </div>
+</div>
+
+<!-- Footer -->
+<div style="padding:40px 0 60px;border-top:1px solid var(--border-0);margin-top:40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+  <div style="display:flex;align-items:center;gap:10px;">
+    <svg width="18" height="18" viewBox="20 20 62 62" fill="none"><rect x="51.875" y="24" width="26.125" height="26.125" rx="3" fill="var(--cyan)" fill-opacity="0.3"/><rect x="24" y="51.875" width="26.125" height="26.125" rx="3" fill="var(--cyan)" fill-opacity="0.9"/><rect x="37.47" y="37.937" width="26.125" height="26.125" rx="3" fill="var(--cyan)" fill-opacity="0.6"/></svg>
+    <span class="t-body-sm c-2"><span>Aurum</span> Design System — v0.1 MVP</span>
+  </div>
+  <span class="t-body-sm c-3">Prepared for Intersect Technology Group · April 2026</span>
+</div>
+
+</div><!-- /max-width wrapper -->
 
 <script>
-/* ================================================================
-   THEME TOGGLE
-   ================================================================ */
-(function(){
+function toggleTheme() {
   const html = document.documentElement;
-  const toggle = document.getElementById('themeToggle');
-  if (!toggle) return;
-
-  const stored = localStorage.getItem('ds-theme');
-  if (stored) html.setAttribute('data-theme', stored);
-
-  toggle.addEventListener('click', () => {
-    const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-    html.setAttribute('data-theme', next);
-    localStorage.setItem('ds-theme', next);
-    updateHexValues(next);
-  });
-})();
-
-/* ================================================================
-   HEX VALUE UPDATER
-   ================================================================ */
-function updateHexValues(theme) {
-  document.querySelectorAll('[data-dark][data-light]').forEach(el => {
-    el.textContent = theme === 'light' ? el.dataset.light : el.dataset.dark;
-  });
+  const isDark = html.getAttribute('data-theme') === 'dark';
+  const next = isDark ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  try { localStorage.setItem('so-theme', next); } catch(e){}
+  const lbl = document.getElementById('theme-label');
+  if (lbl) lbl.textContent = isDark ? 'Light' : 'Dark';
 }
-// Initial call
-updateHexValues(document.documentElement.getAttribute('data-theme') || 'dark');
 
-/* ================================================================
-   SCROLL REVEAL
-   ================================================================ */
-(function(){
-  const els = document.querySelectorAll('.scroll-reveal');
-  if (!els.length) return;
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('revealed');
-        observer.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-  els.forEach(el => observer.observe(el));
-})();
-
-/* ================================================================
-   TOC ACTIVE STATE
-   ================================================================ */
-(function(){
-  const dots = document.querySelectorAll('.toc__dot');
-  const sections = [];
-  dots.forEach(d => {
-    const id = d.dataset.target;
-    const el = document.getElementById(id);
-    if (el) sections.push({ dot: d, el: el });
-    d.addEventListener('click', () => {
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
-    });
+// Smooth tab switching (underline)
+document.querySelectorAll('.tabs .tab').forEach(tab => {
+  tab.addEventListener('click', function() {
+    this.closest('.tabs').querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    this.classList.add('active');
   });
-  if (!sections.length) return;
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        dots.forEach(d => d.classList.remove('active'));
-        const match = sections.find(s => s.el === e.target);
-        if (match) match.dot.classList.add('active');
-      }
-    });
-  }, { threshold: 0.2 });
-  sections.forEach(s => observer.observe(s.el));
-})();
-
-/* ================================================================
-   TOGGLE DEMOS
-   ================================================================ */
-document.querySelectorAll('.toggle-demo').forEach(t => {
-  t.addEventListener('click', () => t.classList.toggle('is-on'));
 });
-
-/* ================================================================
-   SHARE MODAL
-   ================================================================ */
-(function(){
-  const params = new URLSearchParams(window.location.search);
-  if (params.get('share') === '1') document.body.classList.add('share-mode');
-
-  async function copyText(text){
-    try { if (navigator.clipboard && window.isSecureContext) { await navigator.clipboard.writeText(text); return true; } } catch(e){}
-    const ta = document.createElement('textarea');
-    ta.value = text; ta.setAttribute('readonly','');
-    ta.style.cssText = 'position:fixed;top:0;left:0;width:1px;height:1px;opacity:0;border:0;padding:0;margin:0;';
-    document.body.appendChild(ta); ta.select();
-    let ok = false; try { ok = document.execCommand('copy'); } catch(e){}
-    document.body.removeChild(ta);
-    return ok;
-  }
-
-  const btn    = document.getElementById('shareBtn');
-  const modal  = document.getElementById('shareModal');
-  const urlEl  = document.getElementById('shareModalUrl');
-  const copyEl = document.getElementById('shareModalCopy');
-  const dlEl   = document.getElementById('shareModalDownload');
-  const toast  = document.getElementById('shareToast');
-  let toastTimer = null;
-
-  function showToast(msg){
-    if (!toast) return;
-    toast.querySelector('.toast-text').textContent = msg;
-    toast.classList.add('is-visible');
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => toast.classList.remove('is-visible'), 2400);
-  }
-  function buildShareUrl(){
-    const url = new URL(window.location.href);
-    url.search = '';
-    url.searchParams.set('share', '1');
-    return url.toString();
-  }
-  function openModal(){
-    if (!modal) return;
-    if (urlEl)  urlEl.textContent = buildShareUrl();
-    if (copyEl) { copyEl.classList.remove('is-success'); copyEl.textContent = 'Copy link'; }
-    modal.removeAttribute('hidden');
-    document.body.classList.add('modal-open');
-    setTimeout(() => copyEl && copyEl.focus(), 60);
-  }
-  function closeModal(){
-    if (!modal) return;
-    modal.setAttribute('hidden','');
-    document.body.classList.remove('modal-open');
-  }
-
-  if (btn)   btn.addEventListener('click', openModal);
-  if (modal) modal.addEventListener('click', e => { if (e.target.closest('[data-share-close]')) closeModal(); });
-  document.addEventListener('keydown', e => { if (e.key === 'Escape' && modal && !modal.hasAttribute('hidden')) closeModal(); });
-
-  if (copyEl) copyEl.addEventListener('click', async () => {
-    const url = urlEl ? urlEl.textContent : buildShareUrl();
-    const ok = await copyText(url);
-    if (ok) {
-      copyEl.textContent = 'Copied!';
-      copyEl.classList.add('is-success');
-      showToast('Link copied');
-      setTimeout(() => closeModal(), 900);
-    }
+// Pill tabs
+document.querySelectorAll('.tab-pill').forEach(tab => {
+  tab.addEventListener('click', function() {
+    this.closest('.tabs-pill').querySelectorAll('.tab-pill').forEach(t => t.classList.remove('active'));
+    this.classList.add('active');
   });
-
-  // Download .html button
-  if (dlEl) dlEl.addEventListener('click', () => {
-    const html = document.documentElement.outerHTML;
-    const blob = new Blob(['<!DOCTYPE html>\n' + html], { type: 'text/html' });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = 'app-design-system.html';
-    document.body.appendChild(a); a.click(); document.body.removeChild(a);
-    URL.revokeObjectURL(a.href);
-    showToast('File downloaded');
-    setTimeout(() => closeModal(), 900);
+});
+// Vert tabs
+document.querySelectorAll('.tab-vert').forEach(tab => {
+  tab.addEventListener('click', function() {
+    this.closest('.tabs-vert').querySelectorAll('.tab-vert').forEach(t => t.classList.remove('active'));
+    this.classList.add('active');
   });
-})();
+});
+// Tag chips toggle
+document.querySelectorAll('.chip-tag').forEach(chip => {
+  chip.addEventListener('click', function() { this.classList.toggle('selected'); });
+});
+// Sidenav items
+document.querySelectorAll('.sidenav-item').forEach(item => {
+  item.addEventListener('click', function() {
+    this.closest('.sidenav').querySelectorAll('.sidenav-item').forEach(i => i.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
 </script>
+
 </body>
 </html>

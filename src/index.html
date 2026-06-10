@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="so-host">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,6 +17,7 @@
     --al-200:#E2E4E9;--al-300:#D0D3DA;--al-400:#A1A6B4;--al-500:#767C8E;
     --al-600:#565C6E;--al-700:#3B3F4F;--al-800:#252836;--al-900:#151722;
     --success:#1A9E6F;--success-bg:#EEFBF4;--warning:#C08419;--warning-bg:#FEF8EC;
+    --danger:#C73E3A;--danger-bg:#FBEFEE;
     --grad:linear-gradient(135deg,#C4B5E3 0%,#7AB5E8 100%);
     --grad-sub:linear-gradient(135deg,#F7F5FB 0%,#F0F6FC 100%);
     --grad-vib:linear-gradient(135deg,#8468C0 0%,#4A96DB 100%);
@@ -25,7 +26,10 @@
   }
 
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
+  html{scroll-behavior:smooth;
+  overflow-y: scroll;
+  scrollbar-gutter: stable;
+}
 
   body {
     font-family:var(--font);background:var(--al-50);color:var(--al-600);
@@ -543,18 +547,11 @@
     padding:18px 0 18px 0;padding-right:4px;
     flex-shrink:0;
   }
-  .catalog-row__tags{display:flex;gap:4px}
-  .catalog-row__tag {
-    font-size:10px;font-weight:450;color:var(--al-400);
-    background:var(--al-100);padding:2px 8px;border-radius:4px;
-    white-space:nowrap;
+  .catalog-row__aud-dot {
+    width:8px;height:8px;border-radius:50%;flex-shrink:0;
+    transition:transform 150ms var(--ease);
   }
-  .catalog-row__type {
-    font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;
-    color:var(--lav-500);white-space:nowrap;
-    padding:3px 10px;border-radius:100px;
-    background:var(--lav-50);
-  }
+  .catalog-row:hover .catalog-row__aud-dot{transform:scale(1.15)}
   .catalog-row__arrow {
     width:20px;height:20px;display:grid;place-items:center;
     color:var(--al-300);transition:color 200ms var(--ease),transform 200ms var(--ease);
@@ -615,7 +612,6 @@
     .ticker-bar{padding:14px 0}
     .catalog-row__desc{display:none}
     .catalog-row__sep{display:none}
-    .catalog-row__tags{display:none}
     .section__header{flex-direction:column;align-items:flex-start;gap:10px}
   }
 
@@ -664,14 +660,6 @@
   [data-theme="dark"] .catalog-row { border-bottom-color: rgba(255,255,255,0.05); }
   [data-theme="dark"] .catalog-row:first-child { border-top-color: rgba(255,255,255,0.05); }
 
-  [data-theme="dark"] .catalog-row__tag {
-    background: rgba(255,255,255,0.05);
-    color: var(--al-500);
-  }
-  [data-theme="dark"] .catalog-row__type {
-    background: rgba(132,104,192,0.14);
-    color: var(--lav-300);
-  }
   [data-theme="dark"] .empty-state { border-bottom-color: rgba(255,255,255,0.05); }
 
   [data-theme="dark"] .audience-toggle { background: rgba(255,255,255,0.04); }
@@ -759,172 +747,45 @@
   [data-theme="dark"] .site-footer { border-top-color: rgba(255,255,255,0.05); }
   [data-theme="dark"] .ambient-orb { opacity: 0.45; }
 
-  /* =====================================================================
-     UNIFIED NAV (.so-nav) — shared across all hub pages
-     ===================================================================== */
-  .so-nav {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    height: 56px;
-    background: rgba(250,251,252,0.78);
-    -webkit-backdrop-filter: blur(20px) saturate(1.4);
-    backdrop-filter: blur(20px) saturate(1.4);
-    border-bottom: 1px solid rgba(0,0,0,0.06);
-    font-family: var(--font);
-  }
-  [data-theme="dark"] .so-nav {
-    background: rgba(21,23,34,0.82);
-    border-bottom-color: rgba(255,255,255,0.08);
-  }
-  .so-nav__inner {
-    max-width: 1320px;
-    height: 100%;
-    margin: 0 auto;
-    padding: 0 24px;
-    display: flex;
-    align-items: center;
-    gap: 18px;
-  }
-  .so-nav__brand {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    text-decoration: none;
-    color: inherit;
-    flex-shrink: 0;
-  }
-  .so-nav__logo svg { width: 80px; height: 20px; display: block; }
-  .so-nav__logo svg path { fill: #151722; transition: fill 0.2s ease; }
-  [data-theme="dark"] .so-nav__logo svg path { fill: #FAFBFC; }
-  .so-nav__brand-divider { width: 1px; height: 22px; background: rgba(0,0,0,0.12); }
-  [data-theme="dark"] .so-nav__brand-divider { background: rgba(255,255,255,0.16); }
-  .so-nav__product { display: flex; align-items: center; gap: 8px; }
-  .so-nav__brand-mark {
-    width: 16px; height: 16px;
-    border-radius: 5px;
-    background: linear-gradient(135deg, #C4B5E3, #7AB5E8);
-    flex-shrink: 0;
-  }
-  .so-nav__product-name {
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: -0.01em;
-    color: #151722;
-  }
-  [data-theme="dark"] .so-nav__product-name { color: #FAFBFC; }
 
-  .so-nav__crumbs {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex: 1;
-    min-width: 0;
-  }
-  .so-nav__crumb-sep {
-    font-size: 13px;
-    color: rgba(0,0,0,0.25);
-    flex-shrink: 0;
-  }
-  [data-theme="dark"] .so-nav__crumb-sep { color: rgba(255,255,255,0.3); }
-  .so-nav__crumb {
-    font-size: 13px;
-    font-weight: 500;
-    letter-spacing: -0.005em;
-    color: rgba(0,0,0,0.55);
-    text-decoration: none;
-    white-space: nowrap;
-    transition: color 0.15s ease;
-  }
-  [data-theme="dark"] .so-nav__crumb { color: rgba(255,255,255,0.6); }
-  .so-nav__crumb[href]:hover { color: #6B4FA8; }
-  [data-theme="dark"] .so-nav__crumb[href]:hover { color: #C4B5E3; }
-  .so-nav__crumb--current {
-    color: #151722;
-    font-weight: 600;
-  }
-  [data-theme="dark"] .so-nav__crumb--current { color: #FAFBFC; }
 
-  .so-nav__actions {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex-shrink: 0;
-  }
-  .so-nav__share {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    height: 34px;
-    padding: 0 14px;
-    border-radius: 100px;
-    border: 1px solid rgba(0,0,0,0.10);
-    background: rgba(255,255,255,0.95);
-    color: #151722;
-    font-family: inherit;
-    font-size: 12.5px;
-    font-weight: 500;
-    letter-spacing: -0.005em;
-    cursor: pointer;
-    transition: all 0.18s ease;
-    white-space: nowrap;
-  }
-  .so-nav__share svg { width: 14px; height: 14px; opacity: 0.7; }
-  .so-nav__share:hover {
-    border-color: rgba(0,0,0,0.16);
-    background: linear-gradient(135deg, #F7F5FB, #F0F6FC);
-    color: #6B4FA8;
-  }
-  .so-nav__share:hover svg { opacity: 1; }
-  [data-theme="dark"] .so-nav__share {
-    border-color: rgba(255,255,255,0.10);
-    background: rgba(255,255,255,0.04);
-    color: #FAFBFC;
-  }
-  [data-theme="dark"] .so-nav__share:hover {
-    border-color: rgba(255,255,255,0.18);
-    background: rgba(132,104,192,0.16);
-    color: #C4B5E3;
-  }
-  .so-nav__theme {
-    width: 34px; height: 34px;
-    border-radius: 8px;
-    border: 1px solid rgba(0,0,0,0.10);
-    background: rgba(255,255,255,0.95);
-    color: rgba(0,0,0,0.6);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.18s ease;
-    flex-shrink: 0;
-  }
-  .so-nav__theme:hover {
-    border-color: rgba(0,0,0,0.16);
-    color: #151722;
-  }
-  [data-theme="dark"] .so-nav__theme {
-    border-color: rgba(255,255,255,0.10);
-    background: rgba(255,255,255,0.04);
-    color: rgba(255,255,255,0.6);
-  }
-  [data-theme="dark"] .so-nav__theme:hover {
-    border-color: rgba(255,255,255,0.18);
-    color: #FAFBFC;
-  }
-  .so-nav__theme svg { width: 16px; height: 16px; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   @media (max-width: 720px) {
-    .so-nav__crumbs { display: none; }
-    .so-nav__brand-divider { display: none; }
+
   }
   @media (max-width: 540px) {
-    .so-nav__share .label { display: none; }
-    .so-nav__share { padding: 0 10px; }
-    .so-nav__product-name { display: none; }
+
+
   }
 
-  body.share-mode .so-nav { display: none !important; }
+
 
   /* =====================================================================
      SHARE MODAL — light variant for hub pages with single share target
@@ -1099,6 +960,7 @@
 
   body.modal-open { overflow: hidden; }
 </style>
+  <link rel="stylesheet" href="../assets/css/so-nav.css">
 </head>
 <body>
 
@@ -1113,22 +975,9 @@
 <!-- UNIFIED NAV -->
 <nav class="so-nav">
   <div class="so-nav__inner">
-    <a class="so-nav__brand" href="#" aria-label="Single Origin home">
+    <a class="so-nav__brand" href="#" aria-label="Experis home">
       <span class="so-nav__logo">
-        <svg viewBox="0 0 80 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Experis">
-          <path d="M0 3.8h10.4v2.4H2.9v3.4h6.8v2.3H2.9v3.7h7.7v2.4H0V3.8z"/>
-          <path d="M14.8 10.2l-4.6-6.4h3.5l2.8 4.2 2.9-4.2h3.4l-4.6 6.3 5 6.9h-3.5l-3.2-4.7-3.2 4.7h-3.4l5-6.8z"/>
-          <path d="M24.4 3.8H30c3.6 0 5.6 1.9 5.6 4.6 0 2.7-2 4.7-5.6 4.7h-2.7v4.9h-2.9V3.8zm5.3 7c1.9 0 2.9-1 2.9-2.4 0-1.4-1-2.3-2.9-2.3h-2.4v4.7h2.4z"/>
-          <path d="M37.6 3.8H48v2.4h-7.5v3.4h6.8v2.3h-6.8v3.7h7.7v2.4H37.6V3.8z"/>
-          <path d="M50.4 3.8h5.2c3.5 0 5.5 1.7 5.5 4.3 0 2.1-1.1 3.5-3 4.1l3.5 5.8h-3.3l-3.1-5.4h-1.9v5.4h-2.9V3.8zm5 6.6c1.8 0 2.8-.9 2.8-2.2 0-1.3-1-2.1-2.8-2.1h-2.1v4.3h2.1z"/>
-          <path d="M64.2 3.8h2.9v14.2h-2.9V3.8z"/>
-          <path d="M69.6 14.8l1.7-2c1.2 1.1 2.5 1.8 4 1.8 1.5 0 2.3-.7 2.3-1.6 0-1-.7-1.5-3.2-2.2-3-0.8-4.6-1.9-4.6-4.2 0-2.5 2-4.1 4.8-4.1 2 0 3.6.6 5 1.8l-1.5 2.1c-1.1-.9-2.3-1.4-3.5-1.4-1.4 0-2.1.7-2.1 1.5 0 1 .7 1.5 3.3 2.2 3 .9 4.5 2 4.5 4.2 0 2.7-2.1 4.3-5.1 4.3-2.1 0-4-.7-5.6-2.3z"/>
-        </svg>
-      </span>
-      <span class="so-nav__brand-divider"></span>
-      <span class="so-nav__product">
-        <span class="so-nav__brand-mark"></span>
-        <span class="so-nav__product-name">Single Origin</span>
+        <img src="assets/logos/EXP_Bug_RGB_BLUE.svg" alt="Experis" />
       </span>
     </a>
     <!-- Home page: no breadcrumbs (current is home) -->
@@ -1156,7 +1005,7 @@
       <div class="hero__content">
         <div class="hero__eyebrow">Digital Services Hub</div>
         <h1>Digital Services<br><em>single origins</em></h1>
-        <p class="hero__sub">Everything the team needs in one place — case studies, collateral, live product demos, and playbooks. Built to share, designed to close.</p>
+        <p class="hero__sub">Everything the Digital Services team uses with clients — case studies, one-pagers, working POCs, and competency decks.</p>
       </div>
       <div class="hero__visual">
         <div class="hero__org-frame" id="orgFrame">
@@ -1319,7 +1168,7 @@
 <!-- CAPABILITY TICKER + FLOATING LOGO BADGES -->
 <div style="position:relative;overflow:visible;">
 <div class="logo-field" id="logoField" aria-hidden="true"></div>
-<div class="ticker-bar" style="position:relative;z-index:3;" aria-hidden="true">
+<div class="ticker-bar" id="competency-ticker" style="position:relative;z-index:3;scroll-margin-top:64px;" aria-hidden="true">
   <div class="ticker-track">
     <span class="ticker-item">UX Research</span>
     <span class="ticker-dot"></span>
@@ -1646,7 +1495,7 @@
 (function(){
   'use strict';
 
-  const MANIFEST='content-manifest.json';
+  const MANIFEST='../content-manifest.json';
   const SMAP={
     'service-offerings':'grid-service-offerings',
     'proof-points':'grid-proof-points',
@@ -1674,20 +1523,21 @@
     "meta":{"title":"Experis Digital Services — Single Origin","version":"3.4.0","lastUpdated":"2026-05-12"},
     "sections":{
       "service-offerings":{"label":"Service Offerings","icon":"layers","audience":"client-facing","items":[
-        {"id":"service-line-one-pagers","title":"Service Line 1-Pagers","description":"Interactive overview of our five service lines — Data Collection & Benchmarking, UX Research, Product Design, Development & Engineering, and Annotation & Model Training.","type":"microsite","file":"content/decks/service-line-one-pagers.html","status":"ready","tags":["services","one-pager","overview"],"embed":true},
-        {"id":"engagement-models","title":"Engagement Models","description":"How clients work with us — Staffing, Managed Team, and Managed Service models with comparison and decision guidance.","type":"microsite","file":"content/decks/engagement-models.html","status":"ready","tags":["engagement","staffing","managed-service"],"embed":true},
-        {"id":"2026-competency","title":"2026 Competency Deck","description":"Business case for adding Product Design as a fourth service pillar — landscape analysis, reference programs, cross-sell bridges, and growth strategy.","type":"deck","file":"content/decks/2026-competency.html","status":"ready","tags":["competency","strategy","growth"],"embed":true},
-        {"id":"what-is-product-design","title":"What is Product Design?","description":"Educational deck defining product design as a discipline — sub-disciplines, workflow, KPIs, and the future of design.","type":"deck","file":"content/decks/what-is-product-design.html","status":"ready","tags":["product-design","education","ux"],"embed":true}
+        {"id":"service-line-one-pagers","title":"Service Line 1-Pagers","description":"Interactive overview of our five service lines — Data Collection & Benchmarking, UX Research, Product Design, Development & Engineering, and Annotation & Model Training.","type":"microsite","file":"../content/decks/service-line-one-pagers.html","status":"ready","tags":["services","one-pager","overview"],"embed":true},
+        {"id":"engagement-models","title":"Engagement Models","description":"How clients work with us — Staffing, Managed Team, and Managed Service models with comparison and decision guidance.","type":"microsite","file":"../content/decks/engagement-models.html","status":"ready","tags":["engagement","staffing","managed-service"],"embed":true},
+        {"id":"2026-competency","title":"2026 Competency Deck","description":"Business case for adding Product Design as a fourth service pillar — landscape analysis, reference programs, cross-sell bridges, and growth strategy.","type":"deck","file":"../content/decks/2026-competency.html","status":"ready","tags":["competency","strategy","growth"],"embed":true},
+        {"id":"what-is-product-design","title":"What is Product Design?","description":"Educational deck defining product design as a discipline — sub-disciplines, workflow, KPIs, and the future of design.","type":"deck","file":"../content/decks/what-is-product-design.html","status":"ready","audience":"internal","tags":["product-design","education","ux"],"embed":true}
       ]},
       "proof-points":{"label":"Proof Points","icon":"monitor","audience":"client-facing","items":[
-        {"id":"ux-case-studies","title":"UX Case Studies","description":"End-to-end UX research and design case studies demonstrating our discovery-to-delivery process across enterprise clients.","type":"microsite","file":"content/case-studies/ux-case-studies.html","status":"ready","tags":["ux","research","design"],"embed":true},
-        {"id":"ux-brand-id","title":"UX Brand ID","description":"Strategic brand identity deck — positioning, competitive analysis, visual trust signals, and brand rationale.","type":"microsite","file":"content/design-systems/design-rationale-microsite.html","status":"ready","tags":["brand","identity","strategy","ux"],"embed":true},
-        {"id":"app-design-system","title":"App Design System","description":"Living design system reference — tokens, color architecture, typography, elevation, glass effects, components, and motion patterns.","type":"microsite","file":"content/design-systems/app-design-system.html","status":"ready","tags":["design-system","tokens","components","ui"],"embed":true},
+        {"id":"ux-case-studies","title":"UX Case Studies — Long Form","description":"End-to-end UX research and design case studies demonstrating our discovery-to-delivery process across enterprise clients.","type":"microsite","file":"../content/case-studies/ux-case-studies.html","status":"ready","tags":["ux","research","design"],"embed":true},
+        {"id":"case-study-1pagers","title":"UX Case Studies — One Pagers","description":"Quick-look case studies — five engagements, one page each. UX-forward summaries of recent product and design work.","type":"microsite","file":"../content/decks/case-study-1pagers.html","status":"ready","tags":["case-studies","one-pager","quick-look","ux"],"embed":true},
+        {"id":"ux-brand-id","title":"UX Brand ID","description":"Strategic brand identity deck — positioning, competitive analysis, visual trust signals, and brand rationale.","type":"microsite","file":"../content/design-systems/design-rationale-microsite.html","status":"ready","tags":["brand","identity","strategy","ux"],"embed":true},
+        {"id":"app-design-system","title":"App Design System","description":"Living design system reference — tokens, color architecture, typography, elevation, glass effects, components, and motion patterns.","type":"microsite","file":"../content/design-systems/app-design-system.html","status":"ready","tags":["design-system","tokens","components","ui"],"embed":true},
       ]},
       "ux-wip":{"label":"UX WIP Files","icon":"edit-3","audience":"internal","items":[
-        {"id":"proposal-engine","title":"Proposal Studio","description":"Automated proposal generation tool — demonstrates workflow automation, document intelligence, and AI-assisted content building.","type":"poc","file":"content/poc-demos/proposal-engine/index.html","status":"ready","tags":["automation","proposals","ai"],"embed":true},
-        {"id":"candidate-tracker","title":"Candidate Tracker","description":"Recruitment pipeline management app — demonstrates data-driven UI and real-time status tracking.","type":"poc","file":"content/poc-demos/candidate-tracker/index.html","status":"pending","tags":["recruitment","dashboard","tracking"]},
-        {"id":"banking-b2b","title":"BankIQ Application","description":"Enterprise banking interface — demonstrates complex B2B workflows, financial data visualization, and design system in action.","type":"poc","file":"content/poc-demos/banking-b2b/index.html","status":"pending","tags":["fintech","b2b","enterprise"]}
+        {"id":"proposal-engine","title":"Proposal Studio","description":"Automated proposal generation tool — demonstrates workflow automation, document intelligence, and AI-assisted content building.","type":"poc","file":"../content/poc-demos/proposal-engine/index.html","status":"ready","tags":["automation","proposals","ai"],"embed":true},
+        {"id":"candidate-tracker","title":"Candidate Tracker","description":"Recruitment pipeline management app — demonstrates data-driven UI and real-time status tracking.","type":"poc","file":"../content/poc-demos/candidate-tracker/index.html","status":"pending","tags":["recruitment","dashboard","tracking"]},
+        {"id":"banking-b2b","title":"BankIQ Application","description":"Enterprise banking interface — demonstrates complex B2B workflows, financial data visualization, and design system in action.","type":"poc","file":"../content/poc-demos/banking-b2b/index.html","status":"pending","tags":["fintech","b2b","enterprise"]}
       ]}
     }
   };
@@ -1708,7 +1558,7 @@
       grid.innerHTML='';
       if(sec.items.length===0){grid.innerHTML=emptyHTML();continue}
       sec.items.forEach(item=>{
-        item._section=sk;item._audience=sec.audience;
+        item._section=sk;item._audience=item.audience||sec.audience;
         allItems.push(item);
         grid.appendChild(createRow(item,sk));
       });
@@ -1723,12 +1573,13 @@
     row.dataset.audience=item._audience;
     row.dataset.search=[item.title,item.description,...(item.tags||[])].join(' ').toLowerCase();
 
-    const tl=(item.type||'content').replace(/-/g,' ');
     const accentCls='catalog-row__accent--'+(ACCENT[sectionKey]||'case');
     const arrow=isReady?`<div class="catalog-row__arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></div>`:'';
-    const statusDot=isReady
-      ?'<span style="width:6px;height:6px;border-radius:50%;background:var(--success);box-shadow:0 0 0 2px rgba(26,158,111,.12);flex-shrink:0;"></span>'
-      :'<span style="width:6px;height:6px;border-radius:50%;background:var(--al-300);flex-shrink:0;"></span>';
+    const isInternal=item._audience==='internal';
+    const audColor=isInternal?'var(--danger)':'var(--success)';
+    const audRing=isInternal?'rgba(199,62,58,.14)':'rgba(26,158,111,.12)';
+    const audLabel=isInternal?'Internal — team only':'Client-facing';
+    const statusDot=`<span class="catalog-row__aud-dot" data-tooltip="${audLabel}" aria-label="${audLabel}" style="background:${audColor};box-shadow:0 0 0 2px ${audRing};"></span>`;
 
     row.innerHTML=`
       <div class="catalog-row__accent ${accentCls}"></div>
@@ -1738,8 +1589,6 @@
         <span class="catalog-row__desc">${item.description}</span>
       </div>
       <div class="catalog-row__meta">
-        <div class="catalog-row__tags">${(item.tags||[]).slice(0,3).map(t=>`<span class="catalog-row__tag">${t}</span>`).join('')}</div>
-        <span class="catalog-row__type">${tl}</span>
         ${statusDot}
         ${arrow}
       </div>
@@ -1777,12 +1626,18 @@
   }
 
   function bindEvents(){
-    /* Global filter toggle */
+    /* Global filter toggle — preserve scroll position so user stays in place */
     document.querySelectorAll('#globalFilter button').forEach(btn=>{
-      btn.addEventListener('click',()=>{
+      btn.setAttribute('type','button');
+      btn.addEventListener('click',(e)=>{
+        e.preventDefault();
+        const y = window.scrollY || window.pageYOffset || 0;
         document.querySelectorAll('#globalFilter button').forEach(b=>b.classList.remove('active'));
         btn.classList.add('active');
         filterAudience(btn.dataset.filter);
+        /* Restore scroll synchronously and again on next frame in case browser reflowed */
+        window.scrollTo(0, y);
+        requestAnimationFrame(()=>window.scrollTo(0, y));
       });
     });
 

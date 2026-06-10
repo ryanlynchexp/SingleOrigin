@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="so-host">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -97,6 +97,8 @@ html {
   background: var(--so-bg-page);
   -webkit-font-smoothing: antialiased;
   scroll-behavior: smooth;
+  overflow-y: scroll;
+  scrollbar-gutter: stable;
 }
 
 body { overflow: hidden; height: 100vh; }
@@ -1160,51 +1162,41 @@ body { overflow: hidden; height: 100vh; }
   font-weight: 500;
 }
 
-/* === Unified nav + share modal (so-nav) === */
-.so-nav {
-  position: sticky; top: 0; z-index: 200; height: 56px;
-  background: rgba(250,251,252,0.78);
-  -webkit-backdrop-filter: blur(20px) saturate(1.4);
-  backdrop-filter: blur(20px) saturate(1.4);
-  border-bottom: 1px solid rgba(0,0,0,0.06);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-}
-[data-theme="dark"] .so-nav { background: rgba(21,23,34,0.82); border-bottom-color: rgba(255,255,255,0.08); }
-.so-nav__inner { max-width: 1320px; height: 100%; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; gap: 18px; }
-.so-nav__brand { display: flex; align-items: center; gap: 14px; text-decoration: none; color: inherit; flex-shrink: 0; }
-.so-nav__logo svg { width: 80px; height: 20px; display: block; }
-.so-nav__logo svg path { fill: #151722; transition: fill .2s; }
-[data-theme="dark"] .so-nav__logo svg path { fill: #FAFBFC; }
-.so-nav__brand-divider { width: 1px; height: 22px; background: rgba(0,0,0,0.12); }
-[data-theme="dark"] .so-nav__brand-divider { background: rgba(255,255,255,0.16); }
-.so-nav__product { display: flex; align-items: center; gap: 8px; }
-.so-nav__brand-mark { width: 16px; height: 16px; border-radius: 5px; background: linear-gradient(135deg, #C4B5E3, #7AB5E8); flex-shrink: 0; }
-.so-nav__product-name { font-size: 13px; font-weight: 600; letter-spacing: -0.01em; color: #151722; }
-[data-theme="dark"] .so-nav__product-name { color: #FAFBFC; }
-.so-nav__crumbs { display: flex; align-items: center; gap: 8px; flex: 1; min-width: 0; }
-.so-nav__crumb-sep { font-size: 13px; color: rgba(0,0,0,0.25); flex-shrink: 0; }
-[data-theme="dark"] .so-nav__crumb-sep { color: rgba(255,255,255,0.3); }
-.so-nav__crumb { font-size: 13px; font-weight: 500; letter-spacing: -0.005em; color: rgba(0,0,0,0.55); text-decoration: none; white-space: nowrap; transition: color .15s; }
-[data-theme="dark"] .so-nav__crumb { color: rgba(255,255,255,0.6); }
-.so-nav__crumb[href]:hover { color: #6B4FA8; }
-[data-theme="dark"] .so-nav__crumb[href]:hover { color: #C4B5E3; }
-.so-nav__crumb--current { color: #151722; font-weight: 600; }
-[data-theme="dark"] .so-nav__crumb--current { color: #FAFBFC; }
-.so-nav__actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
-.so-nav__share { display: inline-flex; align-items: center; gap: 8px; height: 34px; padding: 0 14px; border-radius: 100px; border: 1px solid rgba(0,0,0,0.10); background: rgba(255,255,255,0.95); color: #151722; font-family: inherit; font-size: 12.5px; font-weight: 500; cursor: pointer; transition: all .18s; white-space: nowrap; }
-.so-nav__share svg { width: 14px; height: 14px; opacity: 0.7; }
-.so-nav__share:hover { border-color: rgba(0,0,0,0.16); background: linear-gradient(135deg, #F7F5FB, #F0F6FC); color: #6B4FA8; }
-.so-nav__share:hover svg { opacity: 1; }
-[data-theme="dark"] .so-nav__share { border-color: rgba(255,255,255,0.10); background: rgba(255,255,255,0.04); color: #FAFBFC; }
-[data-theme="dark"] .so-nav__share:hover { border-color: rgba(255,255,255,0.18); background: rgba(132,104,192,0.16); color: #C4B5E3; }
-.so-nav__theme { width: 34px; height: 34px; border-radius: 8px; border: 1px solid rgba(0,0,0,0.10); background: rgba(255,255,255,0.95); color: rgba(0,0,0,0.6); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all .18s; flex-shrink: 0; }
-.so-nav__theme:hover { border-color: rgba(0,0,0,0.16); color: #151722; }
-[data-theme="dark"] .so-nav__theme { border-color: rgba(255,255,255,0.10); background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.6); }
-[data-theme="dark"] .so-nav__theme:hover { border-color: rgba(255,255,255,0.18); color: #FAFBFC; }
-.so-nav__theme svg { width: 16px; height: 16px; }
-@media (max-width: 720px) { .so-nav__crumbs { display: none; } .so-nav__brand-divider { display: none; } }
-@media (max-width: 540px) { .so-nav__share .label { display: none; } .so-nav__share { padding: 0 10px; } .so-nav__product-name { display: none; } }
-body.share-mode .so-nav { display: none !important; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 720px) {  }
+@media (max-width: 540px) {  }
+
 
 /* Share modal */
 .share-modal { position: fixed; inset: 0; z-index: 9999; }
@@ -1243,17 +1235,17 @@ body.share-mode .so-nav { display: none !important; }
 body.modal-open { overflow: hidden; }
 
 </style>
+  <link rel="stylesheet" href="../../assets/css/so-nav.css">
 </head>
 <body>
 <!-- UNIFIED NAV -->
 <nav class="so-nav">
   <div class="so-nav__inner">
-    <a class="so-nav__brand" href="../../index.html" aria-label="Single Origin home">
-      <span class="so-nav__logo"><svg viewBox="0 0 80 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Experis"><path d="M0 3.8h10.4v2.4H2.9v3.4h6.8v2.3H2.9v3.7h7.7v2.4H0V3.8z"/><path d="M14.8 10.2l-4.6-6.4h3.5l2.8 4.2 2.9-4.2h3.4l-4.6 6.3 5 6.9h-3.5l-3.2-4.7-3.2 4.7h-3.4l5-6.8z"/><path d="M24.4 3.8H30c3.6 0 5.6 1.9 5.6 4.6 0 2.7-2 4.7-5.6 4.7h-2.7v4.9h-2.9V3.8zm5.3 7c1.9 0 2.9-1 2.9-2.4 0-1.4-1-2.3-2.9-2.3h-2.4v4.7h2.4z"/><path d="M37.6 3.8H48v2.4h-7.5v3.4h6.8v2.3h-6.8v3.7h7.7v2.4H37.6V3.8z"/><path d="M50.4 3.8h5.2c3.5 0 5.5 1.7 5.5 4.3 0 2.1-1.1 3.5-3 4.1l3.5 5.8h-3.3l-3.1-5.4h-1.9v5.4h-2.9V3.8zm5 6.6c1.8 0 2.8-.9 2.8-2.2 0-1.3-1-2.1-2.8-2.1h-2.1v4.3h2.1z"/><path d="M64.2 3.8h2.9v14.2h-2.9V3.8z"/><path d="M69.6 14.8l1.7-2c1.2 1.1 2.5 1.8 4 1.8 1.5 0 2.3-.7 2.3-1.6 0-1-.7-1.5-3.2-2.2-3-0.8-4.6-1.9-4.6-4.2 0-2.5 2-4.1 4.8-4.1 2 0 3.6.6 5 1.8l-1.5 2.1c-1.1-.9-2.3-1.4-3.5-1.4-1.4 0-2.1.7-2.1 1.5 0 1 .7 1.5 3.3 2.2 3 .9 4.5 2 4.5 4.2 0 2.7-2.1 4.3-5.1 4.3-2.1 0-4-.7-5.6-2.3z"/></svg></span>
-      <span class="so-nav__brand-divider"></span>
-      <span class="so-nav__product"><span class="so-nav__brand-mark"></span><span class="so-nav__product-name">Single Origin</span></span>
+    <a class="so-nav__brand" href="../../src/index.html#competency-ticker" aria-label="Experis home">
+      <span class="so-nav__logo"><img src="../../assets/logos/EXP_Bug_RGB_BLUE.svg" alt="Experis"></span>
     </a>
     <div class="so-nav__crumbs">
+      <a class="so-nav__crumb" href="../../src/index.html#competency-ticker">Hub</a>
       <span class="so-nav__crumb-sep">/</span>
       <span class="so-nav__crumb so-nav__crumb--current">Digital Competency</span>
     </div>
